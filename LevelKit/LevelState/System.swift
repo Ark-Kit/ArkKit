@@ -9,7 +9,7 @@ import Foundation
 
 protocol System: AnyObject {
     var entityManager: EntityManager { get set }
-    var active: Bool { get set }
+    var isActive: Bool { get set }
 
     init(entityManager: EntityManager)
 
