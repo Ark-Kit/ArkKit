@@ -14,6 +14,12 @@
 		AD787A5A2B9C6373003EBBD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD787A592B9C6373003EBBD0 /* Assets.xcassets */; };
 		AD787A5D2B9C6373003EBBD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD787A5B2B9C6373003EBBD0 /* LaunchScreen.storyboard */; };
 		AD787A682B9C6373003EBBD0 /* LevelKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A672B9C6373003EBBD0 /* LevelKitTests.swift */; };
+		AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A812B9C6BD9003EBBD0 /* Entity.swift */; };
+		AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A832B9C6C78003EBBD0 /* Component.swift */; };
+		AD787A862B9C6C91003EBBD0 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A852B9C6C91003EBBD0 /* System.swift */; };
+		AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */; };
+		AD787A8A2B9C70D8003EBBD0 /* LevelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A892B9C70D8003EBBD0 /* LevelState.swift */; };
+		AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +51,12 @@
 		AD787A632B9C6373003EBBD0 /* LevelKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LevelKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD787A672B9C6373003EBBD0 /* LevelKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelKitTests.swift; sourceTree = "<group>"; };
 		AD787A6D2B9C6373003EBBD0 /* LevelKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LevelKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD787A812B9C6BD9003EBBD0 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		AD787A832B9C6C78003EBBD0 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		AD787A852B9C6C91003EBBD0 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
+		AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		AD787A892B9C70D8003EBBD0 /* LevelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelState.swift; sourceTree = "<group>"; };
+		AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +106,7 @@
 		AD787A4F2B9C636F003EBBD0 /* LevelKit */ = {
 			isa = PBXGroup;
 			children = (
+				AD787A802B9C6BCE003EBBD0 /* LevelState */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
 				AD787A542B9C636F003EBBD0 /* ViewController.swift */,
@@ -113,6 +126,19 @@
 			path = LevelKitTests;
 			sourceTree = "<group>";
 		};
+		AD787A802B9C6BCE003EBBD0 /* LevelState */ = {
+			isa = PBXGroup;
+			children = (
+				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
+				AD787A832B9C6C78003EBBD0 /* Component.swift */,
+				AD787A852B9C6C91003EBBD0 /* System.swift */,
+				AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */,
+				AD787A892B9C70D8003EBBD0 /* LevelState.swift */,
+				AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */,
+			);
+			path = LevelState;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,6 +149,7 @@
 				AD787A492B9C636F003EBBD0 /* Sources */,
 				AD787A4A2B9C636F003EBBD0 /* Frameworks */,
 				AD787A4B2B9C636F003EBBD0 /* Resources */,
+				AD787A8D2B9C73E4003EBBD0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -239,14 +266,40 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AD787A8D2B9C73E4003EBBD0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \\\"$(uname -m)\\\" == arm64 ]]; then\n    export PATH=\\\"/opt/homebrew/bin:$PATH\\\"\nfi\n\nif which swiftlint > /dev/null; then\n    swiftlint --fix\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AD787A492B9C636F003EBBD0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
+				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
+				AD787A8A2B9C70D8003EBBD0 /* LevelState.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
+				AD787A862B9C6C91003EBBD0 /* System.swift in Sources */,
+				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
+				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +479,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LevelKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -453,6 +508,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LevelKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
