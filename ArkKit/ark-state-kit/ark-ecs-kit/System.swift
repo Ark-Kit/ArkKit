@@ -9,9 +9,7 @@ import Foundation
 
 protocol System: AnyObject {
     var active: Bool { get set }
-
-    init(entityManager: EntityManager)
-
+    
     func update(deltaTime: TimeInterval, arkECS: ArkECS)
 }
 
