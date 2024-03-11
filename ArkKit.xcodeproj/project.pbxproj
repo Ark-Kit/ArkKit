@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A502B9C636F003EBBD0 /* AppDelegate.swift */; };
 		AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */; };
 		AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A542B9C636F003EBBD0 /* ViewController.swift */; };
@@ -18,7 +19,7 @@
 		AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A832B9C6C78003EBBD0 /* Component.swift */; };
 		AD787A862B9C6C91003EBBD0 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A852B9C6C91003EBBD0 /* System.swift */; };
 		AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */; };
-		AD787A8A2B9C70D8003EBBD0 /* LevelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A892B9C70D8003EBBD0 /* LevelState.swift */; };
+		AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A892B9C70D8003EBBD0 /* ArkState.swift */; };
 		AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD787A4D2B9C636F003EBBD0 /* ArkKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArkKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD787A502B9C636F003EBBD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +57,7 @@
 		AD787A832B9C6C78003EBBD0 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		AD787A852B9C6C91003EBBD0 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
-		AD787A892B9C70D8003EBBD0 /* LevelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelState.swift; sourceTree = "<group>"; };
+		AD787A892B9C70D8003EBBD0 /* ArkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkState.swift; sourceTree = "<group>"; };
 		AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
+			isa = PBXGroup;
+			children = (
+				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
+				AD787A832B9C6C78003EBBD0 /* Component.swift */,
+				AD787A852B9C6C91003EBBD0 /* System.swift */,
+				AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */,
+				AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */,
+				AD6E03602B9F15FA00974EBF /* ArkECS.swift */,
+			);
+			path = "ark-ecs-kit";
+			sourceTree = "<group>";
+		};
 		AD787A442B9C636F003EBBD0 = {
 			isa = PBXGroup;
 			children = (
@@ -106,7 +121,7 @@
 		AD787A4F2B9C636F003EBBD0 /* ArkKit */ = {
 			isa = PBXGroup;
 			children = (
-				AD787A802B9C6BCE003EBBD0 /* LevelState */,
+				AD787A802B9C6BCE003EBBD0 /* ark-state-kit */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
 				AD787A542B9C636F003EBBD0 /* ViewController.swift */,
@@ -126,17 +141,13 @@
 			path = LevelKitTests;
 			sourceTree = "<group>";
 		};
-		AD787A802B9C6BCE003EBBD0 /* LevelState */ = {
+		AD787A802B9C6BCE003EBBD0 /* ark-state-kit */ = {
 			isa = PBXGroup;
 			children = (
-				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
-				AD787A832B9C6C78003EBBD0 /* Component.swift */,
-				AD787A852B9C6C91003EBBD0 /* System.swift */,
-				AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */,
-				AD787A892B9C70D8003EBBD0 /* LevelState.swift */,
-				AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */,
+				AD787A892B9C70D8003EBBD0 /* ArkState.swift */,
+				AD6E035F2B9F067100974EBF /* ark-ecs-kit */,
 			);
-			path = LevelState;
+			path = "ark-state-kit";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,9 +304,10 @@
 			files = (
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
+				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
-				AD787A8A2B9C70D8003EBBD0 /* LevelState.swift in Sources */,
+				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
 				AD787A862B9C6C91003EBBD0 /* System.swift in Sources */,
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,

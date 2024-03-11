@@ -8,13 +8,10 @@
 import Foundation
 
 protocol System: AnyObject {
-    var entityManager: EntityManager { get set }
     var active: Bool { get set }
 
     init(entityManager: EntityManager)
 
-    func update(deltaTime: TimeInterval)
+    func update(deltaTime: TimeInterval, arkECS: ArkECS)
 }
 
-
-// ECS Scene has EntityManager, EventManager

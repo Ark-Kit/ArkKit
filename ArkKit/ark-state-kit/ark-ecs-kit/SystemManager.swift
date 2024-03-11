@@ -25,9 +25,9 @@ class SystemManager {
         return systems[identifier] as? T
     }
 
-    func update(deltaTime: TimeInterval) {
+    func update(deltaTime: TimeInterval, arkECS: ArkECS) {
         for system in systems.values {
-            system.update(deltaTime: deltaTime)
+            system.update(deltaTime: deltaTime, arkECS: arkECS)
         }
     }
 
