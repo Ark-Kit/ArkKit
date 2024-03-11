@@ -15,3 +15,6 @@ protocol System: AnyObject {
 
     func update(deltaTime: TimeInterval)
 }
+
+
+// ECS Scene has EntityManager, EventManager

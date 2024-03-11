@@ -14,11 +14,4 @@ struct Entity {
 }
 
 extension Entity: Hashable {
-    static func == (lhs: Entity, rhs: Entity) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
 }
