@@ -14,7 +14,7 @@ class ArkState {
     init() {
         self.arkECS = ArkECS()
     }
-    
+
     func update(deltaTime: TimeInterval) {
         arkECS.update(deltaTime: deltaTime)
     }
