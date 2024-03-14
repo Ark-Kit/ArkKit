@@ -1,7 +1,10 @@
 protocol RendererDelegate: AnyObject {
     /**
+     * General implementation of the RendererDelegate:
      * ```
-     * render(renderedGameState)
+     * render(renderableGameState) {
+     *     renderableGameState.accept(gameStateRendererVisitor)
+     * }
      * ```
      * ArkUiAdaptor implements the `render` function where it reads the `gameState` and renders
      * assigned objects based on the `renderedGameState` with a default `GameStateRendererVisitor`.

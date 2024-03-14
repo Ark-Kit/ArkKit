@@ -22,7 +22,3 @@ import UIKit
  */
 class ArkUi {
 }
-
-class ArkUiImageClient {
-    private(set) var imageView: UIImageView?
-}

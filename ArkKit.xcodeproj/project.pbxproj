@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02E0E8E02B9F57430043E2BA /* ArkUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8DF2B9F57430043E2BA /* ArkUi.swift */; };
-		02E0E8E62BA219DA0043E2BA /* ButtonHandlerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8E52BA219DA0043E2BA /* ButtonHandlerDelegate.swift */; };
+		02E0E8E62BA219DA0043E2BA /* ButtonCommandDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8E52BA219DA0043E2BA /* ButtonCommandDelegate.swift */; };
 		02E0E8E92BA21A640043E2BA /* RendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8E82BA21A640043E2BA /* RendererDelegate.swift */; };
 		02E0E8EE2BA280BD0043E2BA /* AbstractShapeUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8ED2BA280BD0043E2BA /* AbstractShapeUi.swift */; };
 		02E0E8F02BA280DB0043E2BA /* UiRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8EF2BA280DB0043E2BA /* UiRenderable.swift */; };
@@ -16,6 +16,10 @@
 		02E0E8F42BA283180043E2BA /* RectUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F32BA283180043E2BA /* RectUi.swift */; };
 		02E0E8F62BA283940043E2BA /* PolygonUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F52BA283940043E2BA /* PolygonUi.swift */; };
 		02E0E8F82BA284540043E2BA /* AbstractBitmapUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F72BA284540043E2BA /* AbstractBitmapUi.swift */; };
+		02E0E8FA2BA292870043E2BA /* JoyStickCommandDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F92BA292870043E2BA /* JoyStickCommandDelegate.swift */; };
+		02E0E8FC2BA292990043E2BA /* LayoutCommandDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8FB2BA292990043E2BA /* LayoutCommandDelegate.swift */; };
+		02E0E8FE2BA293560043E2BA /* UiHandlerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8FD2BA293560043E2BA /* UiHandlerable.swift */; };
+		02E0E9002BA2936F0043E2BA /* AbstractViewCommandDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8FF2BA2936F0043E2BA /* AbstractViewCommandDelegate.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A502B9C636F003EBBD0 /* AppDelegate.swift */; };
 		AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */; };
@@ -51,7 +55,7 @@
 
 /* Begin PBXFileReference section */
 		02E0E8DF2B9F57430043E2BA /* ArkUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUi.swift; sourceTree = "<group>"; };
-		02E0E8E52BA219DA0043E2BA /* ButtonHandlerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHandlerDelegate.swift; sourceTree = "<group>"; };
+		02E0E8E52BA219DA0043E2BA /* ButtonCommandDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCommandDelegate.swift; sourceTree = "<group>"; };
 		02E0E8E82BA21A640043E2BA /* RendererDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererDelegate.swift; sourceTree = "<group>"; };
 		02E0E8ED2BA280BD0043E2BA /* AbstractShapeUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractShapeUi.swift; sourceTree = "<group>"; };
 		02E0E8EF2BA280DB0043E2BA /* UiRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiRenderable.swift; sourceTree = "<group>"; };
@@ -59,6 +63,10 @@
 		02E0E8F32BA283180043E2BA /* RectUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectUi.swift; sourceTree = "<group>"; };
 		02E0E8F52BA283940043E2BA /* PolygonUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonUi.swift; sourceTree = "<group>"; };
 		02E0E8F72BA284540043E2BA /* AbstractBitmapUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractBitmapUi.swift; sourceTree = "<group>"; };
+		02E0E8F92BA292870043E2BA /* JoyStickCommandDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyStickCommandDelegate.swift; sourceTree = "<group>"; };
+		02E0E8FB2BA292990043E2BA /* LayoutCommandDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutCommandDelegate.swift; sourceTree = "<group>"; };
+		02E0E8FD2BA293560043E2BA /* UiHandlerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiHandlerable.swift; sourceTree = "<group>"; };
+		02E0E8FF2BA2936F0043E2BA /* AbstractViewCommandDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractViewCommandDelegate.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD787A4D2B9C636F003EBBD0 /* ArkKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArkKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD787A502B9C636F003EBBD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,23 +112,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		02E0E8DE2B9F57170043E2BA /* ark-ui-adaptor */ = {
+		02E0E8DE2B9F57170043E2BA /* ark-ui-adapter */ = {
 			isa = PBXGroup;
 			children = (
 				02E0E8EA2BA280890043E2BA /* view-components */,
 				02E0E8E72BA21A4A0043E2BA /* view-renderer-delegates */,
-				02E0E8E42BA219C90043E2BA /* view-handler-delegates */,
+				02E0E8E42BA219C90043E2BA /* view-command-delegates */,
 				02E0E8DF2B9F57430043E2BA /* ArkUi.swift */,
 			);
-			path = "ark-ui-adaptor";
+			path = "ark-ui-adapter";
 			sourceTree = "<group>";
 		};
-		02E0E8E42BA219C90043E2BA /* view-handler-delegates */ = {
+		02E0E8E42BA219C90043E2BA /* view-command-delegates */ = {
 			isa = PBXGroup;
 			children = (
-				02E0E8E52BA219DA0043E2BA /* ButtonHandlerDelegate.swift */,
+				02E0E8E52BA219DA0043E2BA /* ButtonCommandDelegate.swift */,
+				02E0E8F92BA292870043E2BA /* JoyStickCommandDelegate.swift */,
+				02E0E8FB2BA292990043E2BA /* LayoutCommandDelegate.swift */,
+				02E0E8FF2BA2936F0043E2BA /* AbstractViewCommandDelegate.swift */,
 			);
-			path = "view-handler-delegates";
+			path = "view-command-delegates";
 			sourceTree = "<group>";
 		};
 		02E0E8E72BA21A4A0043E2BA /* view-renderer-delegates */ = {
@@ -137,6 +148,7 @@
 				02E0E8EC2BA280940043E2BA /* bitmap */,
 				02E0E8EB2BA2808F0043E2BA /* shapes */,
 				02E0E8EF2BA280DB0043E2BA /* UiRenderable.swift */,
+				02E0E8FD2BA293560043E2BA /* UiHandlerable.swift */,
 			);
 			path = "view-components";
 			sourceTree = "<group>";
@@ -195,7 +207,7 @@
 		AD787A4F2B9C636F003EBBD0 /* ArkKit */ = {
 			isa = PBXGroup;
 			children = (
-				02E0E8DE2B9F57170043E2BA /* ark-ui-adaptor */,
+				02E0E8DE2B9F57170043E2BA /* ark-ui-adapter */,
 				AD787A802B9C6BCE003EBBD0 /* ark-state-kit */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
@@ -380,15 +392,19 @@
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* PolygonUi.swift in Sources */,
 				02E0E8E92BA21A640043E2BA /* RendererDelegate.swift in Sources */,
+				02E0E8FC2BA292990043E2BA /* LayoutCommandDelegate.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
 				02E0E8EE2BA280BD0043E2BA /* AbstractShapeUi.swift in Sources */,
+				02E0E8FA2BA292870043E2BA /* JoyStickCommandDelegate.swift in Sources */,
+				02E0E9002BA2936F0043E2BA /* AbstractViewCommandDelegate.swift in Sources */,
 				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
 				02E0E8F22BA282C20043E2BA /* CircleUi.swift in Sources */,
-				02E0E8E62BA219DA0043E2BA /* ButtonHandlerDelegate.swift in Sources */,
+				02E0E8E62BA219DA0043E2BA /* ButtonCommandDelegate.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* RectUi.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
+				02E0E8FE2BA293560043E2BA /* UiHandlerable.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
 				02E0E8F02BA280DB0043E2BA /* UiRenderable.swift in Sources */,
 				02E0E8F82BA284540043E2BA /* AbstractBitmapUi.swift in Sources */,
