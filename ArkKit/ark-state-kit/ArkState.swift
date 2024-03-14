@@ -9,14 +9,17 @@ import Foundation
 
 class ArkState {
     private let arkECS: ArkECS
-    // TODO: Add Event Queue
+    let eventManager: ArkEventManager
 
-    init() {
+
+    init(eventManager: ArkEventManager = ArkEventManager()) {
         self.arkECS = ArkECS()
+        self.eventManager = eventManager
     }
     
     func update(deltaTime: TimeInterval) {
         arkECS.update(deltaTime: deltaTime)
+        eventManager.processEvents()
     }
 
 }
