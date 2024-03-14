@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
+		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
+		AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03672BA1A61200974EBF /* ArkEventManager.swift */; };
+		AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E036A2BA1A71800974EBF /* ArkEventData.swift */; };
+		AD6E036D2BA1AB2D00974EBF /* DemoArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E036C2BA1AB2D00974EBF /* DemoArkEvent.swift */; };
+		AD6E036F2BA21A5B00974EBF /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E036E2BA21A5B00974EBF /* Queue.swift */; };
+		AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03712BA2DB2700974EBF /* Heap.swift */; };
+		AD6E03742BA2DB4100974EBF /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03732BA2DB4100974EBF /* PriorityQueue.swift */; };
+		AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03752BA2F24800974EBF /* ArkStateEventListener.swift */; };
 		AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A502B9C636F003EBBD0 /* AppDelegate.swift */; };
 		AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */; };
 		AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A542B9C636F003EBBD0 /* ViewController.swift */; };
@@ -42,6 +50,14 @@
 
 /* Begin PBXFileReference section */
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
+		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
+		AD6E03672BA1A61200974EBF /* ArkEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventManager.swift; sourceTree = "<group>"; };
+		AD6E036A2BA1A71800974EBF /* ArkEventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventData.swift; sourceTree = "<group>"; };
+		AD6E036C2BA1AB2D00974EBF /* DemoArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoArkEvent.swift; sourceTree = "<group>"; };
+		AD6E036E2BA21A5B00974EBF /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		AD6E03712BA2DB2700974EBF /* Heap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
+		AD6E03732BA2DB4100974EBF /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		AD6E03752BA2F24800974EBF /* ArkStateEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkStateEventListener.swift; sourceTree = "<group>"; };
 		AD787A4D2B9C636F003EBBD0 /* ArkKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArkKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD787A502B9C636F003EBBD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +115,36 @@
 			path = "ark-ecs-kit";
 			sourceTree = "<group>";
 		};
+		AD6E03662BA1A5EA00974EBF /* ark-event-kit */ = {
+			isa = PBXGroup;
+			children = (
+				AD6E03702BA2DB1F00974EBF /* data-structures */,
+				AD6E03692BA1A70F00974EBF /* ark-event-data */,
+				AD6E03642BA1949000974EBF /* ArkEvent.swift */,
+				AD6E03672BA1A61200974EBF /* ArkEventManager.swift */,
+				AD6E036C2BA1AB2D00974EBF /* DemoArkEvent.swift */,
+			);
+			path = "ark-event-kit";
+			sourceTree = "<group>";
+		};
+		AD6E03692BA1A70F00974EBF /* ark-event-data */ = {
+			isa = PBXGroup;
+			children = (
+				AD6E036A2BA1A71800974EBF /* ArkEventData.swift */,
+			);
+			path = "ark-event-data";
+			sourceTree = "<group>";
+		};
+		AD6E03702BA2DB1F00974EBF /* data-structures */ = {
+			isa = PBXGroup;
+			children = (
+				AD6E03712BA2DB2700974EBF /* Heap.swift */,
+				AD6E036E2BA21A5B00974EBF /* Queue.swift */,
+				AD6E03732BA2DB4100974EBF /* PriorityQueue.swift */,
+			);
+			path = "data-structures";
+			sourceTree = "<group>";
+		};
 		AD787A442B9C636F003EBBD0 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +167,7 @@
 		AD787A4F2B9C636F003EBBD0 /* ArkKit */ = {
 			isa = PBXGroup;
 			children = (
+				AD6E03662BA1A5EA00974EBF /* ark-event-kit */,
 				AD787A802B9C6BCE003EBBD0 /* ark-state-kit */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
@@ -145,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				AD787A892B9C70D8003EBBD0 /* ArkState.swift */,
+				AD6E03752BA2F24800974EBF /* ArkStateEventListener.swift */,
 				AD6E035F2B9F067100974EBF /* ark-ecs-kit */,
 			);
 			path = "ark-state-kit";
@@ -304,14 +352,22 @@
 			files = (
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
+				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
+				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
+				AD6E036D2BA1AB2D00974EBF /* DemoArkEvent.swift in Sources */,
 				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */,
+				AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
+				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
+				AD6E036F2BA21A5B00974EBF /* Queue.swift in Sources */,
+				AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */,
 				AD787A862B9C6C91003EBBD0 /* System.swift in Sources */,
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
+				AD6E03742BA2DB4100974EBF /* PriorityQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
