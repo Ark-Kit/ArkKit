@@ -1,11 +1,11 @@
 class ArkViewModel {
     weak var viewRendererDelegate: GameStateRenderer?
-    var renderableGameState: RenderableGameState? {
+    var canvas: Canvas? {
         didSet {
-            guard let currentGameState = renderableGameState else {
+            guard let currentCanvas = canvas else {
                 return
             }
-            viewRendererDelegate?.render(gameState: currentGameState)
+            viewRendererDelegate?.render(canvas: currentCanvas)
         }
     }
     private let gameModel: ArkGameModel
@@ -14,9 +14,9 @@ class ArkViewModel {
     }
     func updateGame(for dt: Double) {
         gameModel.updateState(dt: dt)
-        takeSnapshotOfCurrentRenderables()
+        updateCanvas()
     }
-    func takeSnapshotOfCurrentRenderables() {
-        renderableGameState = gameModel.retrieveRenderableGameState()
+    func updateCanvas() {
+        canvas = gameModel.retrieveCanvas()
     }
 }

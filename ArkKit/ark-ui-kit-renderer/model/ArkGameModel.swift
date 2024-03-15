@@ -6,7 +6,7 @@ class ArkGameModel {
     func updateState(dt: Double) {
         gameState?.update(deltaTime: dt)
     }
-    func retrieveRenderableGameState() -> RenderableGameState? {
+    func retrieveCanvas() -> Canvas? {
         // TODO: implement logic to retrieve renderable components
         nil
     }
