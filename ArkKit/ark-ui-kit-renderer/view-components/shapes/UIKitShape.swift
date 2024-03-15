@@ -1,7 +1,6 @@
 import UIKit
 
 protocol UIKitShape: UIKitRenderable, ShapeRenderable where Color == UIColor {
-
     func fill(color: UIColor) -> Self
     func stroke(lineWidth: Double, color: UIColor) -> Self
 }
@@ -11,7 +10,7 @@ protocol UIKitShape: UIKitRenderable, ShapeRenderable where Color == UIColor {
  */
 extension UIKitShape {
     func fill(color: UIColor) -> Self {
-        uiView.layer.sublayers?.forEach { subLayer in
+        self.layer.sublayers?.forEach { subLayer in
             guard let shapeLayer = subLayer as? CAShapeLayer else {
                 return
             }
@@ -21,7 +20,7 @@ extension UIKitShape {
     }
 
     func stroke(lineWidth: Double, color: UIColor) -> Self {
-        uiView.layer.sublayers?.forEach { subLayer in
+        self.layer.sublayers?.forEach { subLayer in
             guard let shapeLayer = subLayer as? CAShapeLayer else {
                 return
             }
