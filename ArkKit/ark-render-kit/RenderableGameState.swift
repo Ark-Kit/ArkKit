@@ -12,12 +12,12 @@
  * class ViewModel {
  *    var renderableGameState: RenderableGameState {
  *          didSet {
- *              viewRendererDelegate?.render(renderableGameState)
+ *              gameStateRenderer?.render(renderableGameState)
  *          }
  *    }
  * }
  * ```
  */
-protocol RenderableGameState {
-    func render(using renderer: CanvasRenderer)
+protocol RenderableGameState: Canvas {
+    
 }
