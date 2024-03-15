@@ -1,6 +1,7 @@
 import UIKit
 
-protocol AbstractShapeUi: UiRenderable {
+protocol UIKitShape: UIKitRenderable, ShapeRenderable where Color == UIColor {
+
     func fill(color: UIColor) -> Self
     func stroke(lineWidth: Double, color: UIColor) -> Self
 }
@@ -8,7 +9,7 @@ protocol AbstractShapeUi: UiRenderable {
 /**
  * Provides default implementation for `fill` and `stroke` methods across different shapes
  */
-extension AbstractShapeUi {
+extension UIKitShape {
     func fill(color: UIColor) -> Self {
         uiView.layer.sublayers?.forEach { subLayer in
             guard let shapeLayer = subLayer as? CAShapeLayer else {
@@ -18,6 +19,7 @@ extension AbstractShapeUi {
         }
         return self
     }
+
     func stroke(lineWidth: Double, color: UIColor) -> Self {
         uiView.layer.sublayers?.forEach { subLayer in
             guard let shapeLayer = subLayer as? CAShapeLayer else {

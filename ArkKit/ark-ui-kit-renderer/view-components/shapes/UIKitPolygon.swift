@@ -1,7 +1,8 @@
 import UIKit
 
-class PolygonUi: AbstractShapeUi {
+final class UIKitPolygon: UIKitShape {
     private(set) var uiView: UIView
+
     init(points: [CGPoint], frame: CGRect) {
         let polygon = UIView(frame: frame)
         let polygonPath = UIBezierPath()

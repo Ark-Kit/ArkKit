@@ -1,11 +1,11 @@
 class ArkViewModel {
-    weak var viewRendererDelegate: ViewRendererDelegate?
+    weak var viewRendererDelegate: GameStateRenderer?
     var renderableGameState: RenderableGameState? {
         didSet {
             guard let currentGameState = renderableGameState else {
                 return
             }
-            viewRendererDelegate?.render(from: currentGameState)
+            viewRendererDelegate?.render(gameState: currentGameState)
         }
     }
     private let gameModel: ArkGameModel

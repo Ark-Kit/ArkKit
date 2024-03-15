@@ -1,5 +1,6 @@
 import UIKit
-protocol AbstractBitmapUi: UiRenderable {
+
+protocol UIKitBitmap: BitmapRenderable, UIKitRenderable {
     // TODO: add methods if needed
     // e.g. constraints
     func clipToBounds()
@@ -8,7 +9,7 @@ protocol AbstractBitmapUi: UiRenderable {
     func scaleAspectFill()
 }
 
-extension AbstractBitmapUi {
+extension UIKitBitmap {
     func clipToBounds() {
         uiView.clipsToBounds = true
     }
@@ -23,8 +24,9 @@ extension AbstractBitmapUi {
     }
 }
 
-class ImageBitmapUi: AbstractBitmapUi {
+class UIKitImageBitmap: UIKitBitmap {
     private(set) var uiView: UIView
+
     init(imageResourcePath: String, center: CGPoint, width: Double, height: Double) {
         let imageResource = #imageLiteral(resourceName: imageResourcePath)
         self.uiView = UIImageView(image: imageResource)

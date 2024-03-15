@@ -13,10 +13,10 @@ class ViewController: UIViewController {
 //            .fill(color: .blue)
 //            .stroke(lineWidth: 5.0, color: .red)
 //        rect.render(into: self.view)
-        let polygon = PolygonUi(points: [CGPoint(x: 0, y: 0),
-                                         CGPoint(x: 100, y: 200),
-                                         CGPoint(x: 200, y: 200)],
-                                frame: CGRect(x: midX - 100, y: midY - 100, width: 200, height: 200))
+        let polygon = UIKitPolygon(points: [CGPoint(x: 0, y: 0),
+                                            CGPoint(x: 100, y: 200),
+                                            CGPoint(x: 200, y: 200)],
+                                   frame: CGRect(x: midX - 100, y: midY - 100, width: 200, height: 200))
             .fill(color: .brown)
             .stroke(lineWidth: 5.0, color: .black)
         polygon.render(into: self.view)

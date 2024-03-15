@@ -6,8 +6,8 @@ import UIKit
 class ArkViewController: UIViewController {
 }
 
-extension ArkViewController: ViewRendererDelegate {
-    func render(from renderableGameState: any RenderableGameState) {
+extension ArkViewController: GameStateRenderer {
+    func render(gameState: RenderableGameState) {
         // implementation must involve:
         // [OPTIMISED]
         // 1. removing any invalid ui that is no longer in the renderableGameState

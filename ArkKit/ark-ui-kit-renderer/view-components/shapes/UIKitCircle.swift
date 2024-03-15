@@ -1,7 +1,8 @@
 import UIKit
 
-class CircleUi: AbstractShapeUi {
+final class UIKitCircle: UIKitShape {
     private(set) var uiView: UIView
+
     init(radius: Double, center: CGPoint) {
         let circleFrame = CGRect(x: center.x - radius, y: center.y - radius,
                                  width: radius * 2, height: radius * 2)
