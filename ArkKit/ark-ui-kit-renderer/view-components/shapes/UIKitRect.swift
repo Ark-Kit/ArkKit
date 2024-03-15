@@ -1,6 +1,6 @@
 import UIKit
 
-class RectUi: AbstractShapeUi {
+final class UIKitRect: UIKitShape {
     private(set) var uiView: UIView
     init(width: Double, height: Double, center: CGPoint) {
         let rectFrame = CGRect(x: center.x - width / 2,
