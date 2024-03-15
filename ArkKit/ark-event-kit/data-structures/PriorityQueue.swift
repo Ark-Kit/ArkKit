@@ -22,15 +22,15 @@ public struct PriorityQueue<T> {
   }
 
   public var isEmpty: Bool {
-    return heap.isEmpty
+    heap.isEmpty
   }
 
   public var count: Int {
-    return heap.count
+    heap.count
   }
 
   public func peek() -> T? {
-    return heap.peek()
+    heap.peek()
   }
 
   public mutating func enqueue(_ element: T) {
@@ -38,7 +38,7 @@ public struct PriorityQueue<T> {
   }
 
   public mutating func dequeue() -> T? {
-    return heap.remove()
+    heap.remove()
   }
 
   /*
@@ -47,12 +47,12 @@ public struct PriorityQueue<T> {
     it should be smaller.
   */
   public mutating func changePriority(index i: Int, value: T) {
-    return heap.replace(index: i, value: value)
+    heap.replace(index: i, value: value)
   }
 }
 
 extension PriorityQueue where T: Equatable {
   public func index(of element: T) -> Int? {
-    return heap.index(of: element)
+    heap.index(of: element)
   }
 }
