@@ -16,7 +16,7 @@ class ArkState {
         self.arkECS = ArkECS()
         self.eventManager = eventManager
     }
-    
+
     func update(deltaTime: TimeInterval) {
         arkECS.update(deltaTime: deltaTime)
         eventManager.processEvents()

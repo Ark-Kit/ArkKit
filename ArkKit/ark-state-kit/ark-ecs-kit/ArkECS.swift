@@ -15,7 +15,7 @@ class ArkECS {
         self.entityManager = EntityManager()
         self.systemManager = SystemManager()
     }
-    
+
     func update(deltaTime: TimeInterval) {
         systemManager.update(deltaTime: deltaTime, arkECS: self)
     }
