@@ -1,4 +1,4 @@
-protocol JoyStickCommandDelegate: AbstractViewHandlerDelegate {
+protocol JoyStickCommandDelegate: AbstractViewCommandDelegate {
     func onPanStart()
     func onPanChange()
     func onPanEnd()

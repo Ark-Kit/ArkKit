@@ -1,4 +1,4 @@
-protocol LayoutCommandDelegate: AbstractViewHandlerDelegate {
+protocol LayoutCommandDelegate: AbstractViewCommandDelegate {
     func onTap()
     func onLongPress()
     // any other input behaviours we support

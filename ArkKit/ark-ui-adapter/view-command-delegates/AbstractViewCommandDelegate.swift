@@ -1,2 +1,2 @@
-protocol AbstractViewHandlerDelegate: AnyObject {
+protocol AbstractViewCommandDelegate: AnyObject {
 }
