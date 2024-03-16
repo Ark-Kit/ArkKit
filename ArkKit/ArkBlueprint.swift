@@ -5,9 +5,10 @@
  */
 struct ArkBlueprint {
     private(set) var rules: [Rule] = []
-    mutating func rules<Event: ArkEvent>(on eventType: Event.Type,
-                                         then action: Action) -> Self {
-        rules.append(Rule(event: Event.id, action: action))
-        return self
+    func rules<Event: ArkEvent>(on eventType: Event.Type,
+                                         then action: Action) -> ArkBlueprint {
+        var rulesCopy = rules
+        rulesCopy.append(Rule(event: Event.id, action: action))
+        return ArkBlueprint(rules: rulesCopy)
     }
 }
