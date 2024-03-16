@@ -1,10 +1,8 @@
 import UIKit
 
-final class UIKitPolygon: UIKitShape {
-    private(set) var uiView: UIView
-    
+final class UIKitPolygon: UIView, UIKitShape {
     init(points: [CGPoint], frame: CGRect) {
-        let polygon = UIView(frame: frame)
+        super.init(frame: frame)
         let polygonPath = UIBezierPath()
         if !points.isEmpty {
             polygonPath.move(to: points[0])
@@ -15,7 +13,9 @@ final class UIKitPolygon: UIKitShape {
         }
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = polygonPath.cgPath
-        polygon.layer.addSublayer(shapeLayer)
-        self.uiView = polygon
+        self.layer.addSublayer(shapeLayer)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 }

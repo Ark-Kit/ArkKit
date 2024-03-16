@@ -19,12 +19,12 @@ struct DemoArkEventData: ArkEventData {
 
 /// Defines a demo event type with optional event data.
 struct DemoArkEvent: ArkEvent {
-    
+
     static var id = UUID()  // Unique identifier for the DemoArkEvent type.
     var eventData: ArkEventData?  // Optional event data.
-    var timestamp: Date = Date()
+    var timestamp = Date()
     var priority: Int?
-    
+
     /// Initializes a new DemoArkEvent with optional event data.
     /// - Parameter eventData: The data associated with the event, if any.
     init(eventData: ArkEventData? = nil, priority: Int? = nil) {

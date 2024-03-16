@@ -10,12 +10,12 @@ import Foundation
 struct ArkStateEventListener {
     private let arkECS: ArkECS
     private let arkEventManager: ArkEventManager
-    
+
     init(arkECS: ArkECS, arkEventManager: ArkEventManager) {
         self.arkECS = arkECS
         self.arkEventManager = arkEventManager
     }
-    
+
     func setUpListeners() {
     }
 }

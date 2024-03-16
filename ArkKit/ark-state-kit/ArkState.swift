@@ -11,7 +11,6 @@ class ArkState {
     private let arkECS: ArkECS
     let eventManager: ArkEventManager
 
-
     init(eventManager: ArkEventManager = ArkEventManager()) {
         self.arkECS = ArkECS()
         self.eventManager = eventManager
