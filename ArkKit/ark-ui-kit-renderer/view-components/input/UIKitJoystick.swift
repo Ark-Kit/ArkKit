@@ -40,9 +40,7 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         }
         let translation = gesture.translation(in: self)
         let magnitude = sqrt(translation.x * translation.x + translation.y * translation.y)
-        // NOTE: in radians, if angle = 0, pan is to right; pan = .pi, pan to left;
-        // pan = .pi/2, pan to down; pan = -.pi/2, pan to up
-        let angle = atan2(translation.y / magnitude, translation.x / magnitude)
+        let clockwiseAngle = calculateClockwiseAngleRotationInRadians(by: translation)
 
         // clamp so that the joystick has a maximum departue
         let clampedMagnitude = min(magnitude, radius)
@@ -51,20 +49,27 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         let currentPoint = CGPoint(x: radius + clampedTranslation.x, y: radius + clampedTranslation.y)
         let defaultPanDelegate: PanDelegate = { (_: Double, _: Double) in }
         if gesture.state == .began {
-            (onPanStartDelegate ?? defaultPanDelegate)(angle, clampedMagnitude)
+            (onPanStartDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .changed {
-            (onPanChangeDelegate ?? defaultPanDelegate)(angle, clampedMagnitude)
+            (onPanChangeDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .ended {
-            (onPanEndDelegate ?? defaultPanDelegate)(angle, clampedMagnitude)
+            (onPanEndDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
             self.subviews.last?.center = CGPoint(x: radius, y: radius)
         }
     }
     private func setUpPan() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         self.addGestureRecognizer(pan)
+    }
+    private func calculateClockwiseAngleRotationInRadians(by translation: CGPoint) -> Double {
+        var angle = atan2(translation.x, -translation.y)
+        if angle < 0 {
+            angle += 2 * .pi
+        }
+        return angle
     }
 }
