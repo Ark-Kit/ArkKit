@@ -1,31 +1,29 @@
-//
-//  UIKitButton.swift
-//  ArkKit
-//
-//  Created by En Rong on 16/3/24.
-//
-
 import UIKit
 
-class UIKitButton: UIView, UIKitRenderable, TapRenderable {
+final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
     var onTapDelegate: TapDelegate?
 
-    init() {
-        let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    init(width: Double, height: Double, center: CGPoint) {
+        let frame = CGRect(x: center.x - width / 2, y: center.y - height / 2,
+                           width: width, height: height)
         super.init(frame: frame)
-
-        // TODO: Update UIButton styling
-        let button = UIButton()
-        button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+        setUpTap()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    @objc func handleTap() {
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         if let unwrappedOnTapDelegate = onTapDelegate {
             unwrappedOnTapDelegate()
         }
     }
+    private func setUpTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        self.addGestureRecognizer(tap)
+    }
+    // TODO: implement button styling as required below
+    // currently we inherit `UIButton` so all default styling of `UIButton` is automatically
+    // exposed from `UIKitButton`
 }

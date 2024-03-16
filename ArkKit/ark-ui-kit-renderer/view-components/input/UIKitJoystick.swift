@@ -1,6 +1,6 @@
 import UIKit
 
-class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
+final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
     var onPanStartDelegate: PanDelegate?
     var onPanChangeDelegate: PanDelegate?
     var onPanEndDelegate: PanDelegate?
