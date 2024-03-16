@@ -12,12 +12,10 @@ class ArkEventManager: ArkEventContext {
     private var eventQueue = PriorityQueue<ArkEvent>(sort: ArkEventManager.compareEventPriority)
 
     func subscribe(to eventId: ArkEventID, listener: @escaping (ArkEvent) -> Void) {
-        print("start subsribe", listeners)
         if listeners[eventId] == nil {
             listeners[eventId] = []
         }
         self.listeners[eventId]?.append(listener)
-        print("end subsribe", listeners)
     }
 
     func emit(_ event: inout ArkEvent) {
@@ -26,7 +24,6 @@ class ArkEventManager: ArkEventContext {
     }
 
     func processEvents() {
-        print("start processEvents", listeners)
         // If events generate more events, the new events will be processed in the next cycle
         var processingEventQueue = eventQueue
         eventQueue = PriorityQueue<ArkEvent>(sort: ArkEventManager.compareEventPriority)
@@ -40,15 +37,10 @@ class ArkEventManager: ArkEventContext {
             listenersToExecute.forEach { listener in
                 listener(event)
             }
+            // removes all listeners that have been executed
             listeners[type(of: event).id] = Array(listeners[type(of: event).id]?
                 .suffix(from: listenersToExecute.count) ?? [])
-
-//            listeners[type(of: event).id]?.forEach { listener in
-//                listener(event)
-//            }
-
         }
-        print("end processEvents", listeners)
     }
 
     private static func compareEventPriority(event1: ArkEvent, event2: ArkEvent) -> Bool {
