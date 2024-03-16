@@ -35,24 +35,31 @@ class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
     }
 
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-        let currentPoint = gesture.location(in: self)
-
-        // TODO: Implement calculations for angle and magnitude
-        let angle = 0.0
-        let magnitude = 0.0
-
-        let defaultPanDelegate: PanDelegate = { (_: Double, _: Double) in }
-
         if gesture.state == .began {
-            (onPanStartDelegate ?? defaultPanDelegate)(angle, magnitude)
+            return
+        }
+        let translation = gesture.translation(in: self)
+        let magnitude = sqrt(translation.x * translation.x + translation.y * translation.y)
+        // NOTE: in radians, if angle = 0, pan is to right; pan = .pi, pan to left;
+        // pan = .pi/2, pan to down; pan = -.pi/2, pan to up
+        let angle = atan2(translation.y / magnitude, translation.x / magnitude)
+
+        // clamp so that the joystick has a maximum departue
+        let clampedMagnitude = min(magnitude, radius)
+        let clampedTranslation = CGPoint(x: translation.x / magnitude * clampedMagnitude,
+                                         y: translation.y / magnitude * clampedMagnitude)
+        let currentPoint = CGPoint(x: radius + clampedTranslation.x, y: radius + clampedTranslation.y)
+        let defaultPanDelegate: PanDelegate = { (_: Double, _: Double) in }
+        if gesture.state == .began {
+            (onPanStartDelegate ?? defaultPanDelegate)(angle, clampedMagnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .changed {
-            (onPanChangeDelegate ?? defaultPanDelegate)(angle, magnitude)
+            (onPanChangeDelegate ?? defaultPanDelegate)(angle, clampedMagnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .ended {
-            (onPanEndDelegate ?? defaultPanDelegate)(angle, magnitude)
+            (onPanEndDelegate ?? defaultPanDelegate)(angle, clampedMagnitude)
             self.subviews.last?.center = CGPoint(x: radius, y: radius)
         }
     }
