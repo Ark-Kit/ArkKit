@@ -1,6 +1,6 @@
 import UIKit
 
-class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
+final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
     var onPanStartDelegate: PanDelegate?
     var onPanChangeDelegate: PanDelegate?
     var onPanEndDelegate: PanDelegate?
@@ -35,29 +35,41 @@ class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
     }
 
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-        let currentPoint = gesture.location(in: self)
-
-        // TODO: Implement calculations for angle and magnitude
-        let angle = 0.0
-        let magnitude = 0.0
-
-        let defaultPanDelegate: PanDelegate = { (_: Double, _: Double) in }
-
         if gesture.state == .began {
-            (onPanStartDelegate ?? defaultPanDelegate)(angle, magnitude)
+            return
+        }
+        let translation = gesture.translation(in: self)
+        let magnitude = sqrt(translation.x * translation.x + translation.y * translation.y)
+        let clockwiseAngle = calculateClockwiseAngleRotationInRadians(by: translation)
+
+        // clamp so that the joystick has a maximum departue
+        let clampedMagnitude = min(magnitude, radius)
+        let clampedTranslation = CGPoint(x: translation.x / magnitude * clampedMagnitude,
+                                         y: translation.y / magnitude * clampedMagnitude)
+        let currentPoint = CGPoint(x: radius + clampedTranslation.x, y: radius + clampedTranslation.y)
+        let defaultPanDelegate: PanDelegate = { (_: Double, _: Double) in }
+        if gesture.state == .began {
+            (onPanStartDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .changed {
-            (onPanChangeDelegate ?? defaultPanDelegate)(angle, magnitude)
+            (onPanChangeDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .ended {
-            (onPanEndDelegate ?? defaultPanDelegate)(angle, magnitude)
+            (onPanEndDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
             self.subviews.last?.center = CGPoint(x: radius, y: radius)
         }
     }
     private func setUpPan() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         self.addGestureRecognizer(pan)
+    }
+    private func calculateClockwiseAngleRotationInRadians(by translation: CGPoint) -> Double {
+        var angle = atan2(translation.x, -translation.y)
+        if angle < 0 {
+            angle += 2 * .pi
+        }
+        return angle
     }
 }
