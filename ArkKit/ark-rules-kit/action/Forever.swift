@@ -5,11 +5,12 @@ struct Forever: Action {
     }
     func execute<Event: ArkEvent>(_ event: Event, eventContext: ArkEventContext, ecsContext: ArkECSContext) {
         callback(event, eventContext, ecsContext)
+        let nextForever = self
         eventContext.subscribe(to: Event.id) { (nextEvent: any ArkEvent) -> Void in
             guard let castedEvent = nextEvent as? Event else {
                 return
             }
-            callback(castedEvent, eventContext, ecsContext)
+            nextForever.execute(castedEvent, eventContext: eventContext, ecsContext: ecsContext)
         }
     }
 }
