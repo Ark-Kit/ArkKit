@@ -15,7 +15,7 @@ class ArkEventManager: ArkEventContext {
         if listeners[eventId] == nil {
             listeners[eventId] = []
         }
-        self.listeners[eventId]?.append(listener)
+        listeners[eventId]?.append(listener)
     }
 
     func emit(_ event: inout ArkEvent) {
