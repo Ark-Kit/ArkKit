@@ -9,7 +9,7 @@ import Foundation
 
 class ArkState {
     private let arkECS: ArkECS
-    var eventManager: ArkEventManager
+    let eventManager: ArkEventManager
 
     init(eventManager: ArkEventManager, arkECS: ArkECS) {
         self.arkECS = arkECS
