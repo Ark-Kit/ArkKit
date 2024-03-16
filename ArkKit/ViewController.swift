@@ -10,8 +10,24 @@ class ViewController: UIViewController {
 
         let joystick = UIKitJoystick(center: CGPoint(x: midX, y: midY), radius: 50)
         joystick.render(into: self.view)
-//        let button = UIKitButton(width: 100, height: 100, center: CGPoint(x: midX, y: midY))
-//        button.backgroundColor = .red
-//        button.render(into: self.view)
+        var arkBlueprint = ArkBlueprint()
+        arkBlueprint.rules(on: DemoArkEvent.self, then: Forever { event, _, ecsContext in
+            guard event is DemoArkEvent else {
+                print("in gaurd")
+                return
+            }
+            // dev can mutate ecs via here
+            print(ecsContext.getEntities(with: []))
+        })
+        print("blueprint", arkBlueprint)
+        let ark = Ark(rootView: UINavigationController())
+        ark.start(blueprint: arkBlueprint)
+        var demoEvent: any ArkEvent = DemoArkEvent()
+        ark.eventContext.emit(&demoEvent)
+        print("emitting first event", demoEvent)
+        ark.eventContext.processEvents()
+        print("emitting second event", demoEvent)
+        ark.eventContext.emit(&demoEvent)
+        ark.eventContext.processEvents()
     }
 }

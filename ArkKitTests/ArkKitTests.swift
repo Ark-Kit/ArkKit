@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import LevelKit
+@testable import ArkKit
 
 final class LevelKitTests: XCTestCase {
 

@@ -37,7 +37,7 @@ struct DemoArkEvent: ArkEvent {
 struct DemoArkEventTest {
     /// Subscribes to DemoArkEvent and handles it by printing event data.
     /// - Parameter em: The ArkEventManager instance used for managing events.
-    static func testSubscribe(_ em: ArkEventManager) {
+    static func testSubscribe(_ em: ArkEventContext) {
         em.subscribe(to: DemoArkEvent.id) { (event: ArkEvent) -> Void in
             // Cast the generic ArkEvent to a specific type to access its data.
             guard let eventData = event.eventData as? DemoArkEventData else {

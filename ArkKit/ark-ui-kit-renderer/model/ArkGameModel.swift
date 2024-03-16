@@ -1,7 +1,7 @@
 class ArkGameModel {
     var gameState: ArkState?
-    init(eventManager: ArkEventManager) {
-        gameState = ArkState(eventManager: eventManager)
+    init(eventManager: ArkEventManager, arkECS: ArkECS) {
+        gameState = ArkState(eventManager: eventManager, arkECS: arkECS)
     }
     func updateState(dt: Double) {
         gameState?.update(deltaTime: dt)

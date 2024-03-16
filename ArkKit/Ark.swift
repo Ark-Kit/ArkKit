@@ -7,31 +7,34 @@ import UIKit
  * `Ark.start()`: returns the running instance of the game at a particular timeframe, `deltaTime` or `dt`.
  */
 class Ark {
-    var eventManager: ArkEventManager
-
     // TODO: remove UIKit dependency
     // The `rootView` should compose:
     // 1. handle rendering of the game -> RenderingKit
     // 2. handle game loop updates -> LoopKit
-    var rootView: UINavigationController
+    let rootView: UINavigationController
+    var eventContext = ArkEventManager()
+    let ecsContext = ArkECS()
 
-    init(eventManager: ArkEventManager, rootView: UINavigationController) {
-        self.eventManager = eventManager
+    init(rootView: UINavigationController) {
         self.rootView = rootView
     }
 
-    func start() {
+    func start(blueprint: ArkBlueprint) {
+        // subscribe all rules to the eventManager
+        for rule in blueprint.rules {
+            eventContext.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
+                guard let arkInstance = self else {
+                    return
+                }
+                rule.action.execute(event,
+                                    eventContext: arkInstance.eventContext,
+                                    ecsContext: arkInstance.ecsContext)
+            }
+        }
         // initialise game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
-                                                 eventManager: eventManager)
+                                                 eventManager: self.eventContext,
+                                                 arkECS: self.ecsContext)
         gameCoordinator.start()
-    }
-
-    // == DEFINE THE GAME VIA THE FOLLOWING METHODS == //
-    func rules(on event: Any, then action: Any) {
-        // TODO: implement and update types once Event and Action types defined.
-    }
-    func input(inputType: Any, anchor: Any, callback: Any) {
-        // TODO: implement
     }
 }

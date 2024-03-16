@@ -21,3 +21,33 @@ class ArkECS {
     }
 
 }
+
+extension ArkECS: ArkECSContext {
+    func createEntity() -> Entity {
+        entityManager.createEntity()
+    }
+
+    func removeEntity(_ entity: Entity) {
+        entityManager.removeEntity(entity)
+    }
+
+    func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
+        entityManager.upsertComponent(component, to: entity)
+    }
+
+    func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
+        entityManager.getComponent(ofType: type, for: entity)
+    }
+
+    func createEntity(with components: [any Component]) -> Entity {
+        entityManager.createEntity(with: components)
+    }
+
+    func getEntities(with componentTypes: [any Component.Type]) -> [Entity] {
+        entityManager.getEntities(with: componentTypes)
+    }
+
+    func getComponents(from entity: Entity) -> [any Component] {
+        entityManager.getComponents(from: entity)
+    }
+}
