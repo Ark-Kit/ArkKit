@@ -1,6 +1,10 @@
 import UIKit
 
-class UIKitJoystick: UIView, UIKitRenderable {
+class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
+    var onPanStartDelegate: PanDelegate?
+    var onPanChangeDelegate: PanDelegate?
+    var onPanEndDelegate: PanDelegate?
+
     let INNER_RADIUS_FACTOR = 0.75
     private let radius: Double
     init(center: CGPoint, radius: Double) {
@@ -29,32 +33,26 @@ class UIKitJoystick: UIView, UIKitRenderable {
         self.radius = 0.0
         super.init(coder: coder)
     }
-}
 
-extension UIKitJoystick: PanRenderable {
-    func onPanStart() {
-        // use delegate
-    }
-
-    func onPanEnd() {
-        // use delegate
-    }
-
-    func onPanChange() {
-        // use delegate
-    }
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
         let currentPoint = gesture.location(in: self)
+
+        // TODO: Implement calculations for angle and magnitude
+        let angle = 0.0
+        let magnitude = 0.0
+
+        let defaultPanDelegate: PanDelegate = { (_: Double, _: Double) in }
+
         if gesture.state == .began {
-            onPanStart()
+            (onPanStartDelegate ?? defaultPanDelegate)(angle, magnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .changed {
-            onPanChange()
+            (onPanChangeDelegate ?? defaultPanDelegate)(angle, magnitude)
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .ended {
-            onPanEnd()
+            (onPanEndDelegate ?? defaultPanDelegate)(angle, magnitude)
             self.subviews.last?.center = CGPoint(x: radius, y: radius)
         }
     }
@@ -62,4 +60,4 @@ extension UIKitJoystick: PanRenderable {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         self.addGestureRecognizer(pan)
     }
- }
+}
