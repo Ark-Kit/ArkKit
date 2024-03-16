@@ -12,7 +12,7 @@
  * class ViewModel {
  *    var canvas: Canvas {
  *          didSet {
- *              gameStateRenderer?.render(renderableGameState)
+ *              gameStateRenderer?.render(canvas)
  *          }
  *    }
  * }
