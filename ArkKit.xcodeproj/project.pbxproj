@@ -49,7 +49,7 @@
 		AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03752BA2F24800974EBF /* ArkStateEventListener.swift */; };
 		AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A502B9C636F003EBBD0 /* AppDelegate.swift */; };
 		AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */; };
-		AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A542B9C636F003EBBD0 /* ViewController.swift */; };
+		AD787A552B9C636F003EBBD0 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A542B9C636F003EBBD0 /* RootViewController.swift */; };
 		AD787A582B9C636F003EBBD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD787A562B9C636F003EBBD0 /* Main.storyboard */; };
 		AD787A5A2B9C6373003EBBD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD787A592B9C6373003EBBD0 /* Assets.xcassets */; };
 		AD787A5D2B9C6373003EBBD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD787A5B2B9C6373003EBBD0 /* LaunchScreen.storyboard */; };
@@ -123,7 +123,7 @@
 		AD787A4D2B9C636F003EBBD0 /* ArkKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArkKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD787A502B9C636F003EBBD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AD787A542B9C636F003EBBD0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AD787A542B9C636F003EBBD0 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		AD787A572B9C636F003EBBD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AD787A592B9C6373003EBBD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD787A5C2B9C6373003EBBD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -248,7 +248,7 @@
 			children = (
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
-				AD787A542B9C636F003EBBD0 /* ViewController.swift */,
+				AD787A542B9C636F003EBBD0 /* RootViewController.swift */,
 				AD787A562B9C636F003EBBD0 /* Main.storyboard */,
 				AD787A592B9C6373003EBBD0 /* Assets.xcassets */,
 				AD787A5B2B9C6373003EBBD0 /* LaunchScreen.storyboard */,
@@ -616,7 +616,7 @@
 				02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */,
 				02C394EC2BA41DF00075F1CA /* ArkViewController.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
-				AD787A552B9C636F003EBBD0 /* ViewController.swift in Sources */,
+				AD787A552B9C636F003EBBD0 /* RootViewController.swift in Sources */,
 				02C394E32BA407420075F1CA /* Ark.swift in Sources */,
 				AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
