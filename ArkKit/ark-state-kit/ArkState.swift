@@ -11,8 +11,8 @@ class ArkState {
     private let arkECS: ArkECS
     let eventManager: ArkEventManager
 
-    init(eventManager: ArkEventManager = ArkEventManager()) {
-        self.arkECS = ArkECS()
+    init(eventManager: ArkEventManager, arkECS: ArkECS) {
+        self.arkECS = arkECS
         self.eventManager = eventManager
     }
 
@@ -20,5 +20,4 @@ class ArkState {
         arkECS.update(deltaTime: deltaTime)
         eventManager.processEvents()
     }
-
 }

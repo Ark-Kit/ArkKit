@@ -10,8 +10,5 @@ class ViewController: UIViewController {
 
         let joystick = UIKitJoystick(center: CGPoint(x: midX, y: midY), radius: 50)
         joystick.render(into: self.view)
-//        let button = UIKitButton(width: 100, height: 100, center: CGPoint(x: midX, y: midY))
-//        button.backgroundColor = .red
-//        button.render(into: self.view)
     }
 }
