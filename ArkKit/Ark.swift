@@ -31,10 +31,14 @@ class Ark {
                                     ecsContext: arkInstance.ecsManager)
             }
         }
-        // initialise game with rootView, and eventManager
+
+        // TODO: initialize animation system
+        let animationSystem = ArkAnimationSystem()
+        ecsManager.addSystem(animationSystem)
+        // Initializee game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
-                                                 eventManager: self.eventManager,
-                                                 arkECS: self.ecsManager)
+                                                 eventManager: eventManager,
+                                                 arkECS: ecsManager)
         gameCoordinator.start()
     }
 }

@@ -20,6 +20,9 @@ class ArkECS {
         systemManager.update(deltaTime: deltaTime, arkECS: self)
     }
 
+    func addSystem(_ system: System) {
+        systemManager.add(system)
+    }
 }
 
 extension ArkECS: ArkECSContext {
