@@ -34,6 +34,9 @@
 		8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */; };
 		8F5573C12BA42614007030C8 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C02BA42614007030C8 /* Renderable.swift */; };
 		8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */; };
+		8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C72BA69D61007030C8 /* ArkAnimation.swift */; };
+		8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */; };
+		8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
@@ -104,6 +107,9 @@
 		8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderable.swift; sourceTree = "<group>"; };
 		8F5573C02BA42614007030C8 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapRenderable.swift; sourceTree = "<group>"; };
+		8F5573C72BA69D61007030C8 /* ArkAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimation.swift; sourceTree = "<group>"; };
+		8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationSystem.swift; sourceTree = "<group>"; };
+		8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationInstance.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
@@ -290,6 +296,16 @@
 			path = renderable;
 			sourceTree = "<group>";
 		};
+		8F5573C62BA69D47007030C8 /* ark-animation-kit */ = {
+			isa = PBXGroup;
+			children = (
+				8F5573C72BA69D61007030C8 /* ArkAnimation.swift */,
+				8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */,
+				8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */,
+			);
+			path = "ark-animation-kit";
+			sourceTree = "<group>";
+		};
 		945F7F7F2BA55E4E00933629 /* input */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +400,7 @@
 				02C394E22BA407420075F1CA /* Ark.swift */,
 				02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */,
 				02C394FD2BA5A09D0075F1CA /* ark-rules-kit */,
+				8F5573C62BA69D47007030C8 /* ark-animation-kit */,
 				02C394DA2BA401F00075F1CA /* ark-render-kit */,
 				02E0E8DE2B9F57170043E2BA /* ark-ui-kit-renderer */,
 				AD6E03662BA1A5EA00974EBF /* ark-event-kit */,
@@ -583,6 +600,7 @@
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				AD6E036D2BA1AB2D00974EBF /* DemoArkEvent.swift in Sources */,
 				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
+				8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */,
 				02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */,
 				02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
@@ -602,9 +620,11 @@
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
 				02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
+				8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */,
 				02C395032BA5B95B0075F1CA /* Rule.swift in Sources */,
 				945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */,
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
+				8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */,
 				02C394DE2BA4053E0075F1CA /* CanvasRenderer.swift in Sources */,
 				AD6E036F2BA21A5B00974EBF /* Queue.swift in Sources */,
 				AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */,
