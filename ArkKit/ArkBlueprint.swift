@@ -6,15 +6,22 @@
 struct ArkBlueprint {
     private(set) var rules: [Rule] = []
     private(set) var animations: [ArkAnimation<Any>] = []
-    
-    mutating func rules<Event: ArkEvent>(on eventType: Event.Type,
-                                         then action: Action) -> Self {
-        rules.append(Rule(event: Event.id, action: action))
-        return self
+
+    func rules<Event: ArkEvent>(on eventType: Event.Type,
+                                then action: Action) -> ArkBlueprint {
+        var rulesCopy = rules
+        rulesCopy.append(Rule(event: Event.id, action: action))
+        return immutableCopy(rules: rulesCopy)
     }
-    
-    mutating func animation(_ animation: ArkAnimation<Any>) -> Self {
-        animations.append(animation)
-        return self
+
+    func animation(_ animation: ArkAnimation<Any>) -> ArkBlueprint {
+        var animationsCopy = animations
+        animationsCopy.append(animation)
+        return immutableCopy(animations: animationsCopy)
+    }
+
+    private func immutableCopy(rules: [Rule]? = nil, animations: [ArkAnimation<Any>]? = nil) -> ArkBlueprint {
+        ArkBlueprint(rules: rules ?? self.rules,
+                     animations: animations ?? self.animations)
     }
 }
