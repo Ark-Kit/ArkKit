@@ -8,6 +8,8 @@ class ArkViewController: UIViewController {
 
 extension ArkViewController: GameStateRenderer {
     func render(canvas: Canvas) {
+        let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view)
+        canvas.render(using: canvasRenderer)
         // implementation must involve:
         // [OPTIMISED]
         // 1. removing any invalid ui that is no longer in the renderableGameState

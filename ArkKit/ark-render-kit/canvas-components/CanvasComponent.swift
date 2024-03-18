@@ -1,2 +1,2 @@
-protocol CanvasComponent {
+protocol CanvasComponent: Component {
 }

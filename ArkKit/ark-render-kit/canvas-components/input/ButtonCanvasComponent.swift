@@ -1,6 +1,6 @@
 import CoreGraphics
 
-struct RectCanvasComponent: CanvasComponent {
+struct ButtonCanvasComponent: CanvasComponent {
     let width: Double
     let height: Double
     let center: CGPoint
