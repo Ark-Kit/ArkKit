@@ -10,13 +10,11 @@ class BaseSKGameScene: SKScene {
     }
     
     override func didFinishUpdate() {
-        sceneUpdateDelegate?.didFinishUpdate()
     }
 }
 
 extension BaseSKGameScene: SKSceneDelegate {
     func didFinishUpdate(for scene: SKScene) {
-        sceneUpdateDelegate?.didFinishUpdate()
     }
 }
 
