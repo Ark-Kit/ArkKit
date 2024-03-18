@@ -2,7 +2,7 @@ import Foundation
 
 class ArkCanvasSystem: System {
     var active: Bool
-    private let canvasComponentTypes: [CanvasComponent.Type] = [
+    static let canvasComponentTypes: [CanvasComponent.Type] = [
         ButtonCanvasComponent.self,
         JoystickCanvasComponent.self,
         CircleCanvasComponent.self,
@@ -14,8 +14,8 @@ class ArkCanvasSystem: System {
         self.active = active
     }
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        let entitiesWithCanvas = arkECS.getEntities(with: canvasComponentTypes)
+        let entitiesWithCanvas = arkECS.getEntities(with: ArkCanvasSystem.canvasComponentTypes)
         // TODO: this system should pull from relevant other component states to update
-        // should mainly be from physics
+        // should mainly be from physics for now
     }
 }
