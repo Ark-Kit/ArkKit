@@ -14,8 +14,16 @@ class ArkCanvasSystem: System {
         self.active = active
     }
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        let entitiesWithCanvas = arkECS.getEntities(with: ArkCanvasSystem.canvasComponentTypes)
-        // TODO: this system should pull from relevant other component states to update
-        // should mainly be from physics for now
+        for canvasCompType in ArkCanvasSystem.canvasComponentTypes {
+            let entitiesWithCanvasComp = arkECS.getEntities(with: [canvasCompType])
+            for entity in entitiesWithCanvasComp {
+                let canvasComponent = arkECS.getComponent(ofType: canvasCompType, for: entity)
+                // TODO: this system should pull from relevant other component states to update
+                // should mainly be from physics
+                // e.g. let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for entity)
+                // NOTE: might need to employ a visitor because `CanvasComponent.Type`
+                // is used as the main type
+            }
+        }
     }
 }
