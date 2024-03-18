@@ -39,7 +39,7 @@ extension ArkECS: ArkECSContext {
     }
     
     func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
-        entityManager.removeComponent(componentType, from: entity)
+        entityManager.removeComponent(ofType: componentType, from: entity)
     }
 
     func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
