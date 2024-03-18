@@ -37,6 +37,10 @@ extension ArkECS: ArkECSContext {
     func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
         entityManager.upsertComponent(component, to: entity)
     }
+    
+    func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
+        entityManager.removeComponent(componentType, from: entity)
+    }
 
     func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
         entityManager.getComponent(ofType: type, for: entity)
