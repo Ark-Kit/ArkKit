@@ -59,4 +59,4 @@ struct DemoArkEventTest {
 // let em = ArkEventManager()
 // let testEvent = DemoArkEvent(eventData: DemoArkEventData(name: "Hi", number: 4))
 // DemoArkEventTest.testSubscribe(em)
-// em.emit(DemoArkEvent.id)
+// em.emit(&DemoArkEvent.id)
