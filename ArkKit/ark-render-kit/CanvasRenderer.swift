@@ -6,7 +6,7 @@
  * Devs can also **extend** the `CanvasRenderer` if they have custom canvas elements to render.
  */
 protocol CanvasRenderer {
-    func render(circle: Any)
+    func render(_ circle: CircleCanvasComponent)
     /**
      * An example implementation for GameRenderer:
      * ```
@@ -18,7 +18,9 @@ protocol CanvasRenderer {
      *  }
      * ```
      */
-    func render(rect: Any)
-    func render(image: Any)
-    func render(button: Any)
+    func render(_ rect: RectCanvasComponent)
+    func render(_ polygon: PolygonCanvasComponent)
+    func render(_ image: BitmapImageCanvasComponent)
+    func render(_ button: ButtonCanvasComponent)
+    func render(_ joystick: JoystickCanvasComponent)
 }
