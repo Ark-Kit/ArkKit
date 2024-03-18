@@ -3,7 +3,7 @@ import CoreGraphics
 struct PolygonCanvasComponent: CanvasComponent {
     let points: [CGPoint]
     let frame: CGRect
-    func accept(_ renderer: any CanvasRenderer) {
+    func render(using renderer: CanvasRenderer) {
         renderer.render(self)
     }
 }

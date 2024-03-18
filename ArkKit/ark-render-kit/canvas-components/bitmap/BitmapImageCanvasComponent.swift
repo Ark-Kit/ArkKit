@@ -5,7 +5,7 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     let center: CGPoint
     let width: Double
     let height: Double
-    func accept(_ renderer: any CanvasRenderer) {
+    func render(using renderer: CanvasRenderer) {
         renderer.render(self)
     }
 }

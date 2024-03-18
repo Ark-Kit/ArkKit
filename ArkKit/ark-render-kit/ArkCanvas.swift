@@ -3,7 +3,7 @@ struct ArkCanvas: Canvas {
 
     func render(using renderer: CanvasRenderer) {
         for canvasComponent in canvasComponents {
-            canvasComponent.accept(renderer)
+            canvasComponent.render(using: renderer)
         }
     }
 

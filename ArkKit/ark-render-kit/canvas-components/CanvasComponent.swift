@@ -1,3 +1,3 @@
 protocol CanvasComponent: Component {
-    func accept(_ renderer: CanvasRenderer)
+    func render(using renderer: CanvasRenderer)
 }
