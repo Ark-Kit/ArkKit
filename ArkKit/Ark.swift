@@ -25,17 +25,8 @@ class Ark {
     }
 
     func start(blueprint: ArkBlueprint) {
-        // subscribe all rules to the eventManager
-        for rule in blueprint.rules {
-            eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
-                guard let arkInstance = self else {
-                    return
-                }
-                rule.action.execute(event,
-                                    eventContext: arkInstance.eventManager,
-                                    ecsContext: arkInstance.ecsManager)
-            }
-        }
+        setup(blueprint.rules)
+        setup(blueprint.ecsSetupFunctions)
 
         // TODO: initialize animation system
         let animationSystem = ArkAnimationSystem()
@@ -50,5 +41,25 @@ class Ark {
                                                  eventManager: eventManager,
                                                  arkECS: ecsManager)
         gameCoordinator.start()
+    }
+
+    private func setup(_ rules: [Rule]) {
+        // subscribe all rules to the eventManager
+        for rule in rules {
+            eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
+                guard let arkInstance = self else {
+                    return
+                }
+                rule.action.execute(event,
+                                    eventContext: arkInstance.eventManager,
+                                    ecsContext: arkInstance.ecsManager)
+            }
+        }
+    }
+
+    private func setup(_ ecsSetupFunctions: [ECSSetupFunction]) {
+        for ecsSetupFunction in ecsSetupFunctions {
+            ecsManager.setup(ecsSetupFunction)
+        }
     }
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias ECSSetupFunction = (_: ArkECSContext) -> Void
+
 class ArkECS {
     private let entityManager: EntityManager
     private let systemManager: SystemManager
@@ -22,6 +24,10 @@ class ArkECS {
 
     func addSystem(_ system: System) {
         systemManager.add(system)
+    }
+
+    func setup(_ setupFunction: ECSSetupFunction) {
+        setupFunction(self)
     }
 }
 

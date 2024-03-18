@@ -6,9 +6,12 @@
 struct ArkBlueprint {
     private(set) var rules: [Rule] = []
     private(set) var animations: [ArkAnimation<Any>] = []
+    private(set) var ecsSetupFunctions: [ECSSetupFunction] = []
 
-    func rules<Event: ArkEvent>(on eventType: Event.Type,
-                                then action: Action) -> ArkBlueprint {
+    func rule<Event: ArkEvent>(
+        on eventType: Event.Type,
+        then action: Action
+    ) -> ArkBlueprint {
         var rulesCopy = rules
         rulesCopy.append(Rule(event: Event.id, action: action))
         return immutableCopy(rules: rulesCopy)
@@ -20,8 +23,21 @@ struct ArkBlueprint {
         return immutableCopy(animations: animationsCopy)
     }
 
-    private func immutableCopy(rules: [Rule]? = nil, animations: [ArkAnimation<Any>]? = nil) -> ArkBlueprint {
-        ArkBlueprint(rules: rules ?? self.rules,
-                     animations: animations ?? self.animations)
+    func ecsSetup(_ fn: @escaping ECSSetupFunction) -> ArkBlueprint {
+        var ecsSetupFunctionsCopy = ecsSetupFunctions
+        ecsSetupFunctionsCopy.append(fn)
+        return immutableCopy(ecsSetupFunctions: ecsSetupFunctionsCopy)
+    }
+
+    private func immutableCopy(
+        rules: [Rule]? = nil,
+        animations: [ArkAnimation<Any>]? = nil,
+        ecsSetupFunctions: [ECSSetupFunction]? = nil
+    ) -> ArkBlueprint {
+        ArkBlueprint(
+            rules: rules ?? self.rules,
+            animations: animations ?? self.animations,
+            ecsSetupFunctions: ecsSetupFunctions ?? self.ecsSetupFunctions
+        )
     }
 }
