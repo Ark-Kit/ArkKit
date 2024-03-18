@@ -7,17 +7,6 @@
  */
 protocol CanvasRenderer {
     func render(_ circle: CircleCanvasComponent)
-    /**
-     * An example implementation for GameRenderer:
-     * ```
-     *  func visit(_ gameObject: CircularGameObject) {
-     *      let circle = CircleUi(radius: gameObject.radius,
-     *                            center: CGPoint(gameObject.center))
-     *      circle.render(into: superview)
-     *
-     *  }
-     * ```
-     */
     func render(_ rect: RectCanvasComponent)
     func render(_ polygon: PolygonCanvasComponent)
     func render(_ image: BitmapImageCanvasComponent)

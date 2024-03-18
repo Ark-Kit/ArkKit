@@ -1,22 +1,37 @@
 import UIKit
 
 /**
- * `ArkViewController` is the main page that the developers
+ * `ArkViewController` is the main page that will render the game's canvas.
  */
 class ArkViewController: UIViewController {
+    private var displayLink: CADisplayLink?
+    var viewModel: ArkViewModel?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setUpGameLoop()
+    }
+    @objc func handleGameProgress() {
+        guard let target = displayLink?.targetTimestamp,
+              let previous = displayLink?.timestamp else {
+            return
+        }
+        let deltaTime = target - previous
+        viewModel?.updateGame(for: deltaTime)
+    }
+    private func setUpGameLoop() {
+        self.displayLink = CADisplayLink(target: self, selector: #selector(handleGameProgress))
+        self.displayLink?.add(to: .main, forMode: .default)
+    }
 }
 
 extension ArkViewController: GameStateRenderer {
     func render(canvas: Canvas) {
+        // TODO: (next sprint) implement optimised version with some memoization
+        self.view.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
         let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view)
         canvas.render(using: canvasRenderer)
-        // implementation must involve:
-        // [OPTIMISED]
-        // 1. removing any invalid ui that is no longer in the renderableGameState
-        // 2. updating remaining ui values to the values in renderableGameState
-        // OR
-        // [NOT-OPTIMISED]
-        // 1. removing the entire previous view
-        // 2. re-rendering all components within the renderableGameState
     }
 }
