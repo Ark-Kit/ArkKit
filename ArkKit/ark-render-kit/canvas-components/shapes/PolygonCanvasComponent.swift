@@ -1,0 +1,2 @@
+struct PolygonCanvasComponent: CanvasComponent {
+}
