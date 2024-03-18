@@ -14,9 +14,14 @@ class Ark {
     let rootView: UINavigationController
     let eventManager = ArkEventManager()
     let ecsManager = ArkECS()
+    let gameScene: AbstractArkGameScene // Ideas for naming this please, maybe physics scene but it sounds weird
 
     init(rootView: UINavigationController) {
         self.rootView = rootView
+        // TODO: Change to take in the game size instead of the root nav controller
+        // Currently the simulator is defined to use the Sprite Kit simulator
+        // In the future, we can look at exposing this in the blueprint
+        self.gameScene = SKGameScene(size: rootView.view.frame.size)
     }
 
     func start(blueprint: ArkBlueprint) {
@@ -35,6 +40,11 @@ class Ark {
         // TODO: initialize animation system
         let animationSystem = ArkAnimationSystem()
         ecsManager.addSystem(animationSystem)
+        
+        
+        // Initialize game with specified physics engine that conforms to `ark-physics-facade`
+        let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: eventManager)
+        
         // Initializee game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  eventManager: eventManager,
