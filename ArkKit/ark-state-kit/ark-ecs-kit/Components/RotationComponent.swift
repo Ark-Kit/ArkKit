@@ -1,5 +1,5 @@
 import Foundation
 
 struct RotationComponent: Component {
-    var rotation: CGFloat?
+    var angleInRadians: CGFloat?
 }
