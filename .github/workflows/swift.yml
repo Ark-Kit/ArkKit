@@ -9,12 +9,42 @@ on:
   pull_request:
     branches: [ "main" ]
 
-jobs:
-  build:
-
-    runs-on: macos-latest
-
+jobs:   
+# Taken from:
+# https://hoppsen.com/posts/unlock-the-secrets-of-swift-linting-with-swiftlint-and-swiftformat-on-github-actions/
+  SwiftLint:
+    runs-on: ubuntu-20.04
     steps:
+      - uses: actions/cache@v2
+        with:
+          path: .build/release/swiftlint
+          key: $-linting-swiftlint-$
+      - name: Build realm/SwiftLint
+        run: |
+          if [ -f ".build/release/swiftlint" ]; then
+            sudo cp -f .build/release/swiftlint /usr/local/bin/swiftlint
+          else
+            git clone --depth 1 --branch $ https://github.com/realm/SwiftLint
+            cd SwiftLint
+            swift build --disable-sandbox -c release
+            mv .build .. && cd ..
+            rm -rf SwiftLint
+            sudo cp -f .build/release/swiftlint /usr/local/bin/swiftlint
+          fi
+      - name: SwiftLint
+        run: |
+          swiftlint --version
+          swiftlint lint --strict --config .swiftlint.yml --quiet
+        env:
+          LINUX_SOURCEKIT_LIB_PATH: /usr/share/swift/usr/lib
+  Build:
+    runs-on: macos-latest
+    # https://github.com/slashmo/install-swift install specified swift version
+    steps:
+    - name: Install Swift
+      uses: slashmo/install-swift@v0.1.0
+      with:
+        version: 5.5
     - uses: actions/checkout@v3
     - name: Build
       run: swift build -v
