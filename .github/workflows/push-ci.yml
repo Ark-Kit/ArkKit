@@ -1,17 +1,13 @@
 # This workflow will build a Swift project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
 
-name: Swift
+name: CI (Push)
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: push
 
-jobs:   
-# Taken from:
-# https://hoppsen.com/posts/unlock-the-secrets-of-swift-linting-with-swiftlint-and-swiftformat-on-github-actions/
+jobs:
+  # Taken from:
+  # https://hoppsen.com/posts/unlock-the-secrets-of-swift-linting-with-swiftlint-and-swiftformat-on-github-actions/
   SwiftLint:
     runs-on: ubuntu-20.04
     steps:
@@ -24,7 +20,7 @@ jobs:
           if [ -f ".build/release/swiftlint" ]; then
             sudo cp -f .build/release/swiftlint /usr/local/bin/swiftlint
           else
-            git clone --depth 1 --branch $ https://github.com/realm/SwiftLint
+            git clone --depth 1 https://github.com/realm/SwiftLint
             cd SwiftLint
             swift build --disable-sandbox -c release
             mv .build .. && cd ..
@@ -37,16 +33,3 @@ jobs:
           swiftlint lint --strict --config .swiftlint.yml --quiet
         env:
           LINUX_SOURCEKIT_LIB_PATH: /usr/share/swift/usr/lib
-  Build:
-    runs-on: macos-latest
-    # https://github.com/slashmo/install-swift install specified swift version
-    steps:
-    - name: Install Swift
-      uses: slashmo/install-swift@v0.1.0
-      with:
-        version: 5.5
-    - uses: actions/checkout@v3
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
