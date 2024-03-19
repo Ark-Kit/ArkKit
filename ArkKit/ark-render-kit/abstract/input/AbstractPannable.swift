@@ -29,7 +29,7 @@ protocol AbstractPannable {
 
 extension AbstractPannable {
     func addPanStartDelegate(delegate: @escaping PanDelegate) -> Self {
-        guard onPanStartDelegate != nil else {
+        guard onPanStartDelegate == nil else {
             assertionFailure("onPanStartDelegate has already been assigned!")
             return self
         }
@@ -38,7 +38,7 @@ extension AbstractPannable {
     }
 
     func addPanChangeDelegate(delegate: @escaping PanDelegate) -> Self {
-        guard onPanChangeDelegate != nil else {
+        guard onPanChangeDelegate == nil else {
             assertionFailure("onPanChangeDelegate has already been assigned!")
             return self
         }
@@ -47,7 +47,7 @@ extension AbstractPannable {
     }
 
     func addPanEndDelegate(delegate: @escaping PanDelegate) -> Self {
-        guard onPanEndDelegate != nil else {
+        guard onPanEndDelegate == nil else {
             assertionFailure("onPanEndDelegate has already been assigned!")
             return self
         }

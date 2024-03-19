@@ -23,7 +23,7 @@ protocol AbstractTappable {
 
 extension AbstractTappable {
     func addOnTapDelegate(delegate: @escaping TapDelegate) -> Self {
-        guard onTapDelegate != nil else {
+        guard onTapDelegate == nil else {
             assertionFailure("onTapDelegate has already been assigned!")
             return self
         }
