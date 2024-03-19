@@ -4,6 +4,9 @@ struct ArkCanvas: Canvas {
 
     func render(using renderer: any CanvasRenderer, to context: CanvasContext) {
         for (entity, canvasComponent, compType) in canvasComponentsToRender {
+            if let (_, prevRenderable) = context.memo[entity]?[ObjectIdentifier(compType)] {
+                prevRenderable.unmount()
+            }
             let renderable = canvasComponent.render(using: renderer)
             context.saveToMemo(entity: entity, canvasComponentType: compType,
                                canvasComponent: canvasComponent, renderable: renderable)

@@ -29,12 +29,11 @@ class ArkCanvasContext: CanvasContext {
 
     func saveToMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type,
                     canvasComponent: any CanvasComponent, renderable: any Renderable) {
-        if memo[entity] != nil {
+        guard memo[entity] == nil else {
             memo[entity]?[ObjectIdentifier(canvasComponentType)] = (canvasComponent, renderable)
             return
         }
         memo[entity] = [ObjectIdentifier(canvasComponentType): (canvasComponent, renderable)]
-
     }
     func removeFromMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type) -> (any Renderable)? {
         guard let (_, renderable) = memo[entity]?[ObjectIdentifier(canvasComponentType)] else {
