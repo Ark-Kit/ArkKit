@@ -7,9 +7,11 @@
 
 import Foundation
 
+typealias ArkStateSetupFunction = (_: ArkECSContext, _: ArkEventContext) -> Void
+
 class ArkState {
-    private let arkECS: ArkECS
-    let eventManager: ArkEventManager
+    private(set) var arkECS: ArkECS
+    private(set) var eventManager: ArkEventManager
 
     init(eventManager: ArkEventManager, arkECS: ArkECS) {
         self.arkECS = arkECS
@@ -19,5 +21,9 @@ class ArkState {
     func update(deltaTime: TimeInterval) {
         arkECS.update(deltaTime: deltaTime)
         eventManager.processEvents()
+    }
+
+    func setup(_ setupFunction: ArkStateSetupFunction) {
+        setupFunction(arkECS, eventManager)
     }
 }

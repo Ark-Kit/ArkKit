@@ -5,6 +5,9 @@ import UIKit
  *
  * `Ark.start(blueprint)` starts the game from `deltaTime = 0` based on the
  *  information and data in the `ArkBlueprint` provided.
+ *
+ * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
+ * relying on the `arkInstance` will not emit.
  */
 class Ark {
     // TODO: remove UIKit dependency
@@ -12,53 +15,42 @@ class Ark {
     // 1. handle rendering of the game -> RenderingKit
     // 2. handle game loop updates -> LoopKit
     let rootView: UINavigationController
-    let eventManager = ArkEventManager()
-    let ecsManager = ArkECS()
-    let gameScene: AbstractArkGameScene // Ideas for naming this please, maybe physics scene but it sounds weird
+    let arkState: ArkState
 
     init(rootView: UINavigationController) {
         self.rootView = rootView
-        // TODO: Change to take in the game size instead of the root nav controller
-        // Currently the simulator is defined to use the Sprite Kit simulator
-        // In the future, we can look at exposing this in the blueprint
-        self.gameScene = SKGameScene(size: rootView.view.frame.size)
+        let eventManager = ArkEventManager()
+        let ecsManager = ArkECS()
+        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
     }
 
     func start(blueprint: ArkBlueprint) {
+        setup(blueprint.stateSetupFunctions)
         setup(blueprint.rules)
-        setup(blueprint.ecsSetupFunctions)
-
-        // TODO: initialize animation system
-        let animationSystem = ArkAnimationSystem()
-        ecsManager.addSystem(animationSystem)
-
-        // Initialize game with specified physics engine that conforms to `ark-physics-facade`
-        let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: eventManager)
 
         // Initializee game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
-                                                 eventManager: eventManager,
-                                                 arkECS: ecsManager)
+                                                 arkState: arkState)
         gameCoordinator.start()
     }
 
     private func setup(_ rules: [Rule]) {
         // subscribe all rules to the eventManager
         for rule in rules {
-            eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
+            arkState.eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
                 guard let arkInstance = self else {
                     return
                 }
                 rule.action.execute(event,
-                                    eventContext: arkInstance.eventManager,
-                                    ecsContext: arkInstance.ecsManager)
+                                    eventContext: arkInstance.arkState.eventManager,
+                                    ecsContext: arkInstance.arkState.arkECS)
             }
         }
     }
 
-    private func setup(_ ecsSetupFunctions: [ECSSetupFunction]) {
-        for ecsSetupFunction in ecsSetupFunctions {
-            ecsManager.setup(ecsSetupFunction)
+    private func setup(_ stateSetupFunctions: [ArkStateSetupFunction]) {
+        for stateSetupFunction in stateSetupFunctions {
+            arkState.setup(stateSetupFunction)
         }
     }
 }

@@ -3,6 +3,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private var ark: Ark?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -55,12 +56,27 @@ extension SceneDelegate {
     func defineArkBlueprint() -> ArkBlueprint {
         // Define game with blueprint here.
         let arkBlueprint = ArkBlueprint()
-            .ecsSetup({ ecsContext in
-                _ = ecsContext.createEntity(with: [
+            .stateSetup({ ecsContext, eventContext in
+                ecsContext.createEntity(with: [
                     JoystickCanvasComponent(center: CGPoint(x: 300, y: 300), radius: 50,
                                             areValuesEqual: { _, _ in true })
-                        .addPanChangeDelegate(delegate: { angle, mag in print(angle, mag) })
+                        .addPanChangeDelegate(delegate: { angle, mag in print("change", angle, mag) })
+                        .addPanStartDelegate(delegate: { angle, mag in print("start", angle, mag) })
+                        .addPanEndDelegate(delegate: { angle, mag in print("end", angle, mag) })
                 ])
+                ecsContext.createEntity(with: [
+                    ButtonCanvasComponent(width: 50, height: 50, center: CGPoint(x: 500, y: 500),
+                                          areValuesEqual: { _, _ in true })
+                    .addOnTapDelegate(delegate: {
+                        print("emiting event")
+                        var demoEvent: any ArkEvent = DemoArkEvent()
+                        eventContext.emit(&demoEvent)
+                        print("done emit event")
+                    })
+                ])
+            })
+            .rule(on: DemoArkEvent.self, then: Forever { _, _, _ in
+                print("running rule")
             })
         return arkBlueprint
     }
@@ -68,7 +84,7 @@ extension SceneDelegate {
         guard let rootView = window.rootViewController as? UINavigationController else {
             return
         }
-        let arkInstance = Ark(rootView: rootView)
-        arkInstance.start(blueprint: blueprint)
+        self.ark = Ark(rootView: rootView)
+        ark?.start(blueprint: blueprint)
     }
 }

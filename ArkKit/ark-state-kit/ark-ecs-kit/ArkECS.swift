@@ -1,13 +1,4 @@
-//
-//  ArkECS.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 11/3/24.
-//
-
 import Foundation
-
-typealias ECSSetupFunction = (_: ArkECSContext) -> Void
 
 class ArkECS {
     private let entityManager: EntityManager
@@ -20,14 +11,6 @@ class ArkECS {
 
     func update(deltaTime: TimeInterval) {
         systemManager.update(deltaTime: deltaTime, arkECS: self)
-    }
-
-    func addSystem(_ system: System) {
-        systemManager.add(system)
-    }
-
-    func setup(_ setupFunction: ECSSetupFunction) {
-        setupFunction(self)
     }
 }
 
@@ -62,5 +45,9 @@ extension ArkECS: ArkECSContext {
 
     func getComponents(from entity: Entity) -> [any Component] {
         entityManager.getComponents(from: entity)
+    }
+
+    func addSystem(_ system: System) {
+        systemManager.add(system)
     }
 }
