@@ -48,16 +48,12 @@ class ArkPhysicsSystem: System {
         for (entity, physics) in physicsComponents {
             handlePhysicsComponentRemovalIfNeeded(for: entity, using: physics, arkECS: arkECS)
             
-            if physics.toBeRemoved {
-                continue
-            }
+            guard !physics.toBeRemoved else {
+                continue }
             
-            let position = arkECS.getComponent(ofType: PositionComponent.self, for: entity)
-            let rotation = arkECS.getComponent(ofType: RotationComponent.self, for: entity)
-            
-            guard let positionComponent = position, let rotationComponent = rotation else {
-                continue
-            }
+            guard let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for: entity),
+                    let rotationComponent = arkECS.getComponent(ofType: RotationComponent.self, for: entity) else {
+                continue }
             
             syncPhysicsBody(for: entity, position: positionComponent, rotation: rotationComponent, physics: physics, arkECS: arkECS)
         }
