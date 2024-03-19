@@ -31,11 +31,10 @@ class Ark {
         // TODO: initialize animation system
         let animationSystem = ArkAnimationSystem()
         ecsManager.addSystem(animationSystem)
-        
-        
+
         // Initialize game with specified physics engine that conforms to `ark-physics-facade`
         let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: eventManager)
-        
+
         // Initializee game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  eventManager: eventManager,

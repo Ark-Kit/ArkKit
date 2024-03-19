@@ -55,6 +55,13 @@ extension SceneDelegate {
     func defineArkBlueprint() -> ArkBlueprint {
         // Define game with blueprint here.
         let arkBlueprint = ArkBlueprint()
+            .ecsSetup({ ecsContext in
+                _ = ecsContext.createEntity(with: [
+                    JoystickCanvasComponent(center: CGPoint(x: 300, y: 300), radius: 50,
+                                            areValuesEqual: { _, _ in true })
+                        .addPanChangeDelegate(delegate: { angle, mag in print(angle, mag) })
+                ])
+            })
         return arkBlueprint
     }
     func loadArkBlueprintToScene(_ blueprint: ArkBlueprint, window: UIWindow) {

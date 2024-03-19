@@ -43,7 +43,7 @@ extension ArkECS: ArkECSContext {
     func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
         entityManager.upsertComponent(component, to: entity)
     }
-    
+
     func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
         entityManager.removeComponent(ofType: componentType, from: entity)
     }

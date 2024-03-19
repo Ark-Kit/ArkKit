@@ -24,6 +24,7 @@ final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
             unwrappedOnTapDelegate()
         }
     }
+
     private func setUpTap() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.addGestureRecognizer(tap)

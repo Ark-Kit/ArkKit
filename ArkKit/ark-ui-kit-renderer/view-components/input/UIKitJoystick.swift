@@ -72,6 +72,7 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
             self.subviews.last?.center = CGPoint(x: radius, y: radius)
         }
     }
+
     private func setUpPan() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         self.addGestureRecognizer(pan)

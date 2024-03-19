@@ -15,7 +15,7 @@ class SKGameScene: AbstractArkGameScene {
         self.physicsBodyManager = SKPhysicsBodyManager()
         self.baseGameScene.gameScene = self
     }
-    
+
     func update(_ currentTime: TimeInterval) {
         baseGameScene.update(currentTime)
     }
@@ -41,7 +41,7 @@ class SKGameScene: AbstractArkGameScene {
         addBody(for: entity, bodyToAdd: newPhysicsBody)
         return newPhysicsBody
     }
-    
+
     func getPhysicsBody(for entity: Entity) -> (any AbstractArkPhysicsBody)? {
         physicsBodyManager.getBody(for: entity)
     }
@@ -60,7 +60,7 @@ class SKGameScene: AbstractArkGameScene {
     func apply(angularImpulse: CGFloat, to entity: Entity) {
         physicsBodyManager.applyAngularImpulse(angularImpulse, to: entity)
     }
-    
+
     func addBody(for entity: Entity, bodyToAdd: ArkSKPhysicsBody) {
         if physicsBodyManager.addBody(for: entity, body: bodyToAdd) {
             baseGameScene.addChild(bodyToAdd.node)

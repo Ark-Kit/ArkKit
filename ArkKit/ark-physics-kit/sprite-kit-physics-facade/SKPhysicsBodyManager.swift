@@ -3,7 +3,7 @@ import SpriteKit
 class SKPhysicsBodyManager {
     private(set) var entityToPhysicsBodyMap: [Entity: ArkSKPhysicsBody] = [:]
     private var nodeToEntityMap: [SKNode: Entity] = [:]
-    
+
     func addBody(for entity: Entity, body: ArkSKPhysicsBody) -> Bool {
         guard entityToPhysicsBodyMap[entity] == nil, nodeToEntityMap[body.node] == nil else {
             assertionFailure("Entity or Node already exists.")
@@ -23,11 +23,11 @@ class SKPhysicsBodyManager {
     }
 
     func getBody(for entity: Entity) -> ArkSKPhysicsBody? {
-        return entityToPhysicsBodyMap[entity]
+        entityToPhysicsBodyMap[entity]
     }
 
     func getEntity(for node: SKNode) -> Entity? {
-        return nodeToEntityMap[node]
+        nodeToEntityMap[node]
     }
 
     func applyImpulse(_ impulse: CGVector, to entity: Entity) {
