@@ -2,16 +2,16 @@ import UIKit
 
 class ArkGameCoordinator {
     let rootView: UINavigationController
-    let eventManager: ArkEventManager
-    let arkECS: ArkECS
-    init(rootView: UINavigationController, eventManager: ArkEventManager, arkECS: ArkECS) {
+    let arkState: ArkState
+
+    init(rootView: UINavigationController, arkState: ArkState) {
         self.rootView = rootView
-        self.eventManager = eventManager
-        self.arkECS = arkECS
+        self.arkState = arkState
     }
+
     func start() {
         // initiate key M, V, VM
-        let arkGameModel = ArkGameModel(eventManager: eventManager, arkECS: arkECS)
+        let arkGameModel = ArkGameModel(gameState: arkState)
         let arkViewController = ArkViewController()
         let arkViewModel = ArkViewModel(gameModel: arkGameModel)
 

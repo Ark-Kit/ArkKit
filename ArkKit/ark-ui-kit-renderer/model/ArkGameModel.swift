@@ -1,9 +1,9 @@
 class ArkGameModel {
     var gameState: ArkState?
     var canvasContext: CanvasContext?
-    init(eventManager: ArkEventManager, arkECS: ArkECS) {
-        gameState = ArkState(eventManager: eventManager, arkECS: arkECS)
-        canvasContext = ArkCanvasContext(ecs: arkECS)
+    init(gameState: ArkState) {
+        self.gameState = gameState
+        canvasContext = ArkCanvasContext(ecs: gameState.arkECS)
     }
     func updateState(dt: Double) {
         gameState?.update(deltaTime: dt)

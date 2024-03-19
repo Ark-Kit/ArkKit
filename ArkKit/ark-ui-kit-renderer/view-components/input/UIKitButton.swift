@@ -7,6 +7,8 @@ final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
         let frame = CGRect(x: center.x - width / 2, y: center.y - height / 2,
                            width: width, height: height)
         super.init(frame: frame)
+        // TODO: enable styling of button from abstractButton
+        self.backgroundColor = .brown
         setUpTap()
     }
 
