@@ -14,6 +14,11 @@ final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
         super.init(coder: coder)
     }
 
+    func modify(onTapDelegate: TapDelegate?) -> Self {
+        self.onTapDelegate = onTapDelegate
+        return self
+    }
+
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         if let unwrappedOnTapDelegate = onTapDelegate {
             unwrappedOnTapDelegate()

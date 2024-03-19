@@ -34,6 +34,17 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         super.init(coder: coder)
     }
 
+    func modify(
+        onPanStartDelegate: PanDelegate?,
+        onPanChangeDelegate: PanDelegate?,
+        onPanEndDelegate: PanDelegate?
+    ) -> Self {
+        self.onPanStartDelegate = onPanStartDelegate
+        self.onPanChangeDelegate = onPanChangeDelegate
+        self.onPanEndDelegate = onPanEndDelegate
+        return self
+    }
+
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
             return
