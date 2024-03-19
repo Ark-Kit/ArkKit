@@ -14,16 +14,28 @@ final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
         super.init(coder: coder)
     }
 
+    func modify(onTapDelegate: TapDelegate?) -> Self {
+        self.onTapDelegate = onTapDelegate
+        return self
+    }
+
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         if let unwrappedOnTapDelegate = onTapDelegate {
             unwrappedOnTapDelegate()
         }
     }
+
     private func setUpTap() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.addGestureRecognizer(tap)
     }
-    // TODO: implement button styling as required below
-    // currently we inherit `UIButton` so all default styling of `UIButton` is automatically
-    // exposed from `UIKitButton`
+}
+
+extension UIKitButton {
+    func applyModifiers(modifierInfo: ButtonCanvasComponent) -> Self {
+        self
+            .if(modifierInfo.onTapDelegate != nil, transform: { view in
+                view.addOnTapDelegate(delegate: modifierInfo.onTapDelegate ?? {})
+            })
+    }
 }

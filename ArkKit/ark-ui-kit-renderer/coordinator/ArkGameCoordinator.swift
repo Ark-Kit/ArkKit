@@ -16,6 +16,7 @@ class ArkGameCoordinator {
         let arkViewModel = ArkViewModel(gameModel: arkGameModel)
 
         // inject dependencies between M, V, VM
+        arkViewController.viewModel = arkViewModel
         arkViewModel.viewRendererDelegate = arkViewController
 
         // push view-controller to rootView

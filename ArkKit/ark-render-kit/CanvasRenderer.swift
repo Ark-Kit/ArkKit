@@ -6,21 +6,20 @@
  * Devs can also **extend** the `CanvasRenderer` if they have custom canvas elements to render.
  */
 protocol CanvasRenderer {
-    func render(_ circle: CircleCanvasComponent)
-    /**
-     * An example implementation for GameRenderer:
-     * ```
-     *  func visit(_ gameObject: CircularGameObject) {
-     *      let circle = CircleUi(radius: gameObject.radius,
-     *                            center: CGPoint(gameObject.center))
-     *      circle.render(into: superview)
-     *
-     *  }
-     * ```
-     */
-    func render(_ rect: RectCanvasComponent)
-    func render(_ polygon: PolygonCanvasComponent)
-    func render(_ image: BitmapImageCanvasComponent)
-    func render(_ button: ButtonCanvasComponent)
-    func render(_ joystick: JoystickCanvasComponent)
+    associatedtype ConcreteColor
+    var colorMapping: [AbstractColor: ConcreteColor] { get }
+    var defaultColor: ConcreteColor { get }
+
+    func render(_ circle: CircleCanvasComponent) -> any Renderable
+    func render(_ rect: RectCanvasComponent) -> any Renderable
+    func render(_ polygon: PolygonCanvasComponent) -> any Renderable
+    func render(_ image: BitmapImageCanvasComponent) -> any Renderable
+    func render(_ button: ButtonCanvasComponent) -> any Renderable
+    func render(_ joystick: JoystickCanvasComponent) -> any Renderable
+}
+
+extension CanvasRenderer {
+    func getColor(_ abstractColor: AbstractColor?) -> ConcreteColor {
+        colorMapping[abstractColor ?? .default] ?? defaultColor
+    }
 }

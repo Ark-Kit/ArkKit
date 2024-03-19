@@ -2,10 +2,10 @@ class ArkViewModel {
     weak var viewRendererDelegate: GameStateRenderer?
     var canvas: Canvas? {
         didSet {
-            guard let currentCanvas = canvas else {
+            guard let currentCanvas = canvas, let canvasContext = gameModel.canvasContext else {
                 return
             }
-            viewRendererDelegate?.render(canvas: currentCanvas)
+            viewRendererDelegate?.render(canvas: currentCanvas, with: canvasContext)
         }
     }
     private let gameModel: ArkGameModel

@@ -26,12 +26,16 @@
 		02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */; };
 		02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3950E2BA611B80075F1CA /* ArkEventContext.swift */; };
 		02C395152BA83FAE0075F1CA /* CanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395142BA83FAE0075F1CA /* CanvasComponent.swift */; };
-		02C395182BA83FC40075F1CA /* ButtonRenderableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395172BA83FC40075F1CA /* ButtonRenderableComponent.swift */; };
+		02C395182BA83FC40075F1CA /* ButtonCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395172BA83FC40075F1CA /* ButtonCanvasComponent.swift */; };
 		02C3951C2BA8492B0075F1CA /* BitmapImageCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3951B2BA8492B0075F1CA /* BitmapImageCanvasComponent.swift */; };
 		02C3951E2BA849490075F1CA /* CircleCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3951D2BA849490075F1CA /* CircleCanvasComponent.swift */; };
 		02C395202BA8495B0075F1CA /* RectCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3951F2BA8495B0075F1CA /* RectCanvasComponent.swift */; };
 		02C395222BA849700075F1CA /* PolygonCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395212BA849700075F1CA /* PolygonCanvasComponent.swift */; };
 		02C395242BA849B40075F1CA /* JoystickCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395232BA849B40075F1CA /* JoystickCanvasComponent.swift */; };
+		02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395252BA890470075F1CA /* ArkCanvasSystem.swift */; };
+		02C395282BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395272BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift */; };
+		02C3952A2BA8952F0075F1CA /* CanvasContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395292BA8952F0075F1CA /* CanvasContext.swift */; };
+		02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3952B2BA897890075F1CA /* ArkCanvas.swift */; };
 		02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */; };
 		02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */; };
 		02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */; };
@@ -59,6 +63,12 @@
 		8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */; };
 		8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
+		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
+		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
+		9479A3AC2BA951F300F99013 /* AbstractBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AB2BA951F300F99013 /* AbstractBitmap.swift */; };
+		9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AE2BA952E300F99013 /* AbstractShape.swift */; };
+		9479A3B12BA953D800F99013 /* ShapeCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */; };
+		9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B32BA95E7E00F99013 /* AbstractColor.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
 		AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03672BA1A61200974EBF /* ArkEventManager.swift */; };
@@ -120,12 +130,16 @@
 		02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkBlueprint.swift; sourceTree = "<group>"; };
 		02C3950E2BA611B80075F1CA /* ArkEventContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventContext.swift; sourceTree = "<group>"; };
 		02C395142BA83FAE0075F1CA /* CanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasComponent.swift; sourceTree = "<group>"; };
-		02C395172BA83FC40075F1CA /* ButtonRenderableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRenderableComponent.swift; sourceTree = "<group>"; };
+		02C395172BA83FC40075F1CA /* ButtonCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCanvasComponent.swift; sourceTree = "<group>"; };
 		02C3951B2BA8492B0075F1CA /* BitmapImageCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapImageCanvasComponent.swift; sourceTree = "<group>"; };
 		02C3951D2BA849490075F1CA /* CircleCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCanvasComponent.swift; sourceTree = "<group>"; };
 		02C3951F2BA8495B0075F1CA /* RectCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectCanvasComponent.swift; sourceTree = "<group>"; };
 		02C395212BA849700075F1CA /* PolygonCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonCanvasComponent.swift; sourceTree = "<group>"; };
 		02C395232BA849B40075F1CA /* JoystickCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickCanvasComponent.swift; sourceTree = "<group>"; };
+		02C395252BA890470075F1CA /* ArkCanvasSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCanvasSystem.swift; sourceTree = "<group>"; };
+		02C395272BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUIKitCanvasRenderer.swift; sourceTree = "<group>"; };
+		02C395292BA8952F0075F1CA /* CanvasContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContext.swift; sourceTree = "<group>"; };
+		02C3952B2BA897890075F1CA /* ArkCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCanvas.swift; sourceTree = "<group>"; };
 		02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShape.swift; sourceTree = "<group>"; };
 		02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRenderable.swift; sourceTree = "<group>"; };
 		02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCircle.swift; sourceTree = "<group>"; };
@@ -153,6 +167,12 @@
 		8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationSystem.swift; sourceTree = "<group>"; };
 		8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationInstance.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
+		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
+		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
+		9479A3AB2BA951F300F99013 /* AbstractBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractBitmap.swift; sourceTree = "<group>"; };
+		9479A3AE2BA952E300F99013 /* AbstractShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractShape.swift; sourceTree = "<group>"; };
+		9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCanvasComponent.swift; sourceTree = "<group>"; };
+		9479A3B32BA95E7E00F99013 /* AbstractColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractColor.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
 		AD6E03672BA1A61200974EBF /* ArkEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventManager.swift; sourceTree = "<group>"; };
@@ -209,11 +229,15 @@
 		02C394DA2BA401F00075F1CA /* ark-render-kit */ = {
 			isa = PBXGroup;
 			children = (
+				945F7F8A2BA8850200933629 /* abstract */,
 				02C395132BA83F990075F1CA /* canvas-components */,
 				8F5573BD2BA4258F007030C8 /* renderable */,
 				02C394DB2BA402060075F1CA /* GameStateRenderer.swift */,
 				02C394DF2BA405C10075F1CA /* Canvas.swift */,
 				02C394DD2BA4053E0075F1CA /* CanvasRenderer.swift */,
+				02C395252BA890470075F1CA /* ArkCanvasSystem.swift */,
+				02C395292BA8952F0075F1CA /* CanvasContext.swift */,
+				02C3952B2BA897890075F1CA /* ArkCanvas.swift */,
 			);
 			path = "ark-render-kit";
 			sourceTree = "<group>";
@@ -238,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				02C394EB2BA41DF00075F1CA /* ArkViewController.swift */,
+				02C395272BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -314,7 +339,7 @@
 		02C395162BA83FB70075F1CA /* input */ = {
 			isa = PBXGroup;
 			children = (
-				02C395172BA83FC40075F1CA /* ButtonRenderableComponent.swift */,
+				02C395172BA83FC40075F1CA /* ButtonCanvasComponent.swift */,
 				02C395232BA849B40075F1CA /* JoystickCanvasComponent.swift */,
 			);
 			path = input;
@@ -331,6 +356,7 @@
 		02C3951A2BA849100075F1CA /* shapes */ = {
 			isa = PBXGroup;
 			children = (
+				9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */,
 				02C3951D2BA849490075F1CA /* CircleCanvasComponent.swift */,
 				02C3951F2BA8495B0075F1CA /* RectCanvasComponent.swift */,
 				02C395212BA849700075F1CA /* PolygonCanvasComponent.swift */,
@@ -392,13 +418,6 @@
 			path = "ark-physics-kit";
 			sourceTree = "<group>";
 		};
-		280CD3BA2BA73C2B00372C5D /* constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = constants;
-			sourceTree = "<group>";
-		};
 		280CD3C92BA7454A00372C5D /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,9 +460,9 @@
 		8F5573BD2BA4258F007030C8 /* renderable */ = {
 			isa = PBXGroup;
 			children = (
-				945F7F7F2BA55E4E00933629 /* input */,
-				945F7F802BA55E6100933629 /* bitmap */,
 				945F7F812BA55E6D00933629 /* shapes */,
+				945F7F802BA55E6100933629 /* bitmap */,
+				945F7F7F2BA55E4E00933629 /* input */,
 				8F5573C02BA42614007030C8 /* Renderable.swift */,
 			);
 			path = renderable;
@@ -482,6 +501,50 @@
 				8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */,
 			);
 			path = shapes;
+			sourceTree = "<group>";
+		};
+		945F7F8A2BA8850200933629 /* abstract */ = {
+			isa = PBXGroup;
+			children = (
+				945F7F8D2BA8852400933629 /* input */,
+				9479A3AA2BA951E600F99013 /* bitmap */,
+				9479A3AD2BA952D700F99013 /* shapes */,
+				9479A3B22BA95E7100F99013 /* color */,
+			);
+			path = abstract;
+			sourceTree = "<group>";
+		};
+		945F7F8D2BA8852400933629 /* input */ = {
+			isa = PBXGroup;
+			children = (
+				945F7F922BA8861300933629 /* AbstractTappable.swift */,
+				945F7F9A2BA8912200933629 /* AbstractPannable.swift */,
+			);
+			path = input;
+			sourceTree = "<group>";
+		};
+		9479A3AA2BA951E600F99013 /* bitmap */ = {
+			isa = PBXGroup;
+			children = (
+				9479A3AB2BA951F300F99013 /* AbstractBitmap.swift */,
+			);
+			path = bitmap;
+			sourceTree = "<group>";
+		};
+		9479A3AD2BA952D700F99013 /* shapes */ = {
+			isa = PBXGroup;
+			children = (
+				9479A3AE2BA952E300F99013 /* AbstractShape.swift */,
+			);
+			path = shapes;
+			sourceTree = "<group>";
+		};
+		9479A3B22BA95E7100F99013 /* color */ = {
+			isa = PBXGroup;
+			children = (
+				9479A3B32BA95E7E00F99013 /* AbstractColor.swift */,
+			);
+			path = color;
 			sourceTree = "<group>";
 		};
 		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
@@ -552,8 +615,6 @@
 		AD787A4F2B9C636F003EBBD0 /* ArkKit */ = {
 			isa = PBXGroup;
 			children = (
-				280CD3C92BA7454A00372C5D /* extensions */,
-				280CD3BA2BA73C2B00372C5D /* constants */,
 				02C394E22BA407420075F1CA /* Ark.swift */,
 				02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */,
 				280CD3B52BA738EC00372C5D /* ark-physics-kit */,
@@ -563,6 +624,7 @@
 				02E0E8DE2B9F57170043E2BA /* ark-ui-kit-renderer */,
 				AD6E03662BA1A5EA00974EBF /* ark-event-kit */,
 				AD787A802B9C6BCE003EBBD0 /* ark-state-kit */,
+				280CD3C92BA7454A00372C5D /* extensions */,
 			);
 			path = ArkKit;
 			sourceTree = "<group>";
@@ -741,17 +803,20 @@
 				280CD3CE2BA74E4300372C5D /* BaseSKGameScene.swift in Sources */,
 				280CD3C42BA7419400372C5D /* ArkSceneUpdateDelegate.swift in Sources */,
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
+				945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */,
 				02C394F72BA4428A0075F1CA /* UIKitJoystick.swift in Sources */,
 				280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */,
 				02C395242BA849B40075F1CA /* JoystickCanvasComponent.swift in Sources */,
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				02C395062BA5E2E00075F1CA /* Once.swift in Sources */,
+				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
 				8F5573C12BA42614007030C8 /* Renderable.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleCanvasComponent.swift in Sources */,
+				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,
 				02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */,
 				02C394E92BA41B480075F1CA /* ArkViewModel.swift in Sources */,
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
@@ -774,12 +839,13 @@
 				AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
 				02C3951C2BA8492B0075F1CA /* BitmapImageCanvasComponent.swift in Sources */,
-				02C395182BA83FC40075F1CA /* ButtonRenderableComponent.swift in Sources */,
+				02C395182BA83FC40075F1CA /* ButtonCanvasComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
 				02C395152BA83FAE0075F1CA /* CanvasComponent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
+				02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,
 				280CD3CB2BA7455A00372C5D /* CGVector+Extension.swift in Sources */,
@@ -788,16 +854,20 @@
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
 				8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */,
 				02C395032BA5B95B0075F1CA /* Rule.swift in Sources */,
+				02C3952A2BA8952F0075F1CA /* CanvasContext.swift in Sources */,
 				945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */,
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
 				8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */,
 				02C394DE2BA4053E0075F1CA /* CanvasRenderer.swift in Sources */,
 				AD6E036F2BA21A5B00974EBF /* Queue.swift in Sources */,
+				9479A3AC2BA951F300F99013 /* AbstractBitmap.swift in Sources */,
+				945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */,
 				AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */,
 				02C394FB2BA444360075F1CA /* PanRenderable.swift in Sources */,
 				AD787A862B9C6C91003EBBD0 /* System.swift in Sources */,
 				8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */,
 				02C395222BA849700075F1CA /* PolygonCanvasComponent.swift in Sources */,
+				9479A3B12BA953D800F99013 /* ShapeCanvasComponent.swift in Sources */,
 				02C395012BA5A2BE0075F1CA /* Action.swift in Sources */,
 				02C394E02BA405C10075F1CA /* Canvas.swift in Sources */,
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
@@ -805,6 +875,11 @@
 				280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */,
 				280CD3D62BA7F8CC00372C5D /* SKGameScene.swift in Sources */,
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
+				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
+				02C395202BA8495B0075F1CA /* RectCanvasComponent.swift in Sources */,
+				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
+				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
+				02C395282BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift in Sources */,
 				280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectCanvasComponent.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
