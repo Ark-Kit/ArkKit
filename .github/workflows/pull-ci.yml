@@ -8,29 +8,19 @@ on:
     branches: ["main"]
 
 jobs:
-  # Taken from:
-  # https://hoppsen.com/posts/unlock-the-secrets-of-swift-linting-with-swiftlint-and-swiftformat-on-github-actions/
   SwiftLint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - name: Build realm/SwiftLint
-        run: |
-          if [ -f ".build/release/swiftlint" ]; then
-            sudo cp -f .build/release/swiftlint /usr/local/bin/swiftlint
-          else
-            git clone --depth 1 https://github.com/realm/SwiftLint
-            cd SwiftLint
-            swift build --disable-sandbox -c release
-            mv .build .. && cd ..
-            rm -rf SwiftLint
-            sudo cp -f .build/release/swiftlint /usr/local/bin/swiftlint
-          fi
+      - name: Checkout
+        uses: actions/checkout@v2
+        # https://github.com/realm/SwiftLint
+        # https://github.com/norio-nomura/action-swiftlint
       - name: SwiftLint
-        run: |
-          swiftlint --version
-          swiftlint lint --config .swiftlint.yml --strict  --quiet
+        uses: norio-nomura/action-swiftlint@3.2.1
         env:
-          LINUX_SOURCEKIT_LIB_PATH: /usr/share/swift/usr/lib
+          DIFF_BASE: ${{ github.base_ref }}
+        with:
+          args: --config .swiftlint.yml --strict
   Build:
     runs-on: macos-latest
     # https://github.com/slashmo/install-swift install specified swift version
