@@ -11,10 +11,6 @@ jobs:
   SwiftLint:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/cache@v2
-        with:
-          path: .build/release/swiftlint
-          key: $-linting-swiftlint-$
       - name: Build realm/SwiftLint
         run: |
           if [ -f ".build/release/swiftlint" ]; then
@@ -30,6 +26,6 @@ jobs:
       - name: SwiftLint
         run: |
           swiftlint --version
-          swiftlint lint --strict --config .swiftlint.yml --quiet
+          swiftlint lint --config .swiftlint.yml --strict  --quiet
         env:
           LINUX_SOURCEKIT_LIB_PATH: /usr/share/swift/usr/lib
