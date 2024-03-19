@@ -36,6 +36,7 @@
 		02C395282BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395272BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift */; };
 		02C3952A2BA8952F0075F1CA /* CanvasContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395292BA8952F0075F1CA /* CanvasContext.swift */; };
 		02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3952B2BA897890075F1CA /* ArkCanvas.swift */; };
+		02C395322BA9ED230075F1CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 02C395312BA9ED230075F1CA /* README.md */; };
 		02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */; };
 		02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */; };
 		02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */; };
@@ -140,6 +141,7 @@
 		02C395272BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUIKitCanvasRenderer.swift; sourceTree = "<group>"; };
 		02C395292BA8952F0075F1CA /* CanvasContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContext.swift; sourceTree = "<group>"; };
 		02C3952B2BA897890075F1CA /* ArkCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCanvas.swift; sourceTree = "<group>"; };
+		02C395312BA9ED230075F1CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShape.swift; sourceTree = "<group>"; };
 		02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRenderable.swift; sourceTree = "<group>"; };
 		02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCircle.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 		AD787A442B9C636F003EBBD0 = {
 			isa = PBXGroup;
 			children = (
+				02C395312BA9ED230075F1CA /* README.md */,
 				02C395102BA6EBBA0075F1CA /* ArkGameExample */,
 				AD787A4F2B9C636F003EBBD0 /* ArkKit */,
 				AD787A662B9C6373003EBBD0 /* ArkKitTests */,
@@ -755,6 +758,7 @@
 			files = (
 				AD787A5D2B9C6373003EBBD0 /* LaunchScreen.storyboard in Resources */,
 				AD787A5A2B9C6373003EBBD0 /* Assets.xcassets in Resources */,
+				02C395322BA9ED230075F1CA /* README.md in Resources */,
 				AD787A582B9C636F003EBBD0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
