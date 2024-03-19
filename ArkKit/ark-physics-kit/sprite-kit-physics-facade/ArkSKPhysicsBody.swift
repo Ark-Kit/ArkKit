@@ -4,20 +4,20 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
     private(set) var node: SKNode
     private let nodeNoPhysicsBodyFailureMessage = "SKNode does not contain an associated SKPhysicsBody."
 
-    public init(rectangleOf size: CGSize, at position: CGPoint = .zero) {
+    init(rectangleOf size: CGSize, at position: CGPoint = .zero) {
         let physicsBody = SKPhysicsBody(rectangleOf: size, center: position)
         node = SKNode()
         node.position = position
         node.physicsBody = physicsBody
     }
 
-    public init(circleOf radius: CGFloat, at position: CGPoint = .zero) {
+    init(circleOf radius: CGFloat, at position: CGPoint = .zero) {
         let physicsBody = SKPhysicsBody(circleOfRadius: radius, center: position)
         node = SKNode()
         node.position = position
         node.physicsBody = physicsBody
     }
-    
+
     private func withPhysicsBody<T>(_ action: (SKPhysicsBody) -> T, default defaultValue: T) -> T {
         guard let physicsBody = node.physicsBody else {
             assertionFailure(nodeNoPhysicsBodyFailureMessage)
@@ -25,7 +25,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
         return action(physicsBody)
     }
-    
+
     var position: CGPoint {
         get { node.position }
         set { node.position = newValue }
@@ -35,8 +35,8 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         get { node.zRotation }
         set { node.zRotation = newValue }
     }
-    
-    public var mass: CGFloat {
+
+    var mass: CGFloat {
         get {
             withPhysicsBody({ $0.mass }, default: DefaultSKPhysicsBodyValues.mass)
         }
@@ -45,7 +45,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
     }
 
-    public var velocity: CGVector {
+    var velocity: CGVector {
         get {
             withPhysicsBody({ $0.velocity }, default: DefaultSKPhysicsBodyValues.velocity)
         }
@@ -53,8 +53,8 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
             withPhysicsBody({ $0.velocity = newValue }, default: ())
         }
     }
-    
-    public var isDynamic: Bool {
+
+    var isDynamic: Bool {
         get {
             withPhysicsBody({ $0.isDynamic }, default: DefaultSKPhysicsBodyValues.isDynamic)
         }
@@ -62,8 +62,8 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
             withPhysicsBody({ $0.isDynamic = newValue }, default: ())
         }
     }
-    
-    public var affectedByGravity: Bool {
+
+    var affectedByGravity: Bool {
         get {
             withPhysicsBody({ $0.affectedByGravity }, default: DefaultSKPhysicsBodyValues.affectedByGravity)
         }
@@ -72,7 +72,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
     }
 
-    public var linearDamping: CGFloat {
+    var linearDamping: CGFloat {
         get {
             withPhysicsBody({ $0.linearDamping }, default: DefaultSKPhysicsBodyValues.linearDamping)
         }
@@ -81,7 +81,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
     }
 
-    public var allowsRotation: Bool {
+    var allowsRotation: Bool {
         get {
             withPhysicsBody({ $0.allowsRotation }, default: DefaultSKPhysicsBodyValues.allowsRotation)
         }
@@ -89,8 +89,8 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
             withPhysicsBody({ $0.allowsRotation = newValue }, default: ())
         }
     }
-    
-    public var friction: CGFloat {
+
+    var friction: CGFloat {
         get {
             withPhysicsBody({ $0.friction }, default: DefaultSKPhysicsBodyValues.friction)
         }
@@ -99,7 +99,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
     }
 
-    public var restitution: CGFloat {
+    var restitution: CGFloat {
         get {
             withPhysicsBody({ $0.restitution }, default: DefaultSKPhysicsBodyValues.restitution)
         }
@@ -108,7 +108,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
     }
 
-    public var categoryBitMask: UInt32 {
+    var categoryBitMask: UInt32 {
         get {
             withPhysicsBody({ $0.categoryBitMask }, default: DefaultSKPhysicsBodyValues.categoryBitMask)
         }
@@ -117,7 +117,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
     }
 
-    public var collisionBitMask: UInt32 {
+    var collisionBitMask: UInt32 {
         get {
             withPhysicsBody({ $0.collisionBitMask }, default: DefaultSKPhysicsBodyValues.collisionBitMask)
         }
@@ -126,7 +126,7 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
     }
 
-    public var contactTestBitMask: UInt32 {
+    var contactTestBitMask: UInt32 {
         get {
             withPhysicsBody({ $0.contactTestBitMask }, default: DefaultSKPhysicsBodyValues.contactTestBitMask)
         }
@@ -146,9 +146,9 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
 
 extension ArkSKPhysicsBody: Hashable {
     static func == (lhs: ArkSKPhysicsBody, rhs: ArkSKPhysicsBody) -> Bool {
-        return lhs.node == rhs.node
+        lhs.node == rhs.node
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(node)
     }

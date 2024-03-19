@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias ECSSetupFunction = (_: ArkECSContext) -> Void
+
 class ArkECS {
     private let entityManager: EntityManager
     private let systemManager: SystemManager
@@ -23,6 +25,10 @@ class ArkECS {
     func addSystem(_ system: System) {
         systemManager.add(system)
     }
+
+    func setup(_ setupFunction: ECSSetupFunction) {
+        setupFunction(self)
+    }
 }
 
 extension ArkECS: ArkECSContext {
@@ -37,7 +43,7 @@ extension ArkECS: ArkECSContext {
     func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
         entityManager.upsertComponent(component, to: entity)
     }
-    
+
     func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
         entityManager.removeComponent(ofType: componentType, from: entity)
     }

@@ -2,10 +2,12 @@
 /// Defines the categories the physics body belongs to. It's used to identify the body during collision and contact tests.
 
 /// CollisionBitMask
-/// Specifies the categories of bodies that this body should collide with. When two bodies collide, their physical interaction (e.g., bouncing off each other) is determined by their collisionBitMasks.
+/// Specifies the categories of bodies that this body should collide with. 
+/// When two bodies collide, their physical interaction (e.g., bouncing off each other) is determined by their collisionBitMasks.
 
 /// ContactTestBitMask
-/// Determines which collisions will notify the delegate. When two bodies collide, if their category bit masks match the contactTestBitMask of the other body, 
+/// Determines which collisions will notify the delegate. 
+/// When two bodies collide, if their category bit masks match the contactTestBitMask of the other body, 
 /// the didBegin(_:) or didEnd(_:) methods of the SKPhysicsContactDelegate are called, allowing you to respond to the event in code.
 
 // This was generated using GPT to show how to use the bitmasking
@@ -44,4 +46,3 @@ let demoCoinPhysicsComponent = PhysicsComponent(shape: demoDummyShape,
                                             categoryBitMask: DemoPhysicsCategory.coin,
                                             collisionBitMask: DemoPhysicsCategory.coin, // Collides with other coins
                                             contactTestBitMask: DemoPhysicsCategory.none) // No need for contact emission
-

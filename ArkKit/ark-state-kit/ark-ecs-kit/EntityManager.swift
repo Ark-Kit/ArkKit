@@ -28,7 +28,7 @@ class EntityManager {
         let typeID = ObjectIdentifier(T.self)
         componentsByType[typeID, default: [:]][entity] = component
     }
-    
+
     func removeComponent<T: Component>(ofType type: T.Type, from entity: Entity) {
         let typeID = ObjectIdentifier(type)
         componentsByType[typeID]?.removeValue(forKey: entity)

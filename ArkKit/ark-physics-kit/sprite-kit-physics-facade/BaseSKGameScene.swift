@@ -8,7 +8,7 @@ class BaseSKGameScene: SKScene {
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.81)
         physicsWorld.contactDelegate = self
     }
-    
+
     override func didFinishUpdate() {
     }
 }

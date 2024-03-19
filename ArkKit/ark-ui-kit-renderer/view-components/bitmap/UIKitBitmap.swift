@@ -1,26 +1,31 @@
 import UIKit
 
-protocol UIKitBitmap: BitmapRenderable, UIKitRenderable {
-    // TODO: add methods if needed
-    // e.g. constraints
-    func clipToBounds()
-    func scaleAspectFit()
-    func scaleToFill()
-    func scaleAspectFill()
-}
+protocol UIKitBitmap: BitmapRenderable, UIKitRenderable {}
 
 extension UIKitBitmap {
-    func clipToBounds() {
+    func applyModifiers(modifierInfo: BitmapImageCanvasComponent) -> Self {
+        self
+            .if(modifierInfo.isClipToBounds, transform: { view in view.clipToBounds() })
+            .if(modifierInfo.isScaleAspectFill, transform: { view in view.scaleAspectFill() })
+            .if(modifierInfo.isScaleAspectFit, transform: { view in view.scaleAspectFit() })
+            .if(modifierInfo.isScaleToFill, transform: { view in view.scaleToFill() })
+    }
+
+    func clipToBounds() -> Self {
         self.clipsToBounds = true
+        return self
     }
-    func scaleAspectFit() {
+    func scaleAspectFit() -> Self {
         self.contentMode = .scaleAspectFit
+        return self
     }
-    func scaleToFill() {
+    func scaleToFill() -> Self {
         self.contentMode = .scaleToFill
+        return self
     }
-    func scaleAspectFill() {
+    func scaleAspectFill() -> Self {
         self.contentMode = .scaleAspectFill
+        return self
     }
 }
 

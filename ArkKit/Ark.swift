@@ -25,8 +25,26 @@ class Ark {
     }
 
     func start(blueprint: ArkBlueprint) {
+        setup(blueprint.rules)
+        setup(blueprint.ecsSetupFunctions)
+
+        // TODO: initialize animation system
+        let animationSystem = ArkAnimationSystem()
+        ecsManager.addSystem(animationSystem)
+
+        // Initialize game with specified physics engine that conforms to `ark-physics-facade`
+        let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: eventManager)
+
+        // Initializee game with rootView, and eventManager
+        let gameCoordinator = ArkGameCoordinator(rootView: rootView,
+                                                 eventManager: eventManager,
+                                                 arkECS: ecsManager)
+        gameCoordinator.start()
+    }
+
+    private func setup(_ rules: [Rule]) {
         // subscribe all rules to the eventManager
-        for rule in blueprint.rules {
+        for rule in rules {
             eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
                 guard let arkInstance = self else {
                     return
@@ -36,19 +54,11 @@ class Ark {
                                     ecsContext: arkInstance.ecsManager)
             }
         }
+    }
 
-        // TODO: initialize animation system
-        let animationSystem = ArkAnimationSystem()
-        ecsManager.addSystem(animationSystem)
-        
-        
-        // Initialize game with specified physics engine that conforms to `ark-physics-facade`
-        let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: eventManager)
-        
-        // Initializee game with rootView, and eventManager
-        let gameCoordinator = ArkGameCoordinator(rootView: rootView,
-                                                 eventManager: eventManager,
-                                                 arkECS: ecsManager)
-        gameCoordinator.start()
+    private func setup(_ ecsSetupFunctions: [ECSSetupFunction]) {
+        for ecsSetupFunction in ecsSetupFunctions {
+            ecsManager.setup(ecsSetupFunction)
+        }
     }
 }

@@ -6,5 +6,5 @@
  * like `SwiftUI`.
  */
 protocol GameStateRenderer: AnyObject {
-    func render(canvas: Canvas)
+    func render(canvas: Canvas, with canvasContext: CanvasContext)
 }

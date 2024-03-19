@@ -34,6 +34,17 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         super.init(coder: coder)
     }
 
+    func modify(
+        onPanStartDelegate: PanDelegate?,
+        onPanChangeDelegate: PanDelegate?,
+        onPanEndDelegate: PanDelegate?
+    ) -> Self {
+        self.onPanStartDelegate = onPanStartDelegate
+        self.onPanChangeDelegate = onPanChangeDelegate
+        self.onPanEndDelegate = onPanEndDelegate
+        return self
+    }
+
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
             return
@@ -61,6 +72,7 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
             self.subviews.last?.center = CGPoint(x: radius, y: radius)
         }
     }
+
     private func setUpPan() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         self.addGestureRecognizer(pan)
@@ -71,5 +83,22 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
             angle += 2 * .pi
         }
         return angle
+    }
+}
+
+extension UIKitJoystick {
+    func applyModifiers(modifierInfo: JoystickCanvasComponent) -> Self {
+        let defaultPanHandler = { (_: Double, _: Double) in }
+
+        return self
+            .if(modifierInfo.onPanStartDelegate != nil, transform: { view in
+                view.addPanStartDelegate(delegate: modifierInfo.onPanStartDelegate ?? defaultPanHandler)
+            })
+            .if(modifierInfo.onPanChangeDelegate != nil, transform: { view in
+                view.addPanChangeDelegate(delegate: modifierInfo.onPanChangeDelegate ?? defaultPanHandler)
+            })
+            .if(modifierInfo.onPanEndDelegate != nil, transform: { view in
+                view.addPanEndDelegate(delegate: modifierInfo.onPanEndDelegate ?? defaultPanHandler)
+            })
     }
 }
