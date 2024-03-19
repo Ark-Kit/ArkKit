@@ -9,6 +9,7 @@ class ArkViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         self.setUpGameLoop()
     }
     @objc func handleGameProgress() {
@@ -26,12 +27,8 @@ class ArkViewController: UIViewController {
 }
 
 extension ArkViewController: GameStateRenderer {
-    func render(canvas: Canvas) {
-        // TODO: (next sprint) implement optimised version with some memoization
-        self.view.subviews.forEach { subview in
-            subview.removeFromSuperview()
-        }
+    func render(canvas: Canvas, with canvasContext: CanvasContext) {
         let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view)
-        canvas.render(using: canvasRenderer)
+        canvas.render(using: canvasRenderer, to: canvasContext)
     }
 }

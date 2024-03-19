@@ -10,12 +10,12 @@ protocol CanvasRenderer {
     var colorMapping: [AbstractColor: ConcreteColor] { get }
     var defaultColor: ConcreteColor { get }
 
-    func render(_ circle: CircleCanvasComponent)
-    func render(_ rect: RectCanvasComponent)
-    func render(_ polygon: PolygonCanvasComponent)
-    func render(_ image: BitmapImageCanvasComponent)
-    func render(_ button: ButtonCanvasComponent)
-    func render(_ joystick: JoystickCanvasComponent)
+    func render(_ circle: CircleCanvasComponent) -> any Renderable
+    func render(_ rect: RectCanvasComponent) -> any Renderable
+    func render(_ polygon: PolygonCanvasComponent) -> any Renderable
+    func render(_ image: BitmapImageCanvasComponent) -> any Renderable
+    func render(_ button: ButtonCanvasComponent) -> any Renderable
+    func render(_ joystick: JoystickCanvasComponent) -> any Renderable
 }
 
 extension CanvasRenderer {

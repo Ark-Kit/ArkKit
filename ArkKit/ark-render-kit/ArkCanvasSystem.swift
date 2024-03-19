@@ -2,7 +2,7 @@ import Foundation
 
 class ArkCanvasSystem: System {
     var active: Bool
-    static let canvasComponentTypes: [CanvasComponent.Type] = [
+    static let canvasComponentTypes: [any CanvasComponent.Type] = [
         ButtonCanvasComponent.self,
         JoystickCanvasComponent.self,
         CircleCanvasComponent.self,

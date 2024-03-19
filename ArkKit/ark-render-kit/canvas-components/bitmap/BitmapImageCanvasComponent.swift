@@ -5,20 +5,24 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     let center: CGPoint
     let width: Double
     let height: Double
+    let areValuesEqual: AreValuesEqualDelegate
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: String, center: CGPoint, width: Double, height: Double) {
+    init(imageResourcePath: String, center: CGPoint, width: Double, height: Double,
+         areValuesEqual: @escaping (BitmapImageCanvasComponent, BitmapImageCanvasComponent) -> Bool
+         = { _, _ in false }) {
         self.imageResourcePath = imageResourcePath
         self.center = center
         self.width = width
         self.height = height
+        self.areValuesEqual = areValuesEqual
     }
 
-    func render(using renderer: any CanvasRenderer) {
+    func render(using renderer: any CanvasRenderer) -> any Renderable {
         renderer.render(self)
     }
 }
@@ -51,7 +55,8 @@ extension BitmapImageCanvasComponent: AbstractBitmap {
             imageResourcePath: imageResourcePath,
             center: center,
             width: width,
-            height: height
+            height: height,
+            areValuesEqual: areValuesEqual
         )
         copy.isClipToBounds = isClipToBounds ?? self.isClipToBounds
         copy.isScaleAspectFit = isScaleAspectFit ?? self.isScaleAspectFit

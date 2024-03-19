@@ -15,4 +15,8 @@ extension UIKitRenderable {
             self
         }
     }
+
+    func unmount() {
+        self.removeFromSuperview()
+    }
 }
