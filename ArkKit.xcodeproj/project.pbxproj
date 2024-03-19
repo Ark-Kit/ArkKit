@@ -68,6 +68,7 @@
 		9479A3AC2BA951F300F99013 /* AbstractBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AB2BA951F300F99013 /* AbstractBitmap.swift */; };
 		9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AE2BA952E300F99013 /* AbstractShape.swift */; };
 		9479A3B12BA953D800F99013 /* ShapeCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */; };
+		9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B32BA95E7E00F99013 /* AbstractColor.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
 		AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03672BA1A61200974EBF /* ArkEventManager.swift */; };
@@ -171,6 +172,7 @@
 		9479A3AB2BA951F300F99013 /* AbstractBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractBitmap.swift; sourceTree = "<group>"; };
 		9479A3AE2BA952E300F99013 /* AbstractShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractShape.swift; sourceTree = "<group>"; };
 		9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCanvasComponent.swift; sourceTree = "<group>"; };
+		9479A3B32BA95E7E00F99013 /* AbstractColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractColor.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
 		AD6E03672BA1A61200974EBF /* ArkEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventManager.swift; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 				945F7F8D2BA8852400933629 /* input */,
 				9479A3AA2BA951E600F99013 /* bitmap */,
 				9479A3AD2BA952D700F99013 /* shapes */,
+				9479A3B22BA95E7100F99013 /* color */,
 			);
 			path = abstract;
 			sourceTree = "<group>";
@@ -534,6 +537,14 @@
 				9479A3AE2BA952E300F99013 /* AbstractShape.swift */,
 			);
 			path = shapes;
+			sourceTree = "<group>";
+		};
+		9479A3B22BA95E7100F99013 /* color */ = {
+			isa = PBXGroup;
+			children = (
+				9479A3B32BA95E7E00F99013 /* AbstractColor.swift */,
+			);
+			path = color;
 			sourceTree = "<group>";
 		};
 		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
@@ -798,6 +809,7 @@
 				02C395242BA849B40075F1CA /* JoystickCanvasComponent.swift in Sources */,
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				02C395062BA5E2E00075F1CA /* Once.swift in Sources */,
+				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,

@@ -19,5 +19,5 @@
  * ```
  */
 protocol Canvas {
-    func render(using renderer: CanvasRenderer)
+    func render(using renderer: any CanvasRenderer)
 }

@@ -84,3 +84,20 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         return angle
     }
 }
+
+extension UIKitJoystick {
+    func applyModifiers(modifierInfo: JoystickCanvasComponent) -> Self {
+        let defaultPanHandler = { (_: Double, _: Double) in }
+
+        return self
+            .if(modifierInfo.onPanStartDelegate != nil, transform: { view in
+                view.addPanStartDelegate(delegate: modifierInfo.onPanStartDelegate ?? defaultPanHandler)
+            })
+            .if(modifierInfo.onPanChangeDelegate != nil, transform: { view in
+                view.addPanChangeDelegate(delegate: modifierInfo.onPanChangeDelegate ?? defaultPanHandler)
+            })
+            .if(modifierInfo.onPanEndDelegate != nil, transform: { view in
+                view.addPanEndDelegate(delegate: modifierInfo.onPanEndDelegate ?? defaultPanHandler)
+            })
+    }
+}

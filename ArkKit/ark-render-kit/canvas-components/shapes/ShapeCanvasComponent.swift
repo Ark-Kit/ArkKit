@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ShapeCanvasComponent: AbstractShape, CanvasComponent {
+protocol ShapeCanvasComponent: AbstractShape, CanvasComponent where Color == AbstractColor {
     var fillInfo: ShapeFillInfo? { get }
     var strokeInfo: ShapeStrokeInfo? { get }
 
@@ -15,11 +15,11 @@ protocol ShapeCanvasComponent: AbstractShape, CanvasComponent {
 }
 
 extension ShapeCanvasComponent {
-    func fill(color: String) -> Self {
+    func fill(color: Color) -> Self {
         upsert(fillInfo: ShapeFillInfo(color: color))
     }
 
-    func stroke(lineWidth: Double, color: String) -> Self {
+    func stroke(lineWidth: Double, color: Color) -> Self {
         upsert(strokeInfo: ShapeStrokeInfo(lineWidth: lineWidth, color: color))
     }
 
@@ -29,10 +29,10 @@ extension ShapeCanvasComponent {
 }
 
 struct ShapeFillInfo {
-    let color: String
+    let color: AbstractColor
 }
 
 struct ShapeStrokeInfo {
     let lineWidth: Double
-    let color: String
+    let color: AbstractColor
 }

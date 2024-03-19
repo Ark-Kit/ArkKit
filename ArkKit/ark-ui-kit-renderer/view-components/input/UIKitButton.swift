@@ -28,7 +28,13 @@ final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.addGestureRecognizer(tap)
     }
-    // TODO: implement button styling as required below
-    // currently we inherit `UIButton` so all default styling of `UIButton` is automatically
-    // exposed from `UIKitButton`
+}
+
+extension UIKitButton {
+    func applyModifiers(modifierInfo: ButtonCanvasComponent) -> Self {
+        self
+            .if(modifierInfo.onTapDelegate != nil, transform: { view in
+                view.addOnTapDelegate(delegate: modifierInfo.onTapDelegate ?? {})
+            })
+    }
 }

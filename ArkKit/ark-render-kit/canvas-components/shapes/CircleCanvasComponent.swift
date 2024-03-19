@@ -19,7 +19,7 @@ struct CircleCanvasComponent: ShapeCanvasComponent {
         return copy
     }
 
-    func render(using renderer: CanvasRenderer) {
+    func render(using renderer: any CanvasRenderer) {
         renderer.render(self)
     }
 }

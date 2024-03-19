@@ -25,7 +25,7 @@ struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
         return updated
     }
 
-    func render(using renderer: CanvasRenderer) {
+    func render(using renderer: any CanvasRenderer) {
         renderer.render(self)
     }
 }
