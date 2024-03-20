@@ -27,4 +27,8 @@ struct RectCanvasComponent: ShapeCanvasComponent {
     func render(using renderer: any CanvasRenderer) -> any Renderable {
         renderer.render(self)
     }
+
+    func update(using updater: any CanvasComponentUpdater) -> RectCanvasComponent {
+        updater.update(self)
+    }
 }

@@ -25,4 +25,8 @@ struct CircleCanvasComponent: ShapeCanvasComponent {
     func render(using renderer: any CanvasRenderer) -> any Renderable {
         renderer.render(self)
     }
+
+    func update(using updater: any CanvasComponentUpdater) -> CircleCanvasComponent {
+        updater.update(self)
+    }
 }

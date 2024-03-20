@@ -17,12 +17,13 @@ class ArkCanvasSystem: System {
         for canvasCompType in ArkCanvasSystem.canvasComponentTypes {
             let entitiesWithCanvasComp = arkECS.getEntities(with: [canvasCompType])
             for entity in entitiesWithCanvasComp {
-                let canvasComponent = arkECS.getComponent(ofType: canvasCompType, for: entity)
-                // TODO: this system should pull from relevant other component states to update
-                // should mainly be from physics
-                // e.g. let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for entity)
-                // NOTE: might need to employ a visitor because `CanvasComponent.Type`
-                // is used as the main type
+                guard let canvasComponent = arkECS.getComponent(ofType: canvasCompType, for: entity),
+                      let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for: entity) else {
+                    continue
+                }
+                let positionUpdater = CanvasComponentPositionUpdater(position: positionComponent.position)
+                let updatedCanvasComponent = canvasComponent.update(using: positionUpdater)
+                arkECS.upsertComponent(updatedCanvasComponent, to: entity)
             }
         }
     }

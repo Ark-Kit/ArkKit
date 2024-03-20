@@ -1,5 +1,6 @@
 protocol CanvasComponent: Component, Memoizable {
     func render(using renderer: any CanvasRenderer) -> any Renderable
+    func update(using updater: any CanvasComponentUpdater) -> Self
 }
 
 protocol Memoizable {

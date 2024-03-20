@@ -63,8 +63,10 @@ class Ark {
         let gameScene = SKGameScene(size: CGSize(width: worldWidth, height: worldHeight))
         let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: arkState.eventManager)
         let animationSystem = ArkAnimationSystem()
+        let canvasSystem = ArkCanvasSystem()
         arkState.arkECS.addSystem(physicsSystem)
         arkState.arkECS.addSystem(animationSystem)
+        arkState.arkECS.addSystem(canvasSystem)
     }
 
     private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {

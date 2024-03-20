@@ -25,6 +25,10 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     func render(using renderer: any CanvasRenderer) -> any Renderable {
         renderer.render(self)
     }
+
+    func update(using updater: any CanvasComponentUpdater) -> BitmapImageCanvasComponent {
+        updater.update(self)
+    }
 }
 
 // MARK: Builder pattern helpers

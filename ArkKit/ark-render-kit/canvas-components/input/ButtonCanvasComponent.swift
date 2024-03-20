@@ -26,4 +26,8 @@ struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
     func render(using renderer: any CanvasRenderer) -> any Renderable {
         renderer.render(self)
     }
+
+    func update(using updater: any CanvasComponentUpdater) -> ButtonCanvasComponent {
+        updater.update(self)
+    }
 }
