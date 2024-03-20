@@ -1,9 +1,9 @@
 import UIKit
 
 final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
-    var onPanStartDelegate: PanDelegate?
-    var onPanChangeDelegate: PanDelegate?
-    var onPanEndDelegate: PanDelegate?
+    var onPanStartDelegate: PanEventDelegate?
+    var onPanChangeDelegate: PanEventDelegate?
+    var onPanEndDelegate: PanEventDelegate?
 
     let INNER_RADIUS_FACTOR = 0.75
     private let radius: Double
@@ -34,17 +34,6 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         super.init(coder: coder)
     }
 
-    func modify(
-        onPanStartDelegate: PanDelegate?,
-        onPanChangeDelegate: PanDelegate?,
-        onPanEndDelegate: PanDelegate?
-    ) -> Self {
-        self.onPanStartDelegate = onPanStartDelegate
-        self.onPanChangeDelegate = onPanChangeDelegate
-        self.onPanEndDelegate = onPanEndDelegate
-        return self
-    }
-
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
             return
@@ -58,17 +47,23 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         let clampedTranslation = CGPoint(x: translation.x / magnitude * clampedMagnitude,
                                          y: translation.y / magnitude * clampedMagnitude)
         let currentPoint = CGPoint(x: radius + clampedTranslation.x, y: radius + clampedTranslation.y)
-        let defaultPanDelegate: PanDelegate = { (_: Double, _: Double) in }
+        
         if gesture.state == .began {
-            (onPanStartDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
+            if let onPanStartDelegate {
+                onPanStartDelegate(clockwiseAngle, clampedMagnitude)
+            }
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .changed {
-            (onPanChangeDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
+            if let onPanChangeDelegate {
+                onPanChangeDelegate(clockwiseAngle, clampedMagnitude)
+            }
             self.subviews.last?.center = currentPoint
         }
         if gesture.state == .ended {
-            (onPanEndDelegate ?? defaultPanDelegate)(clockwiseAngle, clampedMagnitude)
+            if let onPanEndDelegate {
+                onPanEndDelegate(clockwiseAngle, clampedMagnitude)
+            }
             self.subviews.last?.center = CGPoint(x: radius, y: radius)
         }
     }
@@ -88,17 +83,16 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
 
 extension UIKitJoystick {
     func applyModifiers(modifierInfo: JoystickCanvasComponent) -> Self {
-        let defaultPanHandler = { (_: Double, _: Double) in }
-
+        if let onPanStartHandler = modifierInfo.onPanStartDelegate {
+            self.onPanStartDelegate = onPanStartHandler
+        }
+        if let onPanChangeHandler = modifierInfo.onPanChangeDelegate {
+            self.onPanChangeDelegate = onPanChangeHandler
+        }
+        if let onPanEndHandler = modifierInfo.onPanEndDelegate {
+            self.onPanEndDelegate = onPanEndHandler
+        }
+        
         return self
-            .if(modifierInfo.onPanStartDelegate != nil, transform: { view in
-                view.addPanStartDelegate(delegate: modifierInfo.onPanStartDelegate ?? defaultPanHandler)
-            })
-            .if(modifierInfo.onPanChangeDelegate != nil, transform: { view in
-                view.addPanChangeDelegate(delegate: modifierInfo.onPanChangeDelegate ?? defaultPanHandler)
-            })
-            .if(modifierInfo.onPanEndDelegate != nil, transform: { view in
-                view.addPanEndDelegate(delegate: modifierInfo.onPanEndDelegate ?? defaultPanHandler)
-            })
     }
 }

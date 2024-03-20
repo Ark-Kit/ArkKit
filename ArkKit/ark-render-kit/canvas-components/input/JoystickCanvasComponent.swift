@@ -6,9 +6,9 @@ struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
     let rotation: Double
     let areValuesEqual: AreValuesEqualDelegate
 
-    var onPanStartDelegate: PanDelegate?
-    var onPanChangeDelegate: PanDelegate?
-    var onPanEndDelegate: PanDelegate?
+    var onPanStartDelegate: PanEventDelegate?
+    var onPanChangeDelegate: PanEventDelegate?
+    var onPanEndDelegate: PanEventDelegate?
 
     init(center: CGPoint, radius: Double,
          rotation: Double = 0.0,
@@ -20,15 +20,15 @@ struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
     }
 
     func modify(
-        onPanStartDelegate: PanDelegate?,
-        onPanChangeDelegate: PanDelegate?,
-        onPanEndDelegate: PanDelegate?
+        onPanStartDelegate: PanEventDelegate?,
+        onPanChangeDelegate: PanEventDelegate?,
+        onPanEndDelegate: PanEventDelegate?
     ) -> JoystickCanvasComponent {
-        var updated = JoystickCanvasComponent(center: center, radius: radius, rotation: rotation,
-                                              areValuesEqual: areValuesEqual)
+        var updated = self
         updated.onPanStartDelegate = onPanStartDelegate
         updated.onPanChangeDelegate = onPanChangeDelegate
         updated.onPanEndDelegate = onPanEndDelegate
+        
         return updated
     }
 
