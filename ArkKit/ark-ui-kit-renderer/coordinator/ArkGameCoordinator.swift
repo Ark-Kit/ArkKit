@@ -3,15 +3,17 @@ import UIKit
 class ArkGameCoordinator {
     let rootView: UINavigationController
     let arkState: ArkState
+    let canvasFrame: CGRect
 
-    init(rootView: UINavigationController, arkState: ArkState) {
+    init(rootView: UINavigationController, arkState: ArkState, canvasFrame: CGRect) {
         self.rootView = rootView
         self.arkState = arkState
+        self.canvasFrame = canvasFrame
     }
 
     func start() {
         // initiate key M, V, VM
-        let arkGameModel = ArkGameModel(gameState: arkState)
+        let arkGameModel = ArkGameModel(gameState: arkState, canvasFrame: canvasFrame)
         let arkViewController = ArkViewController()
         let arkViewModel = ArkViewModel(gameModel: arkGameModel)
 

@@ -31,7 +31,10 @@ class Ark {
 
         // Initializee game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
-                                                 arkState: arkState)
+                                                 arkState: arkState,
+                                                 canvasFrame: CGRect(x: 0, y: 0,
+                                                                     width: blueprint.frameWidth,
+                                                                     height: blueprint.frameHeight))
         gameCoordinator.start()
     }
 

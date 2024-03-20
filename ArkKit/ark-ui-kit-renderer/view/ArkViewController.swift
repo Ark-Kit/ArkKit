@@ -28,7 +28,8 @@ class ArkViewController: UIViewController {
 
 extension ArkViewController: GameStateRenderer {
     func render(canvas: Canvas, with canvasContext: CanvasContext) {
-        let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view)
+        let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view,
+                                                    canvasFrame: canvasContext.canvasFrame)
         canvas.render(using: canvasRenderer, to: canvasContext)
     }
 }
