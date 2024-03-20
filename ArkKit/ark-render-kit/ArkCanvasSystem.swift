@@ -10,20 +10,50 @@ class ArkCanvasSystem: System {
         PolygonCanvasComponent.self,
         BitmapImageCanvasComponent.self
     ]
+
     init(active: Bool = true) {
         self.active = active
     }
+
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
         for canvasCompType in ArkCanvasSystem.canvasComponentTypes {
             let entitiesWithCanvasComp = arkECS.getEntities(with: [canvasCompType])
             for entity in entitiesWithCanvasComp {
-                let canvasComponent = arkECS.getComponent(ofType: canvasCompType, for: entity)
-                // TODO: this system should pull from relevant other component states to update
-                // should mainly be from physics
-                // e.g. let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for entity)
-                // NOTE: might need to employ a visitor because `CanvasComponent.Type`
-                // is used as the main type
+                guard let canvasComponent = arkECS.getComponent(ofType: canvasCompType, for: entity),
+                      let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for: entity) else {
+                    continue
+                }
+                let updatedCanvasComponent = upsertToECS(position: positionComponent.position,
+                                                         canvasComponent: canvasComponent,
+                                                         arkECS: arkECS, entity: entity)
+                guard let rotationComponent = arkECS.getComponent(ofType: RotationComponent.self, for: entity),
+                      let rotationAngle = rotationComponent.angleInRadians else {
+                    continue
+                }
+                upsertToECS(rotationAngleInRadians: rotationAngle, canvasComponent: updatedCanvasComponent,
+                            arkECS: arkECS, entity: entity)
+
             }
         }
+    }
+
+    @discardableResult private func upsertToECS(position: CGPoint,
+                                                canvasComponent: any CanvasComponent,
+                                                arkECS: ArkECS,
+                                                entity: Entity) -> any CanvasComponent {
+        let positionUpdater = CanvasComponentPositionUpdater(position: position)
+        let updatedCanvasComponent = canvasComponent.update(using: positionUpdater)
+        arkECS.upsertComponent(updatedCanvasComponent, to: entity)
+        return updatedCanvasComponent
+    }
+
+    @discardableResult private func upsertToECS(rotationAngleInRadians: Double,
+                                                canvasComponent: any CanvasComponent,
+                                                arkECS: ArkECS,
+                                                entity: Entity) -> any CanvasComponent {
+        let rotationUpdater = CanvasComponentRotationUpdater(rotation: rotationAngleInRadians)
+        let updatedCanvasComponent = canvasComponent.update(using: rotationUpdater)
+        arkECS.upsertComponent(updatedCanvasComponent, to: entity)
+        return updatedCanvasComponent
     }
 }

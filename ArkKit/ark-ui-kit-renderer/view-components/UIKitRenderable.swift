@@ -8,6 +8,11 @@ extension UIKitRenderable {
         container.addSubview(self)
     }
 
+    func rotate(by rotationInRadians: Double) -> Self {
+        self.transform = self.transform.rotated(by: rotationInRadians)
+        return self
+    }
+
     func `if`(_ condition: Bool, transform: (Self) -> Self) -> Self {
         if condition {
             transform(self)

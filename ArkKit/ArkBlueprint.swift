@@ -7,6 +7,9 @@ struct ArkBlueprint {
     private(set) var rules: [Rule] = []
     private(set) var stateSetupFunctions: [ArkStateSetupFunction] = []
 
+    private(set) var frameWidth: Double
+    private(set) var frameHeight: Double
+
     func rule<Event: ArkEvent>(
         on eventType: Event.Type,
         then action: Action
@@ -24,11 +27,15 @@ struct ArkBlueprint {
 
     private func immutableCopy(
         rules: [Rule]? = nil,
-        stateSetupFunctions: [ArkStateSetupFunction]? = nil
+        stateSetupFunctions: [ArkStateSetupFunction]? = nil,
+        frameWidth: Double? = nil,
+        frameHeight: Double? = nil
     ) -> ArkBlueprint {
         ArkBlueprint(
             rules: rules ?? self.rules,
-            stateSetupFunctions: stateSetupFunctions ?? self.stateSetupFunctions
+            stateSetupFunctions: stateSetupFunctions ?? self.stateSetupFunctions,
+            frameWidth: frameWidth ?? self.frameWidth,
+            frameHeight: frameHeight ?? self.frameHeight
         )
     }
 }

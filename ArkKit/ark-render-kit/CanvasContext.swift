@@ -1,4 +1,6 @@
+import Foundation
 protocol CanvasContext {
+    var canvasFrame: CGRect { get }
     var memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]] { get }
     func getCanvas() -> Canvas
     func saveToMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type,
@@ -7,10 +9,12 @@ protocol CanvasContext {
 }
 
 class ArkCanvasContext: CanvasContext {
+    private(set) var canvasFrame: CGRect
     private(set) var memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]]
     private let ecs: ArkECS
-    init(ecs: ArkECS, memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]] = [:]) {
+    init(ecs: ArkECS, canvasFrame: CGRect, memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]] = [:]) {
         self.memo = memo
+        self.canvasFrame = canvasFrame
         self.ecs = ecs
     }
     func getCanvas() -> Canvas {
