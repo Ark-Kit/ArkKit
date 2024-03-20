@@ -4,21 +4,24 @@ struct RectCanvasComponent: ShapeCanvasComponent {
     let width: Double
     let height: Double
     let center: CGPoint
+    let rotation: Double
     let areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(width: Double, height: Double, center: CGPoint,
+    init(width: Double, height: Double, center: CGPoint, rotation: Double = 0.0,
          areValuesEqual: @escaping (RectCanvasComponent, RectCanvasComponent) -> Bool = { _, _ in false }) {
         self.width = width
         self.height = height
         self.center = center
+        self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> RectCanvasComponent {
-        var copy = RectCanvasComponent(width: width, height: height, center: center, areValuesEqual: areValuesEqual)
+        var copy = RectCanvasComponent(width: width, height: height, center: center, rotation: rotation,
+                                       areValuesEqual: areValuesEqual)
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
         return copy

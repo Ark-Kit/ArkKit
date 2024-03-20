@@ -3,6 +3,7 @@ import CoreGraphics
 struct BitmapImageCanvasComponent: CanvasComponent {
     let imageResourcePath: String
     let center: CGPoint
+    let rotation: Double
     let width: Double
     let height: Double
     let areValuesEqual: AreValuesEqualDelegate
@@ -13,12 +14,14 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     private(set) var isScaleAspectFill = false
 
     init(imageResourcePath: String, center: CGPoint, width: Double, height: Double,
+         rotation: Double = 0.0,
          areValuesEqual: @escaping (BitmapImageCanvasComponent, BitmapImageCanvasComponent) -> Bool
          = { _, _ in false }) {
         self.imageResourcePath = imageResourcePath
         self.center = center
         self.width = width
         self.height = height
+        self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 
@@ -60,6 +63,7 @@ extension BitmapImageCanvasComponent: AbstractBitmap {
             center: center,
             width: width,
             height: height,
+            rotation: rotation,
             areValuesEqual: areValuesEqual
         )
         copy.isClipToBounds = isClipToBounds ?? self.isClipToBounds

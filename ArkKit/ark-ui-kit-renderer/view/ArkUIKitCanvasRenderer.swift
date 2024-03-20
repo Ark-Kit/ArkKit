@@ -16,6 +16,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                                                      center: circle.center,
                                                                      radius: circle.radius)
         let renderable = UIKitCircle(radius: letterboxedRadius, center: letterboxedCenter)
+            .rotate(by: circle.rotation)
             .applyModifiers(modifierInfo: circle, colorGetter: getColor)
         renderable.render(into: rootView)
         return renderable
@@ -29,6 +30,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                                                            height: rect.height))
         let renderable = UIKitRect(width: letterboxedFrame.width, height: letterboxedFrame.height,
                                    center: CGPoint(x: letterboxedFrame.midX, y: letterboxedFrame.midY))
+            .rotate(by: rect.rotation)
             .applyModifiers(modifierInfo: rect, colorGetter: getColor)
         renderable.render(into: rootView)
         return renderable
@@ -41,6 +43,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             letterboxPoint(canvasFrame: canvasFrame, point: point)
         }
         let renderable = UIKitPolygon(points: letterboxedPoints, frame: polygon.frame)
+            .rotate(by: polygon.rotation)
             .applyModifiers(modifierInfo: polygon, colorGetter: getColor)
         renderable.render(into: rootView)
         return renderable
@@ -56,6 +59,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                           center: CGPoint(x: letterboxedFrame.midX, y: letterboxedFrame.midY),
                                           width: letterboxedFrame.width,
                                           height: letterboxedFrame.height)
+            .rotate(by: image.rotation)
             .applyModifiers(modifierInfo: image)
         renderable.render(into: rootView)
         return renderable
@@ -69,6 +73,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                                                            height: button.height))
         let renderable = UIKitButton(width: letterboxedFrame.width, height: letterboxedFrame.height,
                                      center: CGPoint(x: letterboxedFrame.midX, y: letterboxedFrame.midY))
+            .rotate(by: button.rotation)
             .applyModifiers(modifierInfo: button)
         renderable.render(into: rootView)
         return renderable
@@ -79,6 +84,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                                                      center: joystick.center,
                                                                      radius: joystick.radius)
         let renderable = UIKitJoystick(center: letterboxedCenter, radius: letterboxedRadius)
+            .rotate(by: joystick.rotation)
             .applyModifiers(modifierInfo: joystick)
         renderable.render(into: rootView)
         return renderable

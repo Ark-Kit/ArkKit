@@ -1,4 +1,8 @@
+import Foundation
+
 protocol CanvasComponent: Component, Memoizable {
+    var center: CGPoint { get }
+    var rotation: Double { get }
     func render(using renderer: any CanvasRenderer) -> any Renderable
     func update(using updater: any CanvasComponentUpdater) -> Self
 }

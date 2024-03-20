@@ -39,6 +39,8 @@
 		02C395322BA9ED230075F1CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 02C395312BA9ED230075F1CA /* README.md */; };
 		02C395342BAAF0EC0075F1CA /* WorldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395332BAAF0EC0075F1CA /* WorldComponent.swift */; };
 		02C3953B2BAB21CB0075F1CA /* CanvasComponentUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3953A2BAB21CB0075F1CA /* CanvasComponentUpdater.swift */; };
+		02C3953D2BAB27000075F1CA /* CanvasComponentPositionUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3953C2BAB27000075F1CA /* CanvasComponentPositionUpdater.swift */; };
+		02C3953F2BAB27230075F1CA /* CanvasComponentRotationUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3953E2BAB27230075F1CA /* CanvasComponentRotationUpdater.swift */; };
 		02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */; };
 		02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */; };
 		02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */; };
@@ -146,6 +148,8 @@
 		02C395312BA9ED230075F1CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		02C395332BAAF0EC0075F1CA /* WorldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldComponent.swift; sourceTree = "<group>"; };
 		02C3953A2BAB21CB0075F1CA /* CanvasComponentUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasComponentUpdater.swift; sourceTree = "<group>"; };
+		02C3953C2BAB27000075F1CA /* CanvasComponentPositionUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasComponentPositionUpdater.swift; sourceTree = "<group>"; };
+		02C3953E2BAB27230075F1CA /* CanvasComponentRotationUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasComponentRotationUpdater.swift; sourceTree = "<group>"; };
 		02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShape.swift; sourceTree = "<group>"; };
 		02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRenderable.swift; sourceTree = "<group>"; };
 		02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCircle.swift; sourceTree = "<group>"; };
@@ -375,6 +379,8 @@
 			isa = PBXGroup;
 			children = (
 				02C3953A2BAB21CB0075F1CA /* CanvasComponentUpdater.swift */,
+				02C3953C2BAB27000075F1CA /* CanvasComponentPositionUpdater.swift */,
+				02C3953E2BAB27230075F1CA /* CanvasComponentRotationUpdater.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -849,6 +855,7 @@
 				28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				02C395082BA5E2F10075F1CA /* Forever.swift in Sources */,
+				02C3953F2BAB27230075F1CA /* CanvasComponentRotationUpdater.swift in Sources */,
 				02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */,
 				02C394EC2BA41DF00075F1CA /* ArkViewController.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
@@ -901,6 +908,7 @@
 				02C395282BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift in Sources */,
 				280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectCanvasComponent.swift in Sources */,
+				02C3953D2BAB27000075F1CA /* CanvasComponentPositionUpdater.swift in Sources */,
 				02C3953B2BAB21CB0075F1CA /* CanvasComponentUpdater.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
