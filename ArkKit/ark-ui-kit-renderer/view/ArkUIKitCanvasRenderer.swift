@@ -8,6 +8,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         self.rootView = rootView
     }
 
+    // TODO: add letterbox functionality
     func render(_ circle: CircleCanvasComponent) -> any Renderable {
         let renderable = UIKitCircle(radius: circle.radius, center: circle.center)
             .applyModifiers(modifierInfo: circle, colorGetter: getColor)

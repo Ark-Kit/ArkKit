@@ -55,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     func defineArkBlueprint() -> ArkBlueprint {
         // Define game with blueprint here.
-        let arkBlueprint = ArkBlueprint()
+        let arkBlueprint = ArkBlueprint(frameWidth: 1_000, frameHeight: 800)
             .stateSetup({ ecsContext, eventContext in
                 ecsContext.createEntity(with: [
                     JoystickCanvasComponent(center: CGPoint(x: 300, y: 300), radius: 50,

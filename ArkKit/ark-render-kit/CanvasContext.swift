@@ -1,4 +1,5 @@
 protocol CanvasContext {
+    // store the state view size + letter box
     var memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]] { get }
     func getCanvas() -> Canvas
     func saveToMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type,
