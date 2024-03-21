@@ -47,7 +47,7 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         let clampedTranslation = CGPoint(x: translation.x / magnitude * clampedMagnitude,
                                          y: translation.y / magnitude * clampedMagnitude)
         let currentPoint = CGPoint(x: radius + clampedTranslation.x, y: radius + clampedTranslation.y)
-        
+
         if gesture.state == .began {
             if let onPanStartDelegate {
                 onPanStartDelegate(clockwiseAngle, clampedMagnitude)
@@ -92,7 +92,7 @@ extension UIKitJoystick {
         if let onPanEndHandler = modifierInfo.onPanEndDelegate {
             self.onPanEndDelegate = onPanEndHandler
         }
-        
+
         return self
     }
 }
