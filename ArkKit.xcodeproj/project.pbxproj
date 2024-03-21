@@ -684,14 +684,14 @@
 		AD787A4F2B9C636F003EBBD0 /* ArkKit */ = {
 			isa = PBXGroup;
 			children = (
-				02D8E94A2BAC99F100BF3A07 /* ark-loop-kit */,
 				02C394E22BA407420075F1CA /* Ark.swift */,
 				02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */,
+				02E0E8DE2B9F57170043E2BA /* ark-game */,
+				02D8E94A2BAC99F100BF3A07 /* ark-loop-kit */,
 				280CD3B52BA738EC00372C5D /* ark-physics-kit */,
 				02C394FD2BA5A09D0075F1CA /* ark-rules-kit */,
 				8F5573C62BA69D47007030C8 /* ark-animation-kit */,
 				02C394DA2BA401F00075F1CA /* ark-render-kit */,
-				02E0E8DE2B9F57170043E2BA /* ark-game */,
 				AD6E03662BA1A5EA00974EBF /* ark-event-kit */,
 				AD787A802B9C6BCE003EBBD0 /* ark-state-kit */,
 				280CD3C92BA7454A00372C5D /* extensions */,
