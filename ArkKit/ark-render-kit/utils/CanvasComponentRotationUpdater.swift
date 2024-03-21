@@ -46,5 +46,4 @@ struct CanvasComponentRotationUpdater: CanvasComponentUpdater {
                 onPanChangeDelegate: joystick.onPanChangeDelegate,
                 onPanEndDelegate: joystick.onPanEndDelegate)
     }
-
 }

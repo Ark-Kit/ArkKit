@@ -25,7 +25,7 @@ class Ark {
     }
 
     func start(blueprint: ArkBlueprint) {
-        setup(blueprint.stateSetupFunctions)
+        setup(blueprint.setupFunctions)
         setup(blueprint.rules)
         setupDefaultSystems(blueprint)
 
