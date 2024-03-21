@@ -18,8 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window.rootViewController = RootViewController()
         window.makeKeyAndVisible()
-        let arkBlueprint = defineArkBlueprint()
-        loadArkBlueprintToScene(arkBlueprint, window: window)
+//        let arkBlueprint = defineArkBlueprint()
+        let tankGameManager = TankGameManager(frameWidth: 820, frameHeight: 1_180)
+        loadArkBlueprintToScene(tankGameManager.blueprint, window: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -55,12 +56,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     func defineArkBlueprint() -> ArkBlueprint {
         // Define game with blueprint here.
-        let arkBlueprint = ArkBlueprint(frameWidth: 1_000, frameHeight: 800)
+        let arkBlueprint = ArkBlueprint(frameWidth: 820, frameHeight: 1_180)
             .setup({ ecsContext, eventContext in
                 ecsContext.createEntity(with: [
                     JoystickCanvasComponent(center: CGPoint(x: 300, y: 300), radius: 50,
                                             areValuesEqual: { _, _ in true })
-                        .onPanChange{ angle, mag in print("change", angle, mag) }
+                        .onPanChange { angle, mag in print("change", angle, mag) }
                         .onPanStart { angle, mag in print("start", angle, mag) }
                         .onPanEnd { angle, mag in print("end", angle, mag) }
                 ])
@@ -73,6 +74,13 @@ extension SceneDelegate {
                         eventContext.emit(&demoEvent)
                         print("done emit event")
                     })
+                ])
+                ecsContext.createEntity(with: [
+                    BitmapImageCanvasComponent(imageResourcePath: "tank_1",
+                                               center: CGPoint(x: 410, y: 590),
+                                               width: 256, height: 100,
+                                               areValuesEqual: { _, _ in true })
+                    .scaleToFill()
                 ])
             })
             .rule(on: DemoArkEvent.self, then: Forever { _, _, _ in
