@@ -74,6 +74,10 @@
 		9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AE2BA952E300F99013 /* AbstractShape.swift */; };
 		9479A3B12BA953D800F99013 /* ShapeCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */; };
 		9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B32BA95E7E00F99013 /* AbstractColor.swift */; };
+		AD36A7562BAC0D36003E938B /* TankGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A7552BAC0D36003E938B /* TankGameManager.swift */; };
+		AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */; };
+		AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75A2BAC331F003E938B /* TankComponent.swift */; };
+		AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
 		AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03672BA1A61200974EBF /* ArkEventManager.swift */; };
@@ -183,6 +187,10 @@
 		9479A3AE2BA952E300F99013 /* AbstractShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractShape.swift; sourceTree = "<group>"; };
 		9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCanvasComponent.swift; sourceTree = "<group>"; };
 		9479A3B32BA95E7E00F99013 /* AbstractColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractColor.swift; sourceTree = "<group>"; };
+		AD36A7552BAC0D36003E938B /* TankGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameManager.swift; sourceTree = "<group>"; };
+		AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameEntityCreator.swift; sourceTree = "<group>"; };
+		AD36A75A2BAC331F003E938B /* TankComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankComponent.swift; sourceTree = "<group>"; };
+		AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankMoveEvent.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
 		AD6E03672BA1A61200974EBF /* ArkEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventManager.swift; sourceTree = "<group>"; };
@@ -325,6 +333,7 @@
 		02C395102BA6EBBA0075F1CA /* ArkGameExample */ = {
 			isa = PBXGroup;
 			children = (
+				AD36A7522BAC0A59003E938B /* TankGame */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
 				AD787A542B9C636F003EBBD0 /* RootViewController.swift */,
@@ -567,6 +576,33 @@
 				9479A3B32BA95E7E00F99013 /* AbstractColor.swift */,
 			);
 			path = color;
+			sourceTree = "<group>";
+		};
+		AD36A7522BAC0A59003E938B /* TankGame */ = {
+			isa = PBXGroup;
+			children = (
+				AD36A75C2BAC3612003E938B /* Events */,
+				AD36A7592BAC3309003E938B /* Components */,
+				AD36A7552BAC0D36003E938B /* TankGameManager.swift */,
+				AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */,
+			);
+			path = TankGame;
+			sourceTree = "<group>";
+		};
+		AD36A7592BAC3309003E938B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AD36A75A2BAC331F003E938B /* TankComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AD36A75C2BAC3612003E938B /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */,
+			);
+			path = Events;
 			sourceTree = "<group>";
 		};
 		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
@@ -837,12 +873,14 @@
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
+				AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */,
 				8F5573C12BA42614007030C8 /* Renderable.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleCanvasComponent.swift in Sources */,
 				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,
 				02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */,
 				02C394E92BA41B480075F1CA /* ArkViewModel.swift in Sources */,
+				AD36A7562BAC0D36003E938B /* TankGameManager.swift in Sources */,
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				AD6E036D2BA1AB2D00974EBF /* DemoArkEvent.swift in Sources */,
@@ -852,6 +890,7 @@
 				02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */,
 				280CD3D02BA74E6000372C5D /* AbstractArkGameScene.swift in Sources */,
 				02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */,
+				AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */,
 				28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				02C395082BA5E2F10075F1CA /* Forever.swift in Sources */,
@@ -866,6 +905,7 @@
 				02C3951C2BA8492B0075F1CA /* BitmapImageCanvasComponent.swift in Sources */,
 				02C395182BA83FC40075F1CA /* ButtonCanvasComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
+				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
 				02C395152BA83FAE0075F1CA /* CanvasComponent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
@@ -1100,7 +1140,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1132,7 +1172,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

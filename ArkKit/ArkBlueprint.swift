@@ -9,11 +9,11 @@ struct ArkBlueprint {
 
     private(set) var frameWidth: Double
     private(set) var frameHeight: Double
-    
+
     func setup(_ fn: @escaping ArkStateSetupFunction) -> Self {
         var stateSetupFunctionsCopy = setupFunctions
         stateSetupFunctionsCopy.append(fn)
-        
+
         var newSelf = self
         newSelf.setupFunctions = stateSetupFunctionsCopy
         return newSelf
@@ -25,7 +25,7 @@ struct ArkBlueprint {
     ) -> Self {
         var newRules = rules
         newRules.append(Rule(event: Event.id, action: action))
-        
+
         var newSelf = self
         newSelf.rules = newRules
         return newSelf

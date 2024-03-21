@@ -18,8 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window.rootViewController = RootViewController()
         window.makeKeyAndVisible()
-        let arkBlueprint = defineArkBlueprint()
-        loadArkBlueprintToScene(arkBlueprint, window: window)
+//        let arkBlueprint = defineArkBlueprint()
+        let tankGameManager = TankGameManager(frameWidth: 820, frameHeight: 1_180)
+        loadArkBlueprintToScene(tankGameManager.blueprint, window: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -60,7 +61,7 @@ extension SceneDelegate {
                 ecsContext.createEntity(with: [
                     JoystickCanvasComponent(center: CGPoint(x: 300, y: 300), radius: 50,
                                             areValuesEqual: { _, _ in true })
-                        .onPanChange{ angle, mag in print("change", angle, mag) }
+                        .onPanChange { angle, mag in print("change", angle, mag) }
                         .onPanStart { angle, mag in print("start", angle, mag) }
                         .onPanEnd { angle, mag in print("end", angle, mag) }
                 ])
