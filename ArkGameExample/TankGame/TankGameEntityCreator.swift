@@ -60,4 +60,24 @@ struct TankGameEntityCreator {
 
         ])
     }
+
+    static func addBackground(width: Double, height: Double, in ecsContext: ArkECSContext) {
+        let gridSize: Double = 20.0
+        let gridWidth = Int(width / gridSize)
+        let gridHeight = Int(height / gridSize)
+
+        for x in 0...gridWidth {
+            for y in 0...gridHeight {
+                ecsContext.createEntity(with: [
+                    BitmapImageCanvasComponent(imageResourcePath: "map_1",
+                                               center: CGPoint(x: Double(x) * gridSize + gridSize / 2,
+                                                               y: Double(y) * gridSize + gridSize / 2),
+                                               width: gridSize, height: gridSize)
+                        .scaleAspectFill()
+                ])
+
+            }
+        }
+
+    }
 }
