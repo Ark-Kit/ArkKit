@@ -10,7 +10,6 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         self.canvasFrame = canvasFrame
     }
 
-    // TODO: add letterbox functionality
     func render(_ circle: CircleCanvasComponent) -> any Renderable {
         let (letterboxedRadius, letterboxedCenter) = letterboxCircle(canvasFrame: canvasFrame,
                                                                      center: circle.center,
@@ -42,7 +41,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         let letterboxedPoints = polygon.points.map { point in
             letterboxPoint(canvasFrame: canvasFrame, point: point)
         }
-        let renderable = UIKitPolygon(points: letterboxedPoints, frame: polygon.frame)
+        let renderable = UIKitPolygon(points: letterboxedPoints, frame: letterboxedFrame)
             .rotate(by: polygon.rotation)
             .applyModifiers(modifierInfo: polygon, colorGetter: getColor)
         renderable.render(into: rootView)

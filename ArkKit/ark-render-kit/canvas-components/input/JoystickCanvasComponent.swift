@@ -28,7 +28,7 @@ struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
         updated.onPanStartDelegate = onPanStartDelegate
         updated.onPanChangeDelegate = onPanChangeDelegate
         updated.onPanEndDelegate = onPanEndDelegate
-        
+
         return updated
     }
 

@@ -60,7 +60,7 @@ extension SceneDelegate {
                 ecsContext.createEntity(with: [
                     JoystickCanvasComponent(center: CGPoint(x: 300, y: 300), radius: 50,
                                             areValuesEqual: { _, _ in true })
-                        .onPanChange{ angle, mag in print("change", angle, mag) }
+                        .onPanChange { angle, mag in print("change", angle, mag) }
                         .onPanStart { angle, mag in print("start", angle, mag) }
                         .onPanEnd { angle, mag in print("end", angle, mag) }
                 ])
@@ -81,7 +81,7 @@ extension SceneDelegate {
         return arkBlueprint
     }
     func loadArkBlueprintToScene(_ blueprint: ArkBlueprint, window: UIWindow) {
-        guard let rootView = window.rootViewController as? UINavigationController else {
+        guard let rootView = window.rootViewController as? AbstractParentView else {
             return
         }
         self.ark = Ark(rootView: rootView)

@@ -1,5 +1,4 @@
-// TODO: remove dependency to UIKit
-import UIKit
+import Foundation
 /**
  * `Ark` describes a **running instance** of the game.
  *
@@ -10,14 +9,10 @@ import UIKit
  * relying on the `arkInstance` will not emit.
  */
 class Ark {
-    // TODO: remove UIKit dependency
-    // The `rootView` should compose:
-    // 1. handle rendering of the game -> RenderingKit
-    // 2. handle game loop updates -> LoopKit
-    let rootView: UINavigationController
+    let rootView: any AbstractParentView
     let arkState: ArkState
 
-    init(rootView: UINavigationController) {
+    init(rootView: any AbstractParentView) {
         self.rootView = rootView
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
