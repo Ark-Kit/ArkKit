@@ -18,8 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window.rootViewController = RootViewController()
         window.makeKeyAndVisible()
-        let arkBlueprint = defineArkBlueprint()
-        loadArkBlueprintToScene(arkBlueprint, window: window)
+//        let arkBlueprint = defineArkBlueprint()
+        let tankGameManager = TankGameManager(frameWidth: 820, frameHeight: 1_180)
+        loadArkBlueprintToScene(tankGameManager.blueprint, window: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
