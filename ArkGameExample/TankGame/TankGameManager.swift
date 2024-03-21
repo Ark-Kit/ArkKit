@@ -33,8 +33,10 @@ class TankGameManager {
                                                         in: ecsContext, eventContext: eventContext)
                 TankGameEntityCreator.createShootButton(at: CGPoint(x: 150, y: 150), tankEntity: tankEntity2,
                                                         in: ecsContext, eventContext: eventContext)
-            })
 
+//                TankGameEntityCreator.addBackground(width: self.blueprint.frameWidth, height: self.blueprint.frameHeight,
+//                                                    in: ecsContext)
+            })
 
     }
 
