@@ -5,7 +5,6 @@ class TankGameManager {
     private(set) var blueprint: ArkBlueprint
 
     init(frameWidth: Double, frameHeight: Double) {
-        // 820, 1180
         self.blueprint = ArkBlueprint(frameWidth: frameWidth, frameHeight: frameHeight)
         setUp()
     }
@@ -20,38 +19,22 @@ class TankGameManager {
         // Define game with blueprint here.
         self.blueprint = self.blueprint
             .setup({ ecsContext, eventContext in
-                let tankEntity1 = TankGameEntityCreator.createTank(at: CGPoint(x: 500, y: 300),
+                let tankEntity1 = TankGameEntityCreator.createTank(at: CGPoint(x: 500, y: 700), rotation: Double.pi,
                                                                    tankIndex: 1, in: ecsContext)
-                let tankEntity2 = TankGameEntityCreator.createTank(at: CGPoint(x: 500, y: 700),
+                let tankEntity2 = TankGameEntityCreator.createTank(at: CGPoint(x: 500, y: 300), rotation: 0,
                                                                    tankIndex: 2, in: ecsContext)
 
-                TankGameEntityCreator.createJoyStick(center: CGPoint(x: 670, y: 150), tankEntity: tankEntity1,
+                TankGameEntityCreator.createJoyStick(center: CGPoint(x: 150, y: 1_030), tankEntity: tankEntity1,
                                                      in: ecsContext, eventContext: eventContext)
-                TankGameEntityCreator.createJoyStick(center: CGPoint(x: 150, y: 1_030), tankEntity: tankEntity2,
+                TankGameEntityCreator.createJoyStick(center: CGPoint(x: 670, y: 150), tankEntity: tankEntity2,
                                                      in: ecsContext, eventContext: eventContext)
 
-//                ecsContext.createEntity(with: [
-//                    JoystickCanvasComponent(center: CGPoint(x: 300, y: 300), radius: 50,
-//                                            areValuesEqual: { _, _ in true })
-//                        .onPanChange { angle, mag in print("change", angle, mag) }
-//                        .onPanStart { angle, mag in print("start", angle, mag) }
-//                        .onPanEnd { angle, mag in print("end", angle, mag) }
-//                ])
+                TankGameEntityCreator.createShootButton(at: CGPoint(x: 670, y: 1_030), tankEntity: tankEntity1,
+                                                        in: ecsContext, eventContext: eventContext)
+                TankGameEntityCreator.createShootButton(at: CGPoint(x: 150, y: 150), tankEntity: tankEntity2,
+                                                        in: ecsContext, eventContext: eventContext)
+            })
 
-//                ecsContext.createEntity(with: [
-//                    ButtonCanvasComponent(width: 50, height: 50, center: CGPoint(x: 500, y: 500),
-//                                          areValuesEqual: { _, _ in true })
-//                    .addOnTapDelegate(delegate: {
-//                        print("emiting event")
-//                        var demoEvent: any ArkEvent = DemoArkEvent()
-//                        eventContext.emit(&demoEvent)
-//                        print("done emit event")
-//                    })
-//                ])
-            })
-            .rule(on: DemoArkEvent.self, then: Forever { _, _, _ in
-                print("running rule")
-            })
 
     }
 
@@ -63,6 +46,8 @@ class TankGameManager {
             .rule(on: TankMoveEvent.self, then: Forever { event, _, ecsContext in
                 guard let tankMoveEvent = event as? TankMoveEvent,
                       let tankMoveEventData = tankMoveEvent.eventData as? TankMoveEventData,
+                      var tankRotationComponent = ecsContext.getComponent(ofType: RotationComponent.self,
+                                                                          for: tankMoveEventData.tankEntity),
                       var tankPhysicsComponent = ecsContext.getComponent(ofType: PhysicsComponent.self,
                                                                          for: tankMoveEventData.tankEntity)
                 else {
@@ -74,6 +59,8 @@ class TankGameManager {
                 if tankMoveEventData.magnitude == 0 {
                     tankPhysicsComponent.velocity = .zero
                 } else {
+                    tankRotationComponent.angleInRadians = tankMoveEventData.angle - Double.pi / 2
+
                     let velocityX = tankMoveEventData.magnitude * velocityScale
                                     * cos(tankMoveEventData.angle - Double.pi / 2)
                     let velocityY = tankMoveEventData.magnitude * velocityScale
@@ -90,8 +77,25 @@ class TankGameManager {
                     }
                 }
             })
+            .rule(on: TankShootEvent.self, then: Forever { event, _, ecsContext in
+                guard let tankShootEvent = event as? TankShootEvent,
+                      let tankShootEventData = tankShootEvent.eventData as? TankShootEventData,
+                      let tankPositionComponent = ecsContext.getComponent(ofType: PositionComponent.self,
+                                                                          for: tankShootEventData.tankEntity),
+                      let tankRotationComponent = ecsContext.getComponent(ofType: RotationComponent.self,
+                                                                          for: tankShootEventData.tankEntity)
+                else {
+                    return
+                }
 
+                let ballVelocity = 1.0
 
+                TankGameEntityCreator
+                    .createBall(position: tankPositionComponent.position,
+                                velocity: CGVector(dx: ballVelocity * cos(tankRotationComponent.angleInRadians ?? 0),
+                                                   dy: ballVelocity * sin(tankRotationComponent.angleInRadians ?? 0)),
+                                in: ecsContext)
+            })
     }
 
 }

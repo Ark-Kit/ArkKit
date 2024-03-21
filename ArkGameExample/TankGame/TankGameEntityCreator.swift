@@ -3,15 +3,16 @@ import Foundation
 struct TankGameEntityCreator {
 
     @discardableResult
-    static func createTank(at position: CGPoint, tankIndex: Int,
-                           in ecsContext: ArkECSContext) -> Entity {
+    static func createTank(at position: CGPoint, rotation: CGFloat,
+                           tankIndex: Int, in ecsContext: ArkECSContext) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
             BitmapImageCanvasComponent(imageResourcePath: "tank_\(tankIndex)", center: position, width: 80, height: 100)
                 .scaleAspectFill(),
             PositionComponent(position: position),
+            RotationComponent(angleInRadians: rotation),
             // TODO: Set up physics
-            PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100), categoryBitMask: 0,
-                             collisionBitMask: 0, contactTestBitMask: 0)
+            PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100), allowsRotation: true,
+                             categoryBitMask: 0, collisionBitMask: 0, contactTestBitMask: 0)
         ])
         return tankEntity
     }
@@ -24,7 +25,6 @@ struct TankGameEntityCreator {
                     let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
                                                               angle: angle, magnitude: mag)
                     var tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
-                    print("emitting event")
                     eventContext.emit(&tankMoveEvent)
                 }
                 .onPanEnd { _, _ in
@@ -36,17 +36,28 @@ struct TankGameEntityCreator {
         ])
     }
 
-    static func createShootButton(center: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
-                               eventContext: ArkEventContext) {
+    static func createShootButton(at position: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
+                                  eventContext: ArkEventContext) {
         ecsContext.createEntity(with: [
-            ButtonCanvasComponent(width: 50, height: 50, center: CGPoint(x: 500, y: 500),
+            ButtonCanvasComponent(width: 50, height: 50, center: position,
                                   areValuesEqual: { _, _ in true })
             .addOnTapDelegate(delegate: {
-                print("emiting event")
-                var demoEvent: any ArkEvent = DemoArkEvent()
-                eventContext.emit(&demoEvent)
-                print("done emit event")
+                let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)
+                var tankShootEvent: any ArkEvent = TankShootEvent(eventData: tankShootEventData)
+                eventContext.emit(&tankShootEvent)
             })
+        ])
+    }
+
+    static func createBall(position: CGPoint, velocity: CGVector, in ecsContext: ArkECSContext) {
+        ecsContext.createEntity(with: [
+            BitmapImageCanvasComponent(imageResourcePath: "ball", center: position, width: 20, height: 20)
+                .scaleAspectFill(),
+            PositionComponent(position: position),
+            // TODO: Set up physics
+            PhysicsComponent(shape: .circle, size: CGSize(width: 20, height: 20), velocity: velocity,
+                             categoryBitMask: 0, collisionBitMask: 0, contactTestBitMask: 0)
+
         ])
     }
 }
