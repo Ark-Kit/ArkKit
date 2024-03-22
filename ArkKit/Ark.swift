@@ -53,7 +53,7 @@ class Ark {
             arkState.setup(stateSetupFunction)
         }
     }
-    
+
     private func setupDefaultEntities() {
         arkState.arkECS.createEntity(with: [StopWatchComponent(name: ArkTimeSystem.ARK_WORLD_TIME)])
     }

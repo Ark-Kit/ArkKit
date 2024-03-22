@@ -6,7 +6,10 @@ struct TankGameEntityCreator {
     static func createTank(at position: CGPoint, rotation: CGFloat,
                            tankIndex: Int, in ecsContext: ArkECSContext) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageCanvasComponent(imageResourcePath: "tank_\(tankIndex)", center: position, width: 80, height: 100)
+            BitmapImageCanvasComponent(imageResourcePath: "tank_\(tankIndex)",
+                                       center: position, width: 80,
+                                       height: 100,
+                                       rotation: rotation)
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: rotation),
