@@ -33,7 +33,15 @@ class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
         ecsContext.createEntity(with: [
             BitmapImageCanvasComponent(imageResourcePath: "lake",
                                        width: size.width, height: size.height)
+            .zPosition(1)
             .center(location)
+            .scaleToFill(),
+            PositionComponent(position: location),
+            RotationComponent(angleInRadians: 0),
+            PhysicsComponent(shape: .rectangle, size: size, isDynamic: false,
+                             categoryBitMask: TankGamePhysicsCategory.water,
+                             collisionBitMask: TankGamePhysicsCategory.none,
+                             contactTestBitMask: TankGamePhysicsCategory.tank)
         ])
     }
 }
@@ -48,7 +56,14 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
         ecsContext.createEntity(with: [
             BitmapImageCanvasComponent(imageResourcePath: imageResourcePath,
                                        width: size.width, height: size.height)
-            .center(location)
+            .zPosition(1)
+            .center(location),
+            PositionComponent(position: location),
+            RotationComponent(angleInRadians: 0),
+            PhysicsComponent(shape: .circle, radius: size.width, isDynamic: false,
+                             categoryBitMask: TankGamePhysicsCategory.wall,
+                             collisionBitMask: TankGamePhysicsCategory.none,
+                             contactTestBitMask: TankGamePhysicsCategory.tank | TankGamePhysicsCategory.ball)
         ])
     }
 }
