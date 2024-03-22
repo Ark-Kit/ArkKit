@@ -4,6 +4,7 @@ protocol CanvasComponent: Component, Memoizable {
     var center: CGPoint { get set }
     var rotation: Double { get set }
     var zPosition: Double { get set }
+    var isUserInteractionEnabled: Bool { get set }
 
     func render(using renderer: any CanvasRenderer) -> any Renderable
     func update(using updater: any CanvasComponentUpdater) -> Self
@@ -12,6 +13,7 @@ protocol CanvasComponent: Component, Memoizable {
     func center(_ center: CGPoint) -> Self
     func rotation(_ rotation: Double) -> Self
     func zPosition(_ zPos: Double) -> Self
+    func isUserInteractionEnabled(_ isEnabled: Bool) -> Self
 }
 
 extension CanvasComponent {
@@ -36,6 +38,12 @@ extension CanvasComponent {
     func zPosition(_ zPos: Double) -> Self {
         var newSelf = self
         newSelf.zPosition = zPos
+        return newSelf
+    }
+
+    func isUserInteractionEnabled(_ isEnabled: Bool) -> Self {
+        var newSelf = self
+        newSelf.isUserInteractionEnabled = isEnabled
         return newSelf
     }
 }

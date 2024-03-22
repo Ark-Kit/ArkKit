@@ -5,6 +5,7 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var isUserInteractionEnabled = false
     let width: Double
     let height: Double
     let areValuesEqual: AreValuesEqualDelegate
