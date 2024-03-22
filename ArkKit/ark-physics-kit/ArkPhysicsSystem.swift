@@ -16,9 +16,21 @@ class ArkPhysicsSystem: System {
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
         let physicsComponents = getPhysicsComponents(arkECS)
+        let currentTime = getCurrentTime(arkECS: arkECS)
         syncToPhysicsEngine(physicsComponents, arkECS: arkECS)
-        scene.update(deltaTime)
+        scene.update(currentTime)
         syncFromPhysicsEngine(arkECS: arkECS)
+    }
+    
+    private func getCurrentTime(arkECS: ArkECS) -> TimeInterval {
+        let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
+        // Assume that there is only one stopwatch entity
+        guard let stopWatchEntity = stopWatchEntities.first,
+              let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
+            // If there is no stopwatch entity, return 0, physics world will not run
+            return 0
+        }
+        return stopWatchComponent.currentTime
     }
 
     private func setupPhysicsScene() {
