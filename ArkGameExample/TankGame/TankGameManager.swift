@@ -56,10 +56,11 @@ class TankGameManager {
                     return
                 }
 
-                let velocityScale = 0.1
+                let velocityScale = 1.5
 
                 if tankMoveEventData.magnitude == 0 {
                     tankPhysicsComponent.velocity = .zero
+                    ecsContext.upsertComponent(tankPhysicsComponent, to: tankMoveEventData.tankEntity)
                 } else {
                     tankRotationComponent.angleInRadians = tankMoveEventData.angle - Double.pi / 2
 
@@ -67,16 +68,9 @@ class TankGameManager {
                                     * cos(tankMoveEventData.angle - Double.pi / 2)
                     let velocityY = tankMoveEventData.magnitude * velocityScale
                                     * sin(tankMoveEventData.angle - Double.pi / 2)
-
+                    
                     tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
-
-//                    // TODO: Delete this part once velocity works properly
-//                    if let positionComponent = ecsContext.getComponent(ofType: PositionComponent.self,
-//                                                                       for: tankMoveEventData.tankEntity) {
-//                        positionComponent.position.x += velocityX
-//                        positionComponent.position.y += velocityY
-//
-//                    }
+                    ecsContext.upsertComponent(tankPhysicsComponent, to: tankMoveEventData.tankEntity)
                 }
             })
             .rule(on: TankShootEvent.self, then: Forever { event, _, ecsContext in
