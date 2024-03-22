@@ -22,6 +22,7 @@ class Ark {
     func start(blueprint: ArkBlueprint) {
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
+        setupDefaultEntities()
         setupDefaultSystems(blueprint)
 
         // Initializee game with rootView, and eventManager
@@ -53,12 +54,18 @@ class Ark {
         }
     }
 
+    private func setupDefaultEntities() {
+        arkState.arkECS.createEntity(with: [StopWatchComponent(name: ArkTimeSystem.ARK_WORLD_TIME)])
+    }
+
     private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
-        let gameScene = SKGameScene(size: CGSize(width: worldWidth, height: worldHeight))
-        let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: arkState.eventManager)
+        let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
+        let physicsSystem = ArkPhysicsSystem(simulator: simulator, eventManager: arkState.eventManager, arkECS: arkState.arkECS)
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
+        let timeSystem = ArkTimeSystem()
+        arkState.arkECS.addSystem(timeSystem)
         arkState.arkECS.addSystem(physicsSystem)
         arkState.arkECS.addSystem(animationSystem)
         arkState.arkECS.addSystem(canvasSystem)

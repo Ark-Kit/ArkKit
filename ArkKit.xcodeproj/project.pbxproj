@@ -46,6 +46,49 @@
 		02D8E9512BAC9A3900BF3A07 /* AbstractParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9502BAC9A3900BF3A07 /* AbstractParentView.swift */; };
 		02D8E9532BAC9A5A00BF3A07 /* AbstractChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9522BAC9A5A00BF3A07 /* AbstractChildView.swift */; };
 		02D8E9562BAC9AB700BF3A07 /* ArkGameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */; };
+		02D8E91E2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8EE2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png */; };
+		02D8E91F2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8EF2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png */; };
+		02D8E9202BAC419400BF3A07 /* Sprite_Effects_Explosion_003.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F02BAC419400BF3A07 /* Sprite_Effects_Explosion_003.png */; };
+		02D8E9212BAC419400BF3A07 /* Sprite_Effects_Explosion_004.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F12BAC419400BF3A07 /* Sprite_Effects_Explosion_004.png */; };
+		02D8E9222BAC419400BF3A07 /* Sprite_Effects_Explosion_005.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F22BAC419400BF3A07 /* Sprite_Effects_Explosion_005.png */; };
+		02D8E9232BAC419400BF3A07 /* Sprite_Effects_Explosion_006.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F32BAC419400BF3A07 /* Sprite_Effects_Explosion_006.png */; };
+		02D8E9242BAC419400BF3A07 /* Sprite_Effects_Explosion_007.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F42BAC419400BF3A07 /* Sprite_Effects_Explosion_007.png */; };
+		02D8E9252BAC419400BF3A07 /* Sprite_Effects_Explosion_008.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F52BAC419400BF3A07 /* Sprite_Effects_Explosion_008.png */; };
+		02D8E9262BAC419400BF3A07 /* lake.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F72BAC419400BF3A07 /* lake.png */; };
+		02D8E9272BAC419400BF3A07 /* map_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F82BAC419400BF3A07 /* map_1.png */; };
+		02D8E9282BAC419400BF3A07 /* map_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8F92BAC419400BF3A07 /* map_2.png */; };
+		02D8E9292BAC419400BF3A07 /* map_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8FA2BAC419400BF3A07 /* map_3.png */; };
+		02D8E92A2BAC419400BF3A07 /* stones_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8FB2BAC419400BF3A07 /* stones_1.png */; };
+		02D8E92B2BAC419400BF3A07 /* stones_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8FC2BAC419400BF3A07 /* stones_2.png */; };
+		02D8E92C2BAC419400BF3A07 /* stones_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8FD2BAC419400BF3A07 /* stones_3.png */; };
+		02D8E92D2BAC419400BF3A07 /* stones_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8FE2BAC419400BF3A07 /* stones_4.png */; };
+		02D8E92E2BAC419400BF3A07 /* stones_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8FF2BAC419400BF3A07 /* stones_5.png */; };
+		02D8E92F2BAC419400BF3A07 /* stones_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9002BAC419400BF3A07 /* stones_6.png */; };
+		02D8E9302BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_000.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9022BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_000.png */; };
+		02D8E9312BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9032BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png */; };
+		02D8E9322BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_002.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9042BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_002.png */; };
+		02D8E9332BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_003.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9052BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_003.png */; };
+		02D8E9342BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_004.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9062BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_004.png */; };
+		02D8E9352BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_005.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9072BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_005.png */; };
+		02D8E9362BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_006.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9082BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_006.png */; };
+		02D8E9372BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_007.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9092BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_007.png */; };
+		02D8E9382BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_008.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E90A2BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_008.png */; };
+		02D8E9392BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_009.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E90B2BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_009.png */; };
+		02D8E93A2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_000.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E90C2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_000.png */; };
+		02D8E93B2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_001.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E90D2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_001.png */; };
+		02D8E93C2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_002.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E90E2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_002.png */; };
+		02D8E93D2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_003.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E90F2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_003.png */; };
+		02D8E93E2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_004.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9102BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_004.png */; };
+		02D8E93F2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_005.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9112BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_005.png */; };
+		02D8E9402BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_006.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9122BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_006.png */; };
+		02D8E9412BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9132BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png */; };
+		02D8E9422BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_008.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9142BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_008.png */; };
+		02D8E9432BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_009.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9152BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_009.png */; };
+		02D8E9442BAC419400BF3A07 /* Sprite_Effects_Explosion_000.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9162BAC419400BF3A07 /* Sprite_Effects_Explosion_000.png */; };
+		02D8E9452BAC419400BF3A07 /* tank_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9182BAC419400BF3A07 /* tank_1.png */; };
+		02D8E9462BAC419400BF3A07 /* tank_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E9192BAC419400BF3A07 /* tank_2.png */; };
+		02D8E9472BAC419400BF3A07 /* tank_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E91A2BAC419400BF3A07 /* tank_3.png */; };
+		02D8E9482BAC419400BF3A07 /* tank_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E91B2BAC419400BF3A07 /* tank_4.png */; };
 		02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */; };
 		02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */; };
 		02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */; };
@@ -66,6 +109,10 @@
 		280CD3E02BA81FBA00372C5D /* DefaultSKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBody.swift */; };
 		282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */; };
 		28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */; };
+		28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */; };
+		28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */; };
+		28A032E52BAD781900851BFF /* AbstractArkSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */; };
+		28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E62BAD783D00851BFF /* SKSimulator.swift */; };
 		8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */; };
 		8F5573C12BA42614007030C8 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C02BA42614007030C8 /* Renderable.swift */; };
 		8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */; };
@@ -79,6 +126,11 @@
 		9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AE2BA952E300F99013 /* AbstractShape.swift */; };
 		9479A3B12BA953D800F99013 /* ShapeCanvasComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */; };
 		9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B32BA95E7E00F99013 /* AbstractColor.swift */; };
+		AD36A7562BAC0D36003E938B /* TankGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A7552BAC0D36003E938B /* TankGameManager.swift */; };
+		AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */; };
+		AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75A2BAC331F003E938B /* TankComponent.swift */; };
+		AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */; };
+		AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5F69742BAC879400A5518D /* TankShootEvent.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
 		AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03672BA1A61200974EBF /* ArkEventManager.swift */; };
@@ -160,6 +212,49 @@
 		02D8E9502BAC9A3900BF3A07 /* AbstractParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractParentView.swift; sourceTree = "<group>"; };
 		02D8E9522BAC9A5A00BF3A07 /* AbstractChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractChildView.swift; sourceTree = "<group>"; };
 		02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkGameLoop.swift; sourceTree = "<group>"; };
+		02D8E8EE2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_001.png; sourceTree = "<group>"; };
+		02D8E8EF2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_002.png; sourceTree = "<group>"; };
+		02D8E8F02BAC419400BF3A07 /* Sprite_Effects_Explosion_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_003.png; sourceTree = "<group>"; };
+		02D8E8F12BAC419400BF3A07 /* Sprite_Effects_Explosion_004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_004.png; sourceTree = "<group>"; };
+		02D8E8F22BAC419400BF3A07 /* Sprite_Effects_Explosion_005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_005.png; sourceTree = "<group>"; };
+		02D8E8F32BAC419400BF3A07 /* Sprite_Effects_Explosion_006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_006.png; sourceTree = "<group>"; };
+		02D8E8F42BAC419400BF3A07 /* Sprite_Effects_Explosion_007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_007.png; sourceTree = "<group>"; };
+		02D8E8F52BAC419400BF3A07 /* Sprite_Effects_Explosion_008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_008.png; sourceTree = "<group>"; };
+		02D8E8F72BAC419400BF3A07 /* lake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lake.png; sourceTree = "<group>"; };
+		02D8E8F82BAC419400BF3A07 /* map_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_1.png; sourceTree = "<group>"; };
+		02D8E8F92BAC419400BF3A07 /* map_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_2.png; sourceTree = "<group>"; };
+		02D8E8FA2BAC419400BF3A07 /* map_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_3.png; sourceTree = "<group>"; };
+		02D8E8FB2BAC419400BF3A07 /* stones_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones_1.png; sourceTree = "<group>"; };
+		02D8E8FC2BAC419400BF3A07 /* stones_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones_2.png; sourceTree = "<group>"; };
+		02D8E8FD2BAC419400BF3A07 /* stones_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones_3.png; sourceTree = "<group>"; };
+		02D8E8FE2BAC419400BF3A07 /* stones_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones_4.png; sourceTree = "<group>"; };
+		02D8E8FF2BAC419400BF3A07 /* stones_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones_5.png; sourceTree = "<group>"; };
+		02D8E9002BAC419400BF3A07 /* stones_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stones_6.png; sourceTree = "<group>"; };
+		02D8E9022BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_000.png; sourceTree = "<group>"; };
+		02D8E9032BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_001.png; sourceTree = "<group>"; };
+		02D8E9042BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_002.png; sourceTree = "<group>"; };
+		02D8E9052BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_003.png; sourceTree = "<group>"; };
+		02D8E9062BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_004.png; sourceTree = "<group>"; };
+		02D8E9072BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_005.png; sourceTree = "<group>"; };
+		02D8E9082BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_006.png; sourceTree = "<group>"; };
+		02D8E9092BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_007.png; sourceTree = "<group>"; };
+		02D8E90A2BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_008.png; sourceTree = "<group>"; };
+		02D8E90B2BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_009.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_01_009.png; sourceTree = "<group>"; };
+		02D8E90C2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_000.png; sourceTree = "<group>"; };
+		02D8E90D2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_001.png; sourceTree = "<group>"; };
+		02D8E90E2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_002.png; sourceTree = "<group>"; };
+		02D8E90F2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_003.png; sourceTree = "<group>"; };
+		02D8E9102BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_004.png; sourceTree = "<group>"; };
+		02D8E9112BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_005.png; sourceTree = "<group>"; };
+		02D8E9122BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_006.png; sourceTree = "<group>"; };
+		02D8E9132BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_007.png; sourceTree = "<group>"; };
+		02D8E9142BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_008.png; sourceTree = "<group>"; };
+		02D8E9152BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_009.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Exhaust_02_009.png; sourceTree = "<group>"; };
+		02D8E9162BAC419400BF3A07 /* Sprite_Effects_Explosion_000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_000.png; sourceTree = "<group>"; };
+		02D8E9182BAC419400BF3A07 /* tank_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tank_1.png; sourceTree = "<group>"; };
+		02D8E9192BAC419400BF3A07 /* tank_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tank_2.png; sourceTree = "<group>"; };
+		02D8E91A2BAC419400BF3A07 /* tank_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tank_3.png; sourceTree = "<group>"; };
+		02D8E91B2BAC419400BF3A07 /* tank_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tank_4.png; sourceTree = "<group>"; };
 		02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShape.swift; sourceTree = "<group>"; };
 		02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRenderable.swift; sourceTree = "<group>"; };
 		02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCircle.swift; sourceTree = "<group>"; };
@@ -180,6 +275,10 @@
 		280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSKPhysicsBody.swift; sourceTree = "<group>"; };
 		282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBodyManager.swift; sourceTree = "<group>"; };
 		28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPhysicsComponent.swift; sourceTree = "<group>"; };
+		28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchComponent.swift; sourceTree = "<group>"; };
+		28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkTimeSystem.swift; sourceTree = "<group>"; };
+		28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkSimulator.swift; sourceTree = "<group>"; };
+		28A032E62BAD783D00851BFF /* SKSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSimulator.swift; sourceTree = "<group>"; };
 		8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderable.swift; sourceTree = "<group>"; };
 		8F5573C02BA42614007030C8 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapRenderable.swift; sourceTree = "<group>"; };
@@ -193,6 +292,11 @@
 		9479A3AE2BA952E300F99013 /* AbstractShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractShape.swift; sourceTree = "<group>"; };
 		9479A3B02BA953D800F99013 /* ShapeCanvasComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCanvasComponent.swift; sourceTree = "<group>"; };
 		9479A3B32BA95E7E00F99013 /* AbstractColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractColor.swift; sourceTree = "<group>"; };
+		AD36A7552BAC0D36003E938B /* TankGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameManager.swift; sourceTree = "<group>"; };
+		AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameEntityCreator.swift; sourceTree = "<group>"; };
+		AD36A75A2BAC331F003E938B /* TankComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankComponent.swift; sourceTree = "<group>"; };
+		AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankMoveEvent.swift; sourceTree = "<group>"; };
+		AD5F69742BAC879400A5518D /* TankShootEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankShootEvent.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
 		AD6E03672BA1A61200974EBF /* ArkEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventManager.swift; sourceTree = "<group>"; };
@@ -334,6 +438,7 @@
 		02C395102BA6EBBA0075F1CA /* ArkGameExample */ = {
 			isa = PBXGroup;
 			children = (
+				AD36A7522BAC0A59003E938B /* TankGame */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
 				AD787A542B9C636F003EBBD0 /* RootViewController.swift */,
@@ -392,6 +497,88 @@
 				02C3953E2BAB27230075F1CA /* CanvasComponentRotationUpdater.swift */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		02D8E8F62BAC419400BF3A07 /* Explosion */ = {
+			isa = PBXGroup;
+			children = (
+				02D8E8EE2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png */,
+				02D8E8EF2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png */,
+				02D8E8F02BAC419400BF3A07 /* Sprite_Effects_Explosion_003.png */,
+				02D8E8F12BAC419400BF3A07 /* Sprite_Effects_Explosion_004.png */,
+				02D8E8F22BAC419400BF3A07 /* Sprite_Effects_Explosion_005.png */,
+				02D8E8F32BAC419400BF3A07 /* Sprite_Effects_Explosion_006.png */,
+				02D8E8F42BAC419400BF3A07 /* Sprite_Effects_Explosion_007.png */,
+				02D8E8F52BAC419400BF3A07 /* Sprite_Effects_Explosion_008.png */,
+			);
+			path = Explosion;
+			sourceTree = "<group>";
+		};
+		02D8E9012BAC419400BF3A07 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				02D8E8F72BAC419400BF3A07 /* lake.png */,
+				02D8E8F82BAC419400BF3A07 /* map_1.png */,
+				02D8E8F92BAC419400BF3A07 /* map_2.png */,
+				02D8E8FA2BAC419400BF3A07 /* map_3.png */,
+				02D8E8FB2BAC419400BF3A07 /* stones_1.png */,
+				02D8E8FC2BAC419400BF3A07 /* stones_2.png */,
+				02D8E8FD2BAC419400BF3A07 /* stones_3.png */,
+				02D8E8FE2BAC419400BF3A07 /* stones_4.png */,
+				02D8E8FF2BAC419400BF3A07 /* stones_5.png */,
+				02D8E9002BAC419400BF3A07 /* stones_6.png */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
+		02D8E9172BAC419400BF3A07 /* Shot */ = {
+			isa = PBXGroup;
+			children = (
+				02D8E9022BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_000.png */,
+				02D8E9032BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png */,
+				02D8E9042BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_002.png */,
+				02D8E9052BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_003.png */,
+				02D8E9062BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_004.png */,
+				02D8E9072BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_005.png */,
+				02D8E9082BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_006.png */,
+				02D8E9092BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_007.png */,
+				02D8E90A2BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_008.png */,
+				02D8E90B2BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_009.png */,
+				02D8E90C2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_000.png */,
+				02D8E90D2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_001.png */,
+				02D8E90E2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_002.png */,
+				02D8E90F2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_003.png */,
+				02D8E9102BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_004.png */,
+				02D8E9112BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_005.png */,
+				02D8E9122BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_006.png */,
+				02D8E9132BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png */,
+				02D8E9142BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_008.png */,
+				02D8E9152BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_009.png */,
+				02D8E9162BAC419400BF3A07 /* Sprite_Effects_Explosion_000.png */,
+			);
+			path = Shot;
+			sourceTree = "<group>";
+		};
+		02D8E91C2BAC419400BF3A07 /* Tanks */ = {
+			isa = PBXGroup;
+			children = (
+				02D8E9182BAC419400BF3A07 /* tank_1.png */,
+				02D8E9192BAC419400BF3A07 /* tank_2.png */,
+				02D8E91A2BAC419400BF3A07 /* tank_3.png */,
+				02D8E91B2BAC419400BF3A07 /* tank_4.png */,
+			);
+			path = Tanks;
+			sourceTree = "<group>";
+		};
+		02D8E91D2BAC419400BF3A07 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				02D8E8F62BAC419400BF3A07 /* Explosion */,
+				02D8E9012BAC419400BF3A07 /* Maps */,
+				02D8E9172BAC419400BF3A07 /* Shot */,
+				02D8E91C2BAC419400BF3A07 /* Tanks */,
+			);
+			path = assets;
 			sourceTree = "<group>";
 		};
 		02D8E9492BAC8E9900BF3A07 /* ui-kit */ = {
@@ -500,6 +687,7 @@
 				280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBody.swift */,
 				280CD3D52BA7F8CC00372C5D /* SKGameScene.swift */,
 				282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */,
+				28A032E62BAD783D00851BFF /* SKSimulator.swift */,
 			);
 			path = "sprite-kit-physics-facade";
 			sourceTree = "<group>";
@@ -510,18 +698,28 @@
 				280CD3C32BA7419400372C5D /* ArkSceneUpdateDelegate.swift */,
 				280CD3CF2BA74E5F00372C5D /* AbstractArkGameScene.swift */,
 				280CD3C72BA743D900372C5D /* AbstractArkPhysicsBody.swift */,
+				28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */,
 			);
 			path = "ark-physics-facade";
 			sourceTree = "<group>";
 		};
-		280CD3DA2BA8044600372C5D /* Components */ = {
+		280CD3DA2BA8044600372C5D /* InternalComponents */ = {
 			isa = PBXGroup;
 			children = (
 				280CD3DB2BA8044D00372C5D /* PositionComponent.swift */,
 				280CD3DD2BA8045200372C5D /* RotationComponent.swift */,
 				02C395332BAAF0EC0075F1CA /* WorldComponent.swift */,
+				28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */,
 			);
-			path = Components;
+			path = InternalComponents;
+			sourceTree = "<group>";
+		};
+		28A032DD2BAD4ED200851BFF /* InternalSystems */ = {
+			isa = PBXGroup;
+			children = (
+				28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */,
+			);
+			path = InternalSystems;
 			sourceTree = "<group>";
 		};
 		8F5573BD2BA4258F007030C8 /* renderable */ = {
@@ -615,12 +813,41 @@
 			path = color;
 			sourceTree = "<group>";
 		};
+		AD36A7522BAC0A59003E938B /* TankGame */ = {
+			isa = PBXGroup;
+			children = (
+				AD36A75C2BAC3612003E938B /* Events */,
+				AD36A7592BAC3309003E938B /* Components */,
+				AD36A7552BAC0D36003E938B /* TankGameManager.swift */,
+				AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */,
+			);
+			path = TankGame;
+			sourceTree = "<group>";
+		};
+		AD36A7592BAC3309003E938B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AD36A75A2BAC331F003E938B /* TankComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AD36A75C2BAC3612003E938B /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */,
+				AD5F69742BAC879400A5518D /* TankShootEvent.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
 			isa = PBXGroup;
 			children = (
 				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
 				AD787A832B9C6C78003EBBD0 /* Component.swift */,
-				280CD3DA2BA8044600372C5D /* Components */,
+				28A032DD2BAD4ED200851BFF /* InternalSystems */,
+				280CD3DA2BA8044600372C5D /* InternalComponents */,
 				AD787A852B9C6C91003EBBD0 /* System.swift */,
 				AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */,
 				AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */,
@@ -663,6 +890,7 @@
 		AD787A442B9C636F003EBBD0 = {
 			isa = PBXGroup;
 			children = (
+				02D8E91D2BAC419400BF3A07 /* assets */,
 				02C395312BA9ED230075F1CA /* README.md */,
 				02C395102BA6EBBA0075F1CA /* ArkGameExample */,
 				AD787A4F2B9C636F003EBBD0 /* ArkKit */,
@@ -823,10 +1051,53 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02D8E9212BAC419400BF3A07 /* Sprite_Effects_Explosion_004.png in Resources */,
+				02D8E9372BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_007.png in Resources */,
+				02D8E9312BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png in Resources */,
+				02D8E9262BAC419400BF3A07 /* lake.png in Resources */,
+				02D8E92B2BAC419400BF3A07 /* stones_2.png in Resources */,
+				02D8E9302BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_000.png in Resources */,
+				02D8E9412BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png in Resources */,
 				AD787A5D2B9C6373003EBBD0 /* LaunchScreen.storyboard in Resources */,
+				02D8E9402BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_006.png in Resources */,
+				02D8E93E2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_004.png in Resources */,
+				02D8E9232BAC419400BF3A07 /* Sprite_Effects_Explosion_006.png in Resources */,
+				02D8E9342BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_004.png in Resources */,
+				02D8E9392BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_009.png in Resources */,
+				02D8E9422BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_008.png in Resources */,
+				02D8E92E2BAC419400BF3A07 /* stones_5.png in Resources */,
+				02D8E92C2BAC419400BF3A07 /* stones_3.png in Resources */,
+				02D8E9432BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_009.png in Resources */,
+				02D8E9222BAC419400BF3A07 /* Sprite_Effects_Explosion_005.png in Resources */,
+				02D8E93F2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_005.png in Resources */,
+				02D8E9452BAC419400BF3A07 /* tank_1.png in Resources */,
 				AD787A5A2B9C6373003EBBD0 /* Assets.xcassets in Resources */,
+				02D8E9322BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_002.png in Resources */,
+				02D8E9272BAC419400BF3A07 /* map_1.png in Resources */,
+				02D8E93C2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_002.png in Resources */,
+				02D8E9382BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_008.png in Resources */,
+				02D8E9472BAC419400BF3A07 /* tank_3.png in Resources */,
+				02D8E92A2BAC419400BF3A07 /* stones_1.png in Resources */,
+				02D8E91F2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png in Resources */,
+				02D8E92F2BAC419400BF3A07 /* stones_6.png in Resources */,
+				02D8E91E2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png in Resources */,
+				02D8E9462BAC419400BF3A07 /* tank_2.png in Resources */,
+				02D8E93D2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_003.png in Resources */,
+				02D8E9282BAC419400BF3A07 /* map_2.png in Resources */,
+				02D8E93A2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_000.png in Resources */,
+				02D8E9442BAC419400BF3A07 /* Sprite_Effects_Explosion_000.png in Resources */,
 				02C395322BA9ED230075F1CA /* README.md in Resources */,
+				02D8E92D2BAC419400BF3A07 /* stones_4.png in Resources */,
+				02D8E9252BAC419400BF3A07 /* Sprite_Effects_Explosion_008.png in Resources */,
+				02D8E9332BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_003.png in Resources */,
+				02D8E9292BAC419400BF3A07 /* map_3.png in Resources */,
+				02D8E93B2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_001.png in Resources */,
+				02D8E9202BAC419400BF3A07 /* Sprite_Effects_Explosion_003.png in Resources */,
+				02D8E9352BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_005.png in Resources */,
+				02D8E9362BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_006.png in Resources */,
+				02D8E9482BAC419400BF3A07 /* tank_4.png in Resources */,
 				AD787A582B9C636F003EBBD0 /* Main.storyboard in Resources */,
+				02D8E9242BAC419400BF3A07 /* Sprite_Effects_Explosion_007.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +1145,7 @@
 				280CD3CE2BA74E4300372C5D /* BaseSKGameScene.swift in Sources */,
 				280CD3C42BA7419400372C5D /* ArkSceneUpdateDelegate.swift in Sources */,
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
+				28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */,
 				945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */,
 				02C394F72BA4428A0075F1CA /* UIKitJoystick.swift in Sources */,
 				280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */,
@@ -884,12 +1156,14 @@
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
+				AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */,
 				8F5573C12BA42614007030C8 /* Renderable.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleCanvasComponent.swift in Sources */,
 				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,
 				02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */,
 				02C394E92BA41B480075F1CA /* ArkViewModel.swift in Sources */,
+				AD36A7562BAC0D36003E938B /* TankGameManager.swift in Sources */,
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */,
@@ -901,7 +1175,9 @@
 				02D8E94C2BAC99FC00BF3A07 /* GameLoopable.swift in Sources */,
 				280CD3D02BA74E6000372C5D /* AbstractArkGameScene.swift in Sources */,
 				02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */,
+				AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */,
 				28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */,
+				28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				02C395082BA5E2F10075F1CA /* Forever.swift in Sources */,
 				02D8E9532BAC9A5A00BF3A07 /* AbstractChildView.swift in Sources */,
@@ -916,12 +1192,16 @@
 				02C3951C2BA8492B0075F1CA /* BitmapImageCanvasComponent.swift in Sources */,
 				02C395182BA83FC40075F1CA /* ButtonCanvasComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
+				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
+				28A032E52BAD781900851BFF /* AbstractArkSimulator.swift in Sources */,
 				02C395152BA83FAE0075F1CA /* CanvasComponent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
+				AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */,
 				02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
+				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,
 				280CD3CB2BA7455A00372C5D /* CGVector+Extension.swift in Sources */,
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
@@ -1152,7 +1432,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1184,7 +1464,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

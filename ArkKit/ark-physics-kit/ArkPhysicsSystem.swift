@@ -5,20 +5,45 @@ import Foundation
  */
 class ArkPhysicsSystem: System {
     var active: Bool
+    var simulator: AbstractArkSimulator
     var scene: AbstractArkGameScene
     var eventManager: ArkEventManager
+    var arkECS: ArkECS
+    var started = false
 
-    init(active: Bool = true, gameScene: AbstractArkGameScene, eventManager: ArkEventManager) {
+    init(active: Bool = true, simulator: AbstractArkSimulator, eventManager: ArkEventManager, arkECS: ArkECS) {
         self.active = active
-        self.scene = gameScene
+        self.simulator = simulator
+        self.scene = simulator.gameScene
         self.eventManager = eventManager
+        self.arkECS = arkECS
+        self.scene.sceneUpdateDelegate = self
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
+        if !started {
+            self.start()
+        }
         let physicsComponents = getPhysicsComponents(arkECS)
         syncToPhysicsEngine(physicsComponents, arkECS: arkECS)
-        scene.update(deltaTime)
-        syncFromPhysicsEngine(arkECS: arkECS)
+    }
+
+    func start() {
+        simulator.start()
+        self.started = true
+    }
+
+    private func getCurrentTime(arkECS: ArkECS) -> TimeInterval {
+        let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
+        for stopWatchEntity in stopWatchEntities {
+            guard let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
+                continue
+            }
+            if stopWatchComponent.name == ArkTimeSystem.ARK_WORLD_TIME {
+                return stopWatchComponent.currentTime
+            }
+        }
+        return 0
     }
 
     private func setupPhysicsScene() {
@@ -34,12 +59,12 @@ class ArkPhysicsSystem: System {
         }
     }
 
-    func syncFromPhysicsEngine(arkECS: ArkECS) {
+    func syncFromPhysicsEngine() {
         let syncStrategies: [ComponentSyncing] = [PhysicsComponentSync(), PositionComponentSync(), RotationComponentSync()]
 
         scene.forEachEntity(perform: { entityId, physicsBody in
             syncStrategies.forEach { strategy in
-                strategy.sync(entityId: entityId, with: physicsBody, using: arkECS)
+                strategy.sync(entityId: entityId, with: physicsBody, using: self.arkECS)
             }
         })
     }
@@ -165,6 +190,10 @@ extension ArkPhysicsSystem: ArkSceneUpdateDelegate {
 
     func didContactEnd(between entityA: Entity, and entityB: Entity) {
         // If we need this we can have a handle collision end event
+    }
+
+    func didFinishUpdate() {
+        syncFromPhysicsEngine()
     }
 }
 
