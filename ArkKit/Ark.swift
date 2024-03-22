@@ -11,17 +11,20 @@ import Foundation
 class Ark {
     let rootView: any AbstractParentView
     let arkState: ArkState
+    let audioplayer: AudioPlayer
 
     init(rootView: any AbstractParentView) {
         self.rootView = rootView
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
+        self.audioplayer = ArkAudioPlayer()
     }
 
     func start(blueprint: ArkBlueprint) {
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
+        setup(blueprint.audioHandlers)
         setupDefaultEntities()
         setupDefaultSystems(blueprint)
 
@@ -37,20 +40,34 @@ class Ark {
     private func setup(_ rules: [Rule]) {
         // subscribe all rules to the eventManager
         for rule in rules {
-            arkState.eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
-                guard let arkInstance = self else {
-                    return
-                }
-                rule.action.execute(event,
-                                    eventContext: arkInstance.arkState.eventManager,
-                                    ecsContext: arkInstance.arkState.arkECS)
-            }
+            setup(event: rule.event, do: rule.action)
         }
     }
 
     private func setup(_ stateSetupFunctions: [ArkStateSetupFunction]) {
         for stateSetupFunction in stateSetupFunctions {
             arkState.setup(stateSetupFunction)
+        }
+    }
+
+    private func setup(_ audiohandlers: [AudioHandler]) {
+        for audiohandler in audiohandlers {
+            audiohandler.load(to: audioplayer)
+            let action = Forever { _, _, _ in
+                audiohandler.execute(self.audioplayer)
+            }
+            setup(event: audiohandler.event, do: action)
+        }
+    }
+
+    private func setup(event: ArkEventID, do action: Action) {
+        arkState.eventManager.subscribe(to: event) { [weak self] (event: any ArkEvent) -> Void in
+            guard let arkInstance = self else {
+                return
+            }
+            action.execute(event,
+                           eventContext: arkInstance.arkState.eventManager,
+                           ecsContext: arkInstance.arkState.arkECS)
         }
     }
 
@@ -61,7 +78,11 @@ class Ark {
     private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
-        let physicsSystem = ArkPhysicsSystem(simulator: simulator, eventManager: arkState.eventManager, arkECS: arkState.arkECS)
+        let physicsSystem = ArkPhysicsSystem(
+            simulator: simulator,
+            eventManager: arkState.eventManager,
+            arkECS: arkState.arkECS
+        )
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()

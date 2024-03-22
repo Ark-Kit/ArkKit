@@ -6,6 +6,7 @@
 struct ArkBlueprint {
     private(set) var rules: [Rule] = []
     private(set) var setupFunctions: [ArkStateSetupFunction] = []
+    private(set) var audioHandlers: [AudioHandler] = []
 
     private(set) var frameWidth: Double
     private(set) var frameHeight: Double
@@ -28,6 +29,27 @@ struct ArkBlueprint {
 
         var newSelf = self
         newSelf.rules = newRules
+        return newSelf
+    }
+
+    func audio<Event: ArkEvent, T: RawRepresentable<String>>(
+        on eventType: Event.Type,
+        play: T, numberOfLoops: Int
+    ) -> Self {
+        var newAudioHandlers = audioHandlers
+        newAudioHandlers.append(PlayAudioHandler(event: Event.id, filename: play, numberOfLoops: numberOfLoops))
+
+        var newSelf = self
+        newSelf.audioHandlers = newAudioHandlers
+        return newSelf
+    }
+
+    func audio<Event: ArkEvent, T: RawRepresentable<String>>(on eventType: Event.Type, stop: T) -> Self {
+        var newAudioHandlers = audioHandlers
+        newAudioHandlers.append(StopAudioHandler(event: Event.id, filename: stop))
+
+        var newSelf = self
+        newSelf.audioHandlers = newAudioHandlers
         return newSelf
     }
 }
