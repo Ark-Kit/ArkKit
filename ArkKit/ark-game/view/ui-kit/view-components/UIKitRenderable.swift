@@ -13,6 +13,11 @@ extension UIKitRenderable {
         return self
     }
 
+    func zPosition(_ zPos: Double) -> Self {
+        self.layer.zPosition = zPos
+        return self
+    }
+
     func `if`(_ condition: Bool, transform: (Self) -> Self) -> Self {
         if condition {
             transform(self)

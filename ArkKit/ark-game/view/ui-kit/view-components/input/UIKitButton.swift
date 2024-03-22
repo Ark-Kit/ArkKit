@@ -18,6 +18,8 @@ final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
 
     func modify(onTapDelegate: TapDelegate?) -> Self {
         self.onTapDelegate = onTapDelegate
+        super.frame = CGRect.zero
+
         return self
     }
 
@@ -37,7 +39,7 @@ extension UIKitButton {
     func applyModifiers(modifierInfo: ButtonCanvasComponent) -> Self {
         self
             .if(modifierInfo.onTapDelegate != nil, transform: { view in
-                view.addOnTapDelegate(delegate: modifierInfo.onTapDelegate ?? {})
+                view.onTap(modifierInfo.onTapDelegate ?? {})
             })
     }
 }
