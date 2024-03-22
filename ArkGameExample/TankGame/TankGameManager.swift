@@ -13,6 +13,7 @@ class TankGameManager {
         setUpEntities()
         setUpSystems()
         setUpRules()
+        setUpAudio()
     }
 
     func setUpEntities() {
@@ -95,4 +96,8 @@ class TankGameManager {
             })
     }
 
+    private func setUpAudio() {
+        self.blueprint = blueprint
+            .audio(on: TankShootEvent.self, play: TankGameAudio.shoot, numberOfLoops: 0)
+    }
 }

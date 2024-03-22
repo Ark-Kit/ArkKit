@@ -122,6 +122,8 @@
 		942A16742BADF3B300F0186B /* StopAudioHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16732BADF3B300F0186B /* StopAudioHandler.swift */; };
 		942A16772BADF3ED00F0186B /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16762BADF3ED00F0186B /* AudioPlayer.swift */; };
 		942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16782BADF40600F0186B /* ArkAudioPlayer.swift */; };
+		942A16812BAE048900F0186B /* shoot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 942A16802BAE048900F0186B /* shoot.mp3 */; };
+		942A16832BAE049000F0186B /* TankGameAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16822BAE049000F0186B /* TankGameAudio.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
 		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
@@ -291,6 +293,8 @@
 		942A16732BADF3B300F0186B /* StopAudioHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAudioHandler.swift; sourceTree = "<group>"; };
 		942A16762BADF3ED00F0186B /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		942A16782BADF40600F0186B /* ArkAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAudioPlayer.swift; sourceTree = "<group>"; };
+		942A16802BAE048900F0186B /* shoot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shoot.mp3; sourceTree = "<group>"; };
+		942A16822BAE049000F0186B /* TankGameAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameAudio.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
 		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
@@ -775,6 +779,15 @@
 			path = "audio-player";
 			sourceTree = "<group>";
 		};
+		942A167F2BAE047B00F0186B /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				942A16802BAE048900F0186B /* shoot.mp3 */,
+				942A16822BAE049000F0186B /* TankGameAudio.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		945F7F7F2BA55E4E00933629 /* input */ = {
 			isa = PBXGroup;
 			children = (
@@ -848,6 +861,7 @@
 		AD36A7522BAC0A59003E938B /* TankGame */ = {
 			isa = PBXGroup;
 			children = (
+				942A167F2BAE047B00F0186B /* Audio */,
 				AD36A75C2BAC3612003E938B /* Events */,
 				AD36A7592BAC3309003E938B /* Components */,
 				AD36A7552BAC0D36003E938B /* TankGameManager.swift */,
@@ -1089,6 +1103,7 @@
 				02D8E9312BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png in Resources */,
 				02D8E9262BAC419400BF3A07 /* lake.png in Resources */,
 				02D8E92B2BAC419400BF3A07 /* stones_2.png in Resources */,
+				942A16812BAE048900F0186B /* shoot.mp3 in Resources */,
 				02D8E9302BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_000.png in Resources */,
 				02D8E9412BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png in Resources */,
 				AD787A5D2B9C6373003EBBD0 /* LaunchScreen.storyboard in Resources */,
@@ -1271,6 +1286,7 @@
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
 				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectCanvasComponent.swift in Sources */,
+				942A16832BAE049000F0186B /* TankGameAudio.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
 				02D8E9562BAC9AB700BF3A07 /* ArkGameLoop.swift in Sources */,
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
