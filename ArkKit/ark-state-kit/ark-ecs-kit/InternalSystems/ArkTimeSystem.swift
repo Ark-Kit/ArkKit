@@ -7,11 +7,11 @@ class ArkTimeSystem: System {
     static let ARK_WORLD_TIME = "_ArkWorldTime"
 
     var active: Bool
-    
+
     init(active: Bool = true) {
         self.active = active
     }
-    
+
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
         let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
         for stopWatchEntity in stopWatchEntities {
