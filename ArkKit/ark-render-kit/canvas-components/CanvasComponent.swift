@@ -1,6 +1,9 @@
 import Foundation
 
 protocol CanvasComponent: Component, Memoizable {
+    typealias ShouldRerenderDelegate = (_ old: Self, _ new: Self) -> Bool
+    var shouldRerenderDelegate: ShouldRerenderDelegate? { get set }
+
     var center: CGPoint { get set }
     var rotation: Double { get set }
     var zPosition: Double { get set }
@@ -13,7 +16,8 @@ protocol CanvasComponent: Component, Memoizable {
     func center(_ center: CGPoint) -> Self
     func rotation(_ rotation: Double) -> Self
     func zPosition(_ zPos: Double) -> Self
-    func isUserInteractionEnabled(_ isEnabled: Bool) -> Self
+    func userInteractionsEnabled(_ isEnabled: Bool) -> Self
+    func shouldRerender(_ shouldRerender: @escaping ShouldRerenderDelegate) -> Self
 }
 
 extension CanvasComponent {
@@ -41,10 +45,25 @@ extension CanvasComponent {
         return newSelf
     }
 
-    func isUserInteractionEnabled(_ isEnabled: Bool) -> Self {
+    func userInteractionsEnabled(_ isEnabled: Bool) -> Self {
         var newSelf = self
         newSelf.isUserInteractionEnabled = isEnabled
         return newSelf
+    }
+
+    func shouldRerender(_ shouldRerenderDelegate: @escaping ShouldRerenderDelegate) -> Self {
+        var newSelf = self
+        newSelf.shouldRerenderDelegate = shouldRerenderDelegate
+        return newSelf
+    }
+
+    var areValuesEqual: AreValuesEqualDelegate {
+        { old, new in
+            if let shouldRerenderDelegate {
+                return !shouldRerenderDelegate(old, new)
+            }
+            return false
+        }
     }
 }
 

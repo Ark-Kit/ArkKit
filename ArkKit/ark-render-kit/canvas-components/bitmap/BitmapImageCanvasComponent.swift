@@ -8,20 +8,18 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     var isUserInteractionEnabled = false
     let width: Double
     let height: Double
-    let areValuesEqual: AreValuesEqualDelegate
+    
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: String, width: Double, height: Double,
-         areValuesEqual: @escaping (BitmapImageCanvasComponent, BitmapImageCanvasComponent) -> Bool
-         = { _, _ in false }) {
+    init(imageResourcePath: String, width: Double, height: Double) {
         self.imageResourcePath = imageResourcePath
         self.width = width
         self.height = height
-        self.areValuesEqual = areValuesEqual
     }
 
     func render(using renderer: any CanvasRenderer) -> any Renderable {
