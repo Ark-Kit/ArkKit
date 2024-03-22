@@ -70,10 +70,10 @@ class Ark {
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
+        arkState.arkECS.addSystem(timeSystem)
         arkState.arkECS.addSystem(physicsSystem)
         arkState.arkECS.addSystem(animationSystem)
         arkState.arkECS.addSystem(canvasSystem)
-        arkState.arkECS.addSystem(timeSystem)
     }
 
     private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {
