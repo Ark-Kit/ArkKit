@@ -66,7 +66,7 @@ extension SceneDelegate {
                         .onPanEnd { angle, mag in print("end", angle, mag) }
                 ])
                 ecsContext.createEntity(with: [
-                    ButtonCanvasComponent(width: 50, height: 50 ,
+                    ButtonCanvasComponent(width: 50, height: 50,
                                           areValuesEqual: { _, _ in true })
                         .center(x: 500, y: 500)
                         .onTap {
