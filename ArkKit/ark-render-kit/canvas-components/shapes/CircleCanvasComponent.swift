@@ -1,25 +1,22 @@
 import CoreGraphics
 
 struct CircleCanvasComponent: ShapeCanvasComponent {
-    let radius: Double
-    let center: CGPoint
-    let rotation: Double
-    let areValuesEqual: AreValuesEqualDelegate
+    private(set) var radius: Double
+    var center: CGPoint = .zero
+    var rotation: Double = 0.0
+    private(set) var areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(radius: Double, center: CGPoint, rotation: Double = 0.0,
+    init(radius: Double,
          areValuesEqual: @escaping (CircleCanvasComponent, CircleCanvasComponent) -> Bool = { _, _ in false }) {
         self.radius = radius
-        self.center = center
-        self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> CircleCanvasComponent {
-        var copy = CircleCanvasComponent(radius: radius, center: center, rotation: rotation,
-                                         areValuesEqual: areValuesEqual)
+        var copy = self
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
         return copy

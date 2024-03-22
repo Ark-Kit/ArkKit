@@ -3,14 +3,14 @@ import CoreGraphics
 struct RectCanvasComponent: ShapeCanvasComponent {
     let width: Double
     let height: Double
-    let center: CGPoint
-    let rotation: Double
+    var center: CGPoint
+    var rotation: Double
     let areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(width: Double, height: Double, center: CGPoint, rotation: Double = 0.0,
+    init(width: Double, height: Double, center: CGPoint = .zero, rotation: Double = 0.0,
          areValuesEqual: @escaping (RectCanvasComponent, RectCanvasComponent) -> Bool = { _, _ in false }) {
         self.width = width
         self.height = height
