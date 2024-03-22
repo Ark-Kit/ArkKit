@@ -1,9 +1,9 @@
 import CoreGraphics
 
 struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
-    var center: CGPoint
-    var rotation: Double
-    
+    var center: CGPoint = .zero
+    var rotation: Double = 0.0
+
     let radius: Double
     let areValuesEqual: AreValuesEqualDelegate
 
@@ -12,11 +12,8 @@ struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
     var onPanEndDelegate: PanEventDelegate?
 
     init(radius: Double,
-         rotation: Double = 0.0,
          areValuesEqual: @escaping (JoystickCanvasComponent, JoystickCanvasComponent) -> Bool = { _, _ in false }) {
-        self.center = .zero
         self.radius = radius
-        self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 

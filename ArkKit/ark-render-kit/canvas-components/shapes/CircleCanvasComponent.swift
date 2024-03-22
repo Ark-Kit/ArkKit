@@ -2,18 +2,16 @@ import CoreGraphics
 
 struct CircleCanvasComponent: ShapeCanvasComponent {
     private(set) var radius: Double
-    var center: CGPoint
-    var rotation: Double
+    var center: CGPoint = .zero
+    var rotation: Double = 0.0
     private(set) var areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(radius: Double, rotation: Double = 0.0,
+    init(radius: Double,
          areValuesEqual: @escaping (CircleCanvasComponent, CircleCanvasComponent) -> Bool = { _, _ in false }) {
         self.radius = radius
-        self.center = .zero
-        self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 

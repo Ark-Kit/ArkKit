@@ -7,10 +7,11 @@ struct TankGameEntityCreator {
                            tankIndex: Int, in ecsContext: ArkECSContext) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
             BitmapImageCanvasComponent(imageResourcePath: "tank_\(tankIndex)",
-                                       center: position, width: 80,
-                                       height: 100,
-                                       rotation: rotation)
-                .scaleAspectFill(),
+                                       width: 80,
+                                       height: 100)
+            .center(position)
+            .rotation(rotation)
+            .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: rotation),
             // TODO: Set up physics
@@ -56,7 +57,8 @@ struct TankGameEntityCreator {
 
     static func createBall(position: CGPoint, velocity: CGVector, angle: CGFloat, in ecsContext: ArkECSContext) {
         ecsContext.createEntity(with: [
-            BitmapImageCanvasComponent(imageResourcePath: "ball", center: position, width: 20, height: 20)
+            BitmapImageCanvasComponent(imageResourcePath: "ball", width: 20, height: 20)
+                .center(position)
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: angle),
@@ -76,10 +78,10 @@ struct TankGameEntityCreator {
             for y in 0...gridHeight {
                 ecsContext.createEntity(with: [
                     BitmapImageCanvasComponent(imageResourcePath: "map_1",
-                                               center: CGPoint(x: Double(x) * gridSize + gridSize / 2,
-                                                               y: Double(y) * gridSize + gridSize / 2),
                                                width: gridSize, height: gridSize)
-                        .scaleAspectFill()
+                    .center(CGPoint(x: Double(x) * gridSize + gridSize / 2,
+                                    y: Double(y) * gridSize + gridSize / 2))
+                    .scaleAspectFill()
                 ])
 
             }

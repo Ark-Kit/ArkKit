@@ -11,7 +11,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         self.canvasView = canvasView
         // Scale canvasView to fit the rootView
         let scaleFactor = letterboxScaleFactor(rootFrame: rootView.frame, canvasFrame: canvasFrame)
-        
+
         canvasView.bounds = canvasFrame
         canvasView.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
         canvasView.center = rootView.center

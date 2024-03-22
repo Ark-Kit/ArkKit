@@ -7,14 +7,14 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
 
     let INNER_RADIUS_FACTOR = 0.75
     private let radius: Double
-    
+
     init(center: CGPoint, radius: Double) {
         let frame = CGRect(x: center.x - radius, y: center.y - radius,
                            width: radius * 2, height: radius * 2)
         self.radius = radius
-        
+
         super.init(frame: frame)
-        
+
         let centerWithinContainer = CGPoint(x: radius, y: radius)
         let innerCircle = UIKitCircle(radius: INNER_RADIUS_FACTOR * radius,
                                       center: centerWithinContainer)
@@ -75,7 +75,7 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         self.addGestureRecognizer(pan)
     }
-    
+
     private func calculateClockwiseAngleRotationInRadians(by translation: CGPoint) -> Double {
         var angle = atan2(translation.x, -translation.y)
         if angle < 0 {

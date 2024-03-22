@@ -3,8 +3,8 @@ import CoreGraphics
 struct PolygonCanvasComponent: ShapeCanvasComponent {
     let points: [CGPoint]
     let frame: CGRect
-    var center: CGPoint
-    var rotation: Double
+    var center: CGPoint = .zero
+    var rotation: Double = 0.0
     let areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?

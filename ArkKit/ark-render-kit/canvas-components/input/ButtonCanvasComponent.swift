@@ -3,18 +3,16 @@ import CoreGraphics
 struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
     let width: Double
     let height: Double
-    var center: CGPoint
-    var rotation: Double
+    var center: CGPoint = .zero
+    var rotation: Double = 0.0
     let areValuesEqual: AreValuesEqualDelegate
 
     var onTapDelegate: TapDelegate?
 
-    init(width: Double, height: Double, rotation: Double = 0.0,
+    init(width: Double, height: Double,
          areValuesEqual: @escaping (ButtonCanvasComponent, ButtonCanvasComponent) -> Bool = { _, _ in false }) {
         self.width = width
         self.height = height
-        self.center = .zero
-        self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 

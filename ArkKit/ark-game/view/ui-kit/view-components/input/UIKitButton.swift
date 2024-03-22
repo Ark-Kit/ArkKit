@@ -19,7 +19,7 @@ final class UIKitButton: UIButton, UIKitRenderable, TapRenderable {
     func modify(onTapDelegate: TapDelegate?) -> Self {
         self.onTapDelegate = onTapDelegate
         super.frame = CGRect.zero
-        
+
         return self
     }
 

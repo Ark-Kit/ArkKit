@@ -10,7 +10,7 @@ struct RectCanvasComponent: ShapeCanvasComponent {
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(width: Double, height: Double, center: CGPoint, rotation: Double = 0.0,
+    init(width: Double, height: Double, center: CGPoint = .zero, rotation: Double = 0.0,
          areValuesEqual: @escaping (RectCanvasComponent, RectCanvasComponent) -> Bool = { _, _ in false }) {
         self.width = width
         self.height = height

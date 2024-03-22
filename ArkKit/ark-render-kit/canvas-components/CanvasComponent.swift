@@ -5,7 +5,7 @@ protocol CanvasComponent: Component, Memoizable {
     var rotation: Double { get set }
     func render(using renderer: any CanvasRenderer) -> any Renderable
     func update(using updater: any CanvasComponentUpdater) -> Self
-    
+
     func center(x: Double?, y: Double?) -> Self
     func center(_ center: CGPoint) -> Self
     func rotation(_ rotation: Double) -> Self
@@ -17,13 +17,13 @@ extension CanvasComponent {
         newSelf.center = CGPoint(x: x ?? center.x, y: y ?? center.y)
         return newSelf
     }
-    
+
     func center(_ center: CGPoint) -> Self {
         var newSelf = self
         newSelf.center = center
         return newSelf
     }
-    
+
     func rotation(_ rotation: Double) -> Self {
         var newSelf = self
         newSelf.rotation = rotation

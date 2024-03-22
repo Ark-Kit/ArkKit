@@ -2,8 +2,8 @@ import CoreGraphics
 
 struct BitmapImageCanvasComponent: CanvasComponent {
     let imageResourcePath: String
-    var center: CGPoint
-    var rotation: Double
+    var center: CGPoint = .zero
+    var rotation: Double = 0.0
     let width: Double
     let height: Double
     let areValuesEqual: AreValuesEqualDelegate
@@ -13,15 +13,12 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: String, center: CGPoint, width: Double, height: Double,
-         rotation: Double = 0.0,
+    init(imageResourcePath: String, width: Double, height: Double,
          areValuesEqual: @escaping (BitmapImageCanvasComponent, BitmapImageCanvasComponent) -> Bool
          = { _, _ in false }) {
         self.imageResourcePath = imageResourcePath
-        self.center = center
         self.width = width
         self.height = height
-        self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 
@@ -58,14 +55,7 @@ extension BitmapImageCanvasComponent: AbstractBitmap {
         isScaleToFill: Bool? = nil,
         isScaleAspectFill: Bool? = nil
     ) -> Self {
-        var copy = BitmapImageCanvasComponent(
-            imageResourcePath: imageResourcePath,
-            center: center,
-            width: width,
-            height: height,
-            rotation: rotation,
-            areValuesEqual: areValuesEqual
-        )
+        var copy = self
         copy.isClipToBounds = isClipToBounds ?? self.isClipToBounds
         copy.isScaleAspectFit = isScaleAspectFit ?? self.isScaleAspectFit
         copy.isScaleToFill = isScaleToFill ?? self.isScaleToFill

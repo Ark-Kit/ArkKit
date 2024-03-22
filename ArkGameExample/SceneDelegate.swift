@@ -6,8 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
-               options connectionOptions: UIScene.ConnectionOptions)
-    {
+               options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
@@ -78,10 +77,10 @@ extension SceneDelegate {
                 ])
                 ecsContext.createEntity(with: [
                     BitmapImageCanvasComponent(imageResourcePath: "tank_1",
-                                               center: CGPoint(x: 410, y: 590),
                                                width: 256, height: 100,
                                                areValuesEqual: { _, _ in true })
-                        .scaleToFill()
+                    .center(CGPoint(x: 410, y: 590))
+                    .scaleToFill()
                 ])
             }
             .rule(on: DemoArkEvent.self, then: Forever { _, _, _ in
