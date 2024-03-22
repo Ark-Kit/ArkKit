@@ -4,6 +4,7 @@ struct CircleCanvasComponent: ShapeCanvasComponent {
     private(set) var radius: Double
     var center: CGPoint = .zero
     var rotation: Double = 0.0
+    var zPosition: Double = 0.0
     private(set) var areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?

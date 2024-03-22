@@ -3,14 +3,18 @@ import Foundation
 struct TankGameEntityCreator {
 
     @discardableResult
-    static func createTank(at position: CGPoint, rotation: CGFloat,
-                           tankIndex: Int, in ecsContext: ArkECSContext) -> Entity {
+    static func createTank(at position: CGPoint,
+                           rotation: CGFloat,
+                           tankIndex: Int,
+                           in ecsContext: ArkECSContext,
+                           zPosition: Double? = nil) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
             BitmapImageCanvasComponent(imageResourcePath: "tank_\(tankIndex)",
                                        width: 80,
                                        height: 100)
             .center(position)
             .rotation(rotation)
+            .zPosition(zPosition ?? 0.0)
             .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: rotation),
