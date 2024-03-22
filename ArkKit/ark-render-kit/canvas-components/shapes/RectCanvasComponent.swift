@@ -5,6 +5,7 @@ struct RectCanvasComponent: ShapeCanvasComponent {
     let height: Double
     var center: CGPoint
     var rotation: Double
+    var zPosition: Double = 0.0
     let areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?

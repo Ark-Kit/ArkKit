@@ -4,6 +4,7 @@ struct BitmapImageCanvasComponent: CanvasComponent {
     let imageResourcePath: String
     var center: CGPoint = .zero
     var rotation: Double = 0.0
+    var zPosition: Double = 0.0
     let width: Double
     let height: Double
     let areValuesEqual: AreValuesEqualDelegate
