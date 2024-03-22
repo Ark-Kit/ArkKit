@@ -2,8 +2,8 @@ import CoreGraphics
 
 struct BitmapImageCanvasComponent: CanvasComponent {
     let imageResourcePath: String
-    let center: CGPoint
-    let rotation: Double
+    var center: CGPoint
+    var rotation: Double
     let width: Double
     let height: Double
     let areValuesEqual: AreValuesEqualDelegate

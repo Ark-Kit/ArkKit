@@ -41,8 +41,7 @@ class ArkCanvasSystem: System {
                                                 canvasComponent: any CanvasComponent,
                                                 arkECS: ArkECS,
                                                 entity: Entity) -> any CanvasComponent {
-        let positionUpdater = CanvasComponentPositionUpdater(position: position)
-        let updatedCanvasComponent = canvasComponent.update(using: positionUpdater)
+        let updatedCanvasComponent = canvasComponent.withPosition(position)
         arkECS.upsertComponent(updatedCanvasComponent, to: entity)
         return updatedCanvasComponent
     }
@@ -51,8 +50,7 @@ class ArkCanvasSystem: System {
                                                 canvasComponent: any CanvasComponent,
                                                 arkECS: ArkECS,
                                                 entity: Entity) -> any CanvasComponent {
-        let rotationUpdater = CanvasComponentRotationUpdater(rotation: rotationAngleInRadians)
-        let updatedCanvasComponent = canvasComponent.update(using: rotationUpdater)
+        let updatedCanvasComponent = canvasComponent.withRotation(rotationAngleInRadians)
         arkECS.upsertComponent(updatedCanvasComponent, to: entity)
         return updatedCanvasComponent
     }

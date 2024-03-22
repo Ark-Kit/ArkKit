@@ -1,9 +1,10 @@
 import CoreGraphics
 
 struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
-    let center: CGPoint
+    var center: CGPoint
+    var rotation: Double
+    
     let radius: Double
-    let rotation: Double
     let areValuesEqual: AreValuesEqualDelegate
 
     var onPanStartDelegate: PanEventDelegate?

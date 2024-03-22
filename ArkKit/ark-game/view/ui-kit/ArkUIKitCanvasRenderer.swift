@@ -99,7 +99,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
     ]
 
     private func letterboxFrame(canvasFrame: CGRect, canvasComponentFrame: CGRect) -> CGRect {
-        let viewFrame = self.rootView.frame
+        let viewFrame = rootView.frame
         let widthScaleFactor = canvasComponentFrame.width / canvasFrame.width
         let heightScaleFactor = canvasComponentFrame.height / canvasFrame.height
 
@@ -112,19 +112,22 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                       width: letterboxedFrameWidth,
                       height: letterboxedFrameHeight)
     }
+
     private func letterboxCircle(canvasFrame: CGRect, center: CGPoint, radius: Double) -> (letterboxedRadius: Double,
-                                                                                           letterboxedCenter: CGPoint) {
-        let viewFrame = self.rootView.frame
+                                                                                           letterboxedCenter: CGPoint)
+    {
+        let viewFrame = rootView.frame
         let radiusScaleFactor = radius / max(canvasFrame.width, canvasFrame.height)
         let letterboxedRadius = radiusScaleFactor * max(viewFrame.width, viewFrame.height)
 
         let letterboxedCenter = letterboxPoint(canvasFrame: canvasFrame, point: center)
         return (letterboxedRadius, letterboxedCenter)
     }
+
     private func letterboxPoint(canvasFrame: CGRect, point: CGPoint) -> CGPoint {
         let pointXScaleFactor = point.x / canvasFrame.midX
         let pointYScaleFactor = point.y / canvasFrame.midY
-        let viewFrame = self.rootView.frame
+        let viewFrame = rootView.frame
         return CGPoint(x: pointXScaleFactor * viewFrame.midX, y: pointYScaleFactor * viewFrame.midY)
     }
 }
