@@ -18,6 +18,11 @@ extension UIKitRenderable {
         return self
     }
 
+    func setIsUserInteractionEnabled(_ isEnabled: Bool) -> Self {
+        self.isUserInteractionEnabled = isEnabled
+        return self
+    }
+
     func `if`(_ condition: Bool, transform: (Self) -> Self) -> Self {
         if condition {
             transform(self)

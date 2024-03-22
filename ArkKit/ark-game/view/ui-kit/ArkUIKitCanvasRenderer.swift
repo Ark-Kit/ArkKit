@@ -21,6 +21,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         let renderable = UIKitCircle(radius: circle.radius, center: circle.center)
             .rotate(by: circle.rotation)
             .zPosition(circle.zPosition)
+            .setIsUserInteractionEnabled(circle.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: circle, colorGetter: getColor)
         renderable.render(into: canvasView)
         return renderable
@@ -31,6 +32,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                    center: rect.center)
             .rotate(by: rect.rotation)
             .zPosition(rect.zPosition)
+            .setIsUserInteractionEnabled(rect.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: rect, colorGetter: getColor)
         renderable.render(into: canvasView)
         return renderable
@@ -40,6 +42,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         let renderable = UIKitPolygon(points: polygon.points, frame: polygon.frame)
             .rotate(by: polygon.rotation)
             .zPosition(polygon.zPosition)
+            .setIsUserInteractionEnabled(polygon.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: polygon, colorGetter: getColor)
         renderable.render(into: canvasView)
         return renderable
@@ -52,6 +55,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                           height: image.height)
             .rotate(by: image.rotation)
             .zPosition(image.zPosition)
+            .setIsUserInteractionEnabled(image.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: image)
         renderable.render(into: canvasView)
         return renderable
@@ -62,6 +66,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
                                      center: button.center)
             .rotate(by: button.rotation)
             .zPosition(button.zPosition)
+            .setIsUserInteractionEnabled(button.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: button)
         renderable.render(into: canvasView)
         return renderable
@@ -71,6 +76,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         let renderable = UIKitJoystick(center: joystick.center, radius: joystick.radius)
             .rotate(by: joystick.rotation)
             .zPosition(joystick.zPosition)
+            .setIsUserInteractionEnabled(joystick.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: joystick)
 
         renderable.render(into: canvasView)

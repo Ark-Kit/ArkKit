@@ -6,6 +6,7 @@ struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var isUserInteractionEnabled = true
     let areValuesEqual: AreValuesEqualDelegate
 
     var onTapDelegate: TapDelegate?

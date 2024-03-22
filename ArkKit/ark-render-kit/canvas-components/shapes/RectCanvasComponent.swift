@@ -6,6 +6,7 @@ struct RectCanvasComponent: ShapeCanvasComponent {
     var center: CGPoint
     var rotation: Double
     var zPosition: Double = 0.0
+    var isUserInteractionEnabled = false
     let areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?
