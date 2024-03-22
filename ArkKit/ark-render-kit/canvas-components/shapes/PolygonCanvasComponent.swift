@@ -7,24 +7,21 @@ struct PolygonCanvasComponent: ShapeCanvasComponent {
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = false
-    let areValuesEqual: AreValuesEqualDelegate
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
     init(points: [CGPoint], frame: CGRect,
-         rotation: Double = 0.0,
-         areValuesEqual: @escaping (PolygonCanvasComponent, PolygonCanvasComponent) -> Bool = { _, _ in false }) {
+         rotation: Double = 0.0) {
         self.points = points
         self.frame = frame
         self.center = CGPoint(x: frame.midX, y: frame.midY)
         self.rotation = rotation
-        self.areValuesEqual = areValuesEqual
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> PolygonCanvasComponent {
-        var copy = PolygonCanvasComponent(points: points, frame: frame, rotation: rotation,
-                                          areValuesEqual: areValuesEqual)
+        var copy = self
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
         return copy

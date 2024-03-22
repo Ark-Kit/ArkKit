@@ -28,7 +28,8 @@ struct TankGameEntityCreator {
     static func createJoyStick(center: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
                                eventContext: ArkEventContext) {
         ecsContext.createEntity(with: [
-            JoystickCanvasComponent(radius: 40, areValuesEqual: { _, _ in true })
+            JoystickCanvasComponent(radius: 40)
+                .shouldRerender { _, _ in true }
                 .center(center)
                 .onPanChange { angle, mag in
                     let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
@@ -48,8 +49,8 @@ struct TankGameEntityCreator {
     static func createShootButton(at position: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
                                   eventContext: ArkEventContext) {
         ecsContext.createEntity(with: [
-            ButtonCanvasComponent(width: 50, height: 50,
-                                  areValuesEqual: { _, _ in true })
+            ButtonCanvasComponent(width: 50, height: 50)
+            .shouldRerender { _, _ in false }
             .center(position)
             .onTap {
                 let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)

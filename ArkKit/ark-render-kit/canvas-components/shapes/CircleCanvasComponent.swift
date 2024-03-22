@@ -6,15 +6,13 @@ struct CircleCanvasComponent: ShapeCanvasComponent {
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = false
-    private(set) var areValuesEqual: AreValuesEqualDelegate
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(radius: Double,
-         areValuesEqual: @escaping (CircleCanvasComponent, CircleCanvasComponent) -> Bool = { _, _ in false }) {
+    init(radius: Double) {
         self.radius = radius
-        self.areValuesEqual = areValuesEqual
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> CircleCanvasComponent {

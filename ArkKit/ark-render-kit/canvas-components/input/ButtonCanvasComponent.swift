@@ -7,15 +7,13 @@ struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = true
-    let areValuesEqual: AreValuesEqualDelegate
 
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
     var onTapDelegate: TapDelegate?
 
-    init(width: Double, height: Double,
-         areValuesEqual: @escaping (ButtonCanvasComponent, ButtonCanvasComponent) -> Bool = { _, _ in false }) {
+    init(width: Double, height: Double) {
         self.width = width
         self.height = height
-        self.areValuesEqual = areValuesEqual
     }
 
     func modify(onTapDelegate: TapDelegate?) -> ButtonCanvasComponent {
