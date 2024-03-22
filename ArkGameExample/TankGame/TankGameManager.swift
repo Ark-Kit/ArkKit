@@ -70,13 +70,13 @@ class TankGameManager {
 
                     tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
 
-                    // TODO: Delete this part once velocity works properly
-                    if let positionComponent = ecsContext.getComponent(ofType: PositionComponent.self,
-                                                                       for: tankMoveEventData.tankEntity) {
-                        positionComponent.position.x += velocityX
-                        positionComponent.position.y += velocityY
-
-                    }
+//                    // TODO: Delete this part once velocity works properly
+//                    if let positionComponent = ecsContext.getComponent(ofType: PositionComponent.self,
+//                                                                       for: tankMoveEventData.tankEntity) {
+//                        positionComponent.position.x += velocityX
+//                        positionComponent.position.y += velocityY
+//
+//                    }
                 }
             })
             .rule(on: TankShootEvent.self, then: Forever { event, _, ecsContext in
@@ -90,12 +90,13 @@ class TankGameManager {
                     return
                 }
 
-                let ballVelocity = 1.0
+                let ballVelocity = 300.0
 
                 TankGameEntityCreator
                     .createBall(position: tankPositionComponent.position,
                                 velocity: CGVector(dx: ballVelocity * cos(tankRotationComponent.angleInRadians ?? 0),
                                                    dy: ballVelocity * sin(tankRotationComponent.angleInRadians ?? 0)),
+                                angle: tankRotationComponent.angleInRadians ?? 0,
                                 in: ecsContext)
             })
     }

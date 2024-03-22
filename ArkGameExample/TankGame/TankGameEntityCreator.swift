@@ -49,13 +49,14 @@ struct TankGameEntityCreator {
         ])
     }
 
-    static func createBall(position: CGPoint, velocity: CGVector, in ecsContext: ArkECSContext) {
+    static func createBall(position: CGPoint, velocity: CGVector, angle: CGFloat, in ecsContext: ArkECSContext) {
         ecsContext.createEntity(with: [
             BitmapImageCanvasComponent(imageResourcePath: "ball", center: position, width: 20, height: 20)
                 .scaleAspectFill(),
             PositionComponent(position: position),
+            RotationComponent(angleInRadians: angle),
             // TODO: Set up physics
-            PhysicsComponent(shape: .circle, size: CGSize(width: 20, height: 20), velocity: velocity,
+            PhysicsComponent(shape: .circle, radius: 20, velocity: velocity, allowsRotation: true,
                              categoryBitMask: 0, collisionBitMask: 0, contactTestBitMask: 0)
 
         ])

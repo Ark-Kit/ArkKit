@@ -15,6 +15,7 @@ class BaseSKGameScene: SKScene {
 
 extension BaseSKGameScene: SKSceneDelegate {
     func didFinishUpdate(for scene: SKScene) {
+        sceneUpdateDelegate?.didFinishUpdate()
     }
 }
 

@@ -60,8 +60,8 @@ class Ark {
 
     private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
-        let gameScene = SKGameScene(size: CGSize(width: worldWidth, height: worldHeight))
-        let physicsSystem = ArkPhysicsSystem(gameScene: gameScene, eventManager: arkState.eventManager)
+        let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
+        let physicsSystem = ArkPhysicsSystem(simulator: simulator, eventManager: arkState.eventManager, arkECS: arkState.arkECS)
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()

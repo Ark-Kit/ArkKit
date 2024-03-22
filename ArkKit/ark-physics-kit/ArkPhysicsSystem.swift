@@ -5,21 +5,32 @@ import Foundation
  */
 class ArkPhysicsSystem: System {
     var active: Bool
+    var simulator: AbstractArkSimulator
     var scene: AbstractArkGameScene
     var eventManager: ArkEventManager
+    var arkECS: ArkECS
+    var started: Bool = false
 
-    init(active: Bool = true, gameScene: AbstractArkGameScene, eventManager: ArkEventManager) {
+    init(active: Bool = true, simulator: AbstractArkSimulator, eventManager: ArkEventManager, arkECS: ArkECS) {
         self.active = active
-        self.scene = gameScene
+        self.simulator = simulator
+        self.scene = simulator.gameScene
         self.eventManager = eventManager
+        self.arkECS = arkECS
+        self.scene.sceneUpdateDelegate = self
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
+        if !started {
+            self.start()
+        }
         let physicsComponents = getPhysicsComponents(arkECS)
-        let currentTime = getCurrentTime(arkECS: arkECS)
         syncToPhysicsEngine(physicsComponents, arkECS: arkECS)
-        scene.update(currentTime)
-        syncFromPhysicsEngine(arkECS: arkECS)
+    }
+    
+    func start() {
+        simulator.start()
+        self.started = true
     }
     
     private func getCurrentTime(arkECS: ArkECS) -> TimeInterval {
@@ -48,12 +59,12 @@ class ArkPhysicsSystem: System {
         }
     }
 
-    func syncFromPhysicsEngine(arkECS: ArkECS) {
+    func syncFromPhysicsEngine() {
         let syncStrategies: [ComponentSyncing] = [PhysicsComponentSync(), PositionComponentSync(), RotationComponentSync()]
 
         scene.forEachEntity(perform: { entityId, physicsBody in
             syncStrategies.forEach { strategy in
-                strategy.sync(entityId: entityId, with: physicsBody, using: arkECS)
+                strategy.sync(entityId: entityId, with: physicsBody, using: self.arkECS)
             }
         })
     }
@@ -179,6 +190,10 @@ extension ArkPhysicsSystem: ArkSceneUpdateDelegate {
 
     func didContactEnd(between entityA: Entity, and entityB: Entity) {
         // If we need this we can have a handle collision end event
+    }
+    
+    func didFinishUpdate() {
+        syncFromPhysicsEngine()
     }
 }
 
