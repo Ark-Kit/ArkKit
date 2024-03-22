@@ -6,25 +6,25 @@ protocol CanvasComponent: Component, Memoizable {
     func render(using renderer: any CanvasRenderer) -> any Renderable
     func update(using updater: any CanvasComponentUpdater) -> Self
     
-    func withPosition(x: Double?, y: Double?) -> Self
-    func withPosition(_ center: CGPoint) -> Self
-    func withRotation(_ rotation: Double) -> Self
+    func center(x: Double?, y: Double?) -> Self
+    func center(_ center: CGPoint) -> Self
+    func rotation(_ rotation: Double) -> Self
 }
 
 extension CanvasComponent {
-    func withPosition(x: Double?, y: Double?) -> Self {
+    func center(x: Double?, y: Double?) -> Self {
         var newSelf = self
         newSelf.center = CGPoint(x: x ?? center.x, y: y ?? center.y)
         return newSelf
     }
     
-    func withPosition(_ center: CGPoint) -> Self {
+    func center(_ center: CGPoint) -> Self {
         var newSelf = self
         newSelf.center = center
         return newSelf
     }
     
-    func withRotation(_ rotation: Double) -> Self {
+    func rotation(_ rotation: Double) -> Self {
         var newSelf = self
         newSelf.rotation = rotation
         return newSelf

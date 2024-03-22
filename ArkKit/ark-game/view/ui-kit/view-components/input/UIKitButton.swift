@@ -39,7 +39,7 @@ extension UIKitButton {
     func applyModifiers(modifierInfo: ButtonCanvasComponent) -> Self {
         self
             .if(modifierInfo.onTapDelegate != nil, transform: { view in
-                view.addOnTapDelegate(delegate: modifierInfo.onTapDelegate ?? {})
+                view.onTap(modifierInfo.onTapDelegate ?? {})
             })
     }
 }

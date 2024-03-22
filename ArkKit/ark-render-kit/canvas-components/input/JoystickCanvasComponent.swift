@@ -11,10 +11,10 @@ struct JoystickCanvasComponent: AbstractPannable, CanvasComponent {
     var onPanChangeDelegate: PanEventDelegate?
     var onPanEndDelegate: PanEventDelegate?
 
-    init(center: CGPoint, radius: Double,
+    init(radius: Double,
          rotation: Double = 0.0,
          areValuesEqual: @escaping (JoystickCanvasComponent, JoystickCanvasComponent) -> Bool = { _, _ in false }) {
-        self.center = center
+        self.center = .zero
         self.radius = radius
         self.rotation = rotation
         self.areValuesEqual = areValuesEqual

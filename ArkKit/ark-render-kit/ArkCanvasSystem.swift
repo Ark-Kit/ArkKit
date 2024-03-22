@@ -41,7 +41,7 @@ class ArkCanvasSystem: System {
                                                 canvasComponent: any CanvasComponent,
                                                 arkECS: ArkECS,
                                                 entity: Entity) -> any CanvasComponent {
-        let updatedCanvasComponent = canvasComponent.withPosition(position)
+        let updatedCanvasComponent = canvasComponent.center(position)
         arkECS.upsertComponent(updatedCanvasComponent, to: entity)
         return updatedCanvasComponent
     }
@@ -50,7 +50,7 @@ class ArkCanvasSystem: System {
                                                 canvasComponent: any CanvasComponent,
                                                 arkECS: ArkECS,
                                                 entity: Entity) -> any CanvasComponent {
-        let updatedCanvasComponent = canvasComponent.withRotation(rotationAngleInRadians)
+        let updatedCanvasComponent = canvasComponent.rotation(rotationAngleInRadians)
         arkECS.upsertComponent(updatedCanvasComponent, to: entity)
         return updatedCanvasComponent
     }

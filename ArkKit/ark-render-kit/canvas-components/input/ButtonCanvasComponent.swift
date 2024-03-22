@@ -9,19 +9,17 @@ struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
 
     var onTapDelegate: TapDelegate?
 
-    init(width: Double, height: Double, center: CGPoint, rotation: Double = 0.0,
+    init(width: Double, height: Double, rotation: Double = 0.0,
          areValuesEqual: @escaping (ButtonCanvasComponent, ButtonCanvasComponent) -> Bool = { _, _ in false }) {
         self.width = width
         self.height = height
-        self.center = center
+        self.center = .zero
         self.rotation = rotation
         self.areValuesEqual = areValuesEqual
     }
 
     func modify(onTapDelegate: TapDelegate?) -> ButtonCanvasComponent {
-        var updated = ButtonCanvasComponent(width: width, height: height, center: center,
-                                            rotation: rotation,
-                                            areValuesEqual: areValuesEqual)
+        var updated = self
         updated.onTapDelegate = onTapDelegate
         return updated
     }
