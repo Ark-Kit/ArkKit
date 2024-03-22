@@ -9,7 +9,7 @@ class ArkPhysicsSystem: System {
     var scene: AbstractArkGameScene
     var eventManager: ArkEventManager
     var arkECS: ArkECS
-    var started: Bool = false
+    var started = false
 
     init(active: Bool = true, simulator: AbstractArkSimulator, eventManager: ArkEventManager, arkECS: ArkECS) {
         self.active = active
@@ -27,12 +27,12 @@ class ArkPhysicsSystem: System {
         let physicsComponents = getPhysicsComponents(arkECS)
         syncToPhysicsEngine(physicsComponents, arkECS: arkECS)
     }
-    
+
     func start() {
         simulator.start()
         self.started = true
     }
-    
+
     private func getCurrentTime(arkECS: ArkECS) -> TimeInterval {
         let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
         for stopWatchEntity in stopWatchEntities {
@@ -191,7 +191,7 @@ extension ArkPhysicsSystem: ArkSceneUpdateDelegate {
     func didContactEnd(between entityA: Entity, and entityB: Entity) {
         // If we need this we can have a handle collision end event
     }
-    
+
     func didFinishUpdate() {
         syncFromPhysicsEngine()
     }

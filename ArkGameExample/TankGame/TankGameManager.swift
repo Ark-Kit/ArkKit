@@ -68,7 +68,7 @@ class TankGameManager {
                                     * cos(tankMoveEventData.angle - Double.pi / 2)
                     let velocityY = tankMoveEventData.magnitude * velocityScale
                                     * sin(tankMoveEventData.angle - Double.pi / 2)
-                    
+
                     tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
                     ecsContext.upsertComponent(tankPhysicsComponent, to: tankMoveEventData.tankEntity)
                 }

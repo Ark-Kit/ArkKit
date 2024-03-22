@@ -5,13 +5,16 @@ struct CanvasComponentRotationUpdater: CanvasComponentUpdater {
     func update(_ circle: CircleCanvasComponent) -> CircleCanvasComponent {
         CircleCanvasComponent(radius: circle.radius,
                               center: circle.center,
+                              rotation: rotation,
                               areValuesEqual: circle.areValuesEqual)
         .modify(fillInfo: circle.fillInfo, strokeInfo: circle.strokeInfo)
     }
 
     func update(_ rect: RectCanvasComponent) -> RectCanvasComponent {
         RectCanvasComponent(width: rect.width, height: rect.height,
-                            center: rect.center, areValuesEqual: rect.areValuesEqual)
+                            center: rect.center,
+                            rotation: rotation,
+                            areValuesEqual: rect.areValuesEqual)
         .modify(fillInfo: rect.fillInfo, strokeInfo: rect.strokeInfo)
     }
 
@@ -26,6 +29,7 @@ struct CanvasComponentRotationUpdater: CanvasComponentUpdater {
                                    center: image.center,
                                    width: image.width,
                                    height: image.height,
+                                   rotation: rotation,
                                    areValuesEqual: image.areValuesEqual)
         .immutableCopy(isClipToBounds: image.isClipToBounds,
                        isScaleAspectFit: image.isScaleAspectFit,
@@ -35,12 +39,14 @@ struct CanvasComponentRotationUpdater: CanvasComponentUpdater {
 
     func update(_ button: ButtonCanvasComponent) -> ButtonCanvasComponent {
         ButtonCanvasComponent(width: button.width, height: button.height, center: button.center,
+                              rotation: rotation,
                               areValuesEqual: button.areValuesEqual)
         .modify(onTapDelegate: button.onTapDelegate)
     }
 
     func update(_ joystick: JoystickCanvasComponent) -> JoystickCanvasComponent {
         JoystickCanvasComponent(center: joystick.center, radius: joystick.radius,
+                                rotation: rotation,
                                 areValuesEqual: joystick.areValuesEqual)
         .modify(onPanStartDelegate: joystick.onPanStartDelegate,
                 onPanChangeDelegate: joystick.onPanChangeDelegate,
