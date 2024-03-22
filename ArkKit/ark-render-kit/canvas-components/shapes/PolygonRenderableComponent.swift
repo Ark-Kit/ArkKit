@@ -1,12 +1,13 @@
 import CoreGraphics
 
-struct PolygonCanvasComponent: ShapeCanvasComponent {
+struct PolygonRenderableComponent: ShapeRenderableComponent {
     let points: [CGPoint]
     let frame: CGRect
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = false
+    var renderLayer: RenderLayer = .canvas
     let areValuesEqual: AreValuesEqualDelegate
 
     private(set) var fillInfo: ShapeFillInfo?
@@ -14,7 +15,7 @@ struct PolygonCanvasComponent: ShapeCanvasComponent {
 
     init(points: [CGPoint], frame: CGRect,
          rotation: Double = 0.0,
-         areValuesEqual: @escaping (PolygonCanvasComponent, PolygonCanvasComponent) -> Bool = { _, _ in false }) {
+         areValuesEqual: @escaping (PolygonRenderableComponent, PolygonRenderableComponent) -> Bool = { _, _ in false }) {
         self.points = points
         self.frame = frame
         self.center = CGPoint(x: frame.midX, y: frame.midY)
@@ -22,8 +23,8 @@ struct PolygonCanvasComponent: ShapeCanvasComponent {
         self.areValuesEqual = areValuesEqual
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> PolygonCanvasComponent {
-        var copy = PolygonCanvasComponent(points: points, frame: frame, rotation: rotation,
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> PolygonRenderableComponent {
+        var copy = PolygonRenderableComponent(points: points, frame: frame, rotation: rotation,
                                           areValuesEqual: areValuesEqual)
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
@@ -34,7 +35,7 @@ struct PolygonCanvasComponent: ShapeCanvasComponent {
         renderer.render(self)
     }
 
-    func update(using updater: any CanvasComponentUpdater) -> PolygonCanvasComponent {
+    func update(using updater: any CanvasComponentUpdater) -> PolygonRenderableComponent {
         updater.update(self)
     }
 }

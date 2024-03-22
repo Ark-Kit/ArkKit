@@ -9,10 +9,10 @@ import Foundation
  * relying on the `arkInstance` will not emit.
  */
 class Ark {
-    let rootView: any AbstractParentView
+    let rootView: any AbstractRootView
     let arkState: ArkState
 
-    init(rootView: any AbstractParentView) {
+    init(rootView: any AbstractRootView) {
         self.rootView = rootView
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
@@ -20,7 +20,10 @@ class Ark {
     }
 
     func start(blueprint: ArkBlueprint) {
-        setup(blueprint.setupFunctions)
+        var displayContext = ArkDisplayContext(
+            canvasSize: CGSize(width: blueprint.frameWidth, height: blueprint.frameHeight),
+            screenSize: rootView.size)
+        setup(blueprint.setupFunctions, displayContext: displayContext)
         setup(blueprint.rules)
         setupDefaultEntities()
         setupDefaultSystems(blueprint)
@@ -48,9 +51,9 @@ class Ark {
         }
     }
 
-    private func setup(_ stateSetupFunctions: [ArkStateSetupFunction]) {
+    private func setup(_ stateSetupFunctions: [ArkStateSetupDelegate], displayContext: ArkDisplayContext) {
         for stateSetupFunction in stateSetupFunctions {
-            arkState.setup(stateSetupFunction)
+            arkState.setup(stateSetupFunction, displayContext: displayContext)
         }
     }
 

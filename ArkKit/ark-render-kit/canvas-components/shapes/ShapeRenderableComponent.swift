@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol ShapeCanvasComponent: AbstractShape, CanvasComponent where Color == AbstractColor {
+protocol ShapeRenderableComponent: AbstractShape, RenderableComponent where Color == AbstractColor {
     var fillInfo: ShapeFillInfo? { get }
     var strokeInfo: ShapeStrokeInfo? { get }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> Self
 }
 
-extension ShapeCanvasComponent {
+extension ShapeRenderableComponent {
     func fill(color: Color) -> Self {
         upsert(fillInfo: ShapeFillInfo(color: color))
     }

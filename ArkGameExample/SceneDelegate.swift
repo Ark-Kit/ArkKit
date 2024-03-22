@@ -52,45 +52,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
-    func defineArkBlueprint() -> ArkBlueprint {
-        // Define game with blueprint here.
-        let arkBlueprint = ArkBlueprint(frameWidth: 820, frameHeight: 1_180)
-            .setup { ecsContext, eventContext in
-                ecsContext.createEntity(with: [
-                    JoystickCanvasComponent(radius: 50,
-                                            areValuesEqual: { _, _ in true })
-                        .center(x: 300, y: 300)
-                        .onPanChange { angle, mag in print("change", angle, mag) }
-                        .onPanStart { angle, mag in print("start", angle, mag) }
-                        .onPanEnd { angle, mag in print("end", angle, mag) }
-                ])
-                ecsContext.createEntity(with: [
-                    ButtonCanvasComponent(width: 50, height: 50,
-                                          areValuesEqual: { _, _ in true })
-                        .center(x: 500, y: 500)
-                        .onTap {
-                            print("emiting event")
-                            var demoEvent: any ArkEvent = DemoArkEvent()
-                            eventContext.emit(&demoEvent)
-                            print("done emit event")
-                        }
-                ])
-                ecsContext.createEntity(with: [
-                    BitmapImageCanvasComponent(imageResourcePath: "tank_1",
-                                               width: 256, height: 100,
-                                               areValuesEqual: { _, _ in true })
-                    .center(CGPoint(x: 410, y: 590))
-                    .scaleToFill()
-                ])
-            }
-            .rule(on: DemoArkEvent.self, then: Forever { _, _, _ in
-                print("running rule")
-            })
-        return arkBlueprint
-    }
-
     func loadArkBlueprintToScene(_ blueprint: ArkBlueprint, window: UIWindow) {
-        guard let rootView = window.rootViewController as? AbstractParentView else {
+        guard let rootView = window.rootViewController as? AbstractRootView else {
             return
         }
         ark = Ark(rootView: rootView)

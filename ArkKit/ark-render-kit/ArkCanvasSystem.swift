@@ -2,13 +2,13 @@ import Foundation
 
 class ArkCanvasSystem: System {
     var active: Bool
-    static let canvasComponentTypes: [any CanvasComponent.Type] = [
-        ButtonCanvasComponent.self,
-        JoystickCanvasComponent.self,
-        CircleCanvasComponent.self,
-        RectCanvasComponent.self,
-        PolygonCanvasComponent.self,
-        BitmapImageCanvasComponent.self
+    static let canvasComponentTypes: [any RenderableComponent.Type] = [
+        ButtonRenderableComponent.self,
+        JoystickRenderableComponent.self,
+        CircleRenderableComponent.self,
+        RectRenderableComponent.self,
+        PolygonRenderableComponent.self,
+        BitmapImageRenderableComponent.self
     ]
 
     init(active: Bool = true) {
@@ -38,18 +38,18 @@ class ArkCanvasSystem: System {
     }
 
     @discardableResult private func upsertToECS(position: CGPoint,
-                                                canvasComponent: any CanvasComponent,
+                                                canvasComponent: any RenderableComponent,
                                                 arkECS: ArkECS,
-                                                entity: Entity) -> any CanvasComponent {
+                                                entity: Entity) -> any RenderableComponent {
         let updatedCanvasComponent = canvasComponent.center(position)
         arkECS.upsertComponent(updatedCanvasComponent, to: entity)
         return updatedCanvasComponent
     }
 
     @discardableResult private func upsertToECS(rotationAngleInRadians: Double,
-                                                canvasComponent: any CanvasComponent,
+                                                canvasComponent: any RenderableComponent,
                                                 arkECS: ArkECS,
-                                                entity: Entity) -> any CanvasComponent {
+                                                entity: Entity) -> any RenderableComponent {
         let updatedCanvasComponent = canvasComponent.rotation(rotationAngleInRadians)
         arkECS.upsertComponent(updatedCanvasComponent, to: entity)
         return updatedCanvasComponent

@@ -5,12 +5,12 @@
  */
 struct ArkBlueprint {
     private(set) var rules: [Rule] = []
-    private(set) var setupFunctions: [ArkStateSetupFunction] = []
+    private(set) var setupFunctions: [ArkStateSetupDelegate] = []
 
     private(set) var frameWidth: Double
     private(set) var frameHeight: Double
 
-    func setup(_ fn: @escaping ArkStateSetupFunction) -> Self {
+    func setup(_ fn: @escaping ArkStateSetupDelegate) -> Self {
         var stateSetupFunctionsCopy = setupFunctions
         stateSetupFunctionsCopy.append(fn)
 
@@ -18,7 +18,7 @@ struct ArkBlueprint {
         newSelf.setupFunctions = stateSetupFunctionsCopy
         return newSelf
     }
-
+    
     func rule<Event: ArkEvent>(
         on eventType: Event.Type,
         then action: Action

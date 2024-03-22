@@ -1,6 +1,7 @@
 import Foundation
 
-protocol CanvasComponent: Component, Memoizable {
+protocol RenderableComponent: Component, Memoizable {
+    var renderLayer: RenderLayer { get set }
     var center: CGPoint { get set }
     var rotation: Double { get set }
     var zPosition: Double { get set }
@@ -14,9 +15,10 @@ protocol CanvasComponent: Component, Memoizable {
     func rotation(_ rotation: Double) -> Self
     func zPosition(_ zPos: Double) -> Self
     func isUserInteractionEnabled(_ isEnabled: Bool) -> Self
+    func layer(_ layer: RenderLayer) -> Self
 }
 
-extension CanvasComponent {
+extension RenderableComponent {
     func center(x: Double?, y: Double?) -> Self {
         var newSelf = self
         newSelf.center = CGPoint(x: x ?? center.x, y: y ?? center.y)
@@ -46,6 +48,12 @@ extension CanvasComponent {
         newSelf.isUserInteractionEnabled = isEnabled
         return newSelf
     }
+    
+    func layer(_ layer: RenderLayer) -> Self {
+        var newSelf = self
+        newSelf.renderLayer = layer
+        return newSelf
+    }
 }
 
 protocol Memoizable {
@@ -54,7 +62,7 @@ protocol Memoizable {
     func hasUpdated(previous: any Memoizable) -> Bool
 }
 
-extension CanvasComponent {
+extension RenderableComponent {
     func hasUpdated(previous: any Memoizable) -> Bool {
         guard let previousComp = previous as? Self else {
             return true

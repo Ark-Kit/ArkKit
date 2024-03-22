@@ -51,7 +51,7 @@ extension ArkUIKitViewController: GameStateRenderer {
     }
 }
 
-extension ArkUIKitViewController: AbstractChildView {
+extension ArkUIKitViewController: AbstractView {
     func didMove(to parent: any AbstractParentView) {
         guard let parentViewController = parent as? UIViewController else {
             return
