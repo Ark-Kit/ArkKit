@@ -15,6 +15,7 @@ class ArkECS {
 }
 
 extension ArkECS: ArkECSContext {
+    @discardableResult
     func createEntity() -> Entity {
         entityManager.createEntity()
     }
@@ -35,6 +36,7 @@ extension ArkECS: ArkECSContext {
         entityManager.getComponent(ofType: type, for: entity)
     }
 
+    @discardableResult
     func createEntity(with components: [any Component]) -> Entity {
         entityManager.createEntity(with: components)
     }
