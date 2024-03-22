@@ -28,7 +28,7 @@ class ArkPhysicsSystem: System {
             guard let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
                 continue
             }
-            if stopWatchComponent.name == "_ArkWorldTime" {
+            if stopWatchComponent.name == ArkTimeSystem.ARK_WORLD_TIME {
                 return stopWatchComponent.currentTime
             }
         }

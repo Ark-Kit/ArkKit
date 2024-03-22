@@ -4,6 +4,8 @@ import Foundation
  *  A system which updates a StopWatchComponent instances in ArkECS after the given delta.
  */
 class ArkTimeSystem: System {
+    static let ARK_WORLD_TIME = "_ArkWorldTime"
+
     var active: Bool
     
     init(active: Bool = true) {
@@ -14,7 +16,7 @@ class ArkTimeSystem: System {
         let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
         for stopWatchEntity in stopWatchEntities {
             guard let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
-                return
+                continue
             }
             stopWatchComponent.currentTime += deltaTime
             arkECS.upsertComponent(stopWatchComponent, to: stopWatchEntity)
