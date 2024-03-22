@@ -78,9 +78,8 @@ class Ark {
 }
 
 private extension ArkEvent {
-    func cry() {
-        
-    }
+    /// A workaround to prevent weird behavior when trying to execute
+    /// `action.execute(event, context: context)`
     func executeAction(_ action: some Action, context: ArkActionContext) {
         guard let castedAction = action as? any Action<Self> else {
             return
