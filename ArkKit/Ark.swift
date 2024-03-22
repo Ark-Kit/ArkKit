@@ -55,7 +55,7 @@ class Ark {
     }
     
     private func setupDefaultEntities() {
-        arkState.arkECS.createEntity(with: [StopWatchComponent()])
+        arkState.arkECS.createEntity(with: [StopWatchComponent(name: "_ArkWorldTime")])
     }
 
     private func setupDefaultSystems(_ blueprint: ArkBlueprint) {

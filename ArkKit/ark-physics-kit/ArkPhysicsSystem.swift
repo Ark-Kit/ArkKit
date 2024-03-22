@@ -24,13 +24,15 @@ class ArkPhysicsSystem: System {
     
     private func getCurrentTime(arkECS: ArkECS) -> TimeInterval {
         let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
-        // Assume that there is only one stopwatch entity
-        guard let stopWatchEntity = stopWatchEntities.first,
-              let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
-            // If there is no stopwatch entity, return 0, physics world will not run
-            return 0
+        for stopWatchEntity in stopWatchEntities {
+            guard let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
+                continue
+            }
+            if stopWatchComponent.name == "_ArkWorldTime" {
+                return stopWatchComponent.currentTime
+            }
         }
-        return stopWatchComponent.currentTime
+        return 0
     }
 
     private func setupPhysicsScene() {
