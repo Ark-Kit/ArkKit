@@ -29,7 +29,7 @@ struct TankGameEntityCreator {
                                eventContext: ArkEventContext) {
         ecsContext.createEntity(with: [
             JoystickCanvasComponent(radius: 40)
-                .shouldRerender { _, _ in true }
+                .shouldRerender { _, _ in false }
                 .center(center)
                 .onPanChange { angle, mag in
                     let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
