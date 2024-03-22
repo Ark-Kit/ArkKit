@@ -109,6 +109,7 @@
 		280CD3E02BA81FBA00372C5D /* DefaultSKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBody.swift */; };
 		282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */; };
 		28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */; };
+		28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */; };
 		8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */; };
 		8F5573C12BA42614007030C8 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C02BA42614007030C8 /* Renderable.swift */; };
 		8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */; };
@@ -271,6 +272,7 @@
 		280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSKPhysicsBody.swift; sourceTree = "<group>"; };
 		282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBodyManager.swift; sourceTree = "<group>"; };
 		28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPhysicsComponent.swift; sourceTree = "<group>"; };
+		28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchComponent.swift; sourceTree = "<group>"; };
 		8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderable.swift; sourceTree = "<group>"; };
 		8F5573C02BA42614007030C8 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapRenderable.swift; sourceTree = "<group>"; };
@@ -693,14 +695,22 @@
 			path = "ark-physics-facade";
 			sourceTree = "<group>";
 		};
-		280CD3DA2BA8044600372C5D /* Components */ = {
+		280CD3DA2BA8044600372C5D /* InternalComponents */ = {
 			isa = PBXGroup;
 			children = (
 				280CD3DB2BA8044D00372C5D /* PositionComponent.swift */,
 				280CD3DD2BA8045200372C5D /* RotationComponent.swift */,
 				02C395332BAAF0EC0075F1CA /* WorldComponent.swift */,
+				28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */,
 			);
-			path = Components;
+			path = InternalComponents;
+			sourceTree = "<group>";
+		};
+		28A032DD2BAD4ED200851BFF /* InternalSystems */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = InternalSystems;
 			sourceTree = "<group>";
 		};
 		8F5573BD2BA4258F007030C8 /* renderable */ = {
@@ -827,7 +837,8 @@
 			children = (
 				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
 				AD787A832B9C6C78003EBBD0 /* Component.swift */,
-				280CD3DA2BA8044600372C5D /* Components */,
+				28A032DD2BAD4ED200851BFF /* InternalSystems */,
+				280CD3DA2BA8044600372C5D /* InternalComponents */,
 				AD787A852B9C6C91003EBBD0 /* System.swift */,
 				AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */,
 				AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */,
@@ -1125,6 +1136,7 @@
 				280CD3CE2BA74E4300372C5D /* BaseSKGameScene.swift in Sources */,
 				280CD3C42BA7419400372C5D /* ArkSceneUpdateDelegate.swift in Sources */,
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
+				28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */,
 				945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */,
 				02C394F72BA4428A0075F1CA /* UIKitJoystick.swift in Sources */,
 				280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */,
