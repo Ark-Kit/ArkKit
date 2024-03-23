@@ -359,7 +359,7 @@
 			children = (
 				02C395392BAB21C10075F1CA /* utils */,
 				945F7F8A2BA8850200933629 /* abstract */,
-				02C395132BA83F990075F1CA /* canvas-components */,
+				02C395132BA83F990075F1CA /* renderable-components */,
 				8F5573BD2BA4258F007030C8 /* renderable */,
 				02C394DB2BA402060075F1CA /* GameStateRenderer.swift */,
 				02C394DF2BA405C10075F1CA /* Canvas.swift */,
@@ -456,7 +456,7 @@
 			path = ArkGameExample;
 			sourceTree = "<group>";
 		};
-		02C395132BA83F990075F1CA /* canvas-components */ = {
+		02C395132BA83F990075F1CA /* renderable-components */ = {
 			isa = PBXGroup;
 			children = (
 				02C3951A2BA849100075F1CA /* shapes */,
@@ -464,7 +464,7 @@
 				02C395162BA83FB70075F1CA /* input */,
 				02C395142BA83FAE0075F1CA /* RenderableComponent.swift */,
 			);
-			path = "canvas-components";
+			path = "renderable-components";
 			sourceTree = "<group>";
 		};
 		02C395162BA83FB70075F1CA /* input */ = {
