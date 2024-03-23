@@ -75,7 +75,6 @@ extension ArkUIKitViewController: GameStateRenderer {
 }
 
 extension ArkUIKitViewController: AbstractView {
-    typealias SomeRenderable = UIKitRenderable
     func didMove(to parent: any AbstractParentView) {
         guard let parentViewController = parent as? UIViewController else {
             return
@@ -86,11 +85,5 @@ extension ArkUIKitViewController: AbstractView {
         onRootViewResize { newSize in
             delegate(newSize)
         }
-    }
-    func addToSubview(_ renderable: any Renderable) {
-//        guard let uiView = renderable as? UIView else {
-//            return
-//        }
-//        self.view.addSubview(uiView)
     }
 }
