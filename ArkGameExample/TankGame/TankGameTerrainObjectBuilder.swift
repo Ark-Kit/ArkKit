@@ -52,7 +52,6 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
     }
     func createObject(type: Int, location: CGPoint, size: CGSize, zPos: Double, in ecsContext: ArkECSContext) {
         let imageResourcePath = "stones_\(type)"
-        print("creating rock at \(location) with size \(size)")
         ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
                                            width: size.width, height: size.height)
