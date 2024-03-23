@@ -80,6 +80,15 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
             withPhysicsBody({ $0.linearDamping = newValue }, default: ())
         }
     }
+    
+    var angularDamping: CGFloat {
+        get {
+            withPhysicsBody({ $0.angularDamping }, default: DefaultSKPhysicsBodyValues.angularDamping)
+        }
+        set {
+            withPhysicsBody({ $0.angularDamping = newValue }, default: ())
+        }
+    }
 
     var allowsRotation: Bool {
         get {

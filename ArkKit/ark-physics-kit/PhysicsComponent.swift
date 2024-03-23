@@ -16,6 +16,7 @@ struct PhysicsComponent: Component {
     var isDynamic = true
     var affectedByGravity = false
     var linearDamping: CGFloat = .zero
+    var angularDamping: CGFloat = .zero
     var allowsRotation = false
     var friction: CGFloat = .zero
     var restitution: CGFloat = .zero
