@@ -25,7 +25,8 @@ enum TankGameEntityCreator {
                              TankGamePhysicsCategory.tank,
                              contactTestBitMask: TankGamePhysicsCategory.ball |
                              TankGamePhysicsCategory.tank |
-                             TankGamePhysicsCategory.wall)
+                             TankGamePhysicsCategory.wall |
+                             TankGamePhysicsCategory.water)
         ])
         return tankEntity
     }
@@ -89,14 +90,15 @@ enum TankGameEntityCreator {
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: angle),
-            PhysicsComponent(shape: .rectangle,
-                             size: CGSize(width: 40, height: 40),
+            PhysicsComponent(shape: .circle,
+                             radius: 15,
                              mass: 1,
                              velocity: velocity,
                              isDynamic: true,
                              allowsRotation: true, restitution: 0.8,
                              categoryBitMask: TankGamePhysicsCategory.ball,
-                             collisionBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall,
+                             collisionBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall |
+                                            TankGamePhysicsCategory.rock,
                              contactTestBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall |
                                             TankGamePhysicsCategory.rock | TankGamePhysicsCategory.tank)
         ])
