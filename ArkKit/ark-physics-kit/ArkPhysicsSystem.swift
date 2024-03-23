@@ -202,7 +202,7 @@ struct ArkCollisionEventData: ArkEventData {
 
 struct ArkCollisionEndedEvent: ArkCollisionEventProtocol {
     static var id = UUID()
-    var eventData: ArkEventData?
+    var eventData: ArkCollisionEventData
     var timestamp = Date()
     var priority: Int?
 
@@ -213,7 +213,7 @@ struct ArkCollisionEndedEvent: ArkCollisionEventProtocol {
 
 struct ArkCollisionBeganEvent: ArkCollisionEventProtocol {
     static var id = UUID()
-    var eventData: ArkEventData?
+    var eventData: ArkCollisionEventData
     var timestamp = Date()
     var priority: Int?
 
