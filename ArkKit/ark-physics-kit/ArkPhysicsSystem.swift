@@ -59,7 +59,8 @@ class ArkPhysicsSystem: System {
     }
 
     private func handlePhysicsComponentRemovalIfNeeded(for entity: Entity, using physics: PhysicsComponent, arkECS: ArkECS) {
-        guard physics.toBeRemoved else { return }
+        guard physics.toBeRemoved else { 
+            return }
 
         scene.removePhysicsBody(for: entity)
         arkECS.removeEntity(entity)

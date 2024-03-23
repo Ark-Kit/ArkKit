@@ -86,12 +86,12 @@ enum TankGameEntityCreator {
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: angle),
-            // TODO: Set up physics
             PhysicsComponent(shape: .rectangle, size: CGSize(width: 40, height:40), mass: 1, velocity: velocity, isDynamic: true,
                              allowsRotation: true, restitution: 0.8,
                              categoryBitMask: TankGamePhysicsCategory.ball,
-                             collisionBitMask: TankGamePhysicsCategory.ball,
-                             contactTestBitMask: TankGamePhysicsCategory.ball)
+                             collisionBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall,
+                             contactTestBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall |
+                                            TankGamePhysicsCategory.rock | TankGamePhysicsCategory.tank)
         ])
     }
     

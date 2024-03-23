@@ -25,6 +25,8 @@ class TankGameCollisionStrategyManager {
     private var strategies: [UInt32: [UInt32: CollisionHandlingStrategy]] = [:]
 
     init() {
+        register(strategy: BallWallCollisionStrategy(), for: (TankGamePhysicsCategory.ball, TankGamePhysicsCategory.wall))
+        register(strategy: BallRockCollisionStrategy(), for: (TankGamePhysicsCategory.ball, TankGamePhysicsCategory.rock))
     }
     
     private func register(strategy: CollisionHandlingStrategy, for categories: (UInt32, UInt32)) {
@@ -55,11 +57,53 @@ class TankGameCollisionStrategyManager {
     }
 }
 
+class BallWallCollisionStrategy: CollisionHandlingStrategy {
+    func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
+                              bitMaskA: UInt32, bitMaskB: UInt32,
+                              in context: ArkContext) {
+        // set ball to be removed check by bitmask
+        if bitMaskA == TankGamePhysicsCategory.ball {
+            guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entityA) else {
+                return
+            }
+            physicsComponent.toBeRemoved = true
+            context.ecs.upsertComponent(physicsComponent, to: entityA)
+        } else if bitMaskB == TankGamePhysicsCategory.ball {
+            guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entityB) else {
+                return
+            }
+            physicsComponent.toBeRemoved = true
+            context.ecs.upsertComponent(physicsComponent, to: entityB)
+        }
+    }
+    
+    func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
+                              bitMaskA: UInt32, bitMaskB: UInt32,
+                              in context: ArkContext) {
+        // Logic specific to when a ball collides with a wall ends
+    }
+}
+
+class BallRockCollisionStrategy: CollisionHandlingStrategy {
+    func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
+                              bitMaskA: UInt32, bitMaskB: UInt32,
+                              in context: ArkContext) {
+        // Logic specific to when a ball collides with a rock begins
+    }
+    
+    func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
+                              bitMaskA: UInt32, bitMaskB: UInt32,
+                              in context: ArkContext) {
+        // Logic specific to when a ball collides with a rock ends
+    }
+}
+
 class TankBallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                                   bitMaskA: UInt32, bitMaskB: UInt32,
                                   in context: ArkContext) {
-            // Logic specific to when a tank collides with a ball begins
+            // TODO: Add animation here
+            // TODO: Add some hp management here? no logic yet
         }
         
         func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
@@ -69,16 +113,16 @@ class TankBallCollisionStrategy: CollisionHandlingStrategy {
         }
 }
 
-class TankWallCollisionStrategy: CollisionHandlingStrategy {
+class TankWaterCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkContext) {
-        // Logic specific to when a tank collides with a wall begins
+        // Logic specific to when a tank collides with water begins
     }
     
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkContext) {
-        // Logic specific to when a tank collides with a wall ends
+        // Logic specific to when a tank collides with water ends
     }
 }
