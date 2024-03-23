@@ -10,6 +10,7 @@ extension AudioContext {
         play(sound, playerId: nil)
     }
 
+    /// Stops all audioplayers for `sound`.
     func stop<S: Sound>(_ sound: S) {
         stop(sound, playerId: nil)
     }
