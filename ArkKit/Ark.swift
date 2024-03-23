@@ -11,6 +11,9 @@ import Foundation
 class Ark {
     let rootView: any AbstractParentView
     let arkState: ArkState
+    var gameLoop: AbstractArkSimulator?
+    
+    var sceneUpdateDelegate : ArkSceneUpdateDelegate?
 
     init(rootView: any AbstractParentView) {
         self.rootView = rootView
@@ -30,7 +33,9 @@ class Ark {
                                                  arkState: arkState,
                                                  canvasFrame: CGRect(x: 0, y: 0,
                                                                      width: blueprint.frameWidth,
-                                                                     height: blueprint.frameHeight))
+                                                                     height: blueprint.frameHeight),
+                                                 gameLoop: self.gameLoop!)
+        gameCoordinator.arkSceneUpdateDelegate = self
         gameCoordinator.start()
     }
 
@@ -61,7 +66,9 @@ class Ark {
     private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
+        self.gameLoop = simulator
         let physicsSystem = ArkPhysicsSystem(simulator: simulator, eventManager: arkState.eventManager, arkECS: arkState.arkECS)
+        sceneUpdateDelegate = physicsSystem
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
@@ -78,5 +85,19 @@ class Ark {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
+    }
+}
+
+extension Ark: ArkSceneUpdateDelegate {
+    func didContactBegin(between entityA: Entity, and entityB: Entity) {
+        sceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
+    }
+    
+    func didContactEnd(between entityA: Entity, and entityB: Entity) {
+        sceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
+    }
+    
+    func didFinishUpdate(_ deltaTime: TimeInterval) {
+        sceneUpdateDelegate?.didFinishUpdate(deltaTime)
     }
 }

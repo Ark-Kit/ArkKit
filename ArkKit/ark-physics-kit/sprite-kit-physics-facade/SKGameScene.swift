@@ -20,8 +20,8 @@ class SKGameScene: AbstractArkGameScene {
         self.baseGameScene.gameScene = self
     }
 
-    func update(_ currentTime: TimeInterval) {
-        baseGameScene.update(currentTime)
+    func getDeltaTime() -> TimeInterval {
+        baseGameScene.deltaTime
     }
 
     func forEachEntity(perform action: (Entity, AbstractArkPhysicsBody) -> Void) {

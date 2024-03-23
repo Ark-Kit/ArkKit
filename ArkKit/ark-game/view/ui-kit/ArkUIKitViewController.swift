@@ -11,28 +11,24 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
-        self.gameLoop = ArkGameLoop(({
-            CADisplayLink(target: self,
-                          selector: #selector(self.handleGameProgress))
-        }))
-        self.gameLoop?.setUp()
+        setupSimulator()
         let canvasView = UIView()
         canvasView.backgroundColor = .white
         self.view.addSubview(canvasView)
 
         self.canvasView = canvasView
     }
+    
+    func setupSimulator() {
+        gameLoop?.setUp()
+    }
+    
+    func handleGameProgress() {
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.canvasView?.removeFromSuperview()
-    }
-
-    @objc func handleGameProgress() {
-        guard let deltaTime = gameLoop?.getDeltaTime() else {
-            return
-        }
-        viewModel?.updateGame(for: deltaTime)
     }
 }
 

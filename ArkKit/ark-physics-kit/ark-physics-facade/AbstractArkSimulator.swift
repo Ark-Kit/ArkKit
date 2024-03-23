@@ -1,6 +1,6 @@
 import Foundation
 
-protocol AbstractArkSimulator {
+protocol AbstractArkSimulator: GameLoop {
     var gameScene: AbstractArkGameScene { get set }
     func start()
     func stop()

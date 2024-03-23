@@ -9,7 +9,7 @@ class ArkPhysicsSystem: System {
     var scene: AbstractArkGameScene
     var eventManager: ArkEventManager
     var arkECS: ArkECS
-    var started = false
+    weak var sceneUpdateDelegate: ArkSceneUpdateDelegate?
 
     init(active: Bool = true, simulator: AbstractArkSimulator, eventManager: ArkEventManager, arkECS: ArkECS) {
         self.active = active
@@ -17,39 +17,13 @@ class ArkPhysicsSystem: System {
         self.scene = simulator.gameScene
         self.eventManager = eventManager
         self.arkECS = arkECS
-        self.scene.sceneUpdateDelegate = self
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        if !started {
-            self.start()
-        }
         let physicsComponents = getPhysicsComponents(arkECS)
         syncToPhysicsEngine(physicsComponents, arkECS: arkECS)
     }
-
-    func start() {
-        simulator.start()
-        self.started = true
-    }
-
-    private func getCurrentTime(arkECS: ArkECS) -> TimeInterval {
-        let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
-        for stopWatchEntity in stopWatchEntities {
-            guard let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
-                continue
-            }
-            if stopWatchComponent.name == ArkTimeSystem.ARK_WORLD_TIME {
-                return stopWatchComponent.currentTime
-            }
-        }
-        return 0
-    }
-
-    private func setupPhysicsScene() {
-        scene.sceneUpdateDelegate = self
-    }
-
+    
     private func getPhysicsComponents(_ arkECS: ArkECS) -> [(Entity, PhysicsComponent)] {
         arkECS.getEntities(with: [PhysicsComponent.self]).compactMap { entity in
             guard let physicsComponent = arkECS.getComponent(ofType: PhysicsComponent.self, for: entity) else {
@@ -176,8 +150,10 @@ class ArkPhysicsSystem: System {
         arkECS.upsertComponent(physicsComponent, to: entity)
     }
 
+
     // MARK: Handle Collision
     func handleCollision(between entityA: Entity, and entityB: Entity) {
+        print("there is collision between \(entityA) and \(entityB)")
         var arkCollisionEvent: ArkEvent = ArkCollisionEvent(eventData: ArkCollisionEventData(name: "collision", entityA: entityA, entityB: entityB))
         self.eventManager.emit(&arkCollisionEvent)
     }
@@ -192,7 +168,7 @@ extension ArkPhysicsSystem: ArkSceneUpdateDelegate {
         // If we need this we can have a handle collision end event
     }
 
-    func didFinishUpdate() {
+    func didFinishUpdate(_ deltaTime: TimeInterval) {
         syncFromPhysicsEngine()
     }
 }
