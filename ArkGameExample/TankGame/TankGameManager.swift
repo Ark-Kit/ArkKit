@@ -128,6 +128,12 @@ class TankGameManager {
                 }
 
             })
+//            .rule(on: TankStartMoveEvent.self, then: Forever { event, context in
+//                context.audio.play(TankMoveSound(), playerId: event.eventData.tankEntity.id)
+//            })
+//            .rule(on: TankStopMoveEvent.self, then: Forever { event, context in
+//                context.audio.stop(TankMoveSound(), playerId: event.eventData.tankEntity.id)
+//            })
             .rule(on: TankMoveEvent.self, then: Forever { event, context in
                 let ecs = context.ecs
                 let tankMoveEventData = event.eventData
@@ -184,6 +190,8 @@ class TankGameManager {
                                                    dy: ballVelocity * sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)),
                                 angle: tankRotationComponent.angleInRadians ?? 0,
                                 in: ecs)
+
+                context.audio.play(TankShootSound())
             })
     }
 }
