@@ -123,8 +123,14 @@
 		8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21772BADE30F00788E20 /* RenderLayer.swift */; };
 		8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21792BADE60300788E20 /* DisplayContext.swift */; };
 		8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB217B2BADE8A500788E20 /* AbstractRootView.swift */; };
-		8FEB217E2BADF21E00788E20 /* ArkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB217D2BADF21E00788E20 /* ArkContext.swift */; };
+		8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB217D2BADF21E00788E20 /* ArkActionContext.swift */; };
 		8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21872BAE752F00788E20 /* ScreenResizeEvent.swift */; };
+		942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16762BADF3ED00F0186B /* AudioContext.swift */; };
+		942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16782BADF40600F0186B /* ArkAudioPlayer.swift */; };
+		942A16852BAEA43B00F0186B /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16842BAEA43B00F0186B /* Sound.swift */; };
+		943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943D418B2BAEBF2E00F9E88F /* ArkSetupContext.swift */; };
+		943D418F2BAEC50E00F9E88F /* shoot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 943D418E2BAEC50E00F9E88F /* shoot.mp3 */; };
+		943D41932BAEC52C00F9E88F /* TankShootSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943D41922BAEC52C00F9E88F /* TankShootSound.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
 		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
@@ -295,8 +301,14 @@
 		8FEB21772BADE30F00788E20 /* RenderLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderLayer.swift; sourceTree = "<group>"; };
 		8FEB21792BADE60300788E20 /* DisplayContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContext.swift; sourceTree = "<group>"; };
 		8FEB217B2BADE8A500788E20 /* AbstractRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRootView.swift; sourceTree = "<group>"; };
-		8FEB217D2BADF21E00788E20 /* ArkContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkContext.swift; sourceTree = "<group>"; };
+		8FEB217D2BADF21E00788E20 /* ArkActionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkActionContext.swift; sourceTree = "<group>"; };
 		8FEB21872BAE752F00788E20 /* ScreenResizeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenResizeEvent.swift; sourceTree = "<group>"; };
+		942A16762BADF3ED00F0186B /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
+		942A16782BADF40600F0186B /* ArkAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAudioPlayer.swift; sourceTree = "<group>"; };
+		942A16842BAEA43B00F0186B /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
+		943D418B2BAEBF2E00F9E88F /* ArkSetupContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSetupContext.swift; sourceTree = "<group>"; };
+		943D418E2BAEC50E00F9E88F /* shoot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shoot.mp3; sourceTree = "<group>"; };
+		943D41922BAEC52C00F9E88F /* TankShootSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankShootSound.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
 		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
@@ -434,6 +446,7 @@
 		02C395042BA5E2C30075F1CA /* action */ = {
 			isa = PBXGroup;
 			children = (
+				8FEB217D2BADF21E00788E20 /* ArkActionContext.swift */,
 				02C395002BA5A2BE0075F1CA /* Action.swift */,
 				02C395052BA5E2E00075F1CA /* Once.swift */,
 				02C395072BA5E2F10075F1CA /* Forever.swift */,
@@ -764,6 +777,41 @@
 			path = event;
 			sourceTree = "<group>";
 		};
+		942A166D2BADF34300F0186B /* ark-audio-kit */ = {
+			isa = PBXGroup;
+			children = (
+				942A16762BADF3ED00F0186B /* AudioContext.swift */,
+				942A16782BADF40600F0186B /* ArkAudioPlayer.swift */,
+				942A16842BAEA43B00F0186B /* Sound.swift */,
+			);
+			path = "ark-audio-kit";
+			sourceTree = "<group>";
+		};
+		943D418D2BAEC50200F9E88F /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				943D41902BAEC51800F9E88F /* assets */,
+				943D41912BAEC52000F9E88F /* sounds */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		943D41902BAEC51800F9E88F /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				943D418E2BAEC50E00F9E88F /* shoot.mp3 */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		943D41912BAEC52000F9E88F /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				943D41922BAEC52C00F9E88F /* TankShootSound.swift */,
+			);
+			path = sounds;
+			sourceTree = "<group>";
+		};
 		945F7F7F2BA55E4E00933629 /* input */ = {
 			isa = PBXGroup;
 			children = (
@@ -838,6 +886,7 @@
 		AD36A7522BAC0A59003E938B /* TankGame */ = {
 			isa = PBXGroup;
 			children = (
+				943D418D2BAEC50200F9E88F /* Audio */,
 				AD36A75C2BAC3612003E938B /* Events */,
 				AD36A7592BAC3309003E938B /* Components */,
 				AD36A7552BAC0D36003E938B /* TankGameManager.swift */,
@@ -939,13 +988,13 @@
 			children = (
 				02C394E22BA407420075F1CA /* Ark.swift */,
 				02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */,
-				8FEB217D2BADF21E00788E20 /* ArkContext.swift */,
 				02E0E8DE2B9F57170043E2BA /* ark-game */,
 				02D8E94A2BAC99F100BF3A07 /* ark-loop-kit */,
 				280CD3B52BA738EC00372C5D /* ark-physics-kit */,
 				02C394FD2BA5A09D0075F1CA /* ark-rules-kit */,
 				8F5573C62BA69D47007030C8 /* ark-animation-kit */,
 				02C394DA2BA401F00075F1CA /* ark-render-kit */,
+				942A166D2BADF34300F0186B /* ark-audio-kit */,
 				AD6E03662BA1A5EA00974EBF /* ark-event-kit */,
 				AD787A802B9C6BCE003EBBD0 /* ark-state-kit */,
 				280CD3C92BA7454A00372C5D /* extensions */,
@@ -967,6 +1016,7 @@
 				02C3950A2BA5F8030075F1CA /* ArkECSContext.swift */,
 				AD787A892B9C70D8003EBBD0 /* ArkState.swift */,
 				AD6E03752BA2F24800974EBF /* ArkStateEventListener.swift */,
+				943D418B2BAEBF2E00F9E88F /* ArkSetupContext.swift */,
 				AD6E035F2B9F067100974EBF /* ark-ecs-kit */,
 			);
 			path = "ark-state-kit";
@@ -1082,6 +1132,7 @@
 				02D8E9312BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png in Resources */,
 				02D8E9262BAC419400BF3A07 /* lake.png in Resources */,
 				02D8E92B2BAC419400BF3A07 /* stones_2.png in Resources */,
+				943D418F2BAEC50E00F9E88F /* shoot.mp3 in Resources */,
 				02D8E9302BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_000.png in Resources */,
 				02D8E9412BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png in Resources */,
 				AD787A5D2B9C6373003EBBD0 /* LaunchScreen.storyboard in Resources */,
@@ -1177,6 +1228,7 @@
 				02C394F72BA4428A0075F1CA /* UIKitJoystick.swift in Sources */,
 				280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */,
 				02C395242BA849B40075F1CA /* JoystickRenderableComponent.swift in Sources */,
+				942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */,
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				02C395062BA5E2E00075F1CA /* Once.swift in Sources */,
 				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
@@ -1221,6 +1273,7 @@
 				02C3951C2BA8492B0075F1CA /* BitmapImageRenderableComponent.swift in Sources */,
 				02C395182BA83FC40075F1CA /* ButtonRenderableComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
+				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,
 				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
 				28A032E52BAD781900851BFF /* AbstractArkSimulator.swift in Sources */,
@@ -1231,8 +1284,9 @@
 				02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
 				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
-				8FEB217E2BADF21E00788E20 /* ArkContext.swift in Sources */,
+				8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */,
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,
+				943D41932BAEC52C00F9E88F /* TankShootSound.swift in Sources */,
 				280CD3CB2BA7455A00372C5D /* CGVector+Extension.swift in Sources */,
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
 				02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */,
@@ -1259,11 +1313,13 @@
 				9479A3B12BA953D800F99013 /* ShapeRenderableComponent.swift in Sources */,
 				02C395012BA5A2BE0075F1CA /* Action.swift in Sources */,
 				02C394E02BA405C10075F1CA /* Canvas.swift in Sources */,
+				942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */,
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
 				8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */,
 				280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */,
 				280CD3D62BA7F8CC00372C5D /* SKGameScene.swift in Sources */,
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
+				942A16852BAEA43B00F0186B /* Sound.swift in Sources */,
 				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,

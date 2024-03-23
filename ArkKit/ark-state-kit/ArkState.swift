@@ -1,6 +1,6 @@
 import Foundation
 
-typealias ArkStateSetupDelegate = (ArkContext) -> Void
+typealias ArkStateSetupDelegate = (ArkSetupContext) -> Void
 
 class ArkState {
     private(set) var arkECS: ArkECS
@@ -21,7 +21,7 @@ class ArkState {
         setupDelegate(context)
     }
 
-    private func createActionContext(displayContext: ArkDisplayContext) -> ArkContext {
-        ArkContext(ecs: arkECS, events: eventManager, display: displayContext)
+    private func createActionContext(displayContext: ArkDisplayContext) -> ArkSetupContext {
+        ArkSetupContext(ecs: arkECS, events: eventManager, display: displayContext)
     }
 }
