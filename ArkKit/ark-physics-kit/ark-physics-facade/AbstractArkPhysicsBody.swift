@@ -8,6 +8,7 @@ protocol AbstractArkPhysicsBody {
     var isDynamic: Bool { get set }
     var affectedByGravity: Bool { get set }
     var linearDamping: CGFloat { get set }
+    var angularDamping: CGFloat { get set }
     var allowsRotation: Bool { get set }
     var friction: CGFloat { get set }
     var restitution: CGFloat { get set }

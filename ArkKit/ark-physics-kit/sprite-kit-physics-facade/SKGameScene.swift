@@ -31,16 +31,16 @@ class SKGameScene: AbstractArkGameScene {
     }
 
     func createCirclePhysicsBody(for entity: Entity,
-                                            withRadius radius: CGFloat,
-                                            at position: CGPoint) -> AbstractArkPhysicsBody {
+                                 withRadius radius: CGFloat,
+                                 at position: CGPoint) -> AbstractArkPhysicsBody {
         let newPhysicsBody = ArkSKPhysicsBody(circleOf: radius, at: position)
         addBody(for: entity, bodyToAdd: newPhysicsBody)
         return newPhysicsBody
     }
 
     func createRectanglePhysicsBody(for entity: Entity,
-                                       withSize size: CGSize,
-                                       at position: CGPoint) -> AbstractArkPhysicsBody {
+                                    withSize size: CGSize,
+                                    at position: CGPoint) -> AbstractArkPhysicsBody {
         let newPhysicsBody = ArkSKPhysicsBody(rectangleOf: size, at: position)
         addBody(for: entity, bodyToAdd: newPhysicsBody)
         return newPhysicsBody

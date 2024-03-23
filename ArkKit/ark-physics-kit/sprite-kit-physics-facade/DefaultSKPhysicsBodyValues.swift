@@ -8,6 +8,7 @@ struct DefaultSKPhysicsBodyValues {
     static let velocity: CGVector = .zero
     static let affectedByGravity = true
     static let linearDamping: CGFloat = 0.1
+    static let angularDamping: CGFloat = 0.1
     static let isDynamic = true
     static let allowsRotation = true
     static let restitution: CGFloat = .zero
