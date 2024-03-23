@@ -12,8 +12,8 @@ class Ark {
     let rootView: any AbstractParentView
     let arkState: ArkState
     var gameLoop: AbstractArkSimulator?
-    
-    var sceneUpdateDelegate : ArkSceneUpdateDelegate?
+
+    var sceneUpdateDelegate: ArkSceneUpdateDelegate?
 
     init(rootView: any AbstractParentView) {
         self.rootView = rootView
@@ -28,13 +28,16 @@ class Ark {
         setupDefaultEntities()
         setupDefaultSystems(blueprint)
 
+        guard let gameLoop = self.gameLoop else {
+            return
+        }
         // Initializee game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasFrame: CGRect(x: 0, y: 0,
                                                                      width: blueprint.frameWidth,
                                                                      height: blueprint.frameHeight),
-                                                 gameLoop: self.gameLoop!)
+                                                 gameLoop: gameLoop)
         gameCoordinator.arkSceneUpdateDelegate = self
         gameCoordinator.start()
     }
@@ -92,11 +95,11 @@ extension Ark: ArkSceneUpdateDelegate {
     func didContactBegin(between entityA: Entity, and entityB: Entity) {
         sceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
     }
-    
+
     func didContactEnd(between entityA: Entity, and entityB: Entity) {
         sceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
     }
-    
+
     func didFinishUpdate(_ deltaTime: TimeInterval) {
         sceneUpdateDelegate?.didFinishUpdate(deltaTime)
     }

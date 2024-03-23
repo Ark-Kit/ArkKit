@@ -36,13 +36,12 @@ extension ArkGameCoordinator: ArkSceneUpdateDelegate {
     func didContactBegin(between entityA: Entity, and entityB: Entity) {
         arkSceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
     }
-    
+
     func didContactEnd(between entityA: Entity, and entityB: Entity) {
         arkSceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
     }
-    
+
     func didFinishUpdate(_ deltaTime: TimeInterval) {
         arkSceneUpdateDelegate?.didFinishUpdate(deltaTime)
     }
 }
-

@@ -21,7 +21,7 @@ struct ArkBlueprint {
 
     func rule<Event: ArkEvent>(
         on eventType: Event.Type,
-        then action: Action
+        then action: any Action
     ) -> Self {
         var newRules = rules
         newRules.append(Rule(event: Event.id, action: action))

@@ -18,11 +18,11 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
 
         self.canvasView = canvasView
     }
-    
+
     func setupSimulator() {
         gameLoop?.setUp()
     }
-    
+
     func handleGameProgress() {
     }
 

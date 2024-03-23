@@ -23,7 +23,7 @@ class ArkPhysicsSystem: System {
         let physicsComponents = getPhysicsComponents(arkECS)
         syncToPhysicsEngine(physicsComponents, arkECS: arkECS)
     }
-    
+
     private func getPhysicsComponents(_ arkECS: ArkECS) -> [(Entity, PhysicsComponent)] {
         arkECS.getEntities(with: [PhysicsComponent.self]).compactMap { entity in
             guard let physicsComponent = arkECS.getComponent(ofType: PhysicsComponent.self, for: entity) else {
@@ -149,7 +149,6 @@ class ArkPhysicsSystem: System {
         physicsComponent.angularImpulse = angularImpulse
         arkECS.upsertComponent(physicsComponent, to: entity)
     }
-
 
     // MARK: Handle Collision
     func handleCollision(between entityA: Entity, and entityB: Entity) {

@@ -7,7 +7,7 @@ class TankGameMapBuilder {
     let gridSize: Double = 80.0
     let width: Double
     let height: Double
-    
+
     init(width: Double, height: Double, strategies: [TankGameTerrainStrategy], ecsContext: ArkECSContext, zPosition: Double) {
         self.strategies = strategies
         self.ecsContext = ecsContext
@@ -15,14 +15,14 @@ class TankGameMapBuilder {
         self.width = width
         self.height = height
     }
-    
+
     func buildMap(from values: [[Int]]) {
-        guard let firstRow = values.first else { 
+        guard let firstRow = values.first else {
             return }
         let numRows = Double(values.count)
         let numCols = Double(firstRow.count)
         let gridSize = CGSize(width: width / numCols, height: height / numRows)
-        
+
         for (x, row) in values.enumerated() {
             for (y, value) in row.enumerated() {
                 for strategy in strategies {
@@ -50,18 +50,18 @@ protocol TankGameTerrainStrategy {
 
 class TankGameMap1Strategy: TankGameTerrainStrategy {
     func imageResourcePath(forValue value: Int) -> String? {
-        return value == 1 ? "map_1" : nil
+        value == 1 ? "map_1" : nil
     }
 }
 
 class TankGameMap2Strategy: TankGameTerrainStrategy {
     func imageResourcePath(forValue value: Int) -> String? {
-        return value == 2 ? "map_2" : nil
+        value == 2 ? "map_2" : nil
     }
 }
 
 class TankGameMap3Strategy: TankGameTerrainStrategy {
     func imageResourcePath(forValue value: Int) -> String? {
-        return value == 3 ? "map_3" : nil
+        value == 3 ? "map_3" : nil
     }
 }

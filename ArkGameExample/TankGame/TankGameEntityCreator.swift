@@ -88,11 +88,11 @@ struct TankGameEntityCreator {
         let mapBuilder = TankGameMapBuilder(width: width, height: height, strategies: strategies, ecsContext: ecsContext, zPosition: 0.0)
         mapBuilder.buildMap(from: background)
     }
-    
+
     static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [(type: Int, location: CGPoint, size: CGSize)]) {
         let strategies: [TankGameTerrainObjectStrategy] = [TankGameLakeStrategy(), TankGameStoneStrategy()]
         let terrainObjectBuilder = TankGameTerrainObjectBuilder(strategies: strategies, ecsContext: ecsContext)
-        
+
         terrainObjectBuilder.buildObjects(from: objectsSpecs)
     }
 }

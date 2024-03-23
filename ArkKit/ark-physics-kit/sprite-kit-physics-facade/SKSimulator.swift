@@ -26,11 +26,11 @@ extension SKSimulator: GameLoop {
     func setUp() {
         self.start()
     }
-    
+
     func getDeltaTime() -> Double {
         self.gameScene.getDeltaTime()
     }
-    
+
     func shutDown() {
         self.stop()
     }
