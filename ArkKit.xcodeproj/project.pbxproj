@@ -142,6 +142,7 @@
 		AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */; };
 		AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75A2BAC331F003E938B /* TankComponent.swift */; };
 		AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */; };
+		AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3ECF422BAF3148002C758D /* ArkEventKitTests.swift */; };
 		AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5F69742BAC879400A5518D /* TankShootEvent.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
@@ -169,13 +170,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		AD787A642B9C6373003EBBD0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD787A452B9C636F003EBBD0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AD787A4C2B9C636F003EBBD0;
-			remoteInfo = LevelKit;
-		};
-		AD787A6E2B9C6373003EBBD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AD787A452B9C636F003EBBD0 /* Project object */;
 			proxyType = 1;
@@ -320,6 +314,7 @@
 		AD36A7572BAC3223003E938B /* TankGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameEntityCreator.swift; sourceTree = "<group>"; };
 		AD36A75A2BAC331F003E938B /* TankComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankComponent.swift; sourceTree = "<group>"; };
 		AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankMoveEvent.swift; sourceTree = "<group>"; };
+		AD3ECF422BAF3148002C758D /* ArkEventKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventKitTests.swift; sourceTree = "<group>"; };
 		AD5F69742BAC879400A5518D /* TankShootEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankShootEvent.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
@@ -340,7 +335,6 @@
 		AD787A5E2B9C6373003EBBD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD787A632B9C6373003EBBD0 /* ArkKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArkKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD787A672B9C6373003EBBD0 /* ArkKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkKitTests.swift; sourceTree = "<group>"; };
-		AD787A6D2B9C6373003EBBD0 /* ArkKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArkKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD787A812B9C6BD9003EBBD0 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		AD787A832B9C6C78003EBBD0 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		AD787A852B9C6C91003EBBD0 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
@@ -358,13 +352,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AD787A602B9C6373003EBBD0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AD787A6A2B9C6373003EBBD0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -915,6 +902,14 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
+		AD3ECF442BAF44A7002C758D /* ark-event-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				AD3ECF422BAF3148002C758D /* ArkEventKitTests.swift */,
+			);
+			path = "ark-event-kit-tests";
+			sourceTree = "<group>";
+		};
 		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -978,7 +973,6 @@
 			children = (
 				AD787A4D2B9C636F003EBBD0 /* ArkKit.app */,
 				AD787A632B9C6373003EBBD0 /* ArkKitTests.xctest */,
-				AD787A6D2B9C6373003EBBD0 /* ArkKitUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1005,6 +999,7 @@
 		AD787A662B9C6373003EBBD0 /* ArkKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				AD3ECF442BAF44A7002C758D /* ark-event-kit-tests */,
 				AD787A672B9C6373003EBBD0 /* ArkKitTests.swift */,
 			);
 			path = ArkKitTests;
@@ -1061,24 +1056,6 @@
 			productReference = AD787A632B9C6373003EBBD0 /* ArkKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AD787A6C2B9C6373003EBBD0 /* ArkKitUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AD787A7D2B9C6373003EBBD0 /* Build configuration list for PBXNativeTarget "ArkKitUITests" */;
-			buildPhases = (
-				AD787A692B9C6373003EBBD0 /* Sources */,
-				AD787A6A2B9C6373003EBBD0 /* Frameworks */,
-				AD787A6B2B9C6373003EBBD0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AD787A6F2B9C6373003EBBD0 /* PBXTargetDependency */,
-			);
-			name = ArkKitUITests;
-			productName = LevelKitUITests;
-			productReference = AD787A6D2B9C6373003EBBD0 /* ArkKitUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1093,10 +1070,6 @@
 						CreatedOnToolsVersion = 15.2;
 					};
 					AD787A622B9C6373003EBBD0 = {
-						CreatedOnToolsVersion = 15.2;
-						TestTargetID = AD787A4C2B9C636F003EBBD0;
-					};
-					AD787A6C2B9C6373003EBBD0 = {
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = AD787A4C2B9C636F003EBBD0;
 					};
@@ -1117,7 +1090,6 @@
 			targets = (
 				AD787A4C2B9C636F003EBBD0 /* ArkKit */,
 				AD787A622B9C6373003EBBD0 /* ArkKitTests */,
-				AD787A6C2B9C6373003EBBD0 /* ArkKitUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1179,13 +1151,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AD787A612B9C6373003EBBD0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AD787A6B2B9C6373003EBBD0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1341,14 +1306,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AD787A692B9C6373003EBBD0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1359,11 +1318,6 @@
 			isa = PBXTargetDependency;
 			target = AD787A4C2B9C636F003EBBD0 /* ArkKit */;
 			targetProxy = AD787A642B9C6373003EBBD0 /* PBXContainerItemProxy */;
-		};
-		AD787A6F2B9C6373003EBBD0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AD787A4C2B9C636F003EBBD0 /* ArkKit */;
-			targetProxy = AD787A6E2B9C6373003EBBD0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1616,48 +1570,6 @@
 			};
 			name = Release;
 		};
-		AD787A7E2B9C6373003EBBD0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = LevelKit.LevelKitUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
-				TEST_TARGET_NAME = LevelKit;
-			};
-			name = Debug;
-		};
-		AD787A7F2B9C6373003EBBD0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = LevelKit.LevelKitUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
-				TEST_TARGET_NAME = LevelKit;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1684,15 +1596,6 @@
 			buildConfigurations = (
 				AD787A7B2B9C6373003EBBD0 /* Debug */,
 				AD787A7C2B9C6373003EBBD0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AD787A7D2B9C6373003EBBD0 /* Build configuration list for PBXNativeTarget "ArkKitUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AD787A7E2B9C6373003EBBD0 /* Debug */,
-				AD787A7F2B9C6373003EBBD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
