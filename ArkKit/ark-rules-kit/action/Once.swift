@@ -1,9 +1,11 @@
-struct Once: Action {
-    private let callback: (ArkEvent, ArkEventContext, ArkECSContext) -> Void
-    init(_ callback: @escaping (ArkEvent, ArkEventContext, ArkECSContext) -> Void) {
+struct Once<Event: ArkEvent>: Action {
+    private let callback: ActionCallback<Event>
+
+    init(_ callback: @escaping ActionCallback<Event>) {
         self.callback = callback
     }
-    func execute<Event: ArkEvent>(_ event: Event, eventContext: ArkEventContext, ecsContext: ArkECSContext) {
-        callback(event, eventContext, ecsContext)
+
+    func execute(_ event: Event, context: ArkContext) {
+        callback(event, context)
     }
 }

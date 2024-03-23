@@ -6,5 +6,6 @@ protocol ArkECSContext {
     @discardableResult func createEntity(with components: [Component]) -> Entity
     func getEntities(with componentTypes: [Component.Type]) -> [Entity]
     func getComponents(from entity: Entity) -> [Component]
+    func getEntity(id: EntityID) -> Entity?
     func addSystem(_ system: System)
 }

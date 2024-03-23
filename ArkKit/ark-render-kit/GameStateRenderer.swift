@@ -1,3 +1,5 @@
+import Foundation
+
 /**
  * `GameStateRenderer` is implemented by the `ArkUiAdapter` to host its own
  * `UIKitViewController`.

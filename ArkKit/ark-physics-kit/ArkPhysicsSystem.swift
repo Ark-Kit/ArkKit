@@ -153,7 +153,7 @@ class ArkPhysicsSystem: System {
     // MARK: Handle Collision
     func handleCollision(between entityA: Entity, and entityB: Entity) {
         print("there is collision between \(entityA) and \(entityB)")
-        var arkCollisionEvent: ArkEvent = ArkCollisionEvent(eventData: ArkCollisionEventData(name: "collision", entityA: entityA, entityB: entityB))
+        var arkCollisionEvent = ArkCollisionEvent(eventData: ArkCollisionEventData(name: "collision", entityA: entityA, entityB: entityB))
         self.eventManager.emit(&arkCollisionEvent)
     }
 }

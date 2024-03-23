@@ -1,18 +1,18 @@
 import Foundation
 protocol CanvasContext {
     var canvasFrame: CGRect { get }
-    var memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]] { get }
+    var memo: [Entity: [ObjectIdentifier: (any RenderableComponent, any Renderable)]] { get }
     func getCanvas() -> Canvas
-    func saveToMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type,
-                    canvasComponent: any CanvasComponent, renderable: any Renderable)
-    func removeFromMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type) -> (any Renderable)?
+    func saveToMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type,
+                    canvasComponent: any RenderableComponent, renderable: any Renderable)
+    func removeFromMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type) -> (any Renderable)?
 }
 
 class ArkCanvasContext: CanvasContext {
     private(set) var canvasFrame: CGRect
-    private(set) var memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]]
+    private(set) var memo: [Entity: [ObjectIdentifier: (any RenderableComponent, any Renderable)]]
     private let ecs: ArkECS
-    init(ecs: ArkECS, canvasFrame: CGRect, memo: [Entity: [ObjectIdentifier: (any CanvasComponent, any Renderable)]] = [:]) {
+    init(ecs: ArkECS, canvasFrame: CGRect, memo: [Entity: [ObjectIdentifier: (any RenderableComponent, any Renderable)]] = [:]) {
         self.memo = memo
         self.canvasFrame = canvasFrame
         self.ecs = ecs
@@ -31,22 +31,22 @@ class ArkCanvasContext: CanvasContext {
         return arkCanvas
     }
 
-    func saveToMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type,
-                    canvasComponent: any CanvasComponent, renderable: any Renderable) {
+    func saveToMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type,
+                    canvasComponent: any RenderableComponent, renderable: any Renderable) {
         guard memo[entity] == nil else {
             memo[entity]?[ObjectIdentifier(canvasComponentType)] = (canvasComponent, renderable)
             return
         }
         memo[entity] = [ObjectIdentifier(canvasComponentType): (canvasComponent, renderable)]
     }
-    func removeFromMemo(entity: Entity, canvasComponentType: any CanvasComponent.Type) -> (any Renderable)? {
+    func removeFromMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type) -> (any Renderable)? {
         guard let (_, renderable) = memo[entity]?[ObjectIdentifier(canvasComponentType)] else {
             return nil
         }
         return renderable
     }
     private func addOutdatedComponents(currentEntitiesWithCanvas: [Entity],
-                                       canvasCompType: any CanvasComponent.Type,
+                                       canvasCompType: any RenderableComponent.Type,
                                        canvas: ArkCanvas) -> ArkCanvas {
         var arkCanvas = canvas
         let validEntities = Set(currentEntitiesWithCanvas)
@@ -56,7 +56,7 @@ class ArkCanvasContext: CanvasContext {
         return arkCanvas
     }
     private func addUpdatedComponents(currentEntitiesWithCanvas: [Entity],
-                                      canvasCompType: any CanvasComponent.Type,
+                                      canvasCompType: any RenderableComponent.Type,
                                       canvas: ArkCanvas) -> ArkCanvas {
         var arkCanvas = canvas
         for entity in currentEntitiesWithCanvas {

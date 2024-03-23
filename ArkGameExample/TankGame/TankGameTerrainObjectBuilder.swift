@@ -31,8 +31,8 @@ class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
 
     func createObject(type: Int, location: CGPoint, size: CGSize, in ecsContext: ArkECSContext) {
         ecsContext.createEntity(with: [
-            BitmapImageCanvasComponent(imageResourcePath: "lake",
-                                       width: size.width, height: size.height)
+            BitmapImageRenderableComponent(imageResourcePath: "lake",
+                                           width: size.width, height: size.height)
             .zPosition(1)
             .center(location)
             .scaleToFill(),
@@ -54,8 +54,8 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
         let imageResourcePath = "stones_\(type)"
         print("creating rock at \(location) with size \(size)")
         ecsContext.createEntity(with: [
-            BitmapImageCanvasComponent(imageResourcePath: imageResourcePath,
-                                       width: size.width, height: size.height)
+            BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
+                                           width: size.width, height: size.height)
             .zPosition(1)
             .center(location),
             PositionComponent(position: location),

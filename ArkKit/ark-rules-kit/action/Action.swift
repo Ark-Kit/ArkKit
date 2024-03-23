@@ -1,5 +1,8 @@
-protocol Action {
-    func execute<Event: ArkEvent>(_ event: Event,
-                                  eventContext: ArkEventContext,
-                                  ecsContext: ArkECSContext)
+protocol Action<Event> {
+    associatedtype Event = ArkEvent
+
+    func execute(_ event: Event,
+                 context: ArkContext)
 }
+
+typealias ActionCallback<Event: ArkEvent> = (Event, ArkContext) -> Void

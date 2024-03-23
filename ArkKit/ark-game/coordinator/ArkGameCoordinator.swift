@@ -24,8 +24,10 @@ class ArkGameCoordinator {
         arkViewController.viewModel = arkViewModel
         arkViewController.gameLoop = gameLoop
         arkViewModel.viewRendererDelegate = arkViewController
+        arkViewModel.viewDelegate = arkViewController
         arkViewModel.arkSceneUpdateDelegate = self
         self.gameLoop.gameScene.sceneUpdateDelegate = arkViewModel
+
         // push view-controller to rootView
         rootView.pushView(arkViewController, animated: false)
         arkViewController.didMove(to: rootView)

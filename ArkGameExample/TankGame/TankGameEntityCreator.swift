@@ -1,7 +1,6 @@
 import Foundation
 
-struct TankGameEntityCreator {
-
+enum TankGameEntityCreator {
     @discardableResult
     static func createTank(at position: CGPoint,
                            rotation: CGFloat,
@@ -9,13 +8,13 @@ struct TankGameEntityCreator {
                            in ecsContext: ArkECSContext,
                            zPosition: Double) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageCanvasComponent(imageResourcePath: "tank_\(tankIndex)",
-                                       width: 80,
-                                       height: 100)
-            .center(position)
-            .rotation(rotation)
-            .zPosition(zPosition)
-            .scaleAspectFill(),
+            BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankIndex)",
+                                           width: 80,
+                                           height: 100)
+                .center(position)
+                .rotation(rotation)
+                .zPosition(zPosition ?? 0.0)
+                .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: rotation),
             // TODO: Set up physics
@@ -27,12 +26,20 @@ struct TankGameEntityCreator {
         return tankEntity
     }
 
-    static func createJoyStick(center: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
-                               eventContext: ArkEventContext, zPosition: Double) {
+    @discardableResult
+    static func createJoyStick(center: CGPoint,
+                               tankEntity: Entity,
+                               in ecsContext: ArkECSContext,
+                               eventContext: ArkEventContext,
+                               zPosition: Double) -> Entity {
         ecsContext.createEntity(with: [
-            JoystickCanvasComponent(radius: 40, areValuesEqual: { _, _ in true })
+            JoystickRenderableComponent(radius: 40)
+                .shouldRerender { old, new in
+                    old.center != new.center
+                }
                 .center(center)
                 .zPosition(zPosition)
+                .layer(.screen)
                 .onPanStart { angle, mag in
                     let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
                                                               angle: angle, magnitude: mag)
@@ -57,20 +64,21 @@ struct TankGameEntityCreator {
     static func createShootButton(at position: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
                                   eventContext: ArkEventContext, zPosition: Double) {
         ecsContext.createEntity(with: [
-            ButtonCanvasComponent(width: 50, height: 50, areValuesEqual: { _, _ in true })
-            .center(position)
-            .zPosition(zPosition)
-            .onTap {
-                let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)
-                var tankShootEvent: any ArkEvent = TankShootEvent(eventData: tankShootEventData)
-                eventContext.emit(&tankShootEvent)
-            }
+            ButtonRenderableComponent(width: 50, height: 50)
+                .shouldRerender { _, _ in false }
+                .center(position)
+                .zPosition(zPosition)
+                .onTap {
+                    let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)
+                    var tankShootEvent: any ArkEvent = TankShootEvent(eventData: tankShootEventData)
+                    eventContext.emit(&tankShootEvent)
+                }
         ])
     }
 
     static func createBall(position: CGPoint, velocity: CGVector, angle: CGFloat, in ecsContext: ArkECSContext) {
         ecsContext.createEntity(with: [
-            BitmapImageCanvasComponent(imageResourcePath: "ball", width: 20, height: 20)
+            BitmapImageRenderableComponent(imageResourcePath: "ball", width: 20, height: 20)
                 .center(position)
                 .scaleAspectFill(),
             PositionComponent(position: position),
@@ -94,5 +102,22 @@ struct TankGameEntityCreator {
         let terrainObjectBuilder = TankGameTerrainObjectBuilder(strategies: strategies, ecsContext: ecsContext)
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)
+    }
+    static func addBackground(width: Double, height: Double, in ecsContext: ArkECSContext) {
+        let gridSize = 20.0
+        let gridWidth = Int(width / gridSize)
+        let gridHeight = Int(height / gridSize)
+
+        for x in 0...gridWidth {
+            for y in 0...gridHeight {
+                ecsContext.createEntity(with: [
+                    BitmapImageRenderableComponent(imageResourcePath: "map_1",
+                                                   width: gridSize, height: gridSize)
+                        .center(CGPoint(x: Double(x) * gridSize + gridSize / 2,
+                                        y: Double(y) * gridSize + gridSize / 2))
+                        .scaleAspectFill()
+                ])
+            }
+        }
     }
 }

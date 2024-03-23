@@ -1,8 +1,8 @@
 protocol CanvasComponentUpdater {
-    func update(_ circle: CircleCanvasComponent) -> CircleCanvasComponent
-    func update(_ rect: RectCanvasComponent) -> RectCanvasComponent
-    func update(_ polygon: PolygonCanvasComponent) -> PolygonCanvasComponent
-    func update(_ image: BitmapImageCanvasComponent) -> BitmapImageCanvasComponent
-    func update(_ button: ButtonCanvasComponent) -> ButtonCanvasComponent
-    func update(_ joystick: JoystickCanvasComponent) -> JoystickCanvasComponent
+    func update(_ circle: CircleRenderableComponent) -> CircleRenderableComponent
+    func update(_ rect: RectRenderableComponent) -> RectRenderableComponent
+    func update(_ polygon: PolygonRenderableComponent) -> PolygonRenderableComponent
+    func update(_ image: BitmapImageRenderableComponent) -> BitmapImageRenderableComponent
+    func update(_ button: ButtonRenderableComponent) -> ButtonRenderableComponent
+    func update(_ joystick: JoystickRenderableComponent) -> JoystickRenderableComponent
 }

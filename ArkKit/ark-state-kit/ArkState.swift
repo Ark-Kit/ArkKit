@@ -1,13 +1,6 @@
-//
-//  ArkState.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 9/3/24.
-//
-
 import Foundation
 
-typealias ArkStateSetupFunction = (_: ArkECSContext, _: ArkEventContext) -> Void
+typealias ArkStateSetupDelegate = (ArkContext) -> Void
 
 class ArkState {
     private(set) var arkECS: ArkECS
@@ -23,7 +16,12 @@ class ArkState {
         arkECS.update(deltaTime: deltaTime)
     }
 
-    func setup(_ setupFunction: ArkStateSetupFunction) {
-        setupFunction(arkECS, eventManager)
+    func setup(_ setupDelegate: ArkStateSetupDelegate, displayContext: ArkDisplayContext) {
+        let context = createActionContext(displayContext: displayContext)
+        setupDelegate(context)
+    }
+
+    private func createActionContext(displayContext: ArkDisplayContext) -> ArkContext {
+        ArkContext(ecs: arkECS, events: eventManager, display: displayContext)
     }
 }

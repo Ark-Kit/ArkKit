@@ -1,16 +1,18 @@
-struct Forever: Action {
-    private let callback: (any ArkEvent, ArkEventContext, ArkECSContext) -> Void
-    init(_ callback: @escaping (any ArkEvent, ArkEventContext, ArkECSContext) -> Void) {
+struct Forever<Event: ArkEvent>: Action {
+    private let callback: ActionCallback<Event>
+
+    init(_ callback: @escaping ActionCallback<Event>) {
         self.callback = callback
     }
-    func execute<Event: ArkEvent>(_ event: Event, eventContext: ArkEventContext, ecsContext: ArkECSContext) {
-        callback(event, eventContext, ecsContext)
+
+    func execute(_ event: Event, context: ArkContext) {
+        callback(event, context)
         let nextForever = self
-        eventContext.subscribe(to: Event.id) { (nextEvent: any ArkEvent) -> Void in
+        context.events.subscribe(to: Event.id) { nextEvent in
             guard let castedEvent = nextEvent as? Event else {
                 return
             }
-            nextForever.execute(castedEvent, eventContext: eventContext, ecsContext: ecsContext)
+            nextForever.execute(castedEvent, context: context)
         }
     }
 }

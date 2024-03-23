@@ -27,9 +27,10 @@ class TankGameMapBuilder {
             for (y, value) in row.enumerated() {
                 for strategy in strategies {
                     if let imageResourcePath = strategy.imageResourcePath(forValue: value) {
-                        let component = BitmapImageCanvasComponent(imageResourcePath: imageResourcePath,
-                                                                   width: gridSize.width, height: gridSize.height,
-                                                                   areValuesEqual: { _, _ in true })
+                        let component = BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
+                                                                       width: gridSize.width,
+                                                                       height: gridSize.height)
+                            .shouldRerender { _, _ in false }
                             .center(CGPoint(x: Double(x) * gridSize.width + gridSize.width / 2,
                                             y: Double(y) * gridSize.height + gridSize.height / 2))
                             .zPosition(zPosition)

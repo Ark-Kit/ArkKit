@@ -3,7 +3,7 @@ import UIKit
 protocol UIKitBitmap: BitmapRenderable, UIKitRenderable {}
 
 extension UIKitBitmap {
-    func applyModifiers(modifierInfo: BitmapImageCanvasComponent) -> Self {
+    func applyModifiers(modifierInfo: BitmapImageRenderableComponent) -> Self {
         self
             .if(modifierInfo.isClipToBounds, transform: { view in view.clipToBounds() })
             .if(modifierInfo.isScaleAspectFill, transform: { view in view.scaleAspectFill() })

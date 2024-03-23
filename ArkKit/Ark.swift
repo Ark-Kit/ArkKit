@@ -1,4 +1,5 @@
 import Foundation
+
 /**
  * `Ark` describes a **running instance** of the game.
  *
@@ -9,20 +10,35 @@ import Foundation
  * relying on the `arkInstance` will not emit.
  */
 class Ark {
-    let rootView: any AbstractParentView
+    let rootView: any AbstractRootView
     let arkState: ArkState
     var gameLoop: AbstractArkSimulator?
 
     var sceneUpdateDelegate: ArkSceneUpdateDelegate?
+    let blueprint: ArkBlueprint
 
-    init(rootView: any AbstractParentView) {
+    var displayContext: ArkDisplayContext {
+        ArkDisplayContext(
+            canvasSize: CGSize(width: blueprint.frameWidth,
+                               height: blueprint.frameHeight),
+            screenSize: rootView.size)
+    }
+
+    var context: ArkContext {
+        ArkContext(ecs: arkState.arkECS,
+                         events: arkState.eventManager,
+                         display: displayContext)
+    }
+
+    init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
         self.rootView = rootView
+        self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
     }
 
-    func start(blueprint: ArkBlueprint) {
+    func start() {
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
         setupDefaultEntities()
@@ -42,23 +58,18 @@ class Ark {
         gameCoordinator.start()
     }
 
-    private func setup(_ rules: [Rule]) {
+    private func setup(_ rules: [any Rule]) {
         // subscribe all rules to the eventManager
         for rule in rules {
-            arkState.eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
-                guard let arkInstance = self else {
-                    return
-                }
-                rule.action.execute(event,
-                                    eventContext: arkInstance.arkState.eventManager,
-                                    ecsContext: arkInstance.arkState.arkECS)
+            arkState.eventManager.subscribe(to: rule.event) { event in
+                event.executeAction(rule.action, context: self.context)
             }
         }
     }
 
-    private func setup(_ stateSetupFunctions: [ArkStateSetupFunction]) {
+    private func setup(_ stateSetupFunctions: [ArkStateSetupDelegate]) {
         for stateSetupFunction in stateSetupFunctions {
-            arkState.setup(stateSetupFunction)
+            arkState.setup(stateSetupFunction, displayContext: displayContext)
         }
     }
 
@@ -84,7 +95,8 @@ class Ark {
     private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {
         guard let worldEntity = arkState.arkECS.getEntities(with: [WorldComponent.self]).first,
               let worldComponent = arkState.arkECS
-            .getComponent(ofType: WorldComponent.self, for: worldEntity) else {
+              .getComponent(ofType: WorldComponent.self, for: worldEntity)
+        else {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
@@ -102,5 +114,17 @@ extension Ark: ArkSceneUpdateDelegate {
 
     func didFinishUpdate(_ deltaTime: TimeInterval) {
         sceneUpdateDelegate?.didFinishUpdate(deltaTime)
+    }
+}
+
+extension ArkEvent {
+    /// A workaround to prevent weird behavior when trying to execute
+    /// `action.execute(event, context: context)`
+    func executeAction(_ action: some Action, context: ArkContext) {
+        guard let castedAction = action as? any Action<Self> else {
+            return
+        }
+
+        castedAction.execute(self, context: context)
     }
 }
