@@ -9,9 +9,11 @@ import Foundation
 
 typealias ArkEventID = UUID
 
-protocol ArkEvent {
+protocol ArkEvent<Data> {
+    associatedtype Data = ArkEventData
+    
     static var id: ArkEventID { get }
-    var eventData: ArkEventData? { get }
+    var eventData: Data? { get }
     var timestamp: Date { get set }
     var priority: Int? { get set }
 }

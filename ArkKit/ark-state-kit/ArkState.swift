@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias ArkStateSetupFunction = (_: ArkECSContext, _: ArkEventContext) -> Void
+typealias ArkStateSetupDelegate = (ArkActionContext) -> Void
 
 class ArkState {
     private(set) var arkECS: ArkECS
@@ -23,7 +23,9 @@ class ArkState {
         eventManager.processEvents()
     }
 
-    func setup(_ setupFunction: ArkStateSetupFunction) {
-        setupFunction(arkECS, eventManager)
+    func setup(_ setupFunction: ArkStateSetupDelegate) {
+        let context = ArkActionContext(ecs: arkECS, events: eventManager)
+        
+        setupFunction(context)
     }
 }

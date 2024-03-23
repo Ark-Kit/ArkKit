@@ -34,21 +34,17 @@ class Ark {
         gameCoordinator.start()
     }
 
-    private func setup(_ rules: [Rule]) {
+    private func setup(_ rules: [any Rule]) {
+        let context = ArkActionContext(ecs: arkState.arkECS, events: arkState.eventManager)
         // subscribe all rules to the eventManager
         for rule in rules {
-            arkState.eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
-                guard let arkInstance = self else {
-                    return
-                }
-                rule.action.execute(event,
-                                    eventContext: arkInstance.arkState.eventManager,
-                                    ecsContext: arkInstance.arkState.arkECS)
-            }
+            arkState.eventManager.subscribe(to: rule.event, { event in
+                event.executeAction(rule.action, context: context)
+            })
         }
     }
 
-    private func setup(_ stateSetupFunctions: [ArkStateSetupFunction]) {
+    private func setup(_ stateSetupFunctions: [ArkStateSetupDelegate]) {
         for stateSetupFunction in stateSetupFunctions {
             arkState.setup(stateSetupFunction)
         }
@@ -78,5 +74,17 @@ class Ark {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
+    }
+}
+
+private extension ArkEvent {
+    /// A workaround to prevent weird behavior when trying to execute
+    /// `action.execute(event, context: context)`
+    func executeAction(_ action: some Action, context: ArkActionContext) {
+        guard let castedAction = action as? any Action<Self> else {
+            return
+        }
+        
+        castedAction.execute(self, context: context)
     }
 }

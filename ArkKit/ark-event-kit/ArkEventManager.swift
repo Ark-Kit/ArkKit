@@ -8,17 +8,18 @@
 import Foundation
 
 class ArkEventManager: ArkEventContext {
-    private var listeners: [ArkEventID: [(ArkEvent) -> Void]] = [:]
-    private var eventQueue = PriorityQueue<ArkEvent>(sort: ArkEventManager.compareEventPriority)
+    private var listeners: [ArkEventID: [(any ArkEvent) -> Void]] = [:]
+    private var eventQueue = PriorityQueue<any ArkEvent>(sort: ArkEventManager.compareEventPriority)
 
-    func subscribe(to eventId: ArkEventID, listener: @escaping (ArkEvent) -> Void) {
+    func subscribe(to eventId: ArkEventID, _ listener: @escaping (any ArkEvent) -> Void) {
         if listeners[eventId] == nil {
             listeners[eventId] = []
         }
+        
         listeners[eventId]?.append(listener)
     }
 
-    func emit(_ event: inout ArkEvent) {
+    func emit<Event: ArkEvent>(_ event: inout Event) {
         event.timestamp = Date()
         eventQueue.enqueue(event)
     }
@@ -26,7 +27,7 @@ class ArkEventManager: ArkEventContext {
     func processEvents() {
         // If events generate more events, the new events will be processed in the next cycle
         var processingEventQueue = eventQueue
-        eventQueue = PriorityQueue<ArkEvent>(sort: ArkEventManager.compareEventPriority)
+        eventQueue = PriorityQueue<any ArkEvent>(sort: ArkEventManager.compareEventPriority)
         while !processingEventQueue.isEmpty {
             guard let event = processingEventQueue.dequeue() else {
                 fatalError("[ArkEventManager.processEvents()] dequeue failed: Expected event, found nil.")
@@ -43,7 +44,7 @@ class ArkEventManager: ArkEventContext {
         }
     }
 
-    private static func compareEventPriority(event1: ArkEvent, event2: ArkEvent) -> Bool {
+    private static func compareEventPriority(event1: any ArkEvent, event2: any ArkEvent) -> Bool {
         let priority1 = event1.priority ?? 0
         let priority2 = event2.priority ?? 0
 
