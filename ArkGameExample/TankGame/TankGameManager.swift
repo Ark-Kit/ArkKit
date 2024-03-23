@@ -19,8 +19,6 @@ class TankGameManager {
 
     func setUpEntities() {
         // Define game with blueprint here.
-        var frameWidth = blueprint.frameWidth
-        var frameHeight = blueprint.frameHeight
         blueprint = blueprint
             .setup { context in
                 let ecs = context.ecs
@@ -30,8 +28,8 @@ class TankGameManager {
                 let screenWidth = display.screenSize.width
                 let screenHeight = display.screenSize.height
 
-                TankGameEntityCreator.createBackground(width: frameWidth,
-                                                       height: frameHeight,
+                TankGameEntityCreator.createBackground(width: screenWidth,
+                                                       height: screenHeight,
                                                        in: ecs,
                                                        zPosition: 0,
                                                        background: [[1, 1, 1], [2, 2, 2], [3, 3, 3]]
@@ -39,19 +37,19 @@ class TankGameManager {
 
                 TankGameEntityCreator.createTerrainObjects(in: ecs,
                                                            objectsSpecs: [
-                                                            (type: 0, location: CGPoint(x: frameWidth / 2, y: frameHeight / 2),
-                                                             size: CGSize(width: frameWidth * 5 / 6, height: 100)),
-                                                            (type: 1, location: CGPoint(x: frameWidth * 3 / 4, y: frameHeight * 3 / 4),
+                                                            (type: 0, location: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
+                                                             size: CGSize(width: screenWidth * 5 / 6, height: 100)),
+                                                            (type: 1, location: CGPoint(x: screenWidth * 3 / 4, y: screenHeight * 3 / 4),
                                                              size: CGSize(width: 60, height: 60)),
-                                                            (type: 3, location: CGPoint(x: frameWidth * 1 / 4, y: frameHeight * 1 / 4),
+                                                            (type: 3, location: CGPoint(x: screenWidth * 1 / 4, y: screenHeight * 1 / 4),
                                                              size: CGSize(width: 80, height: 80)),
-                                                            (type: 2, location: CGPoint(x: frameWidth * 2 / 5, y: frameHeight * 3 / 5),
+                                                            (type: 2, location: CGPoint(x: screenWidth * 2 / 5, y: screenHeight * 3 / 5),
                                                              size: CGSize(width: 80, height: 80)),
-                                                            (type: 4, location: CGPoint(x: frameWidth * 3 / 5, y: frameHeight * 2 / 5),
+                                                            (type: 4, location: CGPoint(x: screenWidth * 3 / 5, y: screenHeight * 2 / 5),
                                                              size: CGSize(width: 60, height: 60)),
-                                                            (type: 5, location: CGPoint(x: frameWidth * 1 / 6, y: frameHeight * 3 / 7),
+                                                            (type: 5, location: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 3 / 7),
                                                              size: CGSize(width: 90, height: 90)),
-                                                            (type: 6, location: CGPoint(x: frameWidth * 5 / 6, y: frameHeight * 4 / 7),
+                                                            (type: 6, location: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 4 / 7),
                                                              size: CGSize(width: 90, height: 90))
                                                            ])
 
@@ -69,13 +67,13 @@ class TankGameManager {
                     zPosition: 5)
 
                 let joystick1Entity = TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: 150, y: 1_030),
+                    center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
                     tankEntity: tankEntity1,
                     in: ecs,
                     eventContext: events,
                     zPosition: 999)
                 let joystick2Entity = TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: 670, y: 150),
+                    center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
                     tankEntity: tankEntity2,
                     in: ecs,
                     eventContext: events,
@@ -84,13 +82,13 @@ class TankGameManager {
                 self.joystick2 = joystick2Entity.id
 
                 TankGameEntityCreator.createShootButton(
-                    at: CGPoint(x: 670, y: 1_030),
+                    at: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
                     tankEntity: tankEntity1,
                     in: ecs,
                     eventContext: events,
                     zPosition: 999)
                 TankGameEntityCreator.createShootButton(
-                    at: CGPoint(x: 150, y: 150),
+                    at: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
                     tankEntity: tankEntity2,
                     in: ecs,
                     eventContext: events,
@@ -102,31 +100,28 @@ class TankGameManager {
 
     func setUpRules() {
         blueprint = blueprint
+            // Sample for screenresize event
             .rule(on: ScreenResizeEvent.self, then: Forever { event, context in
                 let eventData = event.eventData
                 let screenSize = eventData.newSize
                 let ecs = context.ecs
+                
+                let screenWidth = screenSize.width
+                let screenHeight = screenSize.height
 
                 if let joystick1 = self.joystick1,
                    let joystick1Entity = ecs.getEntity(id: joystick1) {
                     let positionComponent = PositionComponent(
-                        position: CGPoint(
-                            x: screenSize.width / 4,
-                            y: screenSize.height * 3 / 4))
-
+                        position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8))
                     ecs.upsertComponent(positionComponent, to: joystick1Entity)
                 }
 
                 if let joystick2 = self.joystick2,
                    let joystick2Entity = ecs.getEntity(id: joystick2) {
                     let positionComponent = PositionComponent(
-                        position: CGPoint(
-                            x: screenSize.width * 3 / 4,
-                            y: screenSize.height / 4))
-
+                        position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8))
                     ecs.upsertComponent(positionComponent, to: joystick2Entity)
                 }
-
             })
             .rule(on: TankMoveEvent.self, then: Forever { event, context in
                 let ecs = context.ecs
@@ -175,15 +170,26 @@ class TankGameManager {
                         for: eventData.tankEntity) else {
                     return
                 }
+                
+                guard let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self,
+                                                                  for: eventData.tankEntity) else {
+                return }
 
+                let tankLength = (tankPhysicsComponent.size?.height ?? 0.0) / 2
+                
+                let dx = cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
+                let dy = sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
+                
                 let ballVelocity = 300.0
 
                 TankGameEntityCreator
-                    .createBall(position: tankPositionComponent.position,
-                                velocity: CGVector(dx: ballVelocity * cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2),
-                                                   dy: ballVelocity * sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)),
+                    .createBall(position: CGPoint(x: tankPositionComponent.position.x + dx * tankLength,
+                                                  y: tankPositionComponent.position.y + dy * tankLength),
+                                velocity: CGVector(dx: ballVelocity * dx,
+                                                   dy: ballVelocity * dy),
                                 angle: tankRotationComponent.angleInRadians ?? 0,
-                                in: ecs)
+                                in: ecs,
+                                zPosition: 5)
             })
     }
 }

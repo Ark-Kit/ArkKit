@@ -13,7 +13,7 @@ enum TankGameEntityCreator {
                                            height: 100)
                 .center(position)
                 .rotation(rotation)
-                .zPosition(zPosition ?? 0.0)
+                .zPosition(zPosition)
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: rotation),
@@ -76,10 +76,12 @@ enum TankGameEntityCreator {
         ])
     }
 
-    static func createBall(position: CGPoint, velocity: CGVector, angle: CGFloat, in ecsContext: ArkECSContext) {
+    static func createBall(position: CGPoint, velocity: CGVector, angle: CGFloat,
+                           in ecsContext: ArkECSContext, zPosition: Double) {
         ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: "ball", width: 20, height: 20)
                 .center(position)
+                .zPosition(zPosition)
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: angle),
@@ -102,22 +104,5 @@ enum TankGameEntityCreator {
         let terrainObjectBuilder = TankGameTerrainObjectBuilder(strategies: strategies, ecsContext: ecsContext)
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)
-    }
-    static func addBackground(width: Double, height: Double, in ecsContext: ArkECSContext) {
-        let gridSize = 20.0
-        let gridWidth = Int(width / gridSize)
-        let gridHeight = Int(height / gridSize)
-
-        for x in 0...gridWidth {
-            for y in 0...gridHeight {
-                ecsContext.createEntity(with: [
-                    BitmapImageRenderableComponent(imageResourcePath: "map_1",
-                                                   width: gridSize, height: gridSize)
-                        .center(CGPoint(x: Double(x) * gridSize + gridSize / 2,
-                                        y: Double(y) * gridSize + gridSize / 2))
-                        .scaleAspectFill()
-                ])
-            }
-        }
     }
 }
