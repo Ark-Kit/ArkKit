@@ -34,23 +34,25 @@ class TankGameManager {
                                                        zPosition: 0,
                                                        background: [[1, 1, 1], [2, 2, 2], [3, 3, 3]]
                 )
+                
+                TankGameEntityCreator.createBoundaries(width: screenWidth, height: screenHeight, in: ecs)
 
                 TankGameEntityCreator.createTerrainObjects(in: ecs,
                                                            objectsSpecs: [
                                                             (type: 0, location: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
-                                                             size: CGSize(width: screenWidth * 5 / 6, height: 100)),
+                                                             size: CGSize(width: screenWidth * 5 / 6, height: 200), zPos: 1),
                                                             (type: 1, location: CGPoint(x: screenWidth * 3 / 4, y: screenHeight * 3 / 4),
-                                                             size: CGSize(width: 60, height: 60)),
+                                                             size: CGSize(width: 60, height: 60), zPos: 2),
                                                             (type: 3, location: CGPoint(x: screenWidth * 1 / 4, y: screenHeight * 1 / 4),
-                                                             size: CGSize(width: 80, height: 80)),
+                                                             size: CGSize(width: 80, height: 80), zPos: 2),
                                                             (type: 2, location: CGPoint(x: screenWidth * 2 / 5, y: screenHeight * 3 / 5),
-                                                             size: CGSize(width: 80, height: 80)),
+                                                             size: CGSize(width: 80, height: 80), zPos: 2),
                                                             (type: 4, location: CGPoint(x: screenWidth * 3 / 5, y: screenHeight * 2 / 5),
-                                                             size: CGSize(width: 60, height: 60)),
+                                                             size: CGSize(width: 60, height: 60), zPos: 2),
                                                             (type: 5, location: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 3 / 7),
-                                                             size: CGSize(width: 90, height: 90)),
+                                                             size: CGSize(width: 90, height: 90), zPos: 2),
                                                             (type: 6, location: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 4 / 7),
-                                                             size: CGSize(width: 90, height: 90))
+                                                             size: CGSize(width: 90, height: 90), zPos: 2)
                                                            ])
 
                 let tankEntity1 = TankGameEntityCreator.createTank(
@@ -100,7 +102,6 @@ class TankGameManager {
 
     func setUpRules() {
         blueprint = blueprint
-            // Sample for screenresize event
             .rule(on: ScreenResizeEvent.self, then: Forever { event, context in
                 let eventData = event.eventData
                 let screenSize = eventData.newSize
@@ -142,6 +143,7 @@ class TankGameManager {
 
                 if tankMoveEventData.magnitude == 0 {
                     tankPhysicsComponent.velocity = .zero
+                    tankPhysicsComponent.isDynamic = false
                     ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
                 } else {
                     tankRotationComponent.angleInRadians = tankMoveEventData.angle
@@ -150,7 +152,7 @@ class TankGameManager {
                                     * cos(tankMoveEventData.angle - Double.pi / 2)
                     let velocityY = tankMoveEventData.magnitude * velocityScale
                                     * sin(tankMoveEventData.angle - Double.pi / 2)
-
+                    tankPhysicsComponent.isDynamic = true
                     tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
                     ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
                 }
