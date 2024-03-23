@@ -6,7 +6,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
-               options connectionOptions: UIScene.ConnectionOptions) {
+               options connectionOptions: UIScene.ConnectionOptions)
+    {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
@@ -60,16 +61,16 @@ extension SceneDelegate {
                 let events = context.events
                 
                 ecs.createEntity(with: [
-                    JoystickCanvasComponent(radius: 50,
-                                            areValuesEqual: { _, _ in true })
+                    JoystickCanvasComponent(radius: 50)
+                        .shouldRerender { _, _ in false }
                         .center(x: 300, y: 300)
                         .onPanChange { angle, mag in print("change", angle, mag) }
                         .onPanStart { angle, mag in print("start", angle, mag) }
                         .onPanEnd { angle, mag in print("end", angle, mag) }
                 ])
                 ecs.createEntity(with: [
-                    ButtonCanvasComponent(width: 50, height: 50,
-                                          areValuesEqual: { _, _ in true })
+                    ButtonCanvasComponent(width: 50, height: 50)
+                        .shouldRerender { _, _ in false }
                         .center(x: 500, y: 500)
                         .onTap {
                             print("emiting event")
@@ -80,10 +81,10 @@ extension SceneDelegate {
                 ])
                 ecs.createEntity(with: [
                     BitmapImageCanvasComponent(imageResourcePath: "tank_1",
-                                               width: 256, height: 100,
-                                               areValuesEqual: { _, _ in true })
-                    .center(CGPoint(x: 410, y: 590))
-                    .scaleToFill()
+                                               width: 256, height: 100)
+                        .shouldRerender { _, _ in false }
+                        .center(CGPoint(x: 410, y: 590))
+                        .scaleToFill()
                 ])
             }
             .rule(on: DemoArkEvent.self, then: Forever { _, _ in

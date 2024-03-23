@@ -7,23 +7,20 @@ struct RectCanvasComponent: ShapeCanvasComponent {
     var rotation: Double
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = false
-    let areValuesEqual: AreValuesEqualDelegate
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(width: Double, height: Double, center: CGPoint = .zero, rotation: Double = 0.0,
-         areValuesEqual: @escaping (RectCanvasComponent, RectCanvasComponent) -> Bool = { _, _ in false }) {
+    init(width: Double, height: Double, center: CGPoint = .zero, rotation: Double = 0.0) {
         self.width = width
         self.height = height
         self.center = center
         self.rotation = rotation
-        self.areValuesEqual = areValuesEqual
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> RectCanvasComponent {
-        var copy = RectCanvasComponent(width: width, height: height, center: center, rotation: rotation,
-                                       areValuesEqual: areValuesEqual)
+        var copy = self
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
         return copy
