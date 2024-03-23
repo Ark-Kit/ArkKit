@@ -15,13 +15,12 @@ struct TankMoveEventData: ArkEventData {
 }
 
 struct TankMoveEvent: ArkEvent {
-
     static var id = UUID()
-    var eventData: TankMoveEventData?
+    var eventData: TankMoveEventData
     var timestamp = Date()
     var priority: Int?
 
-    init(eventData: TankMoveEventData? = nil, priority: Int? = nil) {
+    init(eventData: TankMoveEventData, priority: Int? = nil) {
         self.eventData = eventData
         self.priority = priority
     }

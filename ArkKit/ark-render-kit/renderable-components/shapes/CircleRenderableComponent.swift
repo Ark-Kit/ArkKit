@@ -1,10 +1,11 @@
 import CoreGraphics
 
-struct CircleCanvasComponent: ShapeCanvasComponent {
+struct CircleRenderableComponent: ShapeRenderableComponent {
     private(set) var radius: Double
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var renderLayer: RenderLayer = .canvas
     var isUserInteractionEnabled = false
     var shouldRerenderDelegate: ShouldRerenderDelegate?
 
@@ -15,7 +16,7 @@ struct CircleCanvasComponent: ShapeCanvasComponent {
         self.radius = radius
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> CircleCanvasComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> CircleRenderableComponent {
         var copy = self
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
@@ -26,7 +27,7 @@ struct CircleCanvasComponent: ShapeCanvasComponent {
         renderer.render(self)
     }
 
-    func update(using updater: any CanvasComponentUpdater) -> CircleCanvasComponent {
+    func update(using updater: any CanvasComponentUpdater) -> CircleRenderableComponent {
         updater.update(self)
     }
 }

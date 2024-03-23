@@ -1,12 +1,13 @@
 import CoreGraphics
 
-struct RectCanvasComponent: ShapeCanvasComponent {
+struct RectRenderableComponent: ShapeRenderableComponent {
     let width: Double
     let height: Double
     var center: CGPoint
     var rotation: Double
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = false
+    var renderLayer: RenderLayer = .canvas
     var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     private(set) var fillInfo: ShapeFillInfo?
@@ -19,10 +20,12 @@ struct RectCanvasComponent: ShapeCanvasComponent {
         self.rotation = rotation
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> RectCanvasComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> RectRenderableComponent {
         var copy = self
+
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
+
         return copy
     }
 
@@ -30,7 +33,7 @@ struct RectCanvasComponent: ShapeCanvasComponent {
         renderer.render(self)
     }
 
-    func update(using updater: any CanvasComponentUpdater) -> RectCanvasComponent {
+    func update(using updater: any CanvasComponentUpdater) -> RectRenderableComponent {
         updater.update(self)
     }
 }

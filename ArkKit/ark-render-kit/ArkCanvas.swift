@@ -1,6 +1,6 @@
 struct ArkCanvas: Canvas {
-    var canvasComponentsToRender: [(Entity, any CanvasComponent, any CanvasComponent.Type)] = []
-    var canvasRenderablesToUnmount: [(Entity, any CanvasComponent.Type)] = []
+    var canvasComponentsToRender: [(Entity, any RenderableComponent, any RenderableComponent.Type)] = []
+    var canvasRenderablesToUnmount: [(Entity, any RenderableComponent.Type)] = []
 
     func render(using renderer: any CanvasRenderer, to context: CanvasContext) {
         for (entity, canvasComponent, compType) in canvasComponentsToRender {
@@ -20,11 +20,11 @@ struct ArkCanvas: Canvas {
         }
     }
     mutating func addToRender(entity: Entity,
-                              canvasComponent: any CanvasComponent,
-                              compType: any CanvasComponent.Type) {
+                              canvasComponent: any RenderableComponent,
+                              compType: any RenderableComponent.Type) {
         canvasComponentsToRender.append((entity, canvasComponent, compType))
     }
-    mutating func addToUnmount(entity: Entity, compType: any CanvasComponent.Type, context: CanvasContext) {
+    mutating func addToUnmount(entity: Entity, compType: any RenderableComponent.Type, context: CanvasContext) {
         canvasRenderablesToUnmount.append((entity, compType))
     }
 }

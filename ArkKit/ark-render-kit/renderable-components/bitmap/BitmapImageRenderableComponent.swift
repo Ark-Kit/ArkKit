@@ -1,15 +1,16 @@
 import CoreGraphics
 
-struct BitmapImageCanvasComponent: CanvasComponent {
-    let imageResourcePath: String
+struct BitmapImageRenderableComponent: RenderableComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var renderLayer: RenderLayer = .canvas
     var isUserInteractionEnabled = false
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
+
     let width: Double
     let height: Double
-    
-    var shouldRerenderDelegate: ShouldRerenderDelegate?
+    let imageResourcePath: String
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
@@ -26,13 +27,13 @@ struct BitmapImageCanvasComponent: CanvasComponent {
         renderer.render(self)
     }
 
-    func update(using updater: any CanvasComponentUpdater) -> BitmapImageCanvasComponent {
+    func update(using updater: any CanvasComponentUpdater) -> BitmapImageRenderableComponent {
         updater.update(self)
     }
 }
 
 // MARK: Builder pattern helpers
-extension BitmapImageCanvasComponent: AbstractBitmap {
+extension BitmapImageRenderableComponent: AbstractBitmap {
     func clipToBounds() -> Self {
         immutableCopy(isClipToBounds: true)
     }

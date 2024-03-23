@@ -6,8 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
-               options connectionOptions: UIScene.ConnectionOptions)
-    {
+               options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
@@ -53,51 +52,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
-    func defineArkBlueprint() -> ArkBlueprint {
-        // Define game with blueprint here.
-        let arkBlueprint = ArkBlueprint(frameWidth: 820, frameHeight: 1_180)
-            .setup { context in
-                let ecs = context.ecs
-                let events = context.events
-                
-                ecs.createEntity(with: [
-                    JoystickCanvasComponent(radius: 50)
-                        .shouldRerender { _, _ in false }
-                        .center(x: 300, y: 300)
-                        .onPanChange { angle, mag in print("change", angle, mag) }
-                        .onPanStart { angle, mag in print("start", angle, mag) }
-                        .onPanEnd { angle, mag in print("end", angle, mag) }
-                ])
-                ecs.createEntity(with: [
-                    ButtonCanvasComponent(width: 50, height: 50)
-                        .shouldRerender { _, _ in false }
-                        .center(x: 500, y: 500)
-                        .onTap {
-                            print("emiting event")
-                            var demoEvent: any ArkEvent = DemoArkEvent()
-                            events.emit(&demoEvent)
-                            print("done emit event")
-                        }
-                ])
-                ecs.createEntity(with: [
-                    BitmapImageCanvasComponent(imageResourcePath: "tank_1",
-                                               width: 256, height: 100)
-                        .shouldRerender { _, _ in false }
-                        .center(CGPoint(x: 410, y: 590))
-                        .scaleToFill()
-                ])
-            }
-            .rule(on: DemoArkEvent.self, then: Forever { _, _ in
-                print("running rule")
-            })
-        return arkBlueprint
-    }
-
     func loadArkBlueprintToScene(_ blueprint: ArkBlueprint, window: UIWindow) {
-        guard let rootView = window.rootViewController as? AbstractParentView else {
+        guard let rootView = window.rootViewController as? AbstractRootView else {
             return
         }
-        ark = Ark(rootView: rootView)
-        ark?.start(blueprint: blueprint)
+        ark = Ark(rootView: rootView, blueprint: blueprint)
+        ark?.start()
     }
 }

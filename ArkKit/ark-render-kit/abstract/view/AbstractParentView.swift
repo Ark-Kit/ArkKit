@@ -1,3 +1,3 @@
-protocol AbstractParentView {
-    func pushView(_ view: AbstractChildView, animated: Bool)
+protocol AbstractParentView: AnyObject {
+    func pushView(_ view: AbstractView, animated: Bool)
 }

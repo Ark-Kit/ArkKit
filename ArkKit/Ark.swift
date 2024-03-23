@@ -1,4 +1,5 @@
 import Foundation
+
 /**
  * `Ark` describes a **running instance** of the game.
  *
@@ -9,17 +10,32 @@ import Foundation
  * relying on the `arkInstance` will not emit.
  */
 class Ark {
-    let rootView: any AbstractParentView
+    let rootView: any AbstractRootView
     let arkState: ArkState
+    let blueprint: ArkBlueprint
 
-    init(rootView: any AbstractParentView) {
+    var displayContext: ArkDisplayContext {
+        ArkDisplayContext(
+            canvasSize: CGSize(width: blueprint.frameWidth,
+                               height: blueprint.frameHeight),
+            screenSize: rootView.size)
+    }
+
+    var actionContext: ArkContext {
+        ArkContext(ecs: arkState.arkECS,
+                         events: arkState.eventManager,
+                         display: displayContext)
+    }
+
+    init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
         self.rootView = rootView
+        self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
     }
 
-    func start(blueprint: ArkBlueprint) {
+    func start() {
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
         setupDefaultEntities()
@@ -35,18 +51,17 @@ class Ark {
     }
 
     private func setup(_ rules: [any Rule]) {
-        let context = ArkActionContext(ecs: arkState.arkECS, events: arkState.eventManager)
         // subscribe all rules to the eventManager
         for rule in rules {
-            arkState.eventManager.subscribe(to: rule.event, { event in
-                event.executeAction(rule.action, context: context)
-            })
+            arkState.eventManager.subscribe(to: rule.event) { event in
+                event.executeAction(rule.action, context: self.actionContext)
+            }
         }
     }
 
     private func setup(_ stateSetupFunctions: [ArkStateSetupDelegate]) {
         for stateSetupFunction in stateSetupFunctions {
-            arkState.setup(stateSetupFunction)
+            arkState.setup(stateSetupFunction, displayContext: displayContext)
         }
     }
 
@@ -70,21 +85,22 @@ class Ark {
     private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {
         guard let worldEntity = arkState.arkECS.getEntities(with: [WorldComponent.self]).first,
               let worldComponent = arkState.arkECS
-            .getComponent(ofType: WorldComponent.self, for: worldEntity) else {
+              .getComponent(ofType: WorldComponent.self, for: worldEntity)
+        else {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
     }
 }
 
-private extension ArkEvent {
+extension ArkEvent {
     /// A workaround to prevent weird behavior when trying to execute
     /// `action.execute(event, context: context)`
-    func executeAction(_ action: some Action, context: ArkActionContext) {
+    func executeAction(_ action: some Action, context: ArkContext) {
         guard let castedAction = action as? any Action<Self> else {
             return
         }
-        
+
         castedAction.execute(self, context: context)
     }
 }

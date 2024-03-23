@@ -11,9 +11,9 @@ typealias ArkEventID = UUID
 
 protocol ArkEvent<Data> {
     associatedtype Data = ArkEventData
-    
+
     static var id: ArkEventID { get }
-    var eventData: Data? { get }
+    var eventData: Data { get }
     var timestamp: Date { get set }
     var priority: Int? { get set }
 }

@@ -86,7 +86,7 @@ final class UIKitJoystick: UIView, UIKitRenderable, PanRenderable {
 }
 
 extension UIKitJoystick {
-    func applyModifiers(modifierInfo: JoystickCanvasComponent) -> Self {
+    func applyModifiers(modifierInfo: JoystickRenderableComponent) -> Self {
         if let onPanStartHandler = modifierInfo.onPanStartDelegate {
             self.onPanStartDelegate = onPanStartHandler
         }

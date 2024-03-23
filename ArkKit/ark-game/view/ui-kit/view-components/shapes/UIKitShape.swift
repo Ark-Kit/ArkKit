@@ -6,7 +6,7 @@ protocol UIKitShape: UIKitRenderable, ShapeRenderable where Color == UIColor {}
  * Provides default implementation for `fill` and `stroke` methods across different shapes
  */
 extension UIKitShape {
-    func applyModifiers(modifierInfo: some ShapeCanvasComponent, colorGetter: (AbstractColor?) -> Color) -> Self {
+    func applyModifiers(modifierInfo: some ShapeRenderableComponent, colorGetter: (AbstractColor?) -> Color) -> Self {
         self
             .if(modifierInfo.fillInfo != nil, transform: { view in
                 view.fill(color: colorGetter(modifierInfo.fillInfo?.color))

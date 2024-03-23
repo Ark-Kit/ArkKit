@@ -1,14 +1,16 @@
 import CoreGraphics
 
-struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
-    let width: Double
-    let height: Double
+struct ButtonRenderableComponent: AbstractTappable, RenderableComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var renderLayer: RenderLayer = .canvas
     var isUserInteractionEnabled = true
-
     var shouldRerenderDelegate: ShouldRerenderDelegate?
+
+    let width: Double
+    let height: Double
+
     var onTapDelegate: TapDelegate?
 
     init(width: Double, height: Double) {
@@ -16,7 +18,7 @@ struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
         self.height = height
     }
 
-    func modify(onTapDelegate: TapDelegate?) -> ButtonCanvasComponent {
+    func modify(onTapDelegate: TapDelegate?) -> ButtonRenderableComponent {
         var updated = self
         updated.onTapDelegate = onTapDelegate
         return updated
@@ -26,7 +28,7 @@ struct ButtonCanvasComponent: AbstractTappable, CanvasComponent {
         renderer.render(self)
     }
 
-    func update(using updater: any CanvasComponentUpdater) -> ButtonCanvasComponent {
+    func update(using updater: any CanvasComponentUpdater) -> ButtonRenderableComponent {
         updater.update(self)
     }
 }
