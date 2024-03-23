@@ -26,8 +26,8 @@ class Ark {
 
     var context: ArkContext {
         ArkContext(ecs: arkState.arkECS,
-                         events: arkState.eventManager,
-                         display: displayContext)
+                   events: arkState.eventManager,
+                   display: displayContext)
     }
 
     init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
@@ -81,7 +81,9 @@ class Ark {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
         self.gameLoop = simulator
-        let physicsSystem = ArkPhysicsSystem(simulator: simulator, eventManager: arkState.eventManager, arkECS: arkState.arkECS)
+        let physicsSystem = ArkPhysicsSystem(simulator: simulator,
+                                             eventManager: arkState.eventManager,
+                                             arkECS: arkState.arkECS)
         sceneUpdateDelegate = physicsSystem
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
