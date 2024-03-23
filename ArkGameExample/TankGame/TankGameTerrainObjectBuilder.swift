@@ -72,7 +72,7 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
             RotationComponent(angleInRadians: 0),
             PhysicsComponent(shape: .circle, radius: size.width / 2, mass: 1, isDynamic: false, allowsRotation: false,
                              categoryBitMask: TankGamePhysicsCategory.rock,
-                             collisionBitMask: TankGamePhysicsCategory.ball,
+                             collisionBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.tank,
                              contactTestBitMask: TankGamePhysicsCategory.tank | TankGamePhysicsCategory.ball)
         ])
     }
