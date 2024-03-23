@@ -21,8 +21,8 @@ class Ark {
             screenSize: rootView.size)
     }
 
-    var actionContext: ArkActionContext {
-        ArkActionContext(ecs: arkState.arkECS,
+    var actionContext: ArkContext {
+        ArkContext(ecs: arkState.arkECS,
                          events: arkState.eventManager,
                          display: displayContext)
     }
@@ -93,10 +93,10 @@ class Ark {
     }
 }
 
-private extension ArkEvent {
+extension ArkEvent {
     /// A workaround to prevent weird behavior when trying to execute
     /// `action.execute(event, context: context)`
-    func executeAction(_ action: some Action, context: ArkActionContext) {
+    func executeAction(_ action: some Action, context: ArkContext) {
         guard let castedAction = action as? any Action<Self> else {
             return
         }

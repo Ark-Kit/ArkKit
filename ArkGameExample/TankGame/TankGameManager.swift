@@ -3,7 +3,7 @@ import Foundation
 class TankGameManager {
     var joystick1: EntityID?
     var joystick2: EntityID?
-    
+
     private(set) var blueprint: ArkBlueprint
 
     init(frameWidth: Double, frameHeight: Double) {
@@ -76,29 +76,27 @@ class TankGameManager {
                 let eventData = event.eventData
                 let screenSize = eventData.newSize
                 let ecs = context.ecs
-                
+
                 if let joystick1 = self.joystick1,
-                   let joystick1Entity = ecs.getEntity(id: joystick1)
-                {
+                   let joystick1Entity = ecs.getEntity(id: joystick1) {
                     let positionComponent = PositionComponent(
                         position: CGPoint(
                             x: screenSize.width / 4,
                             y: screenSize.height * 3 / 4))
-                    
+
                     ecs.upsertComponent(positionComponent, to: joystick1Entity)
                 }
-                
+
                 if let joystick2 = self.joystick2,
-                   let joystick2Entity = ecs.getEntity(id: joystick2)
-                {
+                   let joystick2Entity = ecs.getEntity(id: joystick2) {
                     let positionComponent = PositionComponent(
                         position: CGPoint(
                             x: screenSize.width * 3 / 4,
                             y: screenSize.height / 4))
-                    
+
                     ecs.upsertComponent(positionComponent, to: joystick2Entity)
                 }
-                
+
             })
             .rule(on: TankMoveEvent.self, then: Forever { event, context in
                 let ecs = context.ecs
@@ -110,14 +108,14 @@ class TankGameManager {
                 else {
                     return
                 }
-                
+
                 let velocityScale = 1.5
 
                 let velocityX = eventData.magnitude * velocityScale
                     * cos(eventData.angle - Double.pi / 2)
                 let velocityY = eventData.magnitude * velocityScale
                         * sin(eventData.angle - Double.pi / 2)
-                
+
                 tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
                 ecs.upsertComponent(tankPhysicsComponent, to: eventData.tankEntity)
             })
@@ -130,7 +128,7 @@ class TankGameManager {
                     for: eventData.tankEntity) else {
                     return
                 }
-                
+
                 guard let tankRotationComponent = ecs.getComponent(
                         ofType: RotationComponent.self,
                         for: eventData.tankEntity) else {

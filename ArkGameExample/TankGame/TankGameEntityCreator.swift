@@ -6,8 +6,7 @@ enum TankGameEntityCreator {
                            rotation: CGFloat,
                            tankIndex: Int,
                            in ecsContext: ArkECSContext,
-                           zPosition: Double? = nil) -> Entity
-    {
+                           zPosition: Double? = nil) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankIndex)",
                                            width: 80,
@@ -29,8 +28,7 @@ enum TankGameEntityCreator {
     static func createJoyStick(center: CGPoint,
                                tankEntity: Entity,
                                in ecsContext: ArkECSContext,
-                               eventContext: ArkEventContext) -> Entity
-    {
+                               eventContext: ArkEventContext) -> Entity {
         ecsContext.createEntity(with: [
             JoystickRenderableComponent(radius: 40)
                 .shouldRerender { old, new in
@@ -54,8 +52,7 @@ enum TankGameEntityCreator {
     }
 
     static func createShootButton(at position: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
-                                  eventContext: ArkEventContext)
-    {
+                                  eventContext: ArkEventContext) {
         ecsContext.createEntity(with: [
             ButtonRenderableComponent(width: 50, height: 50)
                 .shouldRerender { _, _ in false }

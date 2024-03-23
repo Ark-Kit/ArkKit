@@ -47,7 +47,7 @@ class EntityManager {
         }
         return entity
     }
-    
+
     func getEntity(id: EntityID) -> Entity? {
         entities.first { $0.id == id }
     }

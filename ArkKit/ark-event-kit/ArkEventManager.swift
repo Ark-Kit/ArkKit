@@ -15,7 +15,7 @@ class ArkEventManager: ArkEventContext {
         if listeners[eventId] == nil {
             listeners[eventId] = []
         }
-        
+
         listeners[eventId]?.append(listener)
     }
 

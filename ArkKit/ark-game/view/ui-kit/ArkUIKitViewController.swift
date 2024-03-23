@@ -9,36 +9,36 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
     var canvasView: UIView?
     var rootViewResizeDelegate: ScreenResizeDelegate?
     var cachedScreenSize: CGSize?
-    
+
     var rootView: UIView {
         view
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         rootView.backgroundColor = .black
-        
+
         self.gameLoop = ArkGameLoop(({
             CADisplayLink(target: self,
                           selector: #selector(self.handleGameProgress))
         }))
         self.gameLoop?.setUp()
-        
+
         let canvasView = UIView()
         canvasView.backgroundColor = .white
         rootView.addSubview(canvasView)
 
         self.canvasView = canvasView
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         if cachedScreenSize != rootView.frame.size {
             rootViewResizeDelegate?(rootView.frame.size)
         }
-        
+
         cachedScreenSize = rootView.frame.size
     }
 
@@ -53,7 +53,7 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
         }
         viewModel?.updateGame(for: deltaTime)
     }
-    
+
     private func onRootViewResize(_ delegate: @escaping ScreenResizeDelegate) {
         self.rootViewResizeDelegate = delegate
     }
@@ -72,12 +72,6 @@ extension ArkUIKitViewController: GameStateRenderer {
                                                     canvasFrame: canvasContext.canvasFrame)
         canvas.render(using: canvasRenderer, to: canvasContext)
     }
-    
-    func onScreenResize(_ delegate: @escaping ScreenResizeDelegate) {
-        onRootViewResize { newSize in
-            delegate(newSize)
-        }
-    }
 }
 
 extension ArkUIKitViewController: AbstractView {
@@ -86,5 +80,10 @@ extension ArkUIKitViewController: AbstractView {
             return
         }
         self.didMove(toParent: parentViewController)
+    }
+    func onScreenResize(_ delegate: @escaping ScreenResizeDelegate) {
+        onRootViewResize { newSize in
+            delegate(newSize)
+        }
     }
 }

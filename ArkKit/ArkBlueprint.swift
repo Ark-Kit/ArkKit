@@ -18,7 +18,7 @@ struct ArkBlueprint {
         newSelf.setupFunctions = stateSetupFunctionsCopy
         return newSelf
     }
-    
+
     func rule<Event: ArkEvent>(
         on eventType: Event.Type,
         then action: any Action<Event>
