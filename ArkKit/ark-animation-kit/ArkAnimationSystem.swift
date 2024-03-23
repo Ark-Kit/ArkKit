@@ -11,16 +11,16 @@ class ArkAnimationSystem: System {
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        let runningAnimations = arkECS.getEntities(with: [ArkAnimationInstance<Any>.self])
+        let animationComponents = arkECS.getEntities(with: [ArkAnimationsComponent.self])
 
-        for entity in runningAnimations {
-            guard var animationState = arkECS.getComponent(ofType: ArkAnimationInstance<Any>.self, for: entity) else {
+        for entity in animationComponents {
+            guard let animationsComponent = arkECS.getComponent(ofType: ArkAnimationsComponent.self, for: entity) else {
                 return
             }
 
-            animationState.elapsedDelta += deltaTime
-
-            arkECS.upsertComponent(animationState, to: entity)
+            for animationInstance in animationsComponent.animations {
+                animationInstance.advance(by: deltaTime)
+            }
         }
     }
 }

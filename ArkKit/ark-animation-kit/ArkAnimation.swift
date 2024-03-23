@@ -1,16 +1,27 @@
 import Foundation
 
+struct AnimationKeyframe<T: Equatable>: Equatable {
+    let value: T
+    let offset: TimeInterval
+    let duration: TimeInterval
+}
+
+protocol Animation<T> {
+    associatedtype T: Equatable
+    
+    var keyframes: [AnimationKeyframe<T>] { get }
+    var duration: TimeInterval { get }
+}
+
 /**
  * Represents an animation blueprint with a set of keyframes.
  */
-struct ArkAnimation<T> {
-    struct Keyframe {
-        let value: T
-        let offset: TimeInterval
-        let duration: TimeInterval
+struct ArkAnimation<T>: Animation where T: Equatable {
+    private (set) var keyframes: [AnimationKeyframe<T>]
+    
+    init() {
+        self.keyframes = []
     }
-
-    private (set) var keyframes: [Keyframe]
 
     var duration: TimeInterval {
         if let lastFrame = keyframes.last {
@@ -20,7 +31,7 @@ struct ArkAnimation<T> {
         return 0
     }
 
-    mutating func keyframe(_ value: T, duration: Double) {
+    func keyframe(_ value: T, duration: Double) -> Self {
         let newOffset: Double = {
             if let previousFrame = keyframes.last {
                 return previousFrame.offset + previousFrame.duration
@@ -28,7 +39,9 @@ struct ArkAnimation<T> {
 
             return 0
         }()
-
-        keyframes.append(Keyframe(value: value, offset: newOffset, duration: duration))
+        
+        var newSelf = self
+        newSelf.keyframes.append(AnimationKeyframe(value: value, offset: newOffset, duration: duration))
+        return newSelf
     }
 }
