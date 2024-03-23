@@ -52,7 +52,7 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
     }
     func createObject(type: Int, location: CGPoint, size: CGSize, in ecsContext: ArkECSContext) {
         let imageResourcePath = "stones_\(type)"
-        
+        print("creating rock at \(location) with size \(size)")
         ecsContext.createEntity(with: [
             BitmapImageCanvasComponent(imageResourcePath: imageResourcePath,
                                        width: size.width, height: size.height)
@@ -60,9 +60,9 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
             .center(location),
             PositionComponent(position: location),
             RotationComponent(angleInRadians: 0),
-            PhysicsComponent(shape: .circle, radius: size.width, isDynamic: false,
+            PhysicsComponent(shape: .circle, radius: size.width/2, mass: 1, isDynamic: false, allowsRotation: false,
                              categoryBitMask: TankGamePhysicsCategory.wall,
-                             collisionBitMask: TankGamePhysicsCategory.none,
+                             collisionBitMask: TankGamePhysicsCategory.ball,
                              contactTestBitMask: TankGamePhysicsCategory.tank | TankGamePhysicsCategory.ball)
         ])
     }

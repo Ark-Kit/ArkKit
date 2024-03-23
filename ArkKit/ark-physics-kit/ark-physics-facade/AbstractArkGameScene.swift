@@ -2,7 +2,7 @@ import Foundation
 
 protocol AbstractArkGameScene {
     var sceneUpdateDelegate: ArkSceneUpdateDelegate? { get set }
-    func update(_ currentTime: TimeInterval)
+    func getCurrentTime() -> TimeInterval
     func forEachEntity(perform action: (_ entity: Entity,
                                         _ physicsBody: AbstractArkPhysicsBody) -> Void)
     func createCirclePhysicsBody(for entity: Entity,

@@ -1,6 +1,10 @@
 import SpriteKit
 
 class SKGameScene: AbstractArkGameScene {
+    func getCurrentTime() -> TimeInterval {
+        baseGameScene.currentTime
+    }
+    
     private(set) var baseGameScene: BaseSKGameScene
     private var physicsBodyManager: SKPhysicsBodyManager
 

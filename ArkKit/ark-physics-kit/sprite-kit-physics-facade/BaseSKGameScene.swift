@@ -3,6 +3,9 @@ import SpriteKit
 class BaseSKGameScene: SKScene {
     weak var gameScene: SKGameScene?
     weak var sceneUpdateDelegate: ArkSceneUpdateDelegate?
+    var currentTime: TimeInterval = 0
+    private var lastUpdateTime: TimeInterval = 0
+    private(set) var deltaTime: TimeInterval = 0
 
     override func sceneDidLoad() {
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.81)
@@ -10,6 +13,20 @@ class BaseSKGameScene: SKScene {
     }
 
     override func didFinishUpdate() {
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        deltaTime = calculateDeltaTime(from: currentTime)
+        self.currentTime += deltaTime
+    }
+    
+    private func calculateDeltaTime(from currentTime: TimeInterval) -> TimeInterval {
+        if lastUpdateTime.isZero {
+          lastUpdateTime = currentTime
+        }
+        let deltaTime = currentTime - lastUpdateTime
+        lastUpdateTime = currentTime
+        return deltaTime
     }
 }
 
