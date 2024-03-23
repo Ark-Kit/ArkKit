@@ -39,21 +39,27 @@ class TankGameManager {
 
                 TankGameEntityCreator.createTerrainObjects(in: ecs,
                                                            objectsSpecs: [
-                                                            (type: 0, location: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
-                                                             size: CGSize(width: screenWidth * 5 / 6, height: 200), zPos: 1),
-                                                            (type: 1, location: CGPoint(x: screenWidth * 3 / 4, y: screenHeight * 3 / 4),
-                                                             size: CGSize(width: 60, height: 60), zPos: 2),
-                                                            (type: 3, location: CGPoint(x: screenWidth * 1 / 4, y: screenHeight * 1 / 4),
-                                                             size: CGSize(width: 80, height: 80), zPos: 2),
-                                                            (type: 2, location: CGPoint(x: screenWidth * 2 / 5, y: screenHeight * 3 / 5),
-                                                             size: CGSize(width: 80, height: 80), zPos: 2),
-                                                            (type: 4, location: CGPoint(x: screenWidth * 3 / 5, y: screenHeight * 2 / 5),
-                                                             size: CGSize(width: 60, height: 60), zPos: 2),
-                                                            (type: 5, location: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 3 / 7),
-                                                             size: CGSize(width: 90, height: 90), zPos: 2),
-                                                            (type: 6, location: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 4 / 7),
-                                                             size: CGSize(width: 90, height: 90), zPos: 2)
-                                                           ])
+                                                               (type: 0, location: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
+                                                                size: CGSize(width: screenWidth, height: screenHeight / 5), zPos: 1),
+                                                               (type: 1, location: CGPoint(x: screenWidth * 3 / 4, y: screenHeight * 3 / 4),
+                                                                size: CGSize(width: 100, height: 100), zPos: 2),
+                                                               (type: 3, location: CGPoint(x: screenWidth * 1 / 4, y: screenHeight * 1 / 4),
+                                                                size: CGSize(width: 120, height: 120), zPos: 2),
+                                                               (type: 2, location: CGPoint(x: screenWidth * 2 / 5, y: screenHeight * 2 / 3),
+                                                                size: CGSize(width: 70, height: 70), zPos: 2),
+                                                               (type: 4, location: CGPoint(x: screenWidth * 3 / 5, y: screenHeight * 1 / 3),
+                                                                size: CGSize(width: 80, height: 80), zPos: 2),
+                                                               (type: 1, location: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 3 / 7),
+                                                                size: CGSize(width: 80, height: 80), zPos: 2),
+                                                               (type: 1, location: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 4 / 7),
+                                                                size: CGSize(width: 80, height: 80), zPos: 2),
+                                                               (type: 3, location: CGPoint(x: screenWidth * 1 / 2, y: screenHeight * 1 / 2),
+                                                                size: CGSize(width: 85, height: 85), zPos: 2),
+                                                               (type: 4, location: CGPoint(x: screenWidth * 7 / 8, y: screenHeight * 1 / 3),
+                                                                size: CGSize(width: 95, height: 95), zPos: 2),
+                                                               (type: 5, location: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 3 / 4),
+                                                                size: CGSize(width: 90, height: 90), zPos: 2)
+                                                              ])
 
                 let tankEntity1 = TankGameEntityCreator.createTank(
                     at: CGPoint(x: 400, y: 1_000),
@@ -103,95 +109,114 @@ class TankGameManager {
     func setUpRules() {
         blueprint = blueprint
             .rule(on: ScreenResizeEvent.self, then: Forever { event, context in
-                let eventData = event.eventData
-                let screenSize = eventData.newSize
-                let ecs = context.ecs
-                
-                let screenWidth = screenSize.width
-                let screenHeight = screenSize.height
-
-                if let joystick1 = self.joystick1,
-                   let joystick1Entity = ecs.getEntity(id: joystick1) {
-                    let positionComponent = PositionComponent(
-                        position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8))
-                    ecs.upsertComponent(positionComponent, to: joystick1Entity)
-                }
-
-                if let joystick2 = self.joystick2,
-                   let joystick2Entity = ecs.getEntity(id: joystick2) {
-                    let positionComponent = PositionComponent(
-                        position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8))
-                    ecs.upsertComponent(positionComponent, to: joystick2Entity)
-                }
+                self.handleScreenResize(event, in: context)
             })
             .rule(on: TankMoveEvent.self, then: Forever { event, context in
-                let ecs = context.ecs
-                let tankMoveEventData = event.eventData
-
-                guard var tankPhysicsComponent = ecs.getComponent(
-                    ofType: PhysicsComponent.self,
-                    for: tankMoveEventData.tankEntity),
-                      var tankRotationComponent = ecs.getComponent(
-                        ofType: RotationComponent.self,
-                        for: tankMoveEventData.tankEntity)
-                else {
-                    return
-                }
-
-                let tankEntity = tankMoveEventData.tankEntity
-                let velocityScale = 1.5
-
-                if tankMoveEventData.magnitude == 0 {
-                    tankPhysicsComponent.velocity = .zero
-                    tankPhysicsComponent.isDynamic = false
-                    ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
-                } else {
-                    tankRotationComponent.angleInRadians = tankMoveEventData.angle
-                    ecs.upsertComponent(tankRotationComponent, to: tankEntity)
-                    let velocityX = tankMoveEventData.magnitude * velocityScale
-                                    * cos(tankMoveEventData.angle - Double.pi / 2)
-                    let velocityY = tankMoveEventData.magnitude * velocityScale
-                                    * sin(tankMoveEventData.angle - Double.pi / 2)
-                    tankPhysicsComponent.isDynamic = true
-                    tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
-                    ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
-                }
+                self.handleTankMove(event, in: context)
             })
             .rule(on: TankShootEvent.self, then: Forever { event, context in
+                self.handleTankShoot(event, in: context)
+            })
+            .rule(on: ArkCollisionEvent.self, then: Forever { event, context in
                 let ecs = context.ecs
                 let eventData = event.eventData
 
-                guard let tankPositionComponent = ecs.getComponent(
-                    ofType: PositionComponent.self,
-                    for: eventData.tankEntity) else {
-                    return
-                }
-
-                guard let tankRotationComponent = ecs.getComponent(
-                        ofType: RotationComponent.self,
-                        for: eventData.tankEntity) else {
-                    return
-                }
-                
-                guard let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self,
-                                                                  for: eventData.tankEntity) else {
-                return }
-
-                let tankLength = (tankPhysicsComponent.size?.height ?? 0.0) / 2
-                
-                let dx = cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
-                let dy = sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
-                
-                let ballVelocity = 300.0
-
-                TankGameEntityCreator
-                    .createBall(position: CGPoint(x: tankPositionComponent.position.x + dx * tankLength,
-                                                  y: tankPositionComponent.position.y + dy * tankLength),
-                                velocity: CGVector(dx: ballVelocity * dx,
-                                                   dy: ballVelocity * dy),
-                                angle: tankRotationComponent.angleInRadians ?? 0,
-                                in: ecs,
-                                zPosition: 5)
             })
+    }
+}
+
+extension TankGameManager {
+    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkContext) {
+        let eventData = event.eventData
+        let screenSize = eventData.newSize
+        let ecs = context.ecs
+        
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+
+        if let joystick1 = self.joystick1,
+           let joystick1Entity = ecs.getEntity(id: joystick1) {
+            let positionComponent = PositionComponent(
+                position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8))
+            ecs.upsertComponent(positionComponent, to: joystick1Entity)
+        }
+
+        if let joystick2 = self.joystick2,
+           let joystick2Entity = ecs.getEntity(id: joystick2) {
+            let positionComponent = PositionComponent(
+                position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8))
+            ecs.upsertComponent(positionComponent, to: joystick2Entity)
+        }
+    }
+    
+    private func handleTankMove(_ event: TankMoveEvent, in context: ArkContext) {
+        let ecs = context.ecs
+        let tankMoveEventData = event.eventData
+
+        guard var tankPhysicsComponent = ecs.getComponent(
+            ofType: PhysicsComponent.self,
+            for: tankMoveEventData.tankEntity),
+              var tankRotationComponent = ecs.getComponent(
+                ofType: RotationComponent.self,
+                for: tankMoveEventData.tankEntity)
+        else {
+            return
+        }
+
+        let tankEntity = tankMoveEventData.tankEntity
+        let velocityScale = 1.5
+
+        if tankMoveEventData.magnitude == 0 {
+            tankPhysicsComponent.velocity = .zero
+            tankPhysicsComponent.isDynamic = false
+            ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
+        } else {
+            tankRotationComponent.angleInRadians = tankMoveEventData.angle
+            ecs.upsertComponent(tankRotationComponent, to: tankEntity)
+            let velocityX = tankMoveEventData.magnitude * velocityScale
+                            * cos(tankMoveEventData.angle - Double.pi / 2)
+            let velocityY = tankMoveEventData.magnitude * velocityScale
+                            * sin(tankMoveEventData.angle - Double.pi / 2)
+            tankPhysicsComponent.isDynamic = true
+            tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
+            ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
+        }
+    }
+    
+    private func handleTankShoot(_ event: TankShootEvent, in context: ArkContext) {
+        let ecs = context.ecs
+        let eventData = event.eventData
+
+        guard let tankPositionComponent = ecs.getComponent(
+           ofType: PositionComponent.self,
+           for: eventData.tankEntity) else {
+           return
+        }
+
+        guard let tankRotationComponent = ecs.getComponent(
+               ofType: RotationComponent.self,
+               for: eventData.tankEntity) else {
+           return
+        }
+
+        guard let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self,
+                                                         for: eventData.tankEntity) else {
+        return }
+
+        let tankLength = (tankPhysicsComponent.size?.height ?? 0.0) / 2
+
+        let dx = cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
+        let dy = sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
+
+        let ballVelocity = 300.0
+
+        TankGameEntityCreator
+           .createBall(position: CGPoint(x: tankPositionComponent.position.x + dx * tankLength,
+                                         y: tankPositionComponent.position.y + dy * tankLength),
+                       velocity: CGVector(dx: ballVelocity * dx,
+                                          dy: ballVelocity * dy),
+                       angle: tankRotationComponent.angleInRadians ?? 0,
+                       in: ecs,
+                       zPosition: 5)
     }
 }
