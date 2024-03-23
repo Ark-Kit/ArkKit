@@ -7,7 +7,7 @@ struct BitmapImageRenderableComponent: RenderableComponent {
     var renderLayer: RenderLayer = .canvas
     var isUserInteractionEnabled = false
     var shouldRerenderDelegate: ShouldRerenderDelegate?
-    
+
     let width: Double
     let height: Double
     let imageResourcePath: String

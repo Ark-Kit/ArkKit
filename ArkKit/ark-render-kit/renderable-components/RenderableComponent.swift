@@ -2,7 +2,7 @@ import Foundation
 
 protocol RenderableComponent: Component, Memoizable {
     typealias ShouldRerenderDelegate = (_ old: Self, _ new: Self) -> Bool
-    
+
     var center: CGPoint { get set }
     var rotation: Double { get set }
     var zPosition: Double { get set }
@@ -52,7 +52,7 @@ extension RenderableComponent {
         newSelf.isUserInteractionEnabled = isEnabled
         return newSelf
     }
-    
+
     func layer(_ layer: RenderLayer) -> Self {
         var newSelf = self
         newSelf.renderLayer = layer

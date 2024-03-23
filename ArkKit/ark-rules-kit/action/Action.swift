@@ -2,7 +2,7 @@ protocol Action<Event> {
     associatedtype Event = ArkEvent
 
     func execute(_ event: Event,
-                 context: ArkActionContext)
+                 context: ArkContext)
 }
 
-typealias ActionCallback<Event: ArkEvent> = (Event, ArkActionContext) -> Void
+typealias ActionCallback<Event: ArkEvent> = (Event, ArkContext) -> Void

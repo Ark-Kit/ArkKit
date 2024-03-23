@@ -5,7 +5,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
 
     var rootView: UIView
     var canvasView: UIView
-    
+
     private func getParentView(layer: RenderLayer) -> UIView {
         switch layer {
         case .canvas:
