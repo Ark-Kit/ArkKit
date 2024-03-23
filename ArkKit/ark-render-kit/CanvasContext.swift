@@ -1,74 +1,81 @@
 import Foundation
+
 protocol CanvasContext {
+    typealias RenderableComponentType = ObjectIdentifier
     var canvasFrame: CGRect { get }
-    var memo: [Entity: [ObjectIdentifier: (any RenderableComponent, any Renderable)]] { get }
+    var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] { get }
     func getCanvas() -> Canvas
-    func saveToMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type,
-                    canvasComponent: any RenderableComponent, renderable: any Renderable)
-    func removeFromMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type) -> (any Renderable)?
+    func render(_ canvas: any Canvas, using renderer: any CanvasRenderer)
 }
 
 class ArkCanvasContext: CanvasContext {
     private(set) var canvasFrame: CGRect
-    private(set) var memo: [Entity: [ObjectIdentifier: (any RenderableComponent, any Renderable)]]
+    var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] = [:]
     private let ecs: ArkECS
-    init(ecs: ArkECS, canvasFrame: CGRect, memo: [Entity: [ObjectIdentifier: (any RenderableComponent, any Renderable)]] = [:]) {
-        self.memo = memo
-        self.canvasFrame = canvasFrame
+    init(ecs: ArkECS, canvasFrame: CGRect) {
         self.ecs = ecs
+        self.canvasFrame = canvasFrame
     }
-    func getCanvas() -> Canvas {
+
+    func render(_ canvas: any Canvas, using renderer: any CanvasRenderer) {
+        // unmounting outdated components
+        for (entityId, component) in canvas.componentsToUnmount {
+            for (componentType, renderable) in component {
+                renderable?.unmount()
+                memo[entityId]?.removeValue(forKey: componentType)
+            }
+        }
+
+        // rerendering - unmounting old, rendering new
+        for (entityId, component) in canvas.componentsToMount {
+            for (componentType, renderableComponent) in component {
+                if let (previousCanvasComp, previousRenderable) = memo[entityId]?[componentType] {
+                    if !renderableComponent.hasUpdated(previous: previousCanvasComp) {
+                        continue
+                    }
+                    previousRenderable.unmount()
+                }
+                let renderable = renderableComponent.render(using: renderer)
+                renderer.upsertToView(renderable, at: renderableComponent.renderLayer)
+                if memo[entityId] != nil {
+                    memo[entityId]?[componentType] = (renderableComponent, renderable)
+                } else {
+                    memo[entityId] = [componentType: (renderableComponent, renderable)]
+                }
+            }
+        }
+    }
+
+    func getCanvas() -> any Canvas {
         var arkCanvas = ArkCanvas()
         for canvasCompType in ArkCanvasSystem.canvasComponentTypes {
             let entitiesWithCanvas = ecs.getEntities(with: [canvasCompType])
-            arkCanvas = addOutdatedComponents(currentEntitiesWithCanvas: entitiesWithCanvas,
-                                              canvasCompType: canvasCompType,
-                                              canvas: arkCanvas)
-            arkCanvas = addUpdatedComponents(currentEntitiesWithCanvas: entitiesWithCanvas,
-                                             canvasCompType: canvasCompType,
-                                             canvas: arkCanvas)
-        }
-        return arkCanvas
-    }
-
-    func saveToMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type,
-                    canvasComponent: any RenderableComponent, renderable: any Renderable) {
-        guard memo[entity] == nil else {
-            memo[entity]?[ObjectIdentifier(canvasComponentType)] = (canvasComponent, renderable)
-            return
-        }
-        memo[entity] = [ObjectIdentifier(canvasComponentType): (canvasComponent, renderable)]
-    }
-    func removeFromMemo(entity: Entity, canvasComponentType: any RenderableComponent.Type) -> (any Renderable)? {
-        guard let (_, renderable) = memo[entity]?[ObjectIdentifier(canvasComponentType)] else {
-            return nil
-        }
-        return renderable
-    }
-    private func addOutdatedComponents(currentEntitiesWithCanvas: [Entity],
-                                       canvasCompType: any RenderableComponent.Type,
-                                       canvas: ArkCanvas) -> ArkCanvas {
-        var arkCanvas = canvas
-        let validEntities = Set(currentEntitiesWithCanvas)
-        for entity in memo.keys where !validEntities.contains(entity) {
-            arkCanvas.addToUnmount(entity: entity, compType: canvasCompType, context: self)
-        }
-        return arkCanvas
-    }
-    private func addUpdatedComponents(currentEntitiesWithCanvas: [Entity],
-                                      canvasCompType: any RenderableComponent.Type,
-                                      canvas: ArkCanvas) -> ArkCanvas {
-        var arkCanvas = canvas
-        for entity in currentEntitiesWithCanvas {
-            guard let canvasComponent = ecs.getComponent(ofType: canvasCompType, for: entity) else {
-                continue
-            }
-            if let (previousCanvasComp, _) = memo[entity]?[ObjectIdentifier(canvasCompType)] {
-                if !canvasComponent.hasUpdated(previous: previousCanvasComp) {
-                    continue
+            let componentType = ObjectIdentifier(canvasCompType)
+            // check if entity has outdaeted canvas components
+            let validEntityIds = Set(entitiesWithCanvas.map { entity in entity.id })
+            for entityId in memo.keys where !validEntityIds.contains(entityId) {
+                // entity is no longer valid
+                if let renderableFromEntity = memo[entityId]?[componentType] {
+                    arkCanvas.addComponentToUnmount(entityId: entityId,
+                                                    componentType: componentType,
+                                                    renderable: renderableFromEntity.1)
                 }
             }
-            arkCanvas.addToRender(entity: entity, canvasComponent: canvasComponent, compType: canvasCompType)
+
+            // update canvas
+            for entity in entitiesWithCanvas {
+                guard let renderableComponent = ecs.getComponent(ofType: canvasCompType, for: entity) else {
+                    continue
+                }
+                if let (previousRenderableComponent, _) = memo[entity.id]?[componentType] {
+                    if !renderableComponent.hasUpdated(previous: previousRenderableComponent) {
+                        continue
+                    }
+                }
+                arkCanvas.addComponentToMount(entityId: entity.id,
+                                              componentType: componentType,
+                                              renderableComponent: renderableComponent)
+            }
         }
         return arkCanvas
     }
