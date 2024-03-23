@@ -11,7 +11,10 @@ class ArkPhysicsSystem: System {
     var arkECS: ArkECS
     weak var sceneUpdateDelegate: ArkSceneUpdateDelegate?
 
-    init(active: Bool = true, simulator: AbstractArkSimulator, eventManager: ArkEventManager, arkECS: ArkECS) {
+    init(simulator: AbstractArkSimulator,
+         eventManager: ArkEventManager,
+         arkECS: ArkECS,
+         active: Bool = true) {
         self.active = active
         self.simulator = simulator
         self.scene = simulator.gameScene
@@ -34,7 +37,9 @@ class ArkPhysicsSystem: System {
     }
 
     func syncFromPhysicsEngine() {
-        let syncStrategies: [ComponentSyncing] = [PhysicsComponentSync(), PositionComponentSync(), RotationComponentSync()]
+        let syncStrategies: [ComponentSyncing] = [PhysicsComponentSync(),
+                                                  PositionComponentSync(),
+                                                  RotationComponentSync()]
 
         scene.forEachEntity(perform: { entity, physicsBody in
             syncStrategies.forEach { strategy in
@@ -54,12 +59,18 @@ class ArkPhysicsSystem: System {
                     let rotationComponent = arkECS.getComponent(ofType: RotationComponent.self, for: entity) else {
                 continue }
 
-            syncPhysicsBody(for: entity, position: positionComponent, rotation: rotationComponent, physics: physics, arkECS: arkECS)
+            syncPhysicsBody(for: entity,
+                            position: positionComponent,
+                            rotation: rotationComponent,
+                            physics: physics,
+                            arkECS: arkECS)
         }
     }
 
-    private func handlePhysicsComponentRemovalIfNeeded(for entity: Entity, using physics: PhysicsComponent, arkECS: ArkECS) {
-        guard physics.toBeRemoved else { 
+    private func handlePhysicsComponentRemovalIfNeeded(for entity: Entity,
+                                                       using physics: PhysicsComponent,
+                                                       arkECS: ArkECS) {
+        guard physics.toBeRemoved else {
             return }
 
         scene.removePhysicsBody(for: entity)
@@ -71,7 +82,8 @@ class ArkPhysicsSystem: System {
         if var physicsBody = scene.getPhysicsBody(for: entity) {
             updatePhysicsBody(&physicsBody, position: position, rotation: rotation, physics: physics)
         } else {
-            createPhysicsBody(for: entity, positionComponent: position, rotationComponent: rotation, physicsComponent: physics)
+            createPhysicsBody(for: entity, positionComponent: position,
+                              rotationComponent: rotation, physicsComponent: physics)
         }
 
         applyPhysicsImpulses(for: entity, with: physics, arkECS: arkECS)
@@ -89,23 +101,23 @@ class ArkPhysicsSystem: System {
     }
 
     private func createPhysicsBody(for entity: Entity,
-                                                  positionComponent: PositionComponent,
-                                                  rotationComponent: RotationComponent,
-                                                  physicsComponent: PhysicsComponent) {
+                                   positionComponent: PositionComponent,
+                                   rotationComponent: RotationComponent,
+                                   physicsComponent: PhysicsComponent) {
         var physicsBody: AbstractArkPhysicsBody?
         if physicsComponent.shape == .circle, let radius = physicsComponent.radius {
             physicsBody = scene.createCirclePhysicsBody(for: entity,
-                                                                              withRadius: radius,
-                                                                              at: positionComponent.position)
+                                                        withRadius: radius,
+                                                        at: positionComponent.position)
         } else if physicsComponent.shape == .rectangle, let size = physicsComponent.size {
             physicsBody = scene.createRectanglePhysicsBody(for: entity,
-                                                                                 withSize: size,
-                                                                                 at: positionComponent.position)
+                                                           withSize: size,
+                                                           at: positionComponent.position)
         }
 
         if var physicsBody = physicsBody {
             updatePhysicsBody(&physicsBody, position: positionComponent,
-                   rotation: rotationComponent, physics: physicsComponent)
+                              rotation: rotationComponent, physics: physicsComponent)
         }
     }
 
@@ -118,7 +130,8 @@ class ArkPhysicsSystem: System {
         updateOptionalPhysicsBodyProperties(&physicsBody, with: physics)
     }
 
-    private func updateOptionalPhysicsBodyProperties(_ physicsBody: inout AbstractArkPhysicsBody, with physicsComponent: PhysicsComponent) {
+    private func updateOptionalPhysicsBodyProperties(_ physicsBody: inout AbstractArkPhysicsBody,
+                                                     with physicsComponent: PhysicsComponent) {
         physicsBody.mass = physicsComponent.mass ?? physicsBody.mass
         physicsBody.velocity = physicsComponent.velocity
         physicsBody.affectedByGravity = physicsComponent.affectedByGravity
@@ -156,21 +169,23 @@ class ArkPhysicsSystem: System {
         var arkCollisionEvent = makeCollisionEvent(ArkCollisionBeganEvent.self, entityA, entityB)
         self.eventManager.emit(&arkCollisionEvent)
     }
-    
+
     func handleCollisionEnd(between entityA: Entity, and entityB: Entity) {
         var arkCollisionEvent = makeCollisionEvent(ArkCollisionEndedEvent.self, entityA, entityB)
         self.eventManager.emit(&arkCollisionEvent)
     }
-    
-    private func makeCollisionEvent<T: ArkCollisionEventProtocol> (_ eventType: T.Type, _ entityA: Entity, _ entityB: Entity) -> T {
+
+    private func makeCollisionEvent<T: ArkCollisionEventProtocol> (_ eventType: T.Type,
+                                                                   _ entityA: Entity,
+                                                                   _ entityB: Entity) -> T {
         let entityACategoryBitMask = scene.getPhysicsBody(for: entityA)?.categoryBitMask ?? 0
         let entityBCategoryBitMask = scene.getPhysicsBody(for: entityB)?.categoryBitMask ?? 0
-        var arkCollisionEvent = T(eventData: ArkCollisionEventData(entityA: entityA,
-                                                               entityACategoryBitMask: entityACategoryBitMask,
-                                                               entityB: entityB,
-                                                               entityBCategoryBitMask: entityBCategoryBitMask),
-                                  priority: 0
-        )
+        let arkCollisionEvent = T(eventData: ArkCollisionEventData(
+            entityA: entityA,
+            entityACategoryBitMask: entityACategoryBitMask,
+            entityB: entityB,
+            entityBCategoryBitMask: entityBCategoryBitMask),
+                                  priority: 0)
         return arkCollisionEvent
     }
 }
@@ -230,7 +245,7 @@ protocol ComponentSyncing {
 
 struct PhysicsComponentSync: ComponentSyncing {
     func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS) {
-        guard var physicsComponent: PhysicsComponent = 
+        guard var physicsComponent: PhysicsComponent =
                 arkECS.getComponent(ofType: PhysicsComponent.self, for: entity) else {
             return }
         physicsComponent.velocity = physicsBody.velocity
@@ -251,11 +266,12 @@ struct PhysicsComponentSync: ComponentSyncing {
 
 struct PositionComponentSync: ComponentSyncing {
     func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS) {
-        guard var positionComponent: PositionComponent =
+        guard let positionComponent: PositionComponent =
                 arkECS.getComponent(ofType: PositionComponent.self, for: entity) else {
             return }
-        positionComponent.position = physicsBody.position
-        arkECS.upsertComponent(positionComponent, to: entity)
+        var newPositionComp = positionComponent
+        newPositionComp.position = physicsBody.position
+        arkECS.upsertComponent(newPositionComp, to: entity)
     }
 }
 

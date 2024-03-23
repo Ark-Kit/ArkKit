@@ -20,9 +20,12 @@ enum TankGameEntityCreator {
             PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
                              isDynamic: false, allowsRotation: false, restitution: 0,
                              categoryBitMask: TankGamePhysicsCategory.tank,
-                             collisionBitMask: TankGamePhysicsCategory.rock | TankGamePhysicsCategory.wall |
-                                                TankGamePhysicsCategory.tank,
-                             contactTestBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.tank | TankGamePhysicsCategory.wall)
+                             collisionBitMask: TankGamePhysicsCategory.rock |
+                             TankGamePhysicsCategory.wall |
+                             TankGamePhysicsCategory.tank,
+                             contactTestBitMask: TankGamePhysicsCategory.ball |
+                             TankGamePhysicsCategory.tank |
+                             TankGamePhysicsCategory.wall)
         ])
         return tankEntity
     }
@@ -86,7 +89,11 @@ enum TankGameEntityCreator {
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: angle),
-            PhysicsComponent(shape: .rectangle, size: CGSize(width: 40, height:40), mass: 1, velocity: velocity, isDynamic: true,
+            PhysicsComponent(shape: .rectangle,
+                             size: CGSize(width: 40, height: 40),
+                             mass: 1,
+                             velocity: velocity,
+                             isDynamic: true,
                              allowsRotation: true, restitution: 0.8,
                              categoryBitMask: TankGamePhysicsCategory.ball,
                              collisionBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall,
@@ -94,13 +101,13 @@ enum TankGameEntityCreator {
                                             TankGamePhysicsCategory.rock | TankGamePhysicsCategory.tank)
         ])
     }
-    
+
     static func createBoundaries(width: Double, height: Double, in ecsContext: ArkECSContext) {
         let halfWidth = width / 2
         let halfHeight = height / 2
-        
+
         let thickness: Double = 20
-        
+
         func createWallEntity(at position: CGPoint, size: CGSize) {
             ecsContext.createEntity(with: [
                 PhysicsComponent(shape: .rectangle, size: size,
@@ -113,7 +120,7 @@ enum TankGameEntityCreator {
             ])
         }
         // Top boundary
-        createWallEntity(at: CGPoint(x: halfWidth, y:  -thickness / 2),
+        createWallEntity(at: CGPoint(x: halfWidth, y: -thickness / 2),
                          size: CGSize(width: width, height: thickness))
         // Bottom boundary
         createWallEntity(at: CGPoint(x: halfWidth, y: height + thickness / 2),
@@ -126,13 +133,22 @@ enum TankGameEntityCreator {
                          size: CGSize(width: thickness, height: height))
     }
 
-    static func createBackground(width: Double, height: Double, in ecsContext: ArkECSContext, zPosition: Double, background: [[Int]]) {
-        let strategies: [TankGameTerrainStrategy] = [TankGameMap1Strategy(), TankGameMap2Strategy(), TankGameMap3Strategy()]
-        let mapBuilder = TankGameMapBuilder(width: width, height: height, strategies: strategies, ecsContext: ecsContext, zPosition: 0.0)
+    static func createBackground(width: Double,
+                                 height: Double,
+                                 in ecsContext: ArkECSContext,
+                                 zPosition: Double,
+                                 background: [[Int]]) {
+        let strategies: [TankGameTerrainStrategy] = [TankGameMap1Strategy(),
+                                                     TankGameMap2Strategy(),
+                                                     TankGameMap3Strategy()]
+        let mapBuilder = TankGameMapBuilder(width: width, height: height,
+                                            strategies: strategies,
+                                            ecsContext: ecsContext,
+                                            zPosition: 0.0)
         mapBuilder.buildMap(from: background)
     }
 
-    static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [(type: Int, location: CGPoint, size: CGSize, zPos: Double)]) {
+    static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [TankSpecification]) {
         let strategies: [TankGameTerrainObjectStrategy] = [TankGameLakeStrategy(), TankGameStoneStrategy()]
         let terrainObjectBuilder = TankGameTerrainObjectBuilder(strategies: strategies, ecsContext: ecsContext)
 

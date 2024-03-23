@@ -8,7 +8,8 @@ class TankGameMapBuilder {
     let width: Double
     let height: Double
 
-    init(width: Double, height: Double, strategies: [TankGameTerrainStrategy], ecsContext: ArkECSContext, zPosition: Double) {
+    init(width: Double, height: Double, strategies: [TankGameTerrainStrategy],
+         ecsContext: ArkECSContext, zPosition: Double) {
         self.strategies = strategies
         self.ecsContext = ecsContext
         self.zPosition = zPosition

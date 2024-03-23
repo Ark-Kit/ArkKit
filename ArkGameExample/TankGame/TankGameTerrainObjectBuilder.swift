@@ -1,5 +1,12 @@
 import Foundation
 
+struct TankSpecification {
+    var type: Int
+    var location: CGPoint
+    var size: CGSize
+    var zPos: Double
+}
+
 class TankGameTerrainObjectBuilder {
     var strategies: [TankGameTerrainObjectStrategy]
     var ecsContext: ArkECSContext
@@ -9,10 +16,14 @@ class TankGameTerrainObjectBuilder {
         self.ecsContext = ecsContext
     }
 
-    func buildObjects(from specifications: [(type: Int, location: CGPoint, size: CGSize, zPos: Double)]) {
+    func buildObjects(from specifications: [TankSpecification]) {
         for spec in specifications {
             for strategy in strategies where strategy.canHandleType(spec.type) {
-                strategy.createObject(type: spec.type, location: spec.location, size: spec.size, zPos: spec.zPos, in: ecsContext)
+                strategy.createObject(type: spec.type,
+                                      location: spec.location,
+                                      size: spec.size,
+                                      zPos: spec.zPos,
+                                      in: ecsContext)
                 break
             }
         }
