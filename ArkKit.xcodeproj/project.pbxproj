@@ -121,6 +121,7 @@
 		8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21792BADE60300788E20 /* DisplayContext.swift */; };
 		8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB217B2BADE8A500788E20 /* AbstractRootView.swift */; };
 		8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB217D2BADF21E00788E20 /* ArkActionContext.swift */; };
+		8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21872BAE752F00788E20 /* ScreenResizeEvent.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
 		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
@@ -289,6 +290,7 @@
 		8FEB21792BADE60300788E20 /* DisplayContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContext.swift; sourceTree = "<group>"; };
 		8FEB217B2BADE8A500788E20 /* AbstractRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRootView.swift; sourceTree = "<group>"; };
 		8FEB217D2BADF21E00788E20 /* ArkActionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkActionContext.swift; sourceTree = "<group>"; };
+		8FEB21872BAE752F00788E20 /* ScreenResizeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenResizeEvent.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
 		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
@@ -748,6 +750,14 @@
 			path = "ark-animation-kit";
 			sourceTree = "<group>";
 		};
+		8FEB21862BAE752500788E20 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				8FEB21872BAE752F00788E20 /* ScreenResizeEvent.swift */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
 		945F7F7F2BA55E4E00933629 /* input */ = {
 			isa = PBXGroup;
 			children = (
@@ -776,6 +786,7 @@
 		945F7F8A2BA8850200933629 /* abstract */ = {
 			isa = PBXGroup;
 			children = (
+				8FEB21862BAE752500788E20 /* event */,
 				02D8E94F2BAC9A2D00BF3A07 /* view */,
 				945F7F8D2BA8852400933629 /* input */,
 				9479A3AA2BA951E600F99013 /* bitmap */,
@@ -1165,6 +1176,7 @@
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
 				AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */,
 				8F5573C12BA42614007030C8 /* Renderable.swift in Sources */,
+				8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleRenderableComponent.swift in Sources */,
 				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,

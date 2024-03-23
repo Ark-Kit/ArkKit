@@ -47,6 +47,10 @@ class EntityManager {
         }
         return entity
     }
+    
+    func getEntity(id: EntityID) -> Entity? {
+        entities.first { $0.id == id }
+    }
 
     func getEntities(with componentTypes: [Component.Type]) -> [Entity] {
         let entitySets = componentTypes.map { compType in

@@ -57,7 +57,7 @@ extension SceneDelegate {
         guard let rootView = window.rootViewController as? AbstractRootView else {
             return
         }
-        ark = Ark(rootView: rootView)
-        ark?.start(blueprint: blueprint)
+        ark = Ark(rootView: rootView, blueprint: blueprint)
+        ark?.start()
     }
 }

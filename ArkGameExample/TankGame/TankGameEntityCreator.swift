@@ -25,10 +25,11 @@ enum TankGameEntityCreator {
         return tankEntity
     }
 
+    @discardableResult
     static func createJoyStick(center: CGPoint,
                                tankEntity: Entity,
                                in ecsContext: ArkECSContext,
-                               eventContext: ArkEventContext)
+                               eventContext: ArkEventContext) -> Entity
     {
         ecsContext.createEntity(with: [
             JoystickRenderableComponent(radius: 40)

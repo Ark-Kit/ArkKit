@@ -1,3 +1,5 @@
+import Foundation
+
 /**
  * `GameStateRenderer` is implemented by the `ArkUiAdapter` to host its own
  * `UIKitViewController`.
@@ -6,5 +8,8 @@
  * like `SwiftUI`.
  */
 protocol GameStateRenderer: AnyObject {
+    typealias ScreenResizeDelegate = (CGSize) -> Void
+    
     func render(canvas: Canvas, with canvasContext: CanvasContext)
+    func onScreenResize(_ delegate: @escaping ScreenResizeDelegate)
 }

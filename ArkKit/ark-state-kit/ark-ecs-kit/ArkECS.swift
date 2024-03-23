@@ -40,6 +40,10 @@ extension ArkECS: ArkECSContext {
     func createEntity(with components: [any Component]) -> Entity {
         entityManager.createEntity(with: components)
     }
+    
+    func getEntity(id: EntityID) -> Entity? {
+        entityManager.getEntity(id: id)
+    }
 
     func getEntities(with componentTypes: [any Component.Type]) -> [Entity] {
         entityManager.getEntities(with: componentTypes)

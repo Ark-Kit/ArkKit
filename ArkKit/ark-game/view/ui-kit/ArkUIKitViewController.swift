@@ -7,20 +7,39 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
     var viewModel: ArkViewModel?
     var gameLoop: GameLoop?
     var canvasView: UIView?
+    var rootViewResizeDelegate: ScreenResizeDelegate?
+    var cachedScreenSize: CGSize?
+    
+    var rootView: UIView {
+        view
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .black
+        
+        rootView.backgroundColor = .black
+        
         self.gameLoop = ArkGameLoop(({
             CADisplayLink(target: self,
                           selector: #selector(self.handleGameProgress))
         }))
         self.gameLoop?.setUp()
+        
         let canvasView = UIView()
         canvasView.backgroundColor = .white
-        self.view.addSubview(canvasView)
+        rootView.addSubview(canvasView)
 
         self.canvasView = canvasView
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if cachedScreenSize != rootView.frame.size {
+            rootViewResizeDelegate?(rootView.frame.size)
+        }
+        
+        cachedScreenSize = rootView.frame.size
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -33,6 +52,10 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
             return
         }
         viewModel?.updateGame(for: deltaTime)
+    }
+    
+    private func onRootViewResize(_ delegate: @escaping ScreenResizeDelegate) {
+        self.rootViewResizeDelegate = delegate
     }
 }
 
@@ -48,6 +71,12 @@ extension ArkUIKitViewController: GameStateRenderer {
                                                     canvasView: canvasView,
                                                     canvasFrame: canvasContext.canvasFrame)
         canvas.render(using: canvasRenderer, to: canvasContext)
+    }
+    
+    func onScreenResize(_ delegate: @escaping ScreenResizeDelegate) {
+        onRootViewResize { newSize in
+            delegate(newSize)
+        }
     }
 }
 

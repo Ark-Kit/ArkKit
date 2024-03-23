@@ -12,20 +12,32 @@ import Foundation
 class Ark {
     let rootView: any AbstractRootView
     let arkState: ArkState
+    let blueprint: ArkBlueprint
 
-    init(rootView: any AbstractRootView) {
+    var displayContext: ArkDisplayContext {
+        ArkDisplayContext(
+            canvasSize: CGSize(width: blueprint.frameWidth,
+                               height: blueprint.frameHeight),
+            screenSize: rootView.size)
+    }
+
+    var actionContext: ArkActionContext {
+        ArkActionContext(ecs: arkState.arkECS,
+                         events: arkState.eventManager,
+                         display: displayContext)
+    }
+
+    init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
         self.rootView = rootView
+        self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
     }
 
-    func start(blueprint: ArkBlueprint) {
-        var displayContext = ArkDisplayContext(
-            canvasSize: CGSize(width: blueprint.frameWidth, height: blueprint.frameHeight),
-            screenSize: rootView.size)
-        setup(blueprint.setupFunctions, displayContext: displayContext)
-        setup(blueprint.rules, displayContext: displayContext)
+    func start() {
+        setup(blueprint.setupFunctions)
+        setup(blueprint.rules)
         setupDefaultEntities()
         setupDefaultSystems(blueprint)
 
@@ -38,17 +50,16 @@ class Ark {
         gameCoordinator.start()
     }
 
-    private func setup(_ rules: [any Rule], displayContext: ArkDisplayContext) {
-        let context = ArkActionContext(ecs: arkState.arkECS, events: arkState.eventManager, display: displayContext)
+    private func setup(_ rules: [any Rule]) {
         // subscribe all rules to the eventManager
         for rule in rules {
             arkState.eventManager.subscribe(to: rule.event) { event in
-                event.executeAction(rule.action, context: context)
+                event.executeAction(rule.action, context: self.actionContext)
             }
         }
     }
 
-    private func setup(_ stateSetupFunctions: [ArkStateSetupDelegate], displayContext: ArkDisplayContext) {
+    private func setup(_ stateSetupFunctions: [ArkStateSetupDelegate]) {
         for stateSetupFunction in stateSetupFunctions {
             arkState.setup(stateSetupFunction, displayContext: displayContext)
         }

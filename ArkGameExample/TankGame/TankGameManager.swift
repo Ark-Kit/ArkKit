@@ -1,6 +1,9 @@
 import Foundation
 
 class TankGameManager {
+    var joystick1: EntityID?
+    var joystick2: EntityID?
+    
     private(set) var blueprint: ArkBlueprint
 
     init(frameWidth: Double, frameHeight: Double) {
@@ -36,17 +39,19 @@ class TankGameManager {
                     tankIndex: 2,
                     in: ecs)
 
-                TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: screenWidth * 3 / 4, y: screenHeight / 4),
+                let joystick1Entity = TankGameEntityCreator.createJoyStick(
+                    center: CGPoint(x: screenWidth / 4, y: screenHeight * 3 / 4),
                     tankEntity: tankEntity1,
                     in: ecs,
                     eventContext: events)
+                self.joystick1 = joystick1Entity.id
 
-                TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: screenWidth / 4, y: screenHeight * 3 / 4),
+                let joystick2Entity = TankGameEntityCreator.createJoyStick(
+                    center: CGPoint(x: screenWidth * 3 / 4, y: screenHeight / 4),
                     tankEntity: tankEntity2,
                     in: ecs,
                     eventContext: events)
+                self.joystick2 = joystick2Entity.id
 
                 TankGameEntityCreator.createShootButton(
                     at: CGPoint(x: 670, y: 1_030),
@@ -67,12 +72,37 @@ class TankGameManager {
 
     func setUpRules() {
         blueprint = blueprint
+            .rule(on: ScreenResizeEvent.self, then: Forever { event, context in
+                let eventData = event.eventData
+                let screenSize = eventData.newSize
+                let ecs = context.ecs
+                
+                if let joystick1 = self.joystick1,
+                   let joystick1Entity = ecs.getEntity(id: joystick1)
+                {
+                    let positionComponent = PositionComponent(
+                        position: CGPoint(
+                            x: screenSize.width / 4,
+                            y: screenSize.height * 3 / 4))
+                    
+                    ecs.upsertComponent(positionComponent, to: joystick1Entity)
+                }
+                
+                if let joystick2 = self.joystick2,
+                   let joystick2Entity = ecs.getEntity(id: joystick2)
+                {
+                    let positionComponent = PositionComponent(
+                        position: CGPoint(
+                            x: screenSize.width * 3 / 4,
+                            y: screenSize.height / 4))
+                    
+                    ecs.upsertComponent(positionComponent, to: joystick2Entity)
+                }
+                
+            })
             .rule(on: TankMoveEvent.self, then: Forever { event, context in
                 let ecs = context.ecs
-
-                guard let eventData = event.eventData else {
-                    return
-                }
+                let eventData = event.eventData
 
                 guard var tankPhysicsComponent = ecs.getComponent(
                     ofType: PhysicsComponent.self,
@@ -93,10 +123,7 @@ class TankGameManager {
             })
             .rule(on: TankShootEvent.self, then: Forever { event, context in
                 let ecs = context.ecs
-                
-                guard let eventData = event.eventData else {
-                    return
-                }
+                let eventData = event.eventData
 
                 guard let tankPositionComponent = ecs.getComponent(
                     ofType: PositionComponent.self,
