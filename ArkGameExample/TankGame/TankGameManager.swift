@@ -3,6 +3,7 @@ import Foundation
 class TankGameManager {
     var joystick1: EntityID?
     var joystick2: EntityID?
+    var collisionStrategyManager = TankGameCollisionStrategyManager()
 
     private(set) var blueprint: ArkBlueprint
 
@@ -117,10 +118,11 @@ class TankGameManager {
             .rule(on: TankShootEvent.self, then: Forever { event, context in
                 self.handleTankShoot(event, in: context)
             })
-            .rule(on: ArkCollisionEvent.self, then: Forever { event, context in
-                let ecs = context.ecs
-                let eventData = event.eventData
-
+            .rule(on: ArkCollisionBeganEvent.self, then: Forever { event, context in
+                self.handleContactBegan(event, in: context)
+            })
+            .rule(on: ArkCollisionEndedEvent.self, then: Forever { event, context in
+                self.handleContactEnd(event, in: context)
             })
     }
 }
@@ -218,5 +220,33 @@ extension TankGameManager {
                        angle: tankRotationComponent.angleInRadians ?? 0,
                        in: ecs,
                        zPosition: 5)
+    }
+    
+    private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: ArkContext) {
+        let ecs = context.ecs
+        let eventData = event.eventData
+        
+        let entityA = eventData.entityA
+        let entityB = eventData.entityB
+        let bitMaskA = eventData.entityACategoryBitMask
+        let bitMaskB = eventData.entityBCategoryBitMask
+        
+        collisionStrategyManager.handleCollisionBegan(between: entityA, and: entityB,
+                                                       bitMaskA: bitMaskA, bitMaskB: bitMaskB,
+                                                       in: context)
+    }
+    
+    private func handleContactEnd(_ event: ArkCollisionEndedEvent, in context: ArkContext) {
+        let ecs = context.ecs
+        let eventData = event.eventData
+        
+        let entityA = eventData.entityA
+        let entityB = eventData.entityB
+        let bitMaskA = eventData.entityACategoryBitMask
+        let bitMaskB = eventData.entityBCategoryBitMask
+        
+        collisionStrategyManager.handleCollisionEnded(between: entityA, and: entityB,
+                                                       bitMaskA: bitMaskA, bitMaskB: bitMaskB,
+                                                       in: context)
     }
 }
