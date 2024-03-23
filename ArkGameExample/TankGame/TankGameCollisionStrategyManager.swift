@@ -61,7 +61,6 @@ class TankGameCollisionStrategyManager {
     }
 }
 
-
 func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext) {
     guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entity) else {
         return
@@ -69,7 +68,6 @@ func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext) {
     physicsComponent.toBeRemoved = true
     context.ecs.upsertComponent(physicsComponent, to: entity)
 }
-
 
 class BallWallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
@@ -127,7 +125,7 @@ class TankWaterCollisionStrategy: CollisionHandlingStrategy {
         physicsComponent.linearDamping = damping
         context.ecs.upsertComponent(physicsComponent, to: entity)
     }
-    
+
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
