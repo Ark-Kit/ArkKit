@@ -102,6 +102,9 @@ class TankGameManager {
             .rule(on: TankShootEvent.self, then: Forever { event, context in
                 self.handleTankShoot(event, in: context)
             })
+            .rule(on: ArkCollisionBeganEvent.self, then: Forever { event, context in
+                self.handleContactBegan(event, in: context)
+            })
             .rule(on: ArkCollisionEndedEvent.self, then: Forever { event, context in
                 self.handleContactEnd(event, in: context)
             })
@@ -175,7 +178,7 @@ class TankGameManager {
 }
 
 extension TankGameManager {
-    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkContext) {
+    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkActionContext) {
         let eventData = event.eventData
         let screenSize = eventData.newSize
         let ecs = context.ecs
@@ -198,7 +201,7 @@ extension TankGameManager {
         }
     }
 
-    private func handleTankMove(_ event: TankMoveEvent, in context: ArkContext) {
+    private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
 
@@ -232,7 +235,7 @@ extension TankGameManager {
         }
     }
 
-    private func handleTankShoot(_ event: TankShootEvent, in context: ArkContext) {
+    private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
 
@@ -270,7 +273,7 @@ extension TankGameManager {
         context.audio.play(TankShootSound())
     }
 
-    private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: ArkContext) {
+    private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: ArkActionContext) {
         let eventData = event.eventData
 
         let entityA = eventData.entityA
@@ -283,7 +286,7 @@ extension TankGameManager {
                                                       in: context)
     }
 
-    private func handleContactEnd(_ event: ArkCollisionEndedEvent, in context: ArkContext) {
+    private func handleContactEnd(_ event: ArkCollisionEndedEvent, in context: ArkActionContext) {
         let eventData = event.eventData
 
         let entityA = eventData.entityA
