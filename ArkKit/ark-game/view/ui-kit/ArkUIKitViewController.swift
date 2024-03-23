@@ -55,7 +55,6 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
     }
 
     private func onRootViewResize(_ delegate: @escaping ScreenResizeDelegate) {
-        print("call onRootViewResize")
         self.rootViewResizeDelegate = delegate
     }
 }
@@ -83,7 +82,6 @@ extension ArkUIKitViewController: AbstractView {
         self.didMove(toParent: parentViewController)
     }
     func onScreenResize(_ delegate: @escaping ScreenResizeDelegate) {
-        print("onScreenResize is called")
         onRootViewResize { newSize in
             delegate(newSize)
         }
