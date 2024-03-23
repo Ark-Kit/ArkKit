@@ -19,6 +19,7 @@
  * ```
  */
 protocol Canvas {
-    func render(using renderer: any CanvasRenderer, to context: CanvasContext)
-    func unmount(from context: CanvasContext)
+    typealias RenderableComponentType = ObjectIdentifier
+    var componentsToUnmount: [EntityID: [RenderableComponentType: (any Renderable)?]] { get }
+    var componentsToMount: [EntityID: [RenderableComponentType: any RenderableComponent]] { get }
 }

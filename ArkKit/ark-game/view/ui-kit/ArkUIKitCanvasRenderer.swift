@@ -27,68 +27,61 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
     }
 
     func render(_ circle: CircleRenderableComponent) -> any Renderable {
-        let renderable = UIKitCircle(radius: circle.radius, center: circle.center)
+        UIKitCircle(radius: circle.radius, center: circle.center)
             .rotate(by: circle.rotation)
             .zPosition(circle.zPosition)
             .setIsUserInteractionEnabled(circle.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: circle, colorGetter: getColor)
-        renderable.render(into: getParentView(layer: circle.renderLayer))
-        return renderable
     }
 
     func render(_ rect: RectRenderableComponent) -> any Renderable {
-        let renderable = UIKitRect(width: rect.width, height: rect.height,
-                                   center: rect.center)
+        UIKitRect(width: rect.width, height: rect.height, center: rect.center)
             .rotate(by: rect.rotation)
             .zPosition(rect.zPosition)
             .setIsUserInteractionEnabled(rect.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: rect, colorGetter: getColor)
-        renderable.render(into: getParentView(layer: rect.renderLayer))
-        return renderable
     }
 
     func render(_ polygon: PolygonRenderableComponent) -> any Renderable {
-        let renderable = UIKitPolygon(points: polygon.points, frame: polygon.frame)
+        UIKitPolygon(points: polygon.points, frame: polygon.frame)
             .rotate(by: polygon.rotation)
             .zPosition(polygon.zPosition)
             .setIsUserInteractionEnabled(polygon.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: polygon, colorGetter: getColor)
-        renderable.render(into: getParentView(layer: polygon.renderLayer))
-        return renderable
     }
 
     func render(_ image: BitmapImageRenderableComponent) -> any Renderable {
-        let renderable = UIKitImageBitmap(imageResourcePath: image.imageResourcePath,
-                                          center: image.center,
-                                          width: image.width,
-                                          height: image.height)
-            .rotate(by: image.rotation)
-            .zPosition(image.zPosition)
-            .setIsUserInteractionEnabled(image.isUserInteractionEnabled)
-            .applyModifiers(modifierInfo: image)
-        renderable.render(into: getParentView(layer: image.renderLayer))
-        return renderable
+        UIKitImageBitmap(imageResourcePath: image.imageResourcePath,
+                         center: image.center,
+                         width: image.width,
+                         height: image.height)
+        .rotate(by: image.rotation)
+        .zPosition(image.zPosition)
+        .setIsUserInteractionEnabled(image.isUserInteractionEnabled)
+        .applyModifiers(modifierInfo: image)
     }
 
     func render(_ button: ButtonRenderableComponent) -> any Renderable {
-        let renderable = UIKitButton(width: button.width, height: button.height,
-                                     center: button.center)
+        UIKitButton(width: button.width, height: button.height, center: button.center)
             .rotate(by: button.rotation)
             .zPosition(button.zPosition)
             .setIsUserInteractionEnabled(button.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: button)
-        renderable.render(into: getParentView(layer: button.renderLayer))
-        return renderable
     }
 
     func render(_ joystick: JoystickRenderableComponent) -> any Renderable {
-        let renderable = UIKitJoystick(center: joystick.center, radius: joystick.radius)
+        UIKitJoystick(center: joystick.center, radius: joystick.radius)
             .rotate(by: joystick.rotation)
             .zPosition(joystick.zPosition)
             .setIsUserInteractionEnabled(joystick.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: joystick)
-        renderable.render(into: getParentView(layer: joystick.renderLayer))
-        return renderable
+    }
+
+    func upsertToView<T: Renderable>(_ renderable: T, at renderLayer: RenderLayer) {
+        guard let layer = getParentView(layer: renderLayer) as? T.Container else {
+            return
+        }
+        renderable.render(into: layer)
     }
 
     let defaultColor: UIColor = .black

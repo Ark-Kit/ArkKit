@@ -74,7 +74,7 @@ extension ArkUIKitViewController: GameStateRenderer {
         let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view,
                                                     canvasView: canvasView,
                                                     canvasFrame: canvasContext.canvasFrame)
-        canvas.render(using: canvasRenderer, to: canvasContext)
+        canvasContext.render(canvas, using: canvasRenderer)
     }
 }
 
