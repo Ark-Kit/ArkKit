@@ -27,6 +27,10 @@ class TankGameCollisionStrategyManager {
                  for: (TankGamePhysicsCategory.ball, TankGamePhysicsCategory.wall))
         register(strategy: BallRockCollisionStrategy(),
                  for: (TankGamePhysicsCategory.ball, TankGamePhysicsCategory.rock))
+        register(strategy: TankWaterCollisionStrategy(),
+                 for: (TankGamePhysicsCategory.tank, TankGamePhysicsCategory.water))
+        register(strategy: TankBallCollisionStrategy(),
+                 for: (TankGamePhysicsCategory.tank, TankGamePhysicsCategory.ball))
     }
 
     private func register(strategy: CollisionHandlingStrategy, for categories: (UInt32, UInt32)) {
@@ -57,30 +61,30 @@ class TankGameCollisionStrategyManager {
     }
 }
 
+
+func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext) {
+    guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entity) else {
+        return
+    }
+    physicsComponent.toBeRemoved = true
+    context.ecs.upsertComponent(physicsComponent, to: entity)
+}
+
+
 class BallWallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        // set ball to be removed check by bitmask
         if bitMaskA == TankGamePhysicsCategory.ball {
-            guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entityA) else {
-                return
-            }
-            physicsComponent.toBeRemoved = true
-            context.ecs.upsertComponent(physicsComponent, to: entityA)
+            markEntityForRemoval(entityA, in: context)
         } else if bitMaskB == TankGamePhysicsCategory.ball {
-            guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entityB) else {
-                return
-            }
-            physicsComponent.toBeRemoved = true
-            context.ecs.upsertComponent(physicsComponent, to: entityB)
+            markEntityForRemoval(entityB, in: context)
         }
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        // Logic specific to when a ball collides with a wall ends
     }
 }
 
@@ -88,13 +92,16 @@ class BallRockCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        // Logic specific to when a ball collides with a rock begins
+        if bitMaskA == TankGamePhysicsCategory.ball {
+            markEntityForRemoval(entityA, in: context)
+        } else if bitMaskB == TankGamePhysicsCategory.ball {
+            markEntityForRemoval(entityB, in: context)
+        }
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        // Logic specific to when a ball collides with a rock ends
     }
 }
 
@@ -109,20 +116,35 @@ class TankBallCollisionStrategy: CollisionHandlingStrategy {
         func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                                   bitMaskA: UInt32, bitMaskB: UInt32,
                                   in context: ArkActionContext) {
-            // Logic specific to when a tank collides with a ball ends
         }
 }
 
 class TankWaterCollisionStrategy: CollisionHandlingStrategy {
+    private func adjustLinearDamping(for entity: Entity, to damping: CGFloat, in context: ArkActionContext) {
+        guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entity) else {
+            return
+        }
+        physicsComponent.linearDamping = damping
+        context.ecs.upsertComponent(physicsComponent, to: entity)
+    }
+    
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        // Logic specific to when a tank collides with water begins
+        if bitMaskA == TankGamePhysicsCategory.tank {
+            adjustLinearDamping(for: entityA, to: 0.7, in: context)
+        } else if bitMaskB == TankGamePhysicsCategory.ball {
+            adjustLinearDamping(for: entityA, to: 0.7, in: context)
+        }
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        // Logic specific to when a tank collides with water ends
+        if bitMaskA == TankGamePhysicsCategory.tank {
+            adjustLinearDamping(for: entityA, to: 0.1, in: context)
+        } else if bitMaskB == TankGamePhysicsCategory.ball {
+            adjustLinearDamping(for: entityA, to: 0.1, in: context)
+        }
     }
 }
