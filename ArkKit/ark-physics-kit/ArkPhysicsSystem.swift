@@ -152,24 +152,23 @@ class ArkPhysicsSystem: System {
 
     // MARK: Handle Collision
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity) {
-        var arkCollisionEvent = makeCollisionEvent("collision-began", entityA, entityB)
+        var arkCollisionEvent = makeCollisionEvent(ArkCollisionBeganEvent.self, entityA, entityB)
         self.eventManager.emit(&arkCollisionEvent)
     }
     
     func handleCollisionEnd(between entityA: Entity, and entityB: Entity) {
-        var arkCollisionEvent = makeCollisionEvent("collision-ended", entityA, entityB)
+        var arkCollisionEvent = makeCollisionEvent(ArkCollisionEndedEvent.self, entityA, entityB)
         self.eventManager.emit(&arkCollisionEvent)
     }
     
-    private func makeCollisionEvent(_ name: String, _ entityA: Entity, _ entityB: Entity) -> ArkCollisionEvent {
+    private func makeCollisionEvent<T: ArkCollisionEventProtocol> (_ eventType: T.Type, _ entityA: Entity, _ entityB: Entity) -> T {
         let entityACategoryBitMask = scene.getPhysicsBody(for: entityA)?.categoryBitMask ?? 0
         let entityBCategoryBitMask = scene.getPhysicsBody(for: entityB)?.categoryBitMask ?? 0
-        var arkCollisionEvent = ArkCollisionEvent(
-                                eventData: ArkCollisionEventData(name: name,
-                                                               entityA: entityA,
+        var arkCollisionEvent = T(eventData: ArkCollisionEventData(entityA: entityA,
                                                                entityACategoryBitMask: entityACategoryBitMask,
                                                                entityB: entityB,
-                                                               entityBCategoryBitMask: entityBCategoryBitMask)
+                                                               entityBCategoryBitMask: entityBCategoryBitMask),
+                                  priority: 0
         )
         return arkCollisionEvent
     }
@@ -189,22 +188,36 @@ extension ArkPhysicsSystem: ArkSceneUpdateDelegate {
     }
 }
 
+protocol ArkCollisionEventProtocol: ArkEvent {
+    init(eventData: ArkCollisionEventData, priority: Int?)
+}
+
 struct ArkCollisionEventData: ArkEventData {
-    var name: String
+    var name = ""
     var entityA: Entity
     var entityACategoryBitMask: UInt32
     var entityB: Entity
     var entityBCategoryBitMask: UInt32
 }
 
-struct ArkCollisionEvent: ArkEvent {
-
+struct ArkCollisionEndedEvent: ArkCollisionEventProtocol {
     static var id = UUID()
     var eventData: ArkEventData?
     var timestamp = Date()
     var priority: Int?
 
-    init(eventData: ArkEventData? = nil, priority: Int? = 10) {
+    init(eventData: ArkCollisionEventData, priority: Int? = 10) {
+        self.eventData = eventData
+    }
+}
+
+struct ArkCollisionBeganEvent: ArkCollisionEventProtocol {
+    static var id = UUID()
+    var eventData: ArkEventData?
+    var timestamp = Date()
+    var priority: Int?
+
+    init(eventData: ArkCollisionEventData, priority: Int? = 10) {
         self.eventData = eventData
         self.priority = priority
     }
