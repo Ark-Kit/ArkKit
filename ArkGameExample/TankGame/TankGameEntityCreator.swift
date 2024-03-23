@@ -25,16 +25,16 @@ enum TankGameEntityCreator {
         return tankEntity
     }
 
-    static func createJoyStick(
-        center: CGPoint,
-        tankEntity: Entity,
-        in ecsContext: ArkECSContext,
-        eventContext: ArkEventContext)
+    static func createJoyStick(center: CGPoint,
+                               tankEntity: Entity,
+                               in ecsContext: ArkECSContext,
+                               eventContext: ArkEventContext)
     {
         ecsContext.createEntity(with: [
-            JoystickRenderableComponent(radius: 40, areValuesEqual: { old, new in
-                old.center == new.center
-            })
+            JoystickRenderableComponent(radius: 40)
+                .shouldRerender { old, new in
+                    old.center != new.center
+                }
                 .center(center)
                 .layer(.screen)
                 .onPanChange { angle, mag in
@@ -56,8 +56,8 @@ enum TankGameEntityCreator {
                                   eventContext: ArkEventContext)
     {
         ecsContext.createEntity(with: [
-            ButtonRenderableComponent(width: 50, height: 50,
-                                      areValuesEqual: { _, _ in true })
+            ButtonRenderableComponent(width: 50, height: 50)
+                .shouldRerender { _, _ in false }
                 .center(position)
                 .onTap {
                     let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)

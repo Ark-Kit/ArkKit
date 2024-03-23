@@ -6,18 +6,16 @@ struct JoystickRenderableComponent: AbstractPannable, RenderableComponent {
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = true
     var renderLayer: RenderLayer = .canvas
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     let radius: Double
-    let areValuesEqual: AreValuesEqualDelegate
 
     var onPanStartDelegate: PanEventDelegate?
     var onPanChangeDelegate: PanEventDelegate?
     var onPanEndDelegate: PanEventDelegate?
 
-    init(radius: Double,
-         areValuesEqual: @escaping (JoystickRenderableComponent, JoystickRenderableComponent) -> Bool = { _, _ in false }) {
+    init(radius: Double) {
         self.radius = radius
-        self.areValuesEqual = areValuesEqual
     }
 
     func modify(

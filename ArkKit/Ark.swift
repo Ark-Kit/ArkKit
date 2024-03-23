@@ -1,4 +1,5 @@
 import Foundation
+
 /**
  * `Ark` describes a **running instance** of the game.
  *
@@ -24,7 +25,7 @@ class Ark {
             canvasSize: CGSize(width: blueprint.frameWidth, height: blueprint.frameHeight),
             screenSize: rootView.size)
         setup(blueprint.setupFunctions, displayContext: displayContext)
-        setup(blueprint.rules)
+        setup(blueprint.rules, displayContext: displayContext)
         setupDefaultEntities()
         setupDefaultSystems(blueprint)
 
@@ -37,16 +38,12 @@ class Ark {
         gameCoordinator.start()
     }
 
-    private func setup(_ rules: [Rule]) {
+    private func setup(_ rules: [any Rule], displayContext: ArkDisplayContext) {
+        let context = ArkActionContext(ecs: arkState.arkECS, events: arkState.eventManager, display: displayContext)
         // subscribe all rules to the eventManager
         for rule in rules {
-            arkState.eventManager.subscribe(to: rule.event) { [weak self] (event: any ArkEvent) -> Void in
-                guard let arkInstance = self else {
-                    return
-                }
-                rule.action.execute(event,
-                                    eventContext: arkInstance.arkState.eventManager,
-                                    ecsContext: arkInstance.arkState.arkECS)
+            arkState.eventManager.subscribe(to: rule.event) { event in
+                event.executeAction(rule.action, context: context)
             }
         }
     }
@@ -77,9 +74,22 @@ class Ark {
     private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {
         guard let worldEntity = arkState.arkECS.getEntities(with: [WorldComponent.self]).first,
               let worldComponent = arkState.arkECS
-            .getComponent(ofType: WorldComponent.self, for: worldEntity) else {
+              .getComponent(ofType: WorldComponent.self, for: worldEntity)
+        else {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
+    }
+}
+
+private extension ArkEvent {
+    /// A workaround to prevent weird behavior when trying to execute
+    /// `action.execute(event, context: context)`
+    func executeAction(_ action: some Action, context: ArkActionContext) {
+        guard let castedAction = action as? any Action<Self> else {
+            return
+        }
+
+        castedAction.execute(self, context: context)
     }
 }

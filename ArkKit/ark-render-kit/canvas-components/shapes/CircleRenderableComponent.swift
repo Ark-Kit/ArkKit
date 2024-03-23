@@ -5,17 +5,15 @@ struct CircleRenderableComponent: ShapeRenderableComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
-    var isUserInteractionEnabled = false
     var renderLayer: RenderLayer = .canvas
-    private(set) var areValuesEqual: AreValuesEqualDelegate
+    var isUserInteractionEnabled = false
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
 
-    init(radius: Double,
-         areValuesEqual: @escaping (CircleRenderableComponent, CircleRenderableComponent) -> Bool = { _, _ in false }) {
+    init(radius: Double) {
         self.radius = radius
-        self.areValuesEqual = areValuesEqual
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> CircleRenderableComponent {

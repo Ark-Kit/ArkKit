@@ -1,28 +1,26 @@
 import CoreGraphics
 
 struct BitmapImageRenderableComponent: RenderableComponent {
-    let imageResourcePath: String
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var renderLayer: RenderLayer = .canvas
     var isUserInteractionEnabled = false
+    var shouldRerenderDelegate: ShouldRerenderDelegate?
+    
     let width: Double
     let height: Double
-    var renderLayer: RenderLayer = .canvas
-    let areValuesEqual: AreValuesEqualDelegate
+    let imageResourcePath: String
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: String, width: Double, height: Double,
-         areValuesEqual: @escaping (BitmapImageRenderableComponent, BitmapImageRenderableComponent) -> Bool
-         = { _, _ in false }) {
+    init(imageResourcePath: String, width: Double, height: Double) {
         self.imageResourcePath = imageResourcePath
         self.width = width
         self.height = height
-        self.areValuesEqual = areValuesEqual
     }
 
     func render(using renderer: any CanvasRenderer) -> any Renderable {

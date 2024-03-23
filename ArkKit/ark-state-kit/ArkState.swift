@@ -17,7 +17,8 @@ class ArkState {
     }
 
     func setup(_ setupDelegate: ArkStateSetupDelegate, displayContext: ArkDisplayContext) {
-        setupDelegate(createActionContext(displayContext: displayContext))
+        let context = createActionContext(displayContext: displayContext)
+        setupDelegate(context)
     }
     
     private func createActionContext(displayContext: ArkDisplayContext) -> ArkActionContext {
