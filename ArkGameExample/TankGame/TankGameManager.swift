@@ -112,14 +112,17 @@ class TankGameManager {
             .rule(on: ScreenResizeEvent.self, then: Forever { event, context in
                 self.handleScreenResize(event, in: context)
             })
+//            .rule(on: TankStartMoveEvent.self, then: Forever { event, context in
+//                context.audio.play(TankMoveSound(), playerId: event.eventData.tankEntity.id)
+//            })
+//            .rule(on: TankStopMoveEvent.self, then: Forever { event, context in
+//                context.audio.stop(TankMoveSound(), playerId: event.eventData.tankEntity.id)
+//            })
             .rule(on: TankMoveEvent.self, then: Forever { event, context in
                 self.handleTankMove(event, in: context)
             })
             .rule(on: TankShootEvent.self, then: Forever { event, context in
                 self.handleTankShoot(event, in: context)
-            })
-            .rule(on: ArkCollisionBeganEvent.self, then: Forever { event, context in
-                self.handleContactBegan(event, in: context)
             })
             .rule(on: ArkCollisionEndedEvent.self, then: Forever { event, context in
                 self.handleContactEnd(event, in: context)
@@ -220,6 +223,7 @@ extension TankGameManager {
                        angle: tankRotationComponent.angleInRadians ?? 0,
                        in: ecs,
                        zPosition: 5)
+        context.audio.play(TankShootSound())
     }
     
     private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: ArkContext) {

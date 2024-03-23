@@ -16,6 +16,7 @@ class Ark {
 
     var sceneUpdateDelegate: ArkSceneUpdateDelegate?
     let blueprint: ArkBlueprint
+    let audioContext: AudioContext
 
     var displayContext: ArkDisplayContext {
         ArkDisplayContext(
@@ -24,10 +25,11 @@ class Ark {
             screenSize: rootView.size)
     }
 
-    var context: ArkContext {
-        ArkContext(ecs: arkState.arkECS,
-                   events: arkState.eventManager,
-                   display: displayContext)
+    var actionContext: ArkActionContext {
+        ArkActionContext(ecs: arkState.arkECS,
+                         events: arkState.eventManager,
+                         display: displayContext,
+                         audio: audioContext)
     }
 
     init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
@@ -36,6 +38,7 @@ class Ark {
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
+        self.audioContext = ArkAudioPlayer()
     }
 
     func start() {
@@ -62,7 +65,7 @@ class Ark {
         // subscribe all rules to the eventManager
         for rule in rules {
             arkState.eventManager.subscribe(to: rule.event) { event in
-                event.executeAction(rule.action, context: self.context)
+                event.executeAction(rule.action, context: self.actionContext)
             }
         }
     }
@@ -122,7 +125,7 @@ extension Ark: ArkSceneUpdateDelegate {
 extension ArkEvent {
     /// A workaround to prevent weird behavior when trying to execute
     /// `action.execute(event, context: context)`
-    func executeAction(_ action: some Action, context: ArkContext) {
+    func executeAction(_ action: some Action, context: ArkActionContext) {
         guard let castedAction = action as? any Action<Self> else {
             return
         }
