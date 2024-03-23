@@ -16,20 +16,24 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = .black
+        setupSimulator()
         rootView.backgroundColor = .black
 
-        self.gameLoop = ArkGameLoop(({
-            CADisplayLink(target: self,
-                          selector: #selector(self.handleGameProgress))
-        }))
-        self.gameLoop?.setUp()
-
+//        self.gameLoop = ArkGameLoop(({
+//            CADisplayLink(target: self,
+//                          selector: #selector(self.handleGameProgress))
+//        }))
+//        self.gameLoop?.setUp()
         let canvasView = UIView()
         canvasView.backgroundColor = .white
         rootView.addSubview(canvasView)
 
         self.canvasView = canvasView
+    }
+
+    func setupSimulator() {
+        gameLoop?.setUp()
     }
 
     override func viewDidLayoutSubviews() {
@@ -70,7 +74,7 @@ extension ArkUIKitViewController: GameStateRenderer {
         let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view,
                                                     canvasView: canvasView,
                                                     canvasFrame: canvasContext.canvasFrame)
-        canvas.render(using: canvasRenderer, to: canvasContext)
+        canvasContext.render(canvas, using: canvasRenderer)
     }
 }
 

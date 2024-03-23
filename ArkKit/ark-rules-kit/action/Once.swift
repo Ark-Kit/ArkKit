@@ -5,7 +5,7 @@ struct Once<Event: ArkEvent>: Action {
         self.callback = callback
     }
 
-    func execute(_ event: Event, context: ArkContext) {
+    func execute(_ event: Event, context: ArkActionContext) {
         callback(event, context)
     }
 }

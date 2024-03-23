@@ -12,7 +12,11 @@ import Foundation
 class Ark {
     let rootView: any AbstractRootView
     let arkState: ArkState
+    var gameLoop: AbstractArkSimulator?
+
+    var sceneUpdateDelegate: ArkSceneUpdateDelegate?
     let blueprint: ArkBlueprint
+    let audioContext: AudioContext
 
     var displayContext: ArkDisplayContext {
         ArkDisplayContext(
@@ -21,10 +25,11 @@ class Ark {
             screenSize: rootView.size)
     }
 
-    var actionContext: ArkContext {
-        ArkContext(ecs: arkState.arkECS,
+    var actionContext: ArkActionContext {
+        ArkActionContext(ecs: arkState.arkECS,
                          events: arkState.eventManager,
-                         display: displayContext)
+                         display: displayContext,
+                         audio: audioContext)
     }
 
     init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
@@ -33,6 +38,7 @@ class Ark {
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
+        self.audioContext = ArkAudioPlayer()
     }
 
     func start() {
@@ -41,12 +47,17 @@ class Ark {
         setupDefaultEntities()
         setupDefaultSystems(blueprint)
 
+        guard let gameLoop = self.gameLoop else {
+            return
+        }
         // Initializee game with rootView, and eventManager
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasFrame: CGRect(x: 0, y: 0,
                                                                      width: blueprint.frameWidth,
-                                                                     height: blueprint.frameHeight))
+                                                                     height: blueprint.frameHeight),
+                                                 gameLoop: gameLoop)
+        gameCoordinator.arkSceneUpdateDelegate = self
         gameCoordinator.start()
     }
 
@@ -72,7 +83,11 @@ class Ark {
     private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
-        let physicsSystem = ArkPhysicsSystem(simulator: simulator, eventManager: arkState.eventManager, arkECS: arkState.arkECS)
+        self.gameLoop = simulator
+        let physicsSystem = ArkPhysicsSystem(simulator: simulator,
+                                             eventManager: arkState.eventManager,
+                                             arkECS: arkState.arkECS)
+        sceneUpdateDelegate = physicsSystem
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
@@ -93,10 +108,24 @@ class Ark {
     }
 }
 
+extension Ark: ArkSceneUpdateDelegate {
+    func didContactBegin(between entityA: Entity, and entityB: Entity) {
+        sceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
+    }
+
+    func didContactEnd(between entityA: Entity, and entityB: Entity) {
+        sceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
+    }
+
+    func didFinishUpdate(_ deltaTime: TimeInterval) {
+        sceneUpdateDelegate?.didFinishUpdate(deltaTime)
+    }
+}
+
 extension ArkEvent {
     /// A workaround to prevent weird behavior when trying to execute
     /// `action.execute(event, context: context)`
-    func executeAction(_ action: some Action, context: ArkContext) {
+    func executeAction(_ action: some Action, context: ArkActionContext) {
         guard let castedAction = action as? any Action<Self> else {
             return
         }

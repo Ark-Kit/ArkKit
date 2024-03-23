@@ -18,7 +18,7 @@ class UIKitImageBitmap: UIView, UIKitBitmap {
         let frame = CGRect(x: center.x - width / 2, y: center.y - height / 2, width: width, height: height)
         super.init(frame: frame)
         let imageResource = #imageLiteral(resourceName: imageResourcePath)
-        var imageView = UIImageView(image: imageResource)
+        let imageView = UIImageView(image: imageResource)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(imageView)
         self.imageView = imageView

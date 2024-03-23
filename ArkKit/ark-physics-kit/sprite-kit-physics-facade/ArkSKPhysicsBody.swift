@@ -5,14 +5,14 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
     private let nodeNoPhysicsBodyFailureMessage = "SKNode does not contain an associated SKPhysicsBody."
 
     init(rectangleOf size: CGSize, at position: CGPoint = .zero) {
-        let physicsBody = SKPhysicsBody(rectangleOf: size, center: position)
+        let physicsBody = SKPhysicsBody(rectangleOf: size)
         node = SKNode()
         node.position = position
         node.physicsBody = physicsBody
     }
 
     init(circleOf radius: CGFloat, at position: CGPoint = .zero) {
-        let physicsBody = SKPhysicsBody(circleOfRadius: radius, center: position)
+        let physicsBody = SKPhysicsBody(circleOfRadius: radius)
         node = SKNode()
         node.position = position
         node.physicsBody = physicsBody
@@ -78,6 +78,15 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         }
         set {
             withPhysicsBody({ $0.linearDamping = newValue }, default: ())
+        }
+    }
+
+    var angularDamping: CGFloat {
+        get {
+            withPhysicsBody({ $0.angularDamping }, default: DefaultSKPhysicsBodyValues.angularDamping)
+        }
+        set {
+            withPhysicsBody({ $0.angularDamping = newValue }, default: ())
         }
     }
 

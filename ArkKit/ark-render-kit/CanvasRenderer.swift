@@ -16,6 +16,8 @@ protocol CanvasRenderer {
     func render(_ image: BitmapImageRenderableComponent) -> any Renderable
     func render(_ button: ButtonRenderableComponent) -> any Renderable
     func render(_ joystick: JoystickRenderableComponent) -> any Renderable
+
+    func upsertToView<T: Renderable>(_ renderable: T, at renderLayer: RenderLayer)
 }
 
 extension CanvasRenderer {

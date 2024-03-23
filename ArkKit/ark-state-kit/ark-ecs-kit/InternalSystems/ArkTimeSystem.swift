@@ -15,7 +15,8 @@ class ArkTimeSystem: System {
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
         let stopWatchEntities = arkECS.getEntities(with: [StopWatchComponent.self])
         for stopWatchEntity in stopWatchEntities {
-            guard let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self, for: stopWatchEntity) else {
+            guard let stopWatchComponent = arkECS.getComponent(ofType: StopWatchComponent.self,
+                                                               for: stopWatchEntity) else {
                 continue
             }
             stopWatchComponent.currentTime += deltaTime

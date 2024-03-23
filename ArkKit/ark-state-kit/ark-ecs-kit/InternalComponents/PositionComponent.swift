@@ -1,9 +1,5 @@
 import Foundation
 
-class PositionComponent: Component {
+struct PositionComponent: Component {
     var position: CGPoint
-
-    init(position: CGPoint) {
-        self.position = position
-    }
 }

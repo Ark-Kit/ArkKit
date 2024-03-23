@@ -1,6 +1,6 @@
 import SpriteKit
 
-public class SKSimulator: AbstractArkSimulator {
+class SKSimulator: AbstractArkSimulator {
     let view: SKView
     var gameScene: AbstractArkGameScene
 
@@ -19,5 +19,19 @@ public class SKSimulator: AbstractArkSimulator {
 
     func stop() {
         view.presentScene(nil)
+    }
+}
+
+extension SKSimulator: GameLoop {
+    func setUp() {
+        self.start()
+    }
+
+    func getDeltaTime() -> Double {
+        self.gameScene.getDeltaTime()
+    }
+
+    func shutDown() {
+        self.stop()
     }
 }

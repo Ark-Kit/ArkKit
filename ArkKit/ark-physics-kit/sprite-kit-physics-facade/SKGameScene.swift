@@ -1,6 +1,10 @@
 import SpriteKit
 
 class SKGameScene: AbstractArkGameScene {
+    func getCurrentTime() -> TimeInterval {
+        baseGameScene.currentTime
+    }
+
     private(set) var baseGameScene: BaseSKGameScene
     private var physicsBodyManager: SKPhysicsBodyManager
 
@@ -16,8 +20,8 @@ class SKGameScene: AbstractArkGameScene {
         self.baseGameScene.gameScene = self
     }
 
-    func update(_ currentTime: TimeInterval) {
-        baseGameScene.update(currentTime)
+    func getDeltaTime() -> TimeInterval {
+        baseGameScene.deltaTime
     }
 
     func forEachEntity(perform action: (Entity, AbstractArkPhysicsBody) -> Void) {
@@ -27,16 +31,16 @@ class SKGameScene: AbstractArkGameScene {
     }
 
     func createCirclePhysicsBody(for entity: Entity,
-                                            withRadius radius: CGFloat,
-                                            at position: CGPoint) -> AbstractArkPhysicsBody {
+                                 withRadius radius: CGFloat,
+                                 at position: CGPoint) -> AbstractArkPhysicsBody {
         let newPhysicsBody = ArkSKPhysicsBody(circleOf: radius, at: position)
         addBody(for: entity, bodyToAdd: newPhysicsBody)
         return newPhysicsBody
     }
 
     func createRectanglePhysicsBody(for entity: Entity,
-                                       withSize size: CGSize,
-                                       at position: CGPoint) -> AbstractArkPhysicsBody {
+                                    withSize size: CGSize,
+                                    at position: CGPoint) -> AbstractArkPhysicsBody {
         let newPhysicsBody = ArkSKPhysicsBody(rectangleOf: size, at: position)
         addBody(for: entity, bodyToAdd: newPhysicsBody)
         return newPhysicsBody
