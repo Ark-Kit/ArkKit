@@ -1,8 +1,7 @@
-//
-//  MockDisplayContext.swift
-//  ArkKitTests
-//
-//  Created by Didymus Ne on 24/3/24.
-//
-
 import Foundation
+@testable import ArkKit
+
+class MockDisplayContext: DisplayContext {
+    var canvasSize = CGSize.zero
+    var screenSize = CGSize.zero
+}

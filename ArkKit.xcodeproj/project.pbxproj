@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
+		02A438292BB00D2B000135BC /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438282BB00D2B000135BC /* MockAction.swift */; };
+		02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382A2BB00D4D000135BC /* MockECSContext.swift */; };
+		02A4382D2BB00D75000135BC /* MockEventContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382C2BB00D75000135BC /* MockEventContext.swift */; };
+		02A4382F2BB00D9C000135BC /* MockDisplayContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382E2BB00D9C000135BC /* MockDisplayContext.swift */; };
+		02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438302BB00DC0000135BC /* MockAudioContext.swift */; };
 		02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DB2BA402060075F1CA /* GameStateRenderer.swift */; };
 		02C394DE2BA4053E0075F1CA /* CanvasRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DD2BA4053E0075F1CA /* CanvasRenderer.swift */; };
 		02C394E02BA405C10075F1CA /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DF2BA405C10075F1CA /* Canvas.swift */; };
@@ -181,6 +187,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
+		02A438282BB00D2B000135BC /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
+		02A4382A2BB00D4D000135BC /* MockECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockECSContext.swift; sourceTree = "<group>"; };
+		02A4382C2BB00D75000135BC /* MockEventContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEventContext.swift; sourceTree = "<group>"; };
+		02A4382E2BB00D9C000135BC /* MockDisplayContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDisplayContext.swift; sourceTree = "<group>"; };
+		02A438302BB00DC0000135BC /* MockAudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioContext.swift; sourceTree = "<group>"; };
 		02C394DB2BA402060075F1CA /* GameStateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateRenderer.swift; sourceTree = "<group>"; };
 		02C394DD2BA4053E0075F1CA /* CanvasRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRenderer.swift; sourceTree = "<group>"; };
 		02C394DF2BA405C10075F1CA /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
@@ -365,6 +377,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02A438242BB007B1000135BC /* ark-rule-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				02A438252BB007C9000135BC /* ArkRuleKitTests.swift */,
+			);
+			path = "ark-rule-kit-tests";
+			sourceTree = "<group>";
+		};
+		02A438272BB00D20000135BC /* mocks */ = {
+			isa = PBXGroup;
+			children = (
+				02A438282BB00D2B000135BC /* MockAction.swift */,
+				02A4382A2BB00D4D000135BC /* MockECSContext.swift */,
+				02A4382C2BB00D75000135BC /* MockEventContext.swift */,
+				02A4382E2BB00D9C000135BC /* MockDisplayContext.swift */,
+				02A438302BB00DC0000135BC /* MockAudioContext.swift */,
+			);
+			path = mocks;
+			sourceTree = "<group>";
+		};
 		02C394DA2BA401F00075F1CA /* ark-render-kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1005,6 +1037,8 @@
 		AD787A662B9C6373003EBBD0 /* ArkKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				02A438272BB00D20000135BC /* mocks */,
+				02A438242BB007B1000135BC /* ark-rule-kit-tests */,
 				AD3ECF442BAF44A7002C758D /* ark-event-kit-tests */,
 				AD787A672B9C6373003EBBD0 /* ArkKitTests.swift */,
 			);
@@ -1316,6 +1350,12 @@
 			files = (
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
+				02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */,
+				02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */,
+				02A4382F2BB00D9C000135BC /* MockDisplayContext.swift in Sources */,
+				02A438292BB00D2B000135BC /* MockAction.swift in Sources */,
+				02A4382D2BB00D75000135BC /* MockEventContext.swift in Sources */,
+				02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
