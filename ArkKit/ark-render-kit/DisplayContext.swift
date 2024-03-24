@@ -5,7 +5,7 @@ protocol DisplayContext {
     var screenSize: CGSize { get }
 }
 
-struct ArkDisplayContext {
+struct ArkDisplayContext: DisplayContext {
     var canvasSize: CGSize
     var screenSize: CGSize
 }

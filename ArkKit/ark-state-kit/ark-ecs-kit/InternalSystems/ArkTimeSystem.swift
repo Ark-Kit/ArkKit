@@ -19,8 +19,9 @@ class ArkTimeSystem: System {
                                                                for: stopWatchEntity) else {
                 continue
             }
-            stopWatchComponent.currentTime += deltaTime
-            arkECS.upsertComponent(stopWatchComponent, to: stopWatchEntity)
+            var newStopWatchComponent = stopWatchComponent
+            newStopWatchComponent.currentTime += deltaTime
+            arkECS.upsertComponent(newStopWatchComponent, to: stopWatchEntity)
         }
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-class StopWatchComponent: Component {
+struct StopWatchComponent: Component {
     var currentTime: TimeInterval
     var name: String
 

@@ -56,7 +56,7 @@ class EntityManager {
         guard !componentTypes.isEmpty else {
             return Array(entities)
         }
-        
+
         let entitySets = componentTypes.map { compType in
             let identifier = ObjectIdentifier(compType)
             var entitySet = Set<Entity>()
@@ -65,11 +65,11 @@ class EntityManager {
             }
             return entitySet
         }
-        
+
         guard !entitySets.isEmpty else {
             return []
         }
-        
+
         let commonEntities = entitySets.reduce(entitySets[0]) { partialResult, entitySet in
             partialResult.intersection(entitySet)
         }
