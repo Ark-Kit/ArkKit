@@ -18,6 +18,17 @@ struct ImpactExplosionAnimation {
             .keyframe("Sprite_Effects_Explosion_008", duration: perFrameDuration)
     }
     
+    private func makeBitmapComponent(imageResourcePath: String) -> BitmapImageRenderableComponent {
+        BitmapImageRenderableComponent(
+            imageResourcePath: imageResourcePath,
+            width: width,
+            height: height)
+        .zPosition(100)
+        .shouldRerender { old, new in
+            old.imageResourcePath != new.imageResourcePath
+        }
+    }
+    
     func create(in ecs: ArkECSContext, at position: CGPoint) {
         let entity = ecs.createEntity()
         ecs.upsertComponent(PositionComponent(position: position), to: entity)
@@ -28,13 +39,7 @@ struct ImpactExplosionAnimation {
                 let keyframe = instance.currentFrame
                 let imageResourcePath = keyframe.value
                 
-                var bitmapComponent = ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: entity) ?? BitmapImageRenderableComponent(
-                    imageResourcePath: imageResourcePath,
-                    width: width,
-                    height: height)
-                    .shouldRerender { old, new in
-                        old.imageResourcePath != new.imageResourcePath
-                    }
+                var bitmapComponent = ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: entity) ?? makeBitmapComponent(imageResourcePath: imageResourcePath)
                 
                 bitmapComponent.imageResourcePath = imageResourcePath
                 
@@ -49,10 +54,7 @@ struct ImpactExplosionAnimation {
         ])
         ecs.upsertComponent(animationsComponent, to: entity)
         
-        let bitmapComponent = BitmapImageRenderableComponent(
-            imageResourcePath: "Sprite_Effects_Explosion_001",
-            width: width,
-            height: height)
+        let bitmapComponent = makeBitmapComponent(imageResourcePath: "Sprite_Effects_Explosion_001")
         ecs.upsertComponent(bitmapComponent, to: entity)
     }
 }
