@@ -148,6 +148,7 @@
 		AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */; };
 		AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3ECF422BAF3148002C758D /* ArkEventKitTests.swift */; };
 		AD3ECF472BB01ABC002C758D /* SystemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3ECF462BB01ABC002C758D /* SystemManagerTests.swift */; };
+		AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3ECF482BB01CF2002C758D /* ArkECSTests.swift */; };
 		AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5F69742BAC879400A5518D /* TankShootEvent.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
@@ -325,6 +326,7 @@
 		AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankMoveEvent.swift; sourceTree = "<group>"; };
 		AD3ECF422BAF3148002C758D /* ArkEventKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventKitTests.swift; sourceTree = "<group>"; };
 		AD3ECF462BB01ABC002C758D /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
+		AD3ECF482BB01CF2002C758D /* ArkECSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSTests.swift; sourceTree = "<group>"; };
 		AD5F69742BAC879400A5518D /* TankShootEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankShootEvent.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
@@ -943,6 +945,7 @@
 			children = (
 				28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */,
 				AD3ECF462BB01ABC002C758D /* SystemManagerTests.swift */,
+				AD3ECF482BB01CF2002C758D /* ArkECSTests.swift */,
 			);
 			path = "ark-ecs-kit-tests";
 			sourceTree = "<group>";
@@ -1347,6 +1350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */,
 				AD3ECF472BB01ABC002C758D /* SystemManagerTests.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
