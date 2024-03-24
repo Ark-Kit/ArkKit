@@ -10,7 +10,7 @@ struct BitmapImageRenderableComponent: RenderableComponent {
 
     let width: Double
     let height: Double
-    let imageResourcePath: String
+    var imageResourcePath: String
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false

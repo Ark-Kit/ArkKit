@@ -255,16 +255,17 @@ extension TankGameManager {
                                                           for: eventData.tankEntity) else {
         return }
 
-        let tankLength = (tankPhysicsComponent.size?.height ?? 0.0) / 2
+        let tankLength = (tankPhysicsComponent.size?.height ?? 0.0) / 2 + 20
 
         let dx = cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
         let dy = sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
-
+        let ballRadius = 15.0
         let ballVelocity = 300.0
 
         TankGameEntityCreator
-           .createBall(position: CGPoint(x: tankPositionComponent.position.x + dx * tankLength,
-                                         y: tankPositionComponent.position.y + dy * tankLength),
+            .createBall(position: CGPoint(x: tankPositionComponent.position.x + dx * (tankLength + ballRadius * 1.1),
+                                         y: tankPositionComponent.position.y + dy * (tankLength + ballRadius * 1.1)),
+                       radius: ballRadius,
                        velocity: CGVector(dx: ballVelocity * dx,
                                           dy: ballVelocity * dy),
                        angle: tankRotationComponent.angleInRadians ?? 0,
