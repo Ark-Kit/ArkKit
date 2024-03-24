@@ -53,6 +53,10 @@ class EntityManager {
     }
 
     func getEntities(with componentTypes: [Component.Type]) -> [Entity] {
+        guard !componentTypes.isEmpty else {
+            return Array(entities)
+        }
+
         let entitySets = componentTypes.map { compType in
             let identifier = ObjectIdentifier(compType)
             var entitySet = Set<Entity>()
@@ -61,13 +65,15 @@ class EntityManager {
             }
             return entitySet
         }
-        guard let firstSet = entitySets.first else {
+
+        guard !entitySets.isEmpty else {
             return []
         }
-        var commonEntities = firstSet
-        for entitySet in entitySets.dropFirst() {
-            commonEntities.formIntersection(entitySet)
+
+        let commonEntities = entitySets.reduce(entitySets[0]) { partialResult, entitySet in
+            partialResult.intersection(entitySet)
         }
+
         return Array(commonEntities)
     }
 
