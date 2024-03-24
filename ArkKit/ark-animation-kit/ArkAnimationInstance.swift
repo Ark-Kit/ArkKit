@@ -10,7 +10,7 @@ enum AnimationStatus {
 
 protocol AnimationInstance<T>: AnyObject where T: Equatable {
     associatedtype T
-    
+
     var animation: ArkAnimation<T> { get }
     var elapsedDelta: TimeInterval { get set }
     var updateDelegate: UpdateDelegate<T>? { get }
@@ -24,22 +24,22 @@ extension AnimationInstance {
     func markForDestroyal() {
         shouldDestroy = true
     }
-    
+
     func advance(by delta: TimeInterval) {
         let wasComplete = status == .complete
         let previousKeyframe = currentFrame
-        
+
         elapsedDelta += delta
-        
+
         let currentFrame = self.currentFrame
         let hasAdvancedKeyframe = currentFrame != previousKeyframe
-        
+
         if !wasComplete {
             if status == .complete {
                 completeDelegate?(self)
             }
         }
-        
+
         if hasAdvancedKeyframe {
             updateDelegate?(self)
         }
@@ -54,8 +54,8 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
     var elapsedDelta: TimeInterval
     var updateDelegate: UpdateDelegate<T>?
     var completeDelegate: CompleteDelegate<T>?
-    
-    var shouldDestroy: Bool = false
+
+    var shouldDestroy = false
 
     var status: AnimationStatus {
         if elapsedDelta > animation.duration {
@@ -76,12 +76,12 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
         self.elapsedDelta = elapsedDelta
         assert(!self.animation.keyframes.isEmpty, "Animation keyframes cannot be empty")
     }
-    
+
     func onUpdate(_ delegate: @escaping UpdateDelegate<T>) -> Self {
         self.updateDelegate = delegate
         return self
     }
-    
+
     func onComplete(_ delegate: @escaping CompleteDelegate<T>) -> Self {
         self.completeDelegate = delegate
         return self

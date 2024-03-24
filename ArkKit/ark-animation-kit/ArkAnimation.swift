@@ -8,7 +8,7 @@ struct AnimationKeyframe<T: Equatable>: Equatable {
 
 protocol Animation<T> {
     associatedtype T: Equatable
-    
+
     var keyframes: [AnimationKeyframe<T>] { get }
     var duration: TimeInterval { get }
 }
@@ -18,7 +18,7 @@ protocol Animation<T> {
  */
 struct ArkAnimation<T>: Animation where T: Equatable {
     private (set) var keyframes: [AnimationKeyframe<T>]
-    
+
     init() {
         self.keyframes = []
     }
@@ -39,7 +39,7 @@ struct ArkAnimation<T>: Animation where T: Equatable {
 
             return 0
         }()
-        
+
         var newSelf = self
         newSelf.keyframes.append(AnimationKeyframe(value: value, offset: newOffset, duration: duration))
         return newSelf
