@@ -81,17 +81,18 @@ enum TankGameEntityCreator {
         ])
     }
 
-    static func createBall(position: CGPoint, velocity: CGVector, angle: CGFloat,
+    static func createBall(position: CGPoint, radius: CGFloat,
+                           velocity: CGVector, angle: CGFloat,
                            in ecsContext: ArkECSContext, zPosition: Double) {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: "ball", width: 40, height: 40)
+            BitmapImageRenderableComponent(imageResourcePath: "ball", width: radius * 2.2, height: radius * 2.2)
                 .center(position)
                 .zPosition(zPosition)
                 .scaleAspectFill(),
             PositionComponent(position: position),
             RotationComponent(angleInRadians: angle),
             PhysicsComponent(shape: .circle,
-                             radius: 15,
+                             radius: radius,
                              mass: 1,
                              velocity: velocity,
                              isDynamic: true,

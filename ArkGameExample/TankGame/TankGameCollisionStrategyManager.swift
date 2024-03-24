@@ -111,15 +111,20 @@ class TankBallCollisionStrategy: CollisionHandlingStrategy {
                               in context: ArkActionContext)
     {
         let ecs = context.ecs
-        
-        guard let positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: entityB) else {
-            return
+        var positionComponent: PositionComponent?
+        if bitMaskA == TankGamePhysicsCategory.ball {
+            markEntityForRemoval(entityA, in: context)
+            positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: entityA)
+        } else if bitMaskB == TankGamePhysicsCategory.ball {
+            markEntityForRemoval(entityB, in: context)
+            positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: entityB)
         }
-
-        ImpactExplosionAnimation(perFrameDuration: 0.2)
-            .create(in: ecs, at: positionComponent.position)
-        // TODO: Add animation here
-        // TODO: Add some hp management here? no logic yet
+        
+        if positionComponent != nil {
+            ImpactExplosionAnimation(perFrameDuration: 0.2)
+                .create(in: ecs, at: positionComponent!.position)
+        }
+        
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
