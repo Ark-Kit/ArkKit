@@ -114,6 +114,8 @@
 		28A032E52BAD781900851BFF /* AbstractArkSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */; };
 		28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E62BAD783D00851BFF /* SKSimulator.swift */; };
 		28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */; };
+		28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */; };
+		28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */; };
 		8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */; };
 		8F5573C12BA42614007030C8 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C02BA42614007030C8 /* Renderable.swift */; };
 		8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */; };
@@ -145,6 +147,8 @@
 		AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75A2BAC331F003E938B /* TankComponent.swift */; };
 		AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */; };
 		AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3ECF422BAF3148002C758D /* ArkEventKitTests.swift */; };
+		AD3ECF472BB01ABC002C758D /* SystemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3ECF462BB01ABC002C758D /* SystemManagerTests.swift */; };
+		AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3ECF482BB01CF2002C758D /* ArkECSTests.swift */; };
 		AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5F69742BAC879400A5518D /* TankShootEvent.swift */; };
 		AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03602B9F15FA00974EBF /* ArkECS.swift */; };
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
@@ -288,6 +292,8 @@
 		28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkSimulator.swift; sourceTree = "<group>"; };
 		28A032E62BAD783D00851BFF /* SKSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSimulator.swift; sourceTree = "<group>"; };
 		28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
+		28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManagerTests.swift; sourceTree = "<group>"; };
+		28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsKitTests.swift; sourceTree = "<group>"; };
 		8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderable.swift; sourceTree = "<group>"; };
 		8F5573C02BA42614007030C8 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapRenderable.swift; sourceTree = "<group>"; };
@@ -319,6 +325,8 @@
 		AD36A75A2BAC331F003E938B /* TankComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankComponent.swift; sourceTree = "<group>"; };
 		AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankMoveEvent.swift; sourceTree = "<group>"; };
 		AD3ECF422BAF3148002C758D /* ArkEventKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventKitTests.swift; sourceTree = "<group>"; };
+		AD3ECF462BB01ABC002C758D /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
+		AD3ECF482BB01CF2002C758D /* ArkECSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSTests.swift; sourceTree = "<group>"; };
 		AD5F69742BAC879400A5518D /* TankShootEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankShootEvent.swift; sourceTree = "<group>"; };
 		AD6E03602B9F15FA00974EBF /* ArkECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECS.swift; sourceTree = "<group>"; };
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
@@ -739,6 +747,22 @@
 			path = InternalSystems;
 			sourceTree = "<group>";
 		};
+		28D0065C2BAFD76F001B4BD4 /* ark-physics-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */,
+			);
+			path = "ark-physics-kit-tests";
+			sourceTree = "<group>";
+		};
+		28D0065D2BAFD776001B4BD4 /* ark-state-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				AD3ECF452BB0183A002C758D /* ark-ecs-kit-tests */,
+			);
+			path = "ark-state-kit-tests";
+			sourceTree = "<group>";
+		};
 		8F5573BD2BA4258F007030C8 /* renderable */ = {
 			isa = PBXGroup;
 			children = (
@@ -916,6 +940,16 @@
 			path = "ark-event-kit-tests";
 			sourceTree = "<group>";
 		};
+		AD3ECF452BB0183A002C758D /* ark-ecs-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */,
+				AD3ECF462BB01ABC002C758D /* SystemManagerTests.swift */,
+				AD3ECF482BB01CF2002C758D /* ArkECSTests.swift */,
+			);
+			path = "ark-ecs-kit-tests";
+			sourceTree = "<group>";
+		};
 		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1005,6 +1039,8 @@
 		AD787A662B9C6373003EBBD0 /* ArkKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				28D0065D2BAFD776001B4BD4 /* ark-state-kit-tests */,
+				28D0065C2BAFD76F001B4BD4 /* ark-physics-kit-tests */,
 				AD3ECF442BAF44A7002C758D /* ark-event-kit-tests */,
 				AD787A672B9C6373003EBBD0 /* ArkKitTests.swift */,
 			);
@@ -1314,8 +1350,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */,
+				AD3ECF472BB01ABC002C758D /* SystemManagerTests.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
+				28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */,
+				28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

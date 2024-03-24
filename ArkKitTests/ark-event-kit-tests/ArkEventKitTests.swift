@@ -124,12 +124,12 @@ class ArkEventKitTests: XCTestCase {
 
         var handledEventsNames: [String] = []
 
-        eventManager.subscribe(to: EventStub2.id) { event in
-            handledEventsNames.append((event.eventData as AnyObject).name ?? "")
+        eventManager.subscribe(to: EventStub2.id) { _ in
+            handledEventsNames.append("SecondEvent")
         }
 
-        eventManager.subscribe(to: EventStub1.id) { event in
-            handledEventsNames.append((event.eventData as AnyObject).name ?? "")
+        eventManager.subscribe(to: EventStub1.id) { _ in
+            handledEventsNames.append("FirstEvent")
         }
 
         eventManager.emit(&firstEvent)
