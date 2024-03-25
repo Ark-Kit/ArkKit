@@ -38,9 +38,6 @@ class ArkEventManager: ArkEventContext {
             listenersToExecute.forEach { listener in
                 listener(event)
             }
-            // removes all listeners that have been executed
-            listeners[type(of: event).id] = Array(listeners[type(of: event).id]?
-                .suffix(from: listenersToExecute.count) ?? [])
         }
     }
 
