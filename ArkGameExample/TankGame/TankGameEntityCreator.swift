@@ -67,11 +67,14 @@ enum TankGameEntityCreator {
     }
 
     static func createShootButton(at position: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
-                                  eventContext: ArkEventContext, zPosition: Double) {
+                                  eventContext: ArkEventContext, zPosition: Double) -> Entity {
         ecsContext.createEntity(with: [
             ButtonRenderableComponent(width: 50, height: 50)
-                .shouldRerender { _, _ in false }
+                .shouldRerender { old, new in
+                    old.center != new.center
+                }
                 .center(position)
+                .layer(.screen)
                 .zPosition(zPosition)
                 .onTap {
                     let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)
