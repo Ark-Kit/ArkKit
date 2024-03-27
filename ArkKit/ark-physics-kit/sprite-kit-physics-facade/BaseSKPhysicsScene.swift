@@ -2,7 +2,9 @@ import SpriteKit
 
 class BaseSKPhysicsScene: SKScene {
     weak var gameScene: SKPhysicsScene?
-    weak var sceneUpdateDelegate: ArkSceneUpdateDelegate?
+    weak var sceneContactUpdateDelegate: ArkPhysicsContactUpdateDelegate?
+    weak var sceneUpdateLoopDelegate: ArkPhysicsSceneUpdateLoopDelegate?
+
     var currentTime: TimeInterval = 0
     private var lastUpdateTime: TimeInterval = 0
     private(set) var deltaTime: TimeInterval = 0
@@ -27,11 +29,11 @@ class BaseSKPhysicsScene: SKScene {
     }
 }
 
-extension BaseSKPhysicsScene: SKSceneDelegate {
-    func didFinishUpdate(for scene: SKScene) {
-        sceneUpdateDelegate?.didFinishUpdate(deltaTime)
-    }
-}
+// extension BaseSKPhysicsScene: SKSceneDelegate {
+//    func didFinishUpdate(for scene: SKScene) {
+//        sceneUpdateLoopDelegate?.didFinishUpdate(deltaTime)
+//    }
+// }
 
 extension BaseSKPhysicsScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
@@ -39,7 +41,7 @@ extension BaseSKPhysicsScene: SKPhysicsContactDelegate {
               let entityB = gameScene?.getEntity(for: contact.bodyB) else {
             return
         }
-        sceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
+        sceneContactUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
     }
 
     func didEnd(_ contact: SKPhysicsContact) {
@@ -47,6 +49,6 @@ extension BaseSKPhysicsScene: SKPhysicsContactDelegate {
               let entityB = gameScene?.getEntity(for: contact.bodyB) else {
             return
         }
-        sceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
+        sceneContactUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
     }
 }
