@@ -90,7 +90,6 @@
 		02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E94D2BAC9A0E00BF3A07 /* GameLoop.swift */; };
 		02D8E9512BAC9A3900BF3A07 /* AbstractParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9502BAC9A3900BF3A07 /* AbstractParentView.swift */; };
 		02D8E9532BAC9A5A00BF3A07 /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9522BAC9A5A00BF3A07 /* AbstractView.swift */; };
-		02D8E9562BAC9AB700BF3A07 /* ArkGameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */; };
 		02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */; };
 		02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */; };
 		02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */; };
@@ -272,7 +271,6 @@
 		02D8E94D2BAC9A0E00BF3A07 /* GameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoop.swift; sourceTree = "<group>"; };
 		02D8E9502BAC9A3900BF3A07 /* AbstractParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractParentView.swift; sourceTree = "<group>"; };
 		02D8E9522BAC9A5A00BF3A07 /* AbstractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractView.swift; sourceTree = "<group>"; };
-		02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkGameLoop.swift; sourceTree = "<group>"; };
 		02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShape.swift; sourceTree = "<group>"; };
 		02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRenderable.swift; sourceTree = "<group>"; };
 		02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCircle.swift; sourceTree = "<group>"; };
@@ -660,18 +658,9 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		02D8E9542BAC9AAF00BF3A07 /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */,
-			);
-			path = utils;
-			sourceTree = "<group>";
-		};
 		02E0E8DE2B9F57170043E2BA /* ark-game */ = {
 			isa = PBXGroup;
 			children = (
-				02D8E9542BAC9AAF00BF3A07 /* utils */,
 				02C394ED2BA4200F0075F1CA /* coordinator */,
 				02C394EA2BA41DE30075F1CA /* view */,
 				02C394E72BA41B3B0075F1CA /* view-model */,
@@ -1358,7 +1347,6 @@
 				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
-				02D8E9562BAC9AB700BF3A07 /* ArkGameLoop.swift in Sources */,
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
 				02C395282BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift in Sources */,
 				280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */,

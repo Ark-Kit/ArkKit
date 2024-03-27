@@ -29,12 +29,6 @@ class BaseSKPhysicsScene: SKScene {
     }
 }
 
-// extension BaseSKPhysicsScene: SKSceneDelegate {
-//    func didFinishUpdate(for scene: SKScene) {
-//        sceneUpdateLoopDelegate?.didFinishUpdate(deltaTime)
-//    }
-// }
-
 extension BaseSKPhysicsScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         guard let entityA = gameScene?.getEntity(for: contact.bodyA),

@@ -2,7 +2,6 @@ import Foundation
 
 class ArkViewModel {
     private let gameModel: ArkGameModel
-//    var arkSceneUpdateDelegate: ArkSceneUpdateDelegate?
 
     weak var viewRendererDelegate: GameStateRenderer?
     weak var viewDelegate: AbstractView? {
