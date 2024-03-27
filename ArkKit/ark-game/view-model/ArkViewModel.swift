@@ -2,7 +2,8 @@ import Foundation
 
 class ArkViewModel {
     private let gameModel: ArkGameModel
-    var arkSceneUpdateDelegate: ArkSceneUpdateDelegate?
+//    var arkSceneUpdateDelegate: ArkSceneUpdateDelegate?
+
     weak var viewRendererDelegate: GameStateRenderer?
     weak var viewDelegate: AbstractView? {
         didSet {
@@ -39,21 +40,5 @@ class ArkViewModel {
 
     func didScreenResize(_ size: CGSize) {
         gameModel.resizeScreen(size)
-    }
-}
-
-extension ArkViewModel: ArkSceneUpdateDelegate {
-    // Need to push this delegation of events to ArkPhysicsSystem somehow
-    func didContactBegin(between entityA: Entity, and entityB: Entity) {
-        arkSceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
-    }
-
-    func didContactEnd(between entityA: Entity, and entityB: Entity) {
-        arkSceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
-    }
-
-    func didFinishUpdate(_ deltaTime: TimeInterval) {
-        arkSceneUpdateDelegate?.didFinishUpdate(deltaTime)
-        self.updateGame(for: deltaTime)
     }
 }

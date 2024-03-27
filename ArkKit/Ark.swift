@@ -1,10 +1,12 @@
 import Foundation
 
 /**
- * `Ark` describes a **running instance** of the game.
+ * `Ark` describes the game as is **loaded**.
  *
- * `Ark.start(blueprint)` starts the game from `deltaTime = 0` based on the
- *  information and data in the `ArkBlueprint` provided.
+ * It loads the various contexts from the  `ArkBlueprint` provided and the `GameLoop`.
+ * `Ark` requires a `rootView: AbstractRootView` to render the game.
+ *
+ * `Ark.start()` starts a loaded version of the game by injecting the game context dependencies.
  *
  * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
  * relying on the `arkInstance` will not emit.
@@ -12,9 +14,8 @@ import Foundation
 class Ark {
     let rootView: any AbstractRootView
     let arkState: ArkState
-    var gameLoop: AbstractArkSimulator?
+    var gameLoop: GameLoop?
 
-    var sceneUpdateDelegate: ArkSceneUpdateDelegate?
     let blueprint: ArkBlueprint
     let audioContext: AudioContext
 
@@ -30,6 +31,13 @@ class Ark {
                          events: arkState.eventManager,
                          display: displayContext,
                          audio: audioContext)
+    }
+
+    var canvasContext: ArkCanvasContext {
+        ArkCanvasContext(ecs: arkState.arkECS,
+                         canvasFrame: CGRect(x: 0, y: 0,
+                                             width: blueprint.frameWidth,
+                                             height: blueprint.frameHeight))
     }
 
     init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
@@ -50,14 +58,12 @@ class Ark {
         guard let gameLoop = self.gameLoop else {
             return
         }
-        // Initializee game with rootView, and eventManager
+
+        // Initializee game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
-                                                 canvasFrame: CGRect(x: 0, y: 0,
-                                                                     width: blueprint.frameWidth,
-                                                                     height: blueprint.frameHeight),
+                                                 canvasContext: canvasContext,
                                                  gameLoop: gameLoop)
-        gameCoordinator.arkSceneUpdateDelegate = self
         gameCoordinator.start()
     }
 
@@ -82,12 +88,12 @@ class Ark {
 
     private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
+
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
         self.gameLoop = simulator
         let physicsSystem = ArkPhysicsSystem(simulator: simulator,
                                              eventManager: arkState.eventManager,
                                              arkECS: arkState.arkECS)
-        sceneUpdateDelegate = physicsSystem
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
@@ -95,6 +101,11 @@ class Ark {
         arkState.arkECS.addSystem(physicsSystem)
         arkState.arkECS.addSystem(animationSystem)
         arkState.arkECS.addSystem(canvasSystem)
+
+        // inject dependency into game loop
+        simulator.physicsScene?.sceneContactUpdateDelegate = physicsSystem
+        simulator.physicsScene?.sceneUpdateLoopDelegate = physicsSystem
+        self.gameLoop?.updatePhysicsSceneDelegate = physicsSystem
     }
 
     private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {
@@ -105,20 +116,6 @@ class Ark {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
-    }
-}
-
-extension Ark: ArkSceneUpdateDelegate {
-    func didContactBegin(between entityA: Entity, and entityB: Entity) {
-        sceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
-    }
-
-    func didContactEnd(between entityA: Entity, and entityB: Entity) {
-        sceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
-    }
-
-    func didFinishUpdate(_ deltaTime: TimeInterval) {
-        sceneUpdateDelegate?.didFinishUpdate(deltaTime)
     }
 }
 
