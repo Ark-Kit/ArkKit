@@ -1,7 +1,9 @@
 import Foundation
 
 protocol AbstractArkPhysicsScene {
-    var sceneUpdateDelegate: ArkSceneUpdateDelegate? { get set }
+    var sceneContactUpdateDelegate: ArkPhysicsContactUpdateDelegate? { get set }
+    var sceneUpdateLoopDelegate: ArkPhysicsSceneUpdateLoopDelegate? { get set }
+
     func getDeltaTime() -> TimeInterval
     func forEachEntity(perform action: (_ entity: Entity,
                                         _ physicsBody: AbstractArkPhysicsBody) -> Void)

@@ -1,7 +1,7 @@
 import Foundation
 
 protocol AbstractPhysicsArkSimulator: GameLoop {
-    var gameScene: AbstractArkPhysicsScene { get set }
+    var physicsScene: AbstractArkPhysicsScene? { get set }
     func start()
     func stop()
 }
