@@ -93,27 +93,21 @@ class TankGameManager {
 
     func setUpRules() {
         blueprint = blueprint
-            .rule(on: ScreenResizeEvent.self, then: Forever { event, context in
+            .on(ScreenResizeEvent.self) { event, context in
                 self.handleScreenResize(event, in: context)
-            })
-//            .rule(on: TankStartMoveEvent.self, then: Forever { event, context in
-//                context.audio.play(TankMoveSound(), playerId: event.eventData.tankEntity.id)
-//            })
-//            .rule(on: TankStopMoveEvent.self, then: Forever { event, context in
-//                context.audio.stop(TankMoveSound(), playerId: event.eventData.tankEntity.id)
-//            })
-            .rule(on: TankMoveEvent.self, then: Forever { event, context in
+            }
+            .on(TankMoveEvent.self) { event, context in
                 self.handleTankMove(event, in: context)
-            })
-            .rule(on: TankShootEvent.self, then: Forever { event, context in
+            }
+            .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
-            })
-            .rule(on: ArkCollisionBeganEvent.self, then: Forever { event, context in
+            }
+            .on(ArkCollisionBeganEvent.self) { event, context in
                 self.handleContactBegan(event, in: context)
-            })
-            .rule(on: ArkCollisionEndedEvent.self, then: Forever { event, context in
+            }
+            .on(ArkCollisionEndedEvent.self) { event, context in
                 self.handleContactEnd(event, in: context)
-            })
+            }
     }
 
     private func createTankEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {

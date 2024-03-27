@@ -26,8 +26,6 @@
 		02C394FB2BA444360075F1CA /* PanRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394FA2BA444360075F1CA /* PanRenderable.swift */; };
 		02C395012BA5A2BE0075F1CA /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395002BA5A2BE0075F1CA /* Action.swift */; };
 		02C395032BA5B95B0075F1CA /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395022BA5B95B0075F1CA /* Rule.swift */; };
-		02C395062BA5E2E00075F1CA /* Once.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395052BA5E2E00075F1CA /* Once.swift */; };
-		02C395082BA5E2F10075F1CA /* Forever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395072BA5E2F10075F1CA /* Forever.swift */; };
 		02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3950A2BA5F8030075F1CA /* ArkECSContext.swift */; };
 		02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */; };
 		02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3950E2BA611B80075F1CA /* ArkEventContext.swift */; };
@@ -210,8 +208,6 @@
 		02C394FA2BA444360075F1CA /* PanRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanRenderable.swift; sourceTree = "<group>"; };
 		02C395002BA5A2BE0075F1CA /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		02C395022BA5B95B0075F1CA /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
-		02C395052BA5E2E00075F1CA /* Once.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Once.swift; sourceTree = "<group>"; };
-		02C395072BA5E2F10075F1CA /* Forever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forever.swift; sourceTree = "<group>"; };
 		02C3950A2BA5F8030075F1CA /* ArkECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSContext.swift; sourceTree = "<group>"; };
 		02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkBlueprint.swift; sourceTree = "<group>"; };
 		02C3950E2BA611B80075F1CA /* ArkEventContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventContext.swift; sourceTree = "<group>"; };
@@ -479,8 +475,6 @@
 			children = (
 				8FEB217D2BADF21E00788E20 /* ArkActionContext.swift */,
 				02C395002BA5A2BE0075F1CA /* Action.swift */,
-				02C395052BA5E2E00075F1CA /* Once.swift */,
-				02C395072BA5E2F10075F1CA /* Forever.swift */,
 			);
 			path = action;
 			sourceTree = "<group>";
@@ -1271,7 +1265,6 @@
 				02C395242BA849B40075F1CA /* JoystickRenderableComponent.swift in Sources */,
 				942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */,
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
-				02C395062BA5E2E00075F1CA /* Once.swift in Sources */,
 				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
@@ -1301,7 +1294,6 @@
 				28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */,
-				02C395082BA5E2F10075F1CA /* Forever.swift in Sources */,
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
 				02D8E9532BAC9A5A00BF3A07 /* AbstractView.swift in Sources */,
 				02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */,

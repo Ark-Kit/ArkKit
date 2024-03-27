@@ -19,10 +19,11 @@ struct ArkBlueprint {
         return newSelf
     }
 
-    func rule<Event: ArkEvent>(
-        on eventType: Event.Type,
-        then action: any Action<Event>
+    func on<Event: ArkEvent>(
+        _ eventType: Event.Type,
+        then callback: @escaping ActionCallback<Event>
     ) -> Self {
+        let action = ArkAction(callback: callback)
         var newRules = rules
         newRules.append(ArkRule(event: Event.id, action: action))
 
