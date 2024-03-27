@@ -1,6 +1,6 @@
 import Foundation
 
-protocol AbstractArkGameScene {
+protocol AbstractArkPhysicsScene {
     var sceneUpdateDelegate: ArkSceneUpdateDelegate? { get set }
     func getDeltaTime() -> TimeInterval
     func forEachEntity(perform action: (_ entity: Entity,

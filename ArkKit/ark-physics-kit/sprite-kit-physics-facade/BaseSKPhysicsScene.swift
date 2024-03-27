@@ -1,7 +1,7 @@
 import SpriteKit
 
-class BaseSKGameScene: SKScene {
-    weak var gameScene: SKGameScene?
+class BaseSKPhysicsScene: SKScene {
+    weak var gameScene: SKPhysicsScene?
     weak var sceneUpdateDelegate: ArkSceneUpdateDelegate?
     var currentTime: TimeInterval = 0
     private var lastUpdateTime: TimeInterval = 0
@@ -27,13 +27,13 @@ class BaseSKGameScene: SKScene {
     }
 }
 
-extension BaseSKGameScene: SKSceneDelegate {
+extension BaseSKPhysicsScene: SKSceneDelegate {
     func didFinishUpdate(for scene: SKScene) {
         sceneUpdateDelegate?.didFinishUpdate(deltaTime)
     }
 }
 
-extension BaseSKGameScene: SKPhysicsContactDelegate {
+extension BaseSKPhysicsScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         guard let entityA = gameScene?.getEntity(for: contact.bodyA),
               let entityB = gameScene?.getEntity(for: contact.bodyB) else {
