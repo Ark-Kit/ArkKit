@@ -4,9 +4,9 @@ class ArkGameModel {
     var gameState: ArkState?
     var canvasContext: CanvasContext?
 
-    init(gameState: ArkState, canvasFrame: CGRect) {
+    init(gameState: ArkState, canvasContext: CanvasContext) {
         self.gameState = gameState
-        canvasContext = ArkCanvasContext(ecs: gameState.arkECS, canvasFrame: canvasFrame)
+        self.canvasContext = canvasContext
     }
 
     func updateState(dt: Double) {

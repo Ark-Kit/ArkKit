@@ -90,7 +90,6 @@
 		02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E94D2BAC9A0E00BF3A07 /* GameLoop.swift */; };
 		02D8E9512BAC9A3900BF3A07 /* AbstractParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9502BAC9A3900BF3A07 /* AbstractParentView.swift */; };
 		02D8E9532BAC9A5A00BF3A07 /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9522BAC9A5A00BF3A07 /* AbstractView.swift */; };
-		02D8E9562BAC9AB700BF3A07 /* ArkGameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */; };
 		02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */; };
 		02E0E8F02BA280DB0043E2BA /* UIKitRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */; };
 		02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */; };
@@ -100,12 +99,12 @@
 		280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B62BA7391100372C5D /* ArkPhysicsSystem.swift */; };
 		280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B82BA7391700372C5D /* PhysicsComponent.swift */; };
 		280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */; };
-		280CD3C42BA7419400372C5D /* ArkSceneUpdateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3C32BA7419400372C5D /* ArkSceneUpdateDelegate.swift */; };
+		280CD3C42BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3C32BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift */; };
 		280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3C72BA743D900372C5D /* AbstractArkPhysicsBody.swift */; };
 		280CD3CB2BA7455A00372C5D /* CGVector+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3CA2BA7455A00372C5D /* CGVector+Extension.swift */; };
-		280CD3CE2BA74E4300372C5D /* BaseSKGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3CD2BA74E4300372C5D /* BaseSKGameScene.swift */; };
-		280CD3D02BA74E6000372C5D /* AbstractArkGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3CF2BA74E5F00372C5D /* AbstractArkGameScene.swift */; };
-		280CD3D62BA7F8CC00372C5D /* SKGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3D52BA7F8CC00372C5D /* SKGameScene.swift */; };
+		280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3CD2BA74E4300372C5D /* BaseSKPhysicsScene.swift */; };
+		280CD3D02BA74E6000372C5D /* AbstractArkPhysicsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3CF2BA74E5F00372C5D /* AbstractArkPhysicsScene.swift */; };
+		280CD3D62BA7F8CC00372C5D /* SKPhysicsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3D52BA7F8CC00372C5D /* SKPhysicsScene.swift */; };
 		280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DB2BA8044D00372C5D /* PositionComponent.swift */; };
 		280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DD2BA8045200372C5D /* RotationComponent.swift */; };
 		280CD3E02BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift */; };
@@ -115,7 +114,7 @@
 		28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */; };
 		28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */; };
 		28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */; };
-		28A032E52BAD781900851BFF /* AbstractArkSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */; };
+		28A032E52BAD781900851BFF /* AbstractPhysicsArkSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E42BAD781900851BFF /* AbstractPhysicsArkSimulator.swift */; };
 		28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E62BAD783D00851BFF /* SKSimulator.swift */; };
 		28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */; };
 		28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */; };
@@ -272,7 +271,6 @@
 		02D8E94D2BAC9A0E00BF3A07 /* GameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoop.swift; sourceTree = "<group>"; };
 		02D8E9502BAC9A3900BF3A07 /* AbstractParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractParentView.swift; sourceTree = "<group>"; };
 		02D8E9522BAC9A5A00BF3A07 /* AbstractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractView.swift; sourceTree = "<group>"; };
-		02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkGameLoop.swift; sourceTree = "<group>"; };
 		02E0E8ED2BA280BD0043E2BA /* UIKitShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShape.swift; sourceTree = "<group>"; };
 		02E0E8EF2BA280DB0043E2BA /* UIKitRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRenderable.swift; sourceTree = "<group>"; };
 		02E0E8F12BA282C20043E2BA /* UIKitCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCircle.swift; sourceTree = "<group>"; };
@@ -282,12 +280,12 @@
 		280CD3B62BA7391100372C5D /* ArkPhysicsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsSystem.swift; sourceTree = "<group>"; };
 		280CD3B82BA7391700372C5D /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSKPhysicsBody.swift; sourceTree = "<group>"; };
-		280CD3C32BA7419400372C5D /* ArkSceneUpdateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSceneUpdateDelegate.swift; sourceTree = "<group>"; };
+		280CD3C32BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsContactUpdateDelegate.swift; sourceTree = "<group>"; };
 		280CD3C72BA743D900372C5D /* AbstractArkPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkPhysicsBody.swift; sourceTree = "<group>"; };
 		280CD3CA2BA7455A00372C5D /* CGVector+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGVector+Extension.swift"; sourceTree = "<group>"; };
-		280CD3CD2BA74E4300372C5D /* BaseSKGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSKGameScene.swift; sourceTree = "<group>"; };
-		280CD3CF2BA74E5F00372C5D /* AbstractArkGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkGameScene.swift; sourceTree = "<group>"; };
-		280CD3D52BA7F8CC00372C5D /* SKGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKGameScene.swift; sourceTree = "<group>"; };
+		280CD3CD2BA74E4300372C5D /* BaseSKPhysicsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSKPhysicsScene.swift; sourceTree = "<group>"; };
+		280CD3CF2BA74E5F00372C5D /* AbstractArkPhysicsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkPhysicsScene.swift; sourceTree = "<group>"; };
+		280CD3D52BA7F8CC00372C5D /* SKPhysicsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsScene.swift; sourceTree = "<group>"; };
 		280CD3DB2BA8044D00372C5D /* PositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
 		280CD3DD2BA8045200372C5D /* RotationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationComponent.swift; sourceTree = "<group>"; };
 		280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSKPhysicsBodyValues.swift; sourceTree = "<group>"; };
@@ -297,7 +295,7 @@
 		28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPhysicsComponent.swift; sourceTree = "<group>"; };
 		28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchComponent.swift; sourceTree = "<group>"; };
 		28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkTimeSystem.swift; sourceTree = "<group>"; };
-		28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkSimulator.swift; sourceTree = "<group>"; };
+		28A032E42BAD781900851BFF /* AbstractPhysicsArkSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPhysicsArkSimulator.swift; sourceTree = "<group>"; };
 		28A032E62BAD783D00851BFF /* SKSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSimulator.swift; sourceTree = "<group>"; };
 		28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManagerTests.swift; sourceTree = "<group>"; };
@@ -660,18 +658,9 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		02D8E9542BAC9AAF00BF3A07 /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				02D8E9552BAC9AB700BF3A07 /* ArkGameLoop.swift */,
-			);
-			path = utils;
-			sourceTree = "<group>";
-		};
 		02E0E8DE2B9F57170043E2BA /* ark-game */ = {
 			isa = PBXGroup;
 			children = (
-				02D8E9542BAC9AAF00BF3A07 /* utils */,
 				02C394ED2BA4200F0075F1CA /* coordinator */,
 				02C394EA2BA41DE30075F1CA /* view */,
 				02C394E72BA41B3B0075F1CA /* view-model */,
@@ -734,9 +723,9 @@
 			isa = PBXGroup;
 			children = (
 				280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */,
-				280CD3CD2BA74E4300372C5D /* BaseSKGameScene.swift */,
+				280CD3CD2BA74E4300372C5D /* BaseSKPhysicsScene.swift */,
 				280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift */,
-				280CD3D52BA7F8CC00372C5D /* SKGameScene.swift */,
+				280CD3D52BA7F8CC00372C5D /* SKPhysicsScene.swift */,
 				282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */,
 				28A032E62BAD783D00851BFF /* SKSimulator.swift */,
 			);
@@ -746,10 +735,10 @@
 		280CD3D72BA7FA9A00372C5D /* ark-physics-facade */ = {
 			isa = PBXGroup;
 			children = (
-				280CD3C32BA7419400372C5D /* ArkSceneUpdateDelegate.swift */,
-				280CD3CF2BA74E5F00372C5D /* AbstractArkGameScene.swift */,
+				280CD3C32BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift */,
+				280CD3CF2BA74E5F00372C5D /* AbstractArkPhysicsScene.swift */,
 				280CD3C72BA743D900372C5D /* AbstractArkPhysicsBody.swift */,
-				28A032E42BAD781900851BFF /* AbstractArkSimulator.swift */,
+				28A032E42BAD781900851BFF /* AbstractPhysicsArkSimulator.swift */,
 			);
 			path = "ark-physics-facade";
 			sourceTree = "<group>";
@@ -1254,8 +1243,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				280CD3CE2BA74E4300372C5D /* BaseSKGameScene.swift in Sources */,
-				280CD3C42BA7419400372C5D /* ArkSceneUpdateDelegate.swift in Sources */,
+				280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */,
+				280CD3C42BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift in Sources */,
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
 				8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */,
 				28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */,
@@ -1287,7 +1276,7 @@
 				280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */,
 				02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */,
 				02D8E94C2BAC99FC00BF3A07 /* GameLoopable.swift in Sources */,
-				280CD3D02BA74E6000372C5D /* AbstractArkGameScene.swift in Sources */,
+				280CD3D02BA74E6000372C5D /* AbstractArkPhysicsScene.swift in Sources */,
 				02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */,
 				AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */,
 				28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */,
@@ -1309,7 +1298,7 @@
 				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,
 				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
-				28A032E52BAD781900851BFF /* AbstractArkSimulator.swift in Sources */,
+				28A032E52BAD781900851BFF /* AbstractPhysicsArkSimulator.swift in Sources */,
 				02C395152BA83FAE0075F1CA /* RenderableComponent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */,
@@ -1352,13 +1341,12 @@
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
 				8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */,
 				280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */,
-				280CD3D62BA7F8CC00372C5D /* SKGameScene.swift in Sources */,
+				280CD3D62BA7F8CC00372C5D /* SKPhysicsScene.swift in Sources */,
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
 				942A16852BAEA43B00F0186B /* Sound.swift in Sources */,
 				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
-				02D8E9562BAC9AB700BF3A07 /* ArkGameLoop.swift in Sources */,
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
 				02C395282BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift in Sources */,
 				280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */,

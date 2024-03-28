@@ -1,4 +1,4 @@
 protocol GameLoopable {
     var gameLoop: GameLoop? { get }
-    func handleGameProgress()
+    func handleGameProgress(dt: Double)
 }

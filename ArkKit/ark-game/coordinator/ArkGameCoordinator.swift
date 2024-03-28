@@ -3,47 +3,35 @@ import Foundation
 class ArkGameCoordinator {
     let rootView: any AbstractParentView
     let arkState: ArkState
-    let canvasFrame: CGRect
-    var gameLoop: AbstractArkSimulator
-    var arkSceneUpdateDelegate: ArkSceneUpdateDelegate?
+    let canvasContext: CanvasContext
+    var gameLoop: GameLoop
 
-    init(rootView: any AbstractParentView, arkState: ArkState, canvasFrame: CGRect, gameLoop: AbstractArkSimulator) {
+    init(rootView: any AbstractParentView, arkState: ArkState,
+         canvasContext: CanvasContext, gameLoop: GameLoop) {
         self.rootView = rootView
         self.arkState = arkState
-        self.canvasFrame = canvasFrame
+        self.canvasContext = canvasContext
         self.gameLoop = gameLoop
     }
 
     func start() {
         // initiate key M, V, VM
-        let arkGameModel = ArkGameModel(gameState: arkState, canvasFrame: canvasFrame)
+        let arkGameModel = ArkGameModel(gameState: arkState,
+                                        canvasContext: canvasContext)
         let arkViewController = ArkUIKitViewController()
         let arkViewModel = ArkViewModel(gameModel: arkGameModel)
 
         // inject dependencies between M, V, VM
         arkViewController.viewModel = arkViewModel
-        arkViewController.gameLoop = gameLoop
         arkViewModel.viewRendererDelegate = arkViewController
         arkViewModel.viewDelegate = arkViewController
-        arkViewModel.arkSceneUpdateDelegate = self
-        self.gameLoop.gameScene.sceneUpdateDelegate = arkViewModel
+
+        // inject dependencies between game loop and view
+        arkViewController.gameLoop = gameLoop
+        self.gameLoop.updateGameWorldDelegate = arkViewController
 
         // push view-controller to rootView
         rootView.pushView(arkViewController, animated: false)
         arkViewController.didMove(to: rootView)
-    }
-}
-
-extension ArkGameCoordinator: ArkSceneUpdateDelegate {
-    func didContactBegin(between entityA: Entity, and entityB: Entity) {
-        arkSceneUpdateDelegate?.didContactBegin(between: entityA, and: entityB)
-    }
-
-    func didContactEnd(between entityA: Entity, and entityB: Entity) {
-        arkSceneUpdateDelegate?.didContactEnd(between: entityA, and: entityB)
-    }
-
-    func didFinishUpdate(_ deltaTime: TimeInterval) {
-        arkSceneUpdateDelegate?.didFinishUpdate(deltaTime)
     }
 }

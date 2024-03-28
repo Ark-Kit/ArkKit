@@ -20,11 +20,6 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
         setupSimulator()
         rootView.backgroundColor = .black
 
-//        self.gameLoop = ArkGameLoop(({
-//            CADisplayLink(target: self,
-//                          selector: #selector(self.handleGameProgress))
-//        }))
-//        self.gameLoop?.setUp()
         let canvasView = UIView()
         canvasView.backgroundColor = .white
         rootView.addSubview(canvasView)
@@ -51,11 +46,8 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
         self.canvasView?.removeFromSuperview()
     }
 
-    @objc func handleGameProgress() {
-        guard let deltaTime = gameLoop?.getDeltaTime() else {
-            return
-        }
-        viewModel?.updateGame(for: deltaTime)
+    func handleGameProgress(dt: Double) {
+        viewModel?.updateGame(for: dt)
     }
 
     private func onRootViewResize(_ delegate: @escaping ScreenResizeDelegate) {
@@ -89,5 +81,11 @@ extension ArkUIKitViewController: AbstractView {
         onRootViewResize { newSize in
             delegate(newSize)
         }
+    }
+}
+
+extension ArkUIKitViewController: ArkGameWorldUpdateLoopDelegate {
+    func update(for dt: Double) {
+        self.handleGameProgress(dt: dt)
     }
 }

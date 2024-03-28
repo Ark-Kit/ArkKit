@@ -1,27 +1,33 @@
 import SpriteKit
 
-class SKGameScene: AbstractArkGameScene {
+class SKPhysicsScene: AbstractArkPhysicsScene {
     func getCurrentTime() -> TimeInterval {
-        baseGameScene.currentTime
+        basePhysicsScene.currentTime
     }
 
-    private(set) var baseGameScene: BaseSKGameScene
+    private(set) var basePhysicsScene: BaseSKPhysicsScene
     private var physicsBodyManager: SKPhysicsBodyManager
 
-    var sceneUpdateDelegate: ArkSceneUpdateDelegate? {
-        get { baseGameScene.sceneUpdateDelegate }
-        set { baseGameScene.sceneUpdateDelegate = newValue }
+    var sceneContactUpdateDelegate: ArkPhysicsContactUpdateDelegate? {
+        get { basePhysicsScene.sceneContactUpdateDelegate }
+        set { basePhysicsScene.sceneContactUpdateDelegate = newValue }
     }
 
-    init(size: CGSize) {
-        self.baseGameScene = BaseSKGameScene(size: size)
-        self.baseGameScene.delegate = self.baseGameScene
+    var sceneUpdateLoopDelegate: ArkPhysicsSceneUpdateLoopDelegate? {
+        get { basePhysicsScene.sceneUpdateLoopDelegate }
+        set { basePhysicsScene.sceneUpdateLoopDelegate = newValue }
+    }
+
+    init(size: CGSize, delegate: SKSceneDelegate? = nil) {
+        self.basePhysicsScene = BaseSKPhysicsScene(size: size)
+        self.basePhysicsScene.delegate = delegate
         self.physicsBodyManager = SKPhysicsBodyManager()
-        self.baseGameScene.gameScene = self
+        self.basePhysicsScene.gameScene = self
+
     }
 
     func getDeltaTime() -> TimeInterval {
-        baseGameScene.deltaTime
+        basePhysicsScene.deltaTime
     }
 
     func forEachEntity(perform action: (Entity, AbstractArkPhysicsBody) -> Void) {
@@ -52,7 +58,7 @@ class SKGameScene: AbstractArkGameScene {
 
     func removePhysicsBody(for entity: Entity) {
         if let physicsBody = physicsBodyManager.getBody(for: entity) {
-            baseGameScene.removeChildren(in: [physicsBody.node])
+            basePhysicsScene.removeChildren(in: [physicsBody.node])
         }
         physicsBodyManager.removeBody(for: entity)
     }
@@ -67,7 +73,7 @@ class SKGameScene: AbstractArkGameScene {
 
     func addBody(for entity: Entity, bodyToAdd: ArkSKPhysicsBody) {
         if physicsBodyManager.addBody(for: entity, body: bodyToAdd) {
-            baseGameScene.addChild(bodyToAdd.node)
+            basePhysicsScene.addChild(bodyToAdd.node)
         }
     }
 
