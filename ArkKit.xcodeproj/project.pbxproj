@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0230A4812BB7B452001CFDAF /* AbstractButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4802BB7B452001CFDAF /* AbstractButtonStyle.swift */; };
 		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
 		02A438292BB00D2B000135BC /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438282BB00D2B000135BC /* MockAction.swift */; };
 		02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382A2BB00D4D000135BC /* MockECSContext.swift */; };
@@ -188,6 +189,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0230A4802BB7B452001CFDAF /* AbstractButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractButtonStyle.swift; sourceTree = "<group>"; };
 		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
 		02A438282BB00D2B000135BC /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		02A4382A2BB00D4D000135BC /* MockECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockECSContext.swift; sourceTree = "<group>"; };
@@ -379,6 +381,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0230A47F2BB7B446001CFDAF /* style */ = {
+			isa = PBXGroup;
+			children = (
+				0230A4802BB7B452001CFDAF /* AbstractButtonStyle.swift */,
+			);
+			path = style;
+			sourceTree = "<group>";
+		};
 		02A438242BB007B1000135BC /* ark-rule-kit-tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +881,7 @@
 		945F7F8A2BA8850200933629 /* abstract */ = {
 			isa = PBXGroup;
 			children = (
+				0230A47F2BB7B446001CFDAF /* style */,
 				8FEB21862BAE752500788E20 /* event */,
 				02D8E94F2BAC9A2D00BF3A07 /* view */,
 				945F7F8D2BA8852400933629 /* input */,
@@ -1324,6 +1335,7 @@
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
 				8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */,
 				286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */,
+				0230A4812BB7B452001CFDAF /* AbstractButtonStyle.swift in Sources */,
 				02C394DE2BA4053E0075F1CA /* CanvasRenderer.swift in Sources */,
 				AD6E036F2BA21A5B00974EBF /* Queue.swift in Sources */,
 				9479A3AC2BA951F300F99013 /* AbstractBitmap.swift in Sources */,
