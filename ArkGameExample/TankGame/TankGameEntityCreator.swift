@@ -81,6 +81,12 @@ enum TankGameEntityCreator {
                     var tankShootEvent: any ArkEvent = TankShootEvent(eventData: tankShootEventData)
                     eventContext.emit(&tankShootEvent)
                 }
+                .label("Fire!", color: .blue)
+                .borderRadius(20)
+                .borderColor(.red)
+                .borderWidth(0.5)
+                .background(color: .green)
+                .padding(top: 4, bottom: 4, left: 2, right: 2)
         ])
     }
 

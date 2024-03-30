@@ -1,14 +1,16 @@
 import UIKit
 
 /**
- * `ArkViewController` is the main page that will render the game's canvas.
+ * `ArkUIKitView` is the main page that will render the game's canvas.
+ * It is `Ark`'s view for Apple's `UIKit` framework.
  */
-class ArkUIKitViewController: UIViewController, GameLoopable {
+class ArkUIKitView: UIViewController, GameLoopable {
     var viewModel: ArkViewModel?
     var gameLoop: GameLoop?
     var canvasView: UIView?
     var rootViewResizeDelegate: ScreenResizeDelegate?
     var cachedScreenSize: CGSize?
+    var canvasRenderer: (any CanvasRenderer)?
 
     var rootView: UIView {
         view
@@ -55,22 +57,23 @@ class ArkUIKitViewController: UIViewController, GameLoopable {
     }
 }
 
-extension ArkUIKitViewController: GameStateRenderer {
+extension ArkUIKitView: GameStateRenderer {
     func render(canvas: Canvas, with canvasContext: CanvasContext) {
         guard let canvasView = self.canvasView else {
             return
         }
 
         canvasView.frame = canvasContext.canvasFrame
-
-        let canvasRenderer = ArkUIKitCanvasRenderer(rootView: self.view,
-                                                    canvasView: canvasView,
-                                                    canvasFrame: canvasContext.canvasFrame)
+        let canvasRenderer = canvasRenderer ?? ArkUIKitCanvasRenderer(
+            rootView: self.view,
+            canvasView: canvasView,
+            canvasFrame: canvasContext.canvasFrame
+        )
         canvasContext.render(canvas, using: canvasRenderer)
     }
 }
 
-extension ArkUIKitViewController: AbstractView {
+extension ArkUIKitView: AbstractView {
     func didMove(to parent: any AbstractParentView) {
         guard let parentViewController = parent as? UIViewController else {
             return
@@ -84,8 +87,11 @@ extension ArkUIKitViewController: AbstractView {
     }
 }
 
-extension ArkUIKitViewController: ArkGameWorldUpdateLoopDelegate {
+extension ArkUIKitView: ArkGameWorldUpdateLoopDelegate {
     func update(for dt: Double) {
         self.handleGameProgress(dt: dt)
     }
+}
+
+extension ArkUIKitView: ArkView {
 }

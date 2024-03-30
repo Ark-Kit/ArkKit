@@ -67,6 +67,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             .zPosition(button.zPosition)
             .setIsUserInteractionEnabled(button.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: button)
+            .style(button.buttonStyleConfig, colorGetter: getColor)
     }
 
     func render(_ joystick: JoystickRenderableComponent) -> any Renderable {
@@ -86,7 +87,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
 
     let defaultColor: UIColor = .black
     let colorMapping: [AbstractColor: UIColor] = [
-        .default: .black,
+        .default: .clear,
         .blue: .blue,
         .red: .red,
         .green: .green,
