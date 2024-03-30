@@ -68,8 +68,15 @@ class Ark {
     }
 
     private func setup(_ rules: [any Rule]) {
+        // sort the rules by priority before adding to eventContext
+        let sortedRules = rules.sorted(by: { x, y in
+            if x.event == y.event {
+                return x.action.priority < y.action.priority
+            }
+            return x.event < y.event
+        })
         // subscribe all rules to the eventManager
-        for rule in rules {
+        for rule in sortedRules {
             arkState.eventManager.subscribe(to: rule.event) { event in
                 event.executeAction(rule.action, context: self.actionContext)
             }
