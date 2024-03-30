@@ -59,10 +59,10 @@ class ArkRuleKitTests: XCTestCase {
             }
             forever.execute(event, context: actionContext)
         })
-        eventManager.emit(&eventStub)
+        eventManager.emit(eventStub)
         eventManager.processEvents()
         XCTAssertEqual(executedEvents.count, 1, "Callback should be called")
-        eventManager.emit(&eventStub)
+        eventManager.emit(eventStub)
         eventManager.processEvents()
         XCTAssertEqual(executedEvents.count, 2, "Callback should be called")
     }
@@ -87,10 +87,10 @@ class ArkRuleKitTests: XCTestCase {
             }
             once.execute(event, context: actionContext)
         })
-        eventManager.emit(&eventStub)
+        eventManager.emit(eventStub)
         eventManager.processEvents()
         XCTAssertEqual(executedEvents.count, 1, "Callback should be called")
-        eventManager.emit(&eventStub)
+        eventManager.emit(eventStub)
         eventManager.processEvents()
         XCTAssertEqual(executedEvents.count, 1, "Callback should be called")
     }

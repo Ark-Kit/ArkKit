@@ -22,7 +22,6 @@ struct DemoArkEvent: ArkEvent {
 
     static var id = UUID()  // Unique identifier for the DemoArkEvent type.
     var eventData: ArkEventData?  // Optional event data.
-    var timestamp = Date()
     var priority: Int?
 
     /// Initializes a new DemoArkEvent with optional event data.
@@ -59,4 +58,4 @@ struct DemoArkEventTest {
 // let em = ArkEventManager()
 // let testEvent = DemoArkEvent(eventData: DemoArkEventData(name: "Hi", number: 4))
 // DemoArkEventTest.testSubscribe(em)
-// em.emit(&DemoArkEvent.id)
+// em.emit(DemoArkEvent.id)

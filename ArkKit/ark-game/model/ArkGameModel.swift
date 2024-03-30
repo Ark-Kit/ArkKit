@@ -19,7 +19,7 @@ class ArkGameModel {
             newSize: size
         )
         var event = ScreenResizeEvent(eventData: eventData)
-        gameState?.eventManager.emit(&event)
+        gameState?.eventManager.emit(event)
     }
 
     func retrieveCanvas() -> Canvas? {

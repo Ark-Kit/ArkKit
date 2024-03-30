@@ -48,20 +48,20 @@ enum TankGameEntityCreator {
                 .onPanStart { angle, mag in
                     let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
                                                               angle: angle, magnitude: mag)
-                    var tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
-                    eventContext.emit(&tankMoveEvent)
+                    let tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
+                    eventContext.emit(tankMoveEvent)
                 }
                 .onPanChange { angle, mag in
                     let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
                                                               angle: angle, magnitude: mag)
-                    var tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
-                    eventContext.emit(&tankMoveEvent)
+                    let tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
+                    eventContext.emit(tankMoveEvent)
                 }
                 .onPanEnd { _, _ in
                     let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
                                                               angle: 0, magnitude: 0)
-                    var tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
-                    eventContext.emit(&tankMoveEvent)
+                    let tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
+                    eventContext.emit(tankMoveEvent)
                 }
         ])
     }
@@ -79,7 +79,7 @@ enum TankGameEntityCreator {
                 .onTap {
                     let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)
                     var tankShootEvent: any ArkEvent = TankShootEvent(eventData: tankShootEventData)
-                    eventContext.emit(&tankShootEvent)
+                    eventContext.emit(tankShootEvent)
                 }
                 .label("Fire!", color: .blue)
                 .borderRadius(20)
