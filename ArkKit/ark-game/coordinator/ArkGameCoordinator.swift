@@ -18,20 +18,22 @@ class ArkGameCoordinator {
         // initiate key M, V, VM
         let arkGameModel = ArkGameModel(gameState: arkState,
                                         canvasContext: canvasContext)
-        let arkViewController = ArkUIKitViewController()
+        guard var arkView = ArkViewFactory.generateView(rootView) else {
+            return
+        }
         let arkViewModel = ArkViewModel(gameModel: arkGameModel)
 
         // inject dependencies between M, V, VM
-        arkViewController.viewModel = arkViewModel
-        arkViewModel.viewRendererDelegate = arkViewController
-        arkViewModel.viewDelegate = arkViewController
+        arkView.viewModel = arkViewModel
+        arkViewModel.viewRendererDelegate = arkView
+        arkViewModel.viewDelegate = arkView
 
         // inject dependencies between game loop and view
-        arkViewController.gameLoop = gameLoop
-        self.gameLoop.updateGameWorldDelegate = arkViewController
+        arkView.gameLoop = gameLoop
+        gameLoop.updateGameWorldDelegate = arkView
 
         // push view-controller to rootView
-        rootView.pushView(arkViewController, animated: false)
-        arkViewController.didMove(to: rootView)
+        rootView.pushView(arkView, animated: false)
+        arkView.didMove(to: rootView)
     }
 }

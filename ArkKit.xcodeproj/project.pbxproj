@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0230A4812BB7B452001CFDAF /* AbstractButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4802BB7B452001CFDAF /* AbstractButtonStyle.swift */; };
+		0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4852BB7F300001CFDAF /* ArkView.swift */; };
+		0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */; };
 		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
 		02A438292BB00D2B000135BC /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438282BB00D2B000135BC /* MockAction.swift */; };
 		02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382A2BB00D4D000135BC /* MockECSContext.swift */; };
@@ -20,7 +22,7 @@
 		02C394E32BA407420075F1CA /* Ark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394E22BA407420075F1CA /* Ark.swift */; };
 		02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394E52BA41AC60075F1CA /* ArkGameModel.swift */; };
 		02C394E92BA41B480075F1CA /* ArkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394E82BA41B480075F1CA /* ArkViewModel.swift */; };
-		02C394EC2BA41DF00075F1CA /* ArkUIKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394EB2BA41DF00075F1CA /* ArkUIKitViewController.swift */; };
+		02C394EC2BA41DF00075F1CA /* ArkUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394EB2BA41DF00075F1CA /* ArkUIKitView.swift */; };
 		02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394EE2BA420210075F1CA /* ArkGameCoordinator.swift */; };
 		02C394F72BA4428A0075F1CA /* UIKitJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394F62BA4428A0075F1CA /* UIKitJoystick.swift */; };
 		02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394F82BA443830075F1CA /* TapRenderable.swift */; };
@@ -190,6 +192,8 @@
 
 /* Begin PBXFileReference section */
 		0230A4802BB7B452001CFDAF /* AbstractButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractButtonStyle.swift; sourceTree = "<group>"; };
+		0230A4852BB7F300001CFDAF /* ArkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkView.swift; sourceTree = "<group>"; };
+		0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkViewFactory.swift; sourceTree = "<group>"; };
 		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
 		02A438282BB00D2B000135BC /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		02A4382A2BB00D4D000135BC /* MockECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockECSContext.swift; sourceTree = "<group>"; };
@@ -202,7 +206,7 @@
 		02C394E22BA407420075F1CA /* Ark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ark.swift; sourceTree = "<group>"; };
 		02C394E52BA41AC60075F1CA /* ArkGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkGameModel.swift; sourceTree = "<group>"; };
 		02C394E82BA41B480075F1CA /* ArkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkViewModel.swift; sourceTree = "<group>"; };
-		02C394EB2BA41DF00075F1CA /* ArkUIKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUIKitViewController.swift; sourceTree = "<group>"; };
+		02C394EB2BA41DF00075F1CA /* ArkUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUIKitView.swift; sourceTree = "<group>"; };
 		02C394EE2BA420210075F1CA /* ArkGameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkGameCoordinator.swift; sourceTree = "<group>"; };
 		02C394F62BA4428A0075F1CA /* UIKitJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitJoystick.swift; sourceTree = "<group>"; };
 		02C394F82BA443830075F1CA /* TapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapRenderable.swift; sourceTree = "<group>"; };
@@ -389,6 +393,15 @@
 			path = style;
 			sourceTree = "<group>";
 		};
+		0230A4822BB7EECD001CFDAF /* ark-uikit-lib */ = {
+			isa = PBXGroup;
+			children = (
+				02C395272BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift */,
+				02E0E8EA2BA280890043E2BA /* view-components */,
+			);
+			path = "ark-uikit-lib";
+			sourceTree = "<group>";
+		};
 		02A438242BB007B1000135BC /* ark-rule-kit-tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +461,8 @@
 			isa = PBXGroup;
 			children = (
 				02D8E9492BAC8E9900BF3A07 /* ui-kit */,
+				0230A4852BB7F300001CFDAF /* ArkView.swift */,
+				0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -642,9 +657,7 @@
 		02D8E9492BAC8E9900BF3A07 /* ui-kit */ = {
 			isa = PBXGroup;
 			children = (
-				02E0E8EA2BA280890043E2BA /* view-components */,
-				02C394EB2BA41DF00075F1CA /* ArkUIKitViewController.swift */,
-				02C395272BA891AA0075F1CA /* ArkUIKitCanvasRenderer.swift */,
+				02C394EB2BA41DF00075F1CA /* ArkUIKitView.swift */,
 			);
 			path = "ui-kit";
 			sourceTree = "<group>";
@@ -1046,6 +1059,7 @@
 		AD787A4F2B9C636F003EBBD0 /* ArkKit */ = {
 			isa = PBXGroup;
 			children = (
+				0230A4822BB7EECD001CFDAF /* ark-uikit-lib */,
 				02C394E22BA407420075F1CA /* Ark.swift */,
 				02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */,
 				02E0E8DE2B9F57170043E2BA /* ark-game */,
@@ -1259,6 +1273,7 @@
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
 				8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */,
 				28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */,
+				0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */,
 				945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */,
 				02C394F72BA4428A0075F1CA /* UIKitJoystick.swift in Sources */,
 				280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */,
@@ -1297,7 +1312,7 @@
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
 				02D8E9532BAC9A5A00BF3A07 /* AbstractView.swift in Sources */,
 				02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */,
-				02C394EC2BA41DF00075F1CA /* ArkUIKitViewController.swift in Sources */,
+				02C394EC2BA41DF00075F1CA /* ArkUIKitView.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* RootViewController.swift in Sources */,
 				02C394E32BA407420075F1CA /* Ark.swift in Sources */,
@@ -1356,6 +1371,7 @@
 				280CD3D62BA7F8CC00372C5D /* SKPhysicsScene.swift in Sources */,
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
 				942A16852BAEA43B00F0186B /* Sound.swift in Sources */,
+				0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */,
 				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
