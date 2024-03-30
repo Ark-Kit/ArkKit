@@ -1,6 +1,6 @@
 enum ButtonState {
     case normal
-    case highlight
+    case highlighted
     case disabled
     case selected
     case focused
