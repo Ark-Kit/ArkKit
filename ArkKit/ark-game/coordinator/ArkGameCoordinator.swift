@@ -6,12 +6,19 @@ class ArkGameCoordinator {
     let canvasContext: CanvasContext
     var gameLoop: GameLoop
 
-    init(rootView: any AbstractParentView, arkState: ArkState,
-         canvasContext: CanvasContext, gameLoop: GameLoop) {
+    var canvasRenderer: (any CanvasRenderer)?
+
+    init(rootView: any AbstractParentView,
+         arkState: ArkState,
+         canvasContext: CanvasContext,
+         gameLoop: GameLoop,
+         canvasRenderer: (any CanvasRenderer)? = nil
+    ) {
         self.rootView = rootView
         self.arkState = arkState
         self.canvasContext = canvasContext
         self.gameLoop = gameLoop
+        self.canvasRenderer = canvasRenderer
     }
 
     func start() {
@@ -31,6 +38,9 @@ class ArkGameCoordinator {
         // inject dependencies between game loop and view
         arkView.gameLoop = gameLoop
         gameLoop.updateGameWorldDelegate = arkView
+
+        // inject renderer dependency into arkView
+        arkView.canvasRenderer = canvasRenderer
 
         // push view-controller to rootView
         rootView.pushView(arkView, animated: false)

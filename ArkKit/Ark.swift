@@ -40,13 +40,18 @@ class Ark {
                                              height: blueprint.frameHeight))
     }
 
-    init(rootView: any AbstractRootView, blueprint: ArkBlueprint) {
+    var canvasRenderer: (any CanvasRenderer)?
+
+    init(rootView: any AbstractRootView,
+         blueprint: ArkBlueprint,
+         canvasRenderer: (any CanvasRenderer)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioPlayer()
+        self.canvasRenderer = canvasRenderer
     }
 
     func start() {
@@ -63,7 +68,8 @@ class Ark {
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasContext: canvasContext,
-                                                 gameLoop: gameLoop)
+                                                 gameLoop: gameLoop,
+                                                 canvasRenderer: canvasRenderer)
         gameCoordinator.start()
     }
 
