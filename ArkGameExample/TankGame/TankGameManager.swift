@@ -99,6 +99,11 @@ class TankGameManager {
             .on(TankMoveEvent.self) { event, context in
                 self.handleTankMove(event, in: context)
             }
+            .on(TankMoveEvent.self, chain: {_, _ in
+                print("first")
+            }, { _, _ in
+                print("last")
+            })
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
             }
