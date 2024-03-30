@@ -10,7 +10,6 @@ struct MockEventData: ArkEventData {
 struct EventStub: ArkEvent {
     static var id: ArkEventID = UUID()
     var eventData: ArkEventData
-    var timestamp = Date()
     var priority: Int?
 
     init(name: String = "MockEvent", priority: Int = 1) {
@@ -22,7 +21,6 @@ struct EventStub: ArkEvent {
 struct EventStub1: ArkEvent {
     static var id: ArkEventID = UUID()
     var eventData: ArkEventData
-    var timestamp = Date()
     var priority: Int?
 
     init(name: String = "MockEvent", priority: Int = 1) {
@@ -34,7 +32,6 @@ struct EventStub1: ArkEvent {
 struct EventStub2: ArkEvent {
     static var id: ArkEventID = UUID()
     var eventData: ArkEventData
-    var timestamp = Date()
     var priority: Int?
 
     init(name: String = "MockEvent", priority: Int = 1) {
@@ -66,7 +63,7 @@ class ArkEventKitTests: XCTestCase {
         }
 
         var event = EventStub()
-        eventManager.emit(&event)
+        eventManager.emit(event)
         eventManager.processEvents()
 
         waitForExpectations(timeout: 1) { error in
@@ -88,7 +85,7 @@ class ArkEventKitTests: XCTestCase {
         }
 
         var event = EventStub() // Default event
-        eventManager.emit(&event)
+        eventManager.emit(event)
         eventManager.processEvents()
 
         wait(for: [expectation1, expectation2], timeout: 1)
@@ -108,8 +105,8 @@ class ArkEventKitTests: XCTestCase {
             executionOrder.append(event.priority ?? 0)
         }
 
-        eventManager.emit(&highPriorityEvent)
-        eventManager.emit(&lowPriorityEvent)
+        eventManager.emit(highPriorityEvent)
+        eventManager.emit(lowPriorityEvent)
 
         XCTAssertEqual(executionOrder, [], "Array should be empty")
 
@@ -132,8 +129,8 @@ class ArkEventKitTests: XCTestCase {
             handledEventsNames.append("FirstEvent")
         }
 
-        eventManager.emit(&firstEvent)
-        eventManager.emit(&secondEvent)
+        eventManager.emit(firstEvent)
+        eventManager.emit(secondEvent)
         eventManager.processEvents()
 
         XCTAssertEqual(handledEventsNames, ["FirstEvent", "SecondEvent"],
@@ -150,7 +147,7 @@ class ArkEventKitTests: XCTestCase {
             modificationFlag = true
         }
 
-        eventManager.emit(&event)
+        eventManager.emit(event)
         eventManager.processEvents()
 
         XCTAssertTrue(modificationFlag, "The event listener should have been called and attempted a modification")
@@ -163,7 +160,7 @@ class ArkEventKitTests: XCTestCase {
 
         eventManager.subscribe(to: EventStub.id) { [weak self] _ in
             var newEvent = EventStub1(name: newEventName, priority: 2)
-            self?.eventManager.emit(&newEvent)
+            self?.eventManager.emit(newEvent)
         }
 
         var newEventTriggered = false
@@ -171,7 +168,7 @@ class ArkEventKitTests: XCTestCase {
             newEventTriggered = true
         }
 
-        eventManager.emit(&initialEvent)
+        eventManager.emit(initialEvent)
         eventManager.processEvents()
         eventManager.processEvents()
 

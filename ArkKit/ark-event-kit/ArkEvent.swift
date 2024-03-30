@@ -14,6 +14,5 @@ protocol ArkEvent<Data> {
 
     static var id: ArkEventID { get }
     var eventData: Data { get }
-    var timestamp: Date { get set }
     var priority: Int? { get set }
 }

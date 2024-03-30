@@ -17,7 +17,6 @@ struct TankMoveEventData: ArkEventData {
 struct TankMoveEvent: ArkEvent {
     static var id = UUID()
     var eventData: TankMoveEventData
-    var timestamp = Date()
     var priority: Int?
 
     init(eventData: TankMoveEventData, priority: Int? = nil) {

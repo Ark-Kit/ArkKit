@@ -167,12 +167,12 @@ class ArkPhysicsSystem: System {
     // MARK: Handle Collision
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity) {
         var arkCollisionEvent = makeCollisionEvent(ArkCollisionBeganEvent.self, entityA, entityB)
-        self.eventManager.emit(&arkCollisionEvent)
+        self.eventManager.emit(arkCollisionEvent)
     }
 
     func handleCollisionEnd(between entityA: Entity, and entityB: Entity) {
         var arkCollisionEvent = makeCollisionEvent(ArkCollisionEndedEvent.self, entityA, entityB)
-        self.eventManager.emit(&arkCollisionEvent)
+        self.eventManager.emit(arkCollisionEvent)
     }
 
     private func makeCollisionEvent<T: ArkCollisionEventProtocol> (_ eventType: T.Type,
@@ -221,7 +221,6 @@ struct ArkCollisionEventData: ArkEventData {
 struct ArkCollisionEndedEvent: ArkCollisionEventProtocol {
     static var id = UUID()
     var eventData: ArkCollisionEventData
-    var timestamp = Date()
     var priority: Int?
 
     init(eventData: ArkCollisionEventData, priority: Int? = 10) {
@@ -232,7 +231,6 @@ struct ArkCollisionEndedEvent: ArkCollisionEventProtocol {
 struct ArkCollisionBeganEvent: ArkCollisionEventProtocol {
     static var id = UUID()
     var eventData: ArkCollisionEventData
-    var timestamp = Date()
     var priority: Int?
 
     init(eventData: ArkCollisionEventData, priority: Int? = 10) {
