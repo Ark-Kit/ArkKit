@@ -45,4 +45,11 @@ struct ArkBlueprint {
         newSelf.rules = newRules
         return newSelf
     }
+
+    func when(_ predicate: () -> Bool,
+              then callback: (ArkActionContext) -> Void) {
+        // TODO: turn predicate into a system
+        // that checks every tick if predicate evaluates to true
+        // create callback to deal witl
+    }
 }
