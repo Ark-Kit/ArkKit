@@ -25,7 +25,7 @@ struct ArkBlueprint {
     ) -> Self {
         let action = ArkAction(callback: callback)
         var newRules = rules
-        newRules.append(ArkRule(event: Event.id, action: action))
+        newRules.append(ArkRule(event: eventType, action: action))
 
         var newSelf = self
         newSelf.rules = newRules
@@ -39,7 +39,7 @@ struct ArkBlueprint {
         var newRules = rules
         for (i, callback) in callbacks.enumerated() {
             let action = ArkAction(callback: callback, priority: i + 1)
-            newRules.append(ArkRule(event: Event.id, action: action))
+            newRules.append(ArkRule(event: eventType, action: action))
         }
         var newSelf = self
         newSelf.rules = newRules

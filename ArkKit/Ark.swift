@@ -79,7 +79,7 @@ class Ark {
             if x.event == y.event {
                 return x.action.priority < y.action.priority
             }
-            return x.event < y.event
+            return x.event.id < y.event.id
         })
         // subscribe all rules to the eventManager
         for rule in sortedRules {
