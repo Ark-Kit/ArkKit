@@ -40,23 +40,12 @@ class ArkNetworkService: NSObject {
         self.serviceBrowser.stopBrowsingForPeers()
     }
 
-    func sendGameData(data: Data) {
+    func sendData(data: Data) {
         if !session.connectedPeers.isEmpty {
             do {
                 try session.send(data, toPeers: session.connectedPeers, with: .reliable)
             } catch {
                 print("Error sending data: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    func sendGameAction(action: String) {
-        if !session.connectedPeers.isEmpty {
-            do {
-                let data = action.data(using: .utf8)!
-                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
-            } catch {
-                print("Error sending action: \(error.localizedDescription)")
             }
         }
     }
@@ -71,8 +60,11 @@ extension ArkNetworkService: MCSessionDelegate {
     }
 
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        DispatchQueue.main.async { [unowned self] in
-            delegate?.gameDataReceived(manager: self, gameData: data)
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.delegate?.gameDataReceived(manager: strongSelf, gameData: data)
         }
     }
 

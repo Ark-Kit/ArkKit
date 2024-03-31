@@ -13,7 +13,7 @@ import Foundation
  */
 class Ark {
     let rootView: any AbstractRootView
-    let arkState: ArkState
+    var arkState: ArkState
     var gameLoop: GameLoop?
 
     let blueprint: ArkBlueprint
@@ -55,6 +55,8 @@ class Ark {
     }
 
     func start() {
+        // TODO: Implement this in a better way
+        enableMultiplayerMode(serviceName: "tankGame")
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
         setupDefaultEntities()
@@ -71,6 +73,15 @@ class Ark {
                                                  gameLoop: gameLoop,
                                                  canvasRenderer: canvasRenderer)
         gameCoordinator.start()
+    }
+
+    // TODO: Implement this in a better way
+    func enableMultiplayerMode(serviceName: String) {
+        let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
+        let multiplayerEventManager = ArkMultiplayerEventManager(arkMultiplayerManager: multiplayerManager)
+        multiplayerManager.multiplayerEventManager = multiplayerEventManager
+
+        self.arkState = ArkState(eventManager: multiplayerEventManager, arkECS: ArkECS())
     }
 
     private func setup(_ rules: [any Rule]) {

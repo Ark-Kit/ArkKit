@@ -11,22 +11,19 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     private var networkService: ArkNetworkService
     var multiplayerEventManager: ArkMultiplayerEventManager?
 
-    init() {
-        self.networkService = ArkNetworkService()
+    init(serviceName: String) {
+        self.networkService = ArkNetworkService(serviceType: serviceName)
         self.networkService.delegate = self
     }
 
     func sendEvent(event: any ArkEvent) {
-        guard let event = event as? any SendableEvent else {
-            return
-        }
-
         do {
             let eventData = try JSONEncoder().encode(event)
-            let wrapper = DataWrapper(type: .event, payload: eventData)
+            let eventName = String(describing: type(of: event))
+            let wrapper = DataWrapper(type: .event, name: eventName, payload: eventData)
             let wrappedData = try JSONEncoder().encode(wrapper)
 
-            networkService.sendGameData(data: wrappedData)
+            networkService.sendData(data: wrappedData)
         } catch {
             print("Error encoding or sending event: \(error)")
         }
@@ -34,23 +31,23 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
 
     func gameDataReceived(manager: ArkNetworkService, gameData: Data) {
         do {
-            let wrapper = try JSONDecoder().decode(DataWrapper.self, from: gameData)
+            let wrappedData = try JSONDecoder().decode(DataWrapper.self, from: gameData)
 
-//            switch wrapper.type {
-//            case .event:
-//                let event = try JSONDecoder().decode(SendableEvent.self, from: wrapper.payload)
-//                // Handle the event
-//            case .state:
-//                let state = try JSONDecoder().decode(SendableEvent.self, from: wrapper.payload)
-//                // Handle the state
-//            }
+            if wrappedData.type == .event {
+                if let event = try multiplayerEventManager?.eventRegistry.decode(from: wrappedData.payload,
+                                                                                 typeName: wrappedData.name) {
+                    processEvent(event: event)
+                }
+            }
+
         } catch {
             print("Error decoding received data: \(error)")
         }
     }
 
-    func processEvent(event: any ArkEvent) {
-        multiplayerEventManager?.emit(event)
+    private func processEvent(event: any ArkEvent) {
+        print("Received event: \(event)")
+        multiplayerEventManager?.emitWithoutBroadcast(event)
     }
 
     func connectedDevicesChanged(manager: ArkNetworkService, connectedDevices: [String]) {

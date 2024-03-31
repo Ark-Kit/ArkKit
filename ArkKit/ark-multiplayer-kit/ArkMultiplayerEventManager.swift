@@ -7,24 +7,30 @@
 
 import Foundation
 
-class ArkMultiplayerEventManager: ArkEventContext {
+class ArkMultiplayerEventManager: ArkEventManager {
     private var arkEventManager = ArkEventManager()
     private var arkMultiplayerManager: ArkMultiplayerManager
 
     init(arkMultiplayerManager: ArkMultiplayerManager) {
         self.arkMultiplayerManager = arkMultiplayerManager
+        super.init()
+
         self.arkMultiplayerManager.multiplayerEventManager = self
     }
 
-    func subscribe(to eventId: ArkEventID, _ listener: @escaping (any ArkEvent) -> Void) {
-        arkEventManager.subscribe(to: eventId, listener)
+    override func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
+        arkEventManager.subscribe(to: eventType, listener)
     }
 
-    func emit<Event: ArkEvent>(_ event: Event) {
+    override func emit<Event: ArkEvent>(_ event: Event) {
         arkEventManager.emit(event)
     }
 
-    func processEvents() {
+    func emitWithoutBroadcast<Event: ArkEvent>(_ event: Event) {
+        arkEventManager.emit(event)
+    }
+
+    override func processEvents() {
         arkEventManager.processEvents()
     }
 }
