@@ -39,7 +39,7 @@ class ArkRuleKitTests: XCTestCase {
     }
 
     /// INTEGRATION TESTS
-    func testForeverExecution_shouldExecuteTwice() {
+    func testArkActionExecution_shouldExecute() {
         let eventManager = ArkEventManager()
         var executedEvents: [EventStub] = []
 
@@ -47,8 +47,8 @@ class ArkRuleKitTests: XCTestCase {
             executedEvents.append(event)
         }
 
-        let forever = Forever(mockCallback)
-        var eventStub = EventStub()
+        let forever = ArkAction(callback: mockCallback)
+        let eventStub = EventStub()
         let actionContext = ArkActionContext(ecs: MockECSContext(),
                                              events: eventManager,
                                              display: MockDisplayContext(),
@@ -65,33 +65,5 @@ class ArkRuleKitTests: XCTestCase {
         eventManager.emit(eventStub)
         eventManager.processEvents()
         XCTAssertEqual(executedEvents.count, 2, "Callback should be called")
-    }
-
-    func testOnceExecution_shouldExecuteOnce() {
-        let eventManager = ArkEventManager()
-        var executedEvents: [EventStub] = []
-
-        let mockCallback: ActionCallback<EventStub> = { event, _ in
-            executedEvents.append(event)
-        }
-
-        let once = Once(mockCallback)
-        var eventStub = EventStub()
-        let actionContext = ArkActionContext(ecs: MockECSContext(),
-                                             events: eventManager,
-                                             display: MockDisplayContext(),
-                                             audio: MockAudioContext())
-        eventManager.subscribe(to: EventStub.id, { event in
-            guard let event = event as? EventStub else {
-                return
-            }
-            once.execute(event, context: actionContext)
-        })
-        eventManager.emit(eventStub)
-        eventManager.processEvents()
-        XCTAssertEqual(executedEvents.count, 1, "Callback should be called")
-        eventManager.emit(eventStub)
-        eventManager.processEvents()
-        XCTAssertEqual(executedEvents.count, 1, "Callback should be called")
     }
 }

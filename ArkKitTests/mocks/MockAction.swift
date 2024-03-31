@@ -1,6 +1,8 @@
 @testable import ArkKit
 
 class MockAction<Event: ArkEvent>: Action {
+    var priority: Int = 0
+
     // Implement the execute method to store executed events and contexts
     private(set) var executedEvents: [(event: Event, context: ArkActionContext)] = []
 
