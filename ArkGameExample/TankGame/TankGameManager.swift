@@ -89,7 +89,12 @@ class TankGameManager {
             }
     }
 
-    func setUpSystems() {}
+    func setUpSystems() {
+        blueprint = blueprint
+            .forEachTick { deltaTime, _ in
+                print(deltaTime)
+            }
+    }
 
     func setUpRules() {
         blueprint = blueprint
