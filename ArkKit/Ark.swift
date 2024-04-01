@@ -111,7 +111,7 @@ class Ark {
         }
 
         for rule in timeRules {
-            guard let action = rule.action as? any Action<Double> else {
+            guard let action = rule.action as? any Action<TimeInterval> else {
                 continue
             }
             let system = ArkUpdateSystem(action: action, context: self.actionContext)
