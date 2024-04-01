@@ -55,10 +55,10 @@ class Ark {
     }
 
     func start() {
-        setup(blueprint.setupFunctions)
-        setup(blueprint.rules)
         setupDefaultEntities()
         setupDefaultSystems(blueprint)
+        setup(blueprint.setupFunctions)
+        setup(blueprint.rules)
 
         guard let gameLoop = self.gameLoop else {
             return
@@ -74,18 +74,48 @@ class Ark {
     }
 
     private func setup(_ rules: [any Rule]) {
+        // filter for event-based rules only
+        let eventRules: [any Rule<ArkEventID>] = rules.filter { rule in
+            rule.trigger is ArkEventID
+        }.map { rule in
+            guard let eventRule = rule as? any Rule<ArkEventID> else {
+                fatalError("[Ark.setup(rules)] map failed: Unexpected type in array")
+            }
+            return eventRule
+        }
         // sort the rules by priority before adding to eventContext
-        let sortedRules = rules.sorted(by: { x, y in
-            if x.event == y.event {
+        let sortedRules = eventRules.sorted(by: { x, y in
+            if x.trigger == y.trigger {
                 return x.action.priority < y.action.priority
             }
-            return x.event < y.event
+            return x.trigger < y.trigger
         })
         // subscribe all rules to the eventManager
         for rule in sortedRules {
-            arkState.eventManager.subscribe(to: rule.event) { event in
+            arkState.eventManager.subscribe(to: rule.trigger) { event in
                 event.executeAction(rule.action, context: self.actionContext)
             }
+        }
+
+        // filter for time-based rules only
+        let timeRules: [any Rule<RuleTrigger>] = rules.filter { rule in
+            guard let trigger = rule.trigger as? RuleTrigger else {
+                return false
+            }
+            return trigger == RuleTrigger.updateSystem
+        }.map { rule in
+            guard let timeRule = rule as? any Rule<RuleTrigger> else {
+                fatalError("[Ark.setup(rules)] map failed: Unexpected type in array")
+            }
+            return timeRule
+        }
+
+        for rule in timeRules {
+            guard let action = rule.action as? any Action<Double> else {
+                continue
+            }
+            let system = ArkUpdateSystem(action: action, context: self.actionContext)
+            arkState.arkECS.addSystem(system)
         }
     }
 

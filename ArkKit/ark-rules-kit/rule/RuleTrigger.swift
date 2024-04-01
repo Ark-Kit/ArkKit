@@ -1,8 +1,6 @@
-//
-//  RuleTrigger.swift
-//  ArkKit
-//
-//  Created by Didymus Ne on 1/4/24.
-//
-
-import Foundation
+enum RuleTrigger {
+    case updateSystem
+    static func event(_ eventId: ArkEventID) -> ArkEventID {
+        eventId
+    }
+}

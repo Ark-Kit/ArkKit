@@ -11,6 +11,8 @@
 		0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4852BB7F300001CFDAF /* ArkView.swift */; };
 		0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */; };
 		0230A48E2BB950AF001CFDAF /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */; };
+		0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */; };
+		0267BA1E2BBB07D80010F729 /* ArkUpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */; };
 		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
 		02A438292BB00D2B000135BC /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438282BB00D2B000135BC /* MockAction.swift */; };
 		02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382A2BB00D4D000135BC /* MockECSContext.swift */; };
@@ -196,6 +198,8 @@
 		0230A4852BB7F300001CFDAF /* ArkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkView.swift; sourceTree = "<group>"; };
 		0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkViewFactory.swift; sourceTree = "<group>"; };
 		0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTrigger.swift; sourceTree = "<group>"; };
+		0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUpdateSystem.swift; sourceTree = "<group>"; };
 		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
 		02A438282BB00D2B000135BC /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		02A4382A2BB00D4D000135BC /* MockECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockECSContext.swift; sourceTree = "<group>"; };
@@ -508,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				02C395022BA5B95B0075F1CA /* Rule.swift */,
+				0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */,
 			);
 			path = rule;
 			sourceTree = "<group>";
@@ -783,6 +788,7 @@
 			isa = PBXGroup;
 			children = (
 				28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */,
+				0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */,
 			);
 			path = InternalSystems;
 			sourceTree = "<group>";
@@ -1313,6 +1319,7 @@
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */,
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
+				0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */,
 				02D8E9532BAC9A5A00BF3A07 /* AbstractView.swift in Sources */,
 				02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */,
 				02C394EC2BA41DF00075F1CA /* ArkUIKitView.swift in Sources */,
@@ -1388,6 +1395,7 @@
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
 				8FEB218C2BAF453900788E20 /* ArkAnimationsComponent.swift in Sources */,
 				280CD3E02BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift in Sources */,
+				0267BA1E2BBB07D80010F729 /* ArkUpdateSystem.swift in Sources */,
 				AD6E03742BA2DB4100974EBF /* PriorityQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
