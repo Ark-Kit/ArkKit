@@ -1,11 +1,10 @@
-protocol Rule {
-    associatedtype Event: ArkEvent
-
-    var event: ArkEventID { get }
-    var action: any Action<Event> { get }
+protocol Rule<Trigger> {
+    associatedtype Trigger: Equatable
+    var trigger: Trigger { get }
+    var action: any Action { get }
 }
 
-struct ArkRule<Event: ArkEvent>: Rule {
-    let event: ArkEventID
-    let action: any Action<Event>
+struct ArkRule<Trigger>: Rule where Trigger: Equatable {
+    let trigger: Trigger
+    let action: any Action
 }

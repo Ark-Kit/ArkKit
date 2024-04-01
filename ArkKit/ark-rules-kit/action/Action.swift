@@ -1,12 +1,11 @@
-protocol Action<Event> {
-    associatedtype Event: ArkEvent
+protocol Action<Data> {
+    associatedtype Data
     var priority: Int { get }
 
-    func execute(_ event: Event,
-                 context: ArkActionContext)
+    func execute(_ data: Data, context: ArkActionContext)
 }
 
-struct ArkAction<Event: ArkEvent>: Action {
+struct ArkEventAction<Event: ArkEvent>: Action {
     let callback: ActionCallback<Event>
     let priority: Int
 
@@ -14,10 +13,28 @@ struct ArkAction<Event: ArkEvent>: Action {
         self.callback = callback
         self.priority = priority
     }
-    func execute(_ event: Event,
+    func execute(_ data: Event,
                  context: ArkActionContext) {
-        callback(event, context)
+        callback(data, context)
+    }
+}
+
+struct ArkTickAction: Action {
+    typealias DeltaTime = Double
+
+    let callback: UpdateActionCallback
+    let priority: Int
+
+    init(callback: @escaping UpdateActionCallback, priority: Int = 0) {
+        self.callback = callback
+        self.priority = priority
+    }
+
+    func execute(_ data: DeltaTime,
+                 context: ArkActionContext) {
+        callback(data, context)
     }
 }
 
 typealias ActionCallback<Event: ArkEvent> = (Event, ArkActionContext) -> Void
+typealias UpdateActionCallback = (Double, ArkActionContext) -> Void
