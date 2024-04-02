@@ -104,7 +104,10 @@ class TankGameManager {
             .on(TankMoveEvent.self) { event, context in
                 self.handleTankMove(event, in: context)
             }
-            .on(TankMoveEvent.self, chain: {_, _ in
+            .on(TankMoveEvent.self,
+                // will not call print since condition not satisfied
+                conditionalOn: { _ in false }, { _ in true },
+                chain: {_, _ in
                 print("first")
             }, { _, _ in
                 print("last")
@@ -118,6 +121,7 @@ class TankGameManager {
             .on(ArkCollisionEndedEvent.self) { event, context in
                 self.handleContactEnd(event, in: context)
             }
+
     }
 
     private func createTankEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {
