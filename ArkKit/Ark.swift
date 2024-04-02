@@ -81,7 +81,7 @@ class Ark {
     // TODO: Implement this in a better way
     func enableMultiplayerMode(serviceName: String) {
         let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
-        let multiplayerEventManager = ArkMultiplayerEventManager(arkMultiplayerManager: multiplayerManager)
+        let multiplayerEventManager = ArkMultiplayerEventManager(networkManagerDelegate: multiplayerManager)
         multiplayerManager.multiplayerEventManager = multiplayerEventManager
 
         self.arkState = ArkState(eventManager: multiplayerEventManager, arkECS: ArkECS())

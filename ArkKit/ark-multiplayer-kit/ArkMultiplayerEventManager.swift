@@ -9,13 +9,11 @@ import Foundation
 
 class ArkMultiplayerEventManager: ArkEventManager {
     private var arkEventManager = ArkEventManager()
-    private var arkMultiplayerManager: ArkMultiplayerManager
+    weak var networkManagerDelegate: ArkMultiplayerManagerDelegate?
 
-    init(arkMultiplayerManager: ArkMultiplayerManager) {
-        self.arkMultiplayerManager = arkMultiplayerManager
+    init(networkManagerDelegate: ArkMultiplayerManagerDelegate? = nil) {
+        self.networkManagerDelegate = networkManagerDelegate
         super.init()
-
-        self.arkMultiplayerManager.multiplayerEventManager = self
         self.arkEventManager.eventRegistry = self.eventRegistry
     }
 
@@ -25,7 +23,7 @@ class ArkMultiplayerEventManager: ArkEventManager {
 
     override func emit<Event: ArkEvent>(_ event: Event) {
         arkEventManager.emit(event)
-        arkMultiplayerManager.sendEvent(event: event)
+        networkManagerDelegate?.shouldSendEvent(event)
     }
 
     func emitWithoutBroadcast<Event: ArkEvent>(_ event: Event) {
@@ -35,4 +33,8 @@ class ArkMultiplayerEventManager: ArkEventManager {
     override func processEvents() {
         arkEventManager.processEvents()
     }
+}
+
+protocol ArkMultiplayerManagerDelegate: AnyObject {
+    func shouldSendEvent<Event: ArkEvent>(_ event: Event)
 }

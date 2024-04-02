@@ -8,7 +8,7 @@
 import MultipeerConnectivity
 
 class ArkMultiplayerManager: ArkNetworkDelegate {
-    private var networkService: ArkNetworkService
+    private var networkService: ArkNetworkProtocol
     var multiplayerEventManager: ArkMultiplayerEventManager?
 
     init(serviceName: String) {
@@ -18,12 +18,8 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
 
     func sendEvent(event: any ArkEvent) {
         do {
-            let eventData = try JSONEncoder().encode(event)
-            let eventName = String(describing: type(of: event))
-            let wrapper = DataWrapper(type: .event, name: eventName, payload: eventData)
-            let wrappedData = try JSONEncoder().encode(wrapper)
-
-            networkService.sendData(data: wrappedData)
+            let encodedEvent = try ArkDataSerializer.encodeEvent(event)
+            networkService.sendData(data: encodedEvent)
         } catch {
             print("Error encoding or sending event: \(error)")
         }
@@ -35,11 +31,9 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
             if wrappedData.type == .event {
                 if let event = try multiplayerEventManager?.eventRegistry.decode(from: wrappedData.payload,
                                                                                  typeName: wrappedData.name) {
-                    print(event)
                     processEvent(event: event)
                 }
             }
-
         } catch {
             print("Error decoding received data: \(error)")
         }
@@ -52,4 +46,10 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     func connectedDevicesChanged(manager: ArkNetworkService, connectedDevices: [String]) {
     }
 
+}
+
+extension ArkMultiplayerManager: ArkMultiplayerManagerDelegate {
+    func shouldSendEvent<Event: ArkEvent>(_ event: Event) {
+        sendEvent(event: event)
+    }
 }

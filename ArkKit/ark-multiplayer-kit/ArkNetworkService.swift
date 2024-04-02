@@ -8,13 +8,13 @@
 import UIKit
 import P2PShare
 
-class ArkNetworkService {
+class ArkNetworkService: ArkNetworkProtocol {
     private let myPeerInfo = PeerInfo(["name": UIDevice.current.name])
     private var peers: [PeerInfo] = []
     private var session: MultipeerSession!
     var delegate: ArkNetworkDelegate?
 
-    init(serviceName: String = "Ark") {
+    required init(serviceName: String = "Ark") {
         let config = MultipeerSessionConfig(myPeerInfo: myPeerInfo,
                                             bonjourService: "_ArkMultiplayer._tcp",
                                             presharedKey: "12345",
