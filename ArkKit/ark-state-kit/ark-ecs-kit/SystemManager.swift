@@ -8,7 +8,9 @@
 import Foundation
 
 class SystemManager {
-    private var systems: [ObjectIdentifier: System] = [:]
+    typealias SystemType = ObjectIdentifier
+
+    private(set) var systems: OrderedDictionary<SystemType, System> = OrderedDictionary()
 
     func add(_ system: System) {
         let identifier = ObjectIdentifier(type(of: system))
@@ -26,7 +28,7 @@ class SystemManager {
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        for system in systems.values {
+        for (_, system) in systems {
             system.update(deltaTime: deltaTime, arkECS: arkECS)
         }
     }
