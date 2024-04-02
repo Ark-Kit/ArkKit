@@ -17,6 +17,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     }
 
     func sendEvent(event: any ArkEvent) {
+        print("sending event")
         do {
             let encodedEvent = try ArkDataSerializer.encodeEvent(event)
             networkService.sendData(data: encodedEvent)
@@ -26,11 +27,13 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     }
 
     func gameDataReceived(manager: ArkNetworkService, gameData: Data) {
+        print("data received")
         do {
             let wrappedData = try JSONDecoder().decode(DataWrapper.self, from: gameData)
+
             if wrappedData.type == .event {
-                if let event = try multiplayerEventManager?.eventRegistry.decode(from: wrappedData.payload,
-                                                                                 typeName: wrappedData.name) {
+                if let event = try ArkEventRegistry.shared.decode(from: wrappedData.payload,
+                                                                  typeName: wrappedData.name) {
                     processEvent(event: event)
                 }
             }

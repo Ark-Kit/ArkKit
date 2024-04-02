@@ -15,19 +15,25 @@ struct DatedEvent {
 class ArkEventManager: ArkEventContext {
     private var listeners: [ObjectIdentifier: [(any ArkEvent) -> Void]] = [:]
     private var eventQueue = PriorityQueue<DatedEvent>(sort: ArkEventManager.compareEventPriority)
-    var eventRegistry = ArkEventRegistry()
+    var delegate: ArkEventContextDelegate?
 
     func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
         let typeID = ObjectIdentifier(eventType)
         if listeners[typeID] == nil {
             listeners[typeID] = []
-            eventRegistry.register(eventType)
+            ArkEventRegistry.shared.register(eventType)
         }
 
         listeners[typeID]?.append(listener)
     }
 
     func emit<Event: ArkEvent>(_ event: Event) {
+        let datedEvent = DatedEvent(event: event)
+        eventQueue.enqueue(datedEvent)
+        delegate?.didEmitEvent(event)
+    }
+
+    func emitWithoutDelegate<Event: ArkEvent>(_ event: Event) {
         let datedEvent = DatedEvent(event: event)
         eventQueue.enqueue(datedEvent)
     }
@@ -56,4 +62,8 @@ class ArkEventManager: ArkEventContext {
 
         return datedEvent1.timestamp < datedEvent2.timestamp
     }
+}
+
+protocol ArkEventManagerDelegate: ArkEventContextDelegate {
+    func didEmitEvent<Event: ArkEvent>(_ event: Event)
 }

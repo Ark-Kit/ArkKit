@@ -49,17 +49,12 @@ class Ark {
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
-//        let multiplayerManager = ArkMultiplayerManager(serviceName: "ArkMultiplayer")
-//        let multiplayerEventManager = ArkMultiplayerEventManager(arkMultiplayerManager: multiplayerManager)
-//        multiplayerManager.multiplayerEventManager = multiplayerEventManager
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioPlayer()
         self.canvasRenderer = canvasRenderer
     }
 
     func start() {
-        // TODO: Implement this in a better way
-        enableMultiplayerMode(serviceName: "tankGame")
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
         setupDefaultEntities()
@@ -69,7 +64,7 @@ class Ark {
             return
         }
 
-        // Initializee game with rootView, and passing in contexts (state)
+        // Initialize game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasContext: canvasContext,
@@ -78,22 +73,13 @@ class Ark {
         gameCoordinator.start()
     }
 
-    // TODO: Implement this in a better way
-    func enableMultiplayerMode(serviceName: String) {
-        let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
-        let multiplayerEventManager = ArkMultiplayerEventManager(networkManagerDelegate: multiplayerManager)
-        multiplayerManager.multiplayerEventManager = multiplayerEventManager
-
-        self.arkState = ArkState(eventManager: multiplayerEventManager, arkECS: ArkECS())
-    }
-
     private func setup(_ rules: [any Rule]) {
         // sort the rules by priority before adding to eventContext
         let sortedRules = rules.sorted(by: { x, y in
             if x.event == y.event {
                 return x.action.priority < y.action.priority
             }
-            return x.event.id < y.event.id
+            return true
         })
         // subscribe all rules to the eventManager
         for rule in sortedRules {

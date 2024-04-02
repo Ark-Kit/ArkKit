@@ -7,31 +7,23 @@
 
 import Foundation
 
-class ArkMultiplayerEventManager: ArkEventManager {
-    private var arkEventManager = ArkEventManager()
-    weak var networkManagerDelegate: ArkMultiplayerManagerDelegate?
+class ArkMultiplayerEventManager: ArkEventManagerDelegate {
 
-    init(networkManagerDelegate: ArkMultiplayerManagerDelegate? = nil) {
+    private var arkEventManager: ArkEventContext
+    var networkManagerDelegate: ArkMultiplayerManagerDelegate?
+
+    init(arkEventManager: ArkEventContext = ArkEventManager(),
+         networkManagerDelegate: ArkMultiplayerManagerDelegate? = nil) {
+        self.arkEventManager = arkEventManager
         self.networkManagerDelegate = networkManagerDelegate
-        super.init()
-        self.arkEventManager.eventRegistry = self.eventRegistry
     }
 
-    override func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
-        arkEventManager.subscribe(to: eventType, listener)
-    }
-
-    override func emit<Event: ArkEvent>(_ event: Event) {
-        arkEventManager.emit(event)
+    func didEmitEvent<Event>(_ event: Event) where Event: ArkEvent {
         networkManagerDelegate?.shouldSendEvent(event)
     }
 
-    func emitWithoutBroadcast<Event: ArkEvent>(_ event: Event) {
-        arkEventManager.emit(event)
-    }
-
-    override func processEvents() {
-        arkEventManager.processEvents()
+    func emitWithoutBroadcast<Event>(_ event: Event) where Event: ArkEvent {
+        arkEventManager.emitWithoutDelegate(event)
     }
 }
 

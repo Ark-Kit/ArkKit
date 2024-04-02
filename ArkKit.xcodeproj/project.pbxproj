@@ -166,7 +166,6 @@
 		AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03642BA1949000974EBF /* ArkEvent.swift */; };
 		AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03672BA1A61200974EBF /* ArkEventManager.swift */; };
 		AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E036A2BA1A71800974EBF /* ArkEventData.swift */; };
-		AD6E036D2BA1AB2D00974EBF /* DemoArkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E036C2BA1AB2D00974EBF /* DemoArkEvent.swift */; };
 		AD6E036F2BA21A5B00974EBF /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E036E2BA21A5B00974EBF /* Queue.swift */; };
 		AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03712BA2DB2700974EBF /* Heap.swift */; };
 		AD6E03742BA2DB4100974EBF /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E03732BA2DB4100974EBF /* PriorityQueue.swift */; };
@@ -359,7 +358,6 @@
 		AD6E03642BA1949000974EBF /* ArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEvent.swift; sourceTree = "<group>"; };
 		AD6E03672BA1A61200974EBF /* ArkEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventManager.swift; sourceTree = "<group>"; };
 		AD6E036A2BA1A71800974EBF /* ArkEventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEventData.swift; sourceTree = "<group>"; };
-		AD6E036C2BA1AB2D00974EBF /* DemoArkEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoArkEvent.swift; sourceTree = "<group>"; };
 		AD6E036E2BA21A5B00974EBF /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		AD6E03712BA2DB2700974EBF /* Heap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		AD6E03732BA2DB4100974EBF /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -1042,7 +1040,6 @@
 				AD6E03692BA1A70F00974EBF /* ark-event-data */,
 				AD6E03642BA1949000974EBF /* ArkEvent.swift */,
 				AD6E03672BA1A61200974EBF /* ArkEventManager.swift */,
-				AD6E036C2BA1AB2D00974EBF /* DemoArkEvent.swift */,
 				02C3950E2BA611B80075F1CA /* ArkEventContext.swift */,
 				AD2B59B72BB9672100198E99 /* ArkEventRegistry.swift */,
 			);
@@ -1338,7 +1335,6 @@
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */,
-				AD6E036D2BA1AB2D00974EBF /* DemoArkEvent.swift in Sources */,
 				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
 				8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */,
 				280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */,

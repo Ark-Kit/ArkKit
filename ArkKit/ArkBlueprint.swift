@@ -52,4 +52,24 @@ struct ArkBlueprint {
         // that checks every tick if predicate evaluates to true
         // create callback to deal witl
     }
+
+    func setupMultiplayer(serviceName: String = "Ark") -> Self {
+        let fn: ArkStateSetupDelegate = { context in
+            var events = context.events
+
+            let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
+            let multiplayerEventManager = ArkMultiplayerEventManager(arkEventManager: events,
+                                                                     networkManagerDelegate: multiplayerManager)
+            multiplayerManager.multiplayerEventManager = multiplayerEventManager
+
+            events.delegate = multiplayerEventManager
+        }
+
+        var stateSetupFunctionsCopy = setupFunctions
+        stateSetupFunctionsCopy.insert(fn, at: 0)
+
+        var newSelf = self
+        newSelf.setupFunctions = stateSetupFunctionsCopy
+        return newSelf
+    }
 }

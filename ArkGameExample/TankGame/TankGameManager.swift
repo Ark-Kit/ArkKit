@@ -97,6 +97,8 @@ class TankGameManager {
     func setUpSystems() {}
 
     func setUpRules() {
+        blueprint = blueprint.setupMultiplayer(serviceName: "tankGame")
+
         blueprint = blueprint
             .on(ScreenResizeEvent.self) { event, context in
                 self.handleScreenResize(event, in: context)
