@@ -92,7 +92,10 @@ class TankGameManager {
     func setUpSystems() {
         blueprint = blueprint
             .forEachTick { deltaTime, _ in
-                print(deltaTime)
+                print("first one", deltaTime)
+            }
+            .forEachTick { deltaTime, _ in
+                print("second one", deltaTime)
             }
     }
 
