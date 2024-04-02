@@ -5,95 +5,56 @@
 //  Created by Ryan Peh on 31/3/24.
 //
 
-import MultipeerConnectivity
+import UIKit
+import P2PShare
 
-class ArkNetworkService: NSObject {
-    private let gameServiceType: String
-    private let myPeerId = MCPeerID(displayName: UIDevice.current.name)
-    private var serviceAdvertiser: MCNearbyServiceAdvertiser
-    private var serviceBrowser: MCNearbyServiceBrowser
+class ArkNetworkService {
+    private let myPeerInfo = PeerInfo(["name": UIDevice.current.name])
+    private var peers: [PeerInfo] = []
+    private var session: MultipeerSession!
     var delegate: ArkNetworkDelegate?
 
-    lazy var session: MCSession = {
-        let session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .required)
-        session.delegate = self
-        return session
-    }()
+    init(serviceName: String = "Ark") {
+        let config = MultipeerSessionConfig(myPeerInfo: myPeerInfo,
+                                            bonjourService: "_ArkMultiplayer._tcp",
+                                            presharedKey: "12345",
+                                            identity: serviceName)
+        self.session = MultipeerSession(config: config, queue: .main)
+        setUpHandlers()
 
-    init(serviceType: String = "ark") {
-//        self.gameServiceType = serviceType
-        self.gameServiceType = "ArkMultiplayer"
-        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil,
-                                                           serviceType: gameServiceType)
-        self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: gameServiceType)
-
-        super.init()
-
-        self.serviceAdvertiser.delegate = self
-        self.serviceBrowser.delegate = self
-
-        self.serviceAdvertiser.startAdvertisingPeer()
-        self.serviceBrowser.startBrowsingForPeers()
+        session.startSharing()
     }
 
     deinit {
-        self.serviceAdvertiser.stopAdvertisingPeer()
-        self.serviceBrowser.stopBrowsingForPeers()
+        session.stopSharing()
+    }
+
+    private func setUpHandlers() {
+        self.session.peersChangeHandler = { [weak self] peers in
+            self?.peers = peers
+            self?.delegate?.connectedDevicesChanged(manager: self!, connectedDevices: peers.map { $0.peerID })
+            print("Peers changed: \(peers.map { $0.peerID })")
+        }
+
+        self.session.newPeerHandler = { peer in
+            print("New peer joined: \(peer.peerID)")
+        }
+
+        self.session.messageReceivedHandler = { [weak self] _, data in
+            self?.delegate?.gameDataReceived(manager: self!, gameData: data)
+        }
     }
 
     func sendData(data: Data) {
-        if !session.connectedPeers.isEmpty {
-            do {
-                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
-            } catch {
-                print("Error sending data: \(error.localizedDescription)")
-            }
+        if !self.peers.isEmpty {
+            session.sendToAllPeers(data: data)
         }
     }
-}
-
-// MARK: - MCSessionDelegate
-
-extension ArkNetworkService: MCSessionDelegate {
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        delegate?.connectedDevicesChanged(manager: self,
-                                          connectedDevices: session.connectedPeers.map { $0.displayName })
-    }
-
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            strongSelf.delegate?.gameDataReceived(manager: strongSelf, gameData: data)
-        }
-    }
-
-    func session(_ session: MCSession, didReceive stream: InputStream,
-                 withName streamName: String, fromPeer peerID: MCPeerID) {}
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String,
-                 fromPeer peerID: MCPeerID, with progress: Progress) {}
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String,
-                 fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {}
-}
-
-// MARK: - MCNearbyServiceAdvertiserDelegate and MCNearbyServiceBrowserDelegate
-
-extension ArkNetworkService: MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBrowserDelegate {
-    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID,
-                    withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        // Automatically accepts all requests to join
-        invitationHandler(true, self.session)
-    }
-
-    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID,
-                 withDiscoveryInfo info: [String: String]?) {}
-    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {}
 }
 
 // MARK: - ArkNetworkDelegate
 
-protocol ArkNetworkDelegate {
+protocol ArkNetworkDelegate: AnyObject {
     func connectedDevicesChanged(manager: ArkNetworkService, connectedDevices: [String])
     func gameDataReceived(manager: ArkNetworkService, gameData: Data)
 }

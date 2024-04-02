@@ -183,6 +183,7 @@
 		AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */; };
 		AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A892B9C70D8003EBBD0 /* ArkState.swift */; };
 		AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */; };
+		ADA847F42BBC11F400B19378 /* P2PShare in Frameworks */ = {isa = PBXBuildFile; productRef = ADA847F32BBC11F400B19378 /* P2PShare */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,6 +383,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADA847F42BBC11F400B19378 /* P2PShare in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1141,6 +1143,9 @@
 			dependencies = (
 			);
 			name = ArkKit;
+			packageProductDependencies = (
+				ADA847F32BBC11F400B19378 /* P2PShare */,
+			);
 			productName = LevelKit;
 			productReference = AD787A4D2B9C636F003EBBD0 /* ArkKit.app */;
 			productType = "com.apple.product-type.application";
@@ -1191,6 +1196,9 @@
 				Base,
 			);
 			mainGroup = AD787A442B9C636F003EBBD0;
+			packageReferences = (
+				ADA847F22BBC11F400B19378 /* XCRemoteSwiftPackageReference "P2PShareKit" */,
+			);
 			productRefGroup = AD787A4E2B9C636F003EBBD0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1727,6 +1735,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ADA847F22BBC11F400B19378 /* XCRemoteSwiftPackageReference "P2PShareKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dobster/P2PShareKit/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ADA847F32BBC11F400B19378 /* P2PShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ADA847F22BBC11F400B19378 /* XCRemoteSwiftPackageReference "P2PShareKit" */;
+			productName = P2PShare;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AD787A452B9C636F003EBBD0 /* Project object */;
 }

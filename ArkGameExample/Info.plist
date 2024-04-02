@@ -5,7 +5,6 @@
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_ArkMultiplayer._tcp</string>
-		<string>_ArkMultiplayer._udp</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

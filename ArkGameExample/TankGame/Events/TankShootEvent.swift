@@ -9,7 +9,7 @@ import Foundation
 
 struct TankShootEventData: ArkEventData {
     var name: String
-    var tankEntity: Entity
+    var tankId: Int
 }
 
 struct TankShootEvent: ArkEvent {

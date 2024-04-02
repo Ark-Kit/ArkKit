@@ -49,6 +49,9 @@ class Ark {
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
+//        let multiplayerManager = ArkMultiplayerManager(serviceName: "ArkMultiplayer")
+//        let multiplayerEventManager = ArkMultiplayerEventManager(arkMultiplayerManager: multiplayerManager)
+//        multiplayerManager.multiplayerEventManager = multiplayerEventManager
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioPlayer()
         self.canvasRenderer = canvasRenderer

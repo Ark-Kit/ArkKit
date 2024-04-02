@@ -15,7 +15,7 @@ struct DatedEvent {
 class ArkEventManager: ArkEventContext {
     private var listeners: [ObjectIdentifier: [(any ArkEvent) -> Void]] = [:]
     private var eventQueue = PriorityQueue<DatedEvent>(sort: ArkEventManager.compareEventPriority)
-    private(set) var eventRegistry = ArkEventRegistry()
+    var eventRegistry = ArkEventRegistry()
 
     func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
         let typeID = ObjectIdentifier(eventType)

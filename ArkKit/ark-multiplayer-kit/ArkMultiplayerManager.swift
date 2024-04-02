@@ -12,7 +12,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     var multiplayerEventManager: ArkMultiplayerEventManager?
 
     init(serviceName: String) {
-        self.networkService = ArkNetworkService(serviceType: serviceName)
+        self.networkService = ArkNetworkService(serviceName: serviceName)
         self.networkService.delegate = self
     }
 
@@ -32,10 +32,10 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     func gameDataReceived(manager: ArkNetworkService, gameData: Data) {
         do {
             let wrappedData = try JSONDecoder().decode(DataWrapper.self, from: gameData)
-
             if wrappedData.type == .event {
                 if let event = try multiplayerEventManager?.eventRegistry.decode(from: wrappedData.payload,
                                                                                  typeName: wrappedData.name) {
+                    print(event)
                     processEvent(event: event)
                 }
             }
@@ -46,7 +46,6 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     }
 
     private func processEvent(event: any ArkEvent) {
-        print("Received event: \(event)")
         multiplayerEventManager?.emitWithoutBroadcast(event)
     }
 

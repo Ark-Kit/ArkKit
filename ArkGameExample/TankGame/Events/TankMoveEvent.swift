@@ -9,7 +9,7 @@ import Foundation
 
 struct TankMoveEventData: ArkEventData {
     var name: String
-    var tankEntity: Entity
+    var tankId: Int
     var angle: Double
     var magnitude: Double
 }

@@ -16,6 +16,7 @@ class ArkMultiplayerEventManager: ArkEventManager {
         super.init()
 
         self.arkMultiplayerManager.multiplayerEventManager = self
+        self.arkEventManager.eventRegistry = self.eventRegistry
     }
 
     override func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
@@ -24,6 +25,7 @@ class ArkMultiplayerEventManager: ArkEventManager {
 
     override func emit<Event: ArkEvent>(_ event: Event) {
         arkEventManager.emit(event)
+        arkMultiplayerManager.sendEvent(event: event)
     }
 
     func emitWithoutBroadcast<Event: ArkEvent>(_ event: Event) {
