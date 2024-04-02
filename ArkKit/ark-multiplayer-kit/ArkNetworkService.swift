@@ -21,7 +21,8 @@ class ArkNetworkService: NSObject {
     }()
 
     init(serviceType: String = "ark") {
-        self.gameServiceType = serviceType
+//        self.gameServiceType = serviceType
+        self.gameServiceType = "ArkMultiplayer"
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil,
                                                            serviceType: gameServiceType)
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: gameServiceType)
