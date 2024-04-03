@@ -17,6 +17,8 @@
 		0267BA262BBD0FE00010F729 /* StartUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA252BBD0FE00010F729 /* StartUpSystem.swift */; };
 		0267BA282BBD0FF00010F729 /* UpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA272BBD0FF00010F729 /* UpdateSystem.swift */; };
 		0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA292BBD10060010F729 /* CleanUpSystem.swift */; };
+		0267BA2D2BBD2AB90010F729 /* CameraComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */; };
+		0267BA2F2BBD2BD70010F729 /* ArkCameraSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */; };
 		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
 		02A438292BB00D2B000135BC /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438282BB00D2B000135BC /* MockAction.swift */; };
 		02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382A2BB00D4D000135BC /* MockECSContext.swift */; };
@@ -208,6 +210,8 @@
 		0267BA252BBD0FE00010F729 /* StartUpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpSystem.swift; sourceTree = "<group>"; };
 		0267BA272BBD0FF00010F729 /* UpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSystem.swift; sourceTree = "<group>"; };
 		0267BA292BBD10060010F729 /* CleanUpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanUpSystem.swift; sourceTree = "<group>"; };
+		0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponent.swift; sourceTree = "<group>"; };
+		0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCameraSystem.swift; sourceTree = "<group>"; };
 		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
 		02A438282BB00D2B000135BC /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		02A4382A2BB00D4D000135BC /* MockECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockECSContext.swift; sourceTree = "<group>"; };
@@ -426,6 +430,15 @@
 				0267BA222BBD0F940010F729 /* SystemRunner.swift */,
 			);
 			path = system;
+			sourceTree = "<group>";
+		};
+		0267BA2B2BBD2A9E0010F729 /* ark-camera-kit */ = {
+			isa = PBXGroup;
+			children = (
+				0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */,
+				0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */,
+			);
+			path = "ark-camera-kit";
 			sourceTree = "<group>";
 		};
 		02A438242BB007B1000135BC /* ark-rule-kit-tests */ = {
@@ -1091,6 +1104,7 @@
 				02C394E22BA407420075F1CA /* Ark.swift */,
 				02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */,
 				0230A4822BB7EECD001CFDAF /* ark-uikit-lib */,
+				0267BA2B2BBD2A9E0010F729 /* ark-camera-kit */,
 				02E0E8DE2B9F57170043E2BA /* ark-game */,
 				02D8E94A2BAC99F100BF3A07 /* ark-loop-kit */,
 				280CD3B52BA738EC00372C5D /* ark-physics-kit */,
@@ -1349,6 +1363,7 @@
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* RootViewController.swift in Sources */,
 				02C394E32BA407420075F1CA /* Ark.swift in Sources */,
+				0267BA2D2BBD2AB90010F729 /* CameraComponent.swift in Sources */,
 				AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
 				02C3951C2BA8492B0075F1CA /* BitmapImageRenderableComponent.swift in Sources */,
@@ -1356,6 +1371,7 @@
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,
 				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
+				0267BA2F2BBD2BD70010F729 /* ArkCameraSystem.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
 				28A032E52BAD781900851BFF /* AbstractPhysicsArkSimulator.swift in Sources */,
 				02C395152BA83FAE0075F1CA /* RenderableComponent.swift in Sources */,
