@@ -17,10 +17,10 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     }
 
     func sendEvent(event: any ArkEvent) {
-        print("sending event")
         do {
-            let encodedEvent = try ArkDataSerializer.encodeEvent(event)
-            networkService.sendData(data: encodedEvent)
+            if let encodedEvent = try ArkDataSerializer.encodeEvent(event) {
+                networkService.sendData(data: encodedEvent)
+            }
         } catch {
             print("Error encoding or sending event: \(error)")
         }

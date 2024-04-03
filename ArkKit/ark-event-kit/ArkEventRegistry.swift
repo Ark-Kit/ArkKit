@@ -16,10 +16,13 @@ class ArkEventRegistry {
     private var eventTypes: [String: (Data) throws -> any ArkEvent] = [:]
 
     // Registers an event type with its corresponding decoder
-    func register<T: ArkEvent>(_ eventType: T.Type) {
-        let typeName = String(describing: T.self)
+    func register<Event: ArkEvent>(_ eventType: Event.Type) {
+        guard let eventType = eventType as? any ArkSerializableEvent.Type else {
+            return
+        }
+        let typeName = String(describing: Event.self)
         eventTypes[typeName] = { data in
-            try JSONDecoder().decode(T.self, from: data)
+            try JSONDecoder().decode(eventType, from: data)
         }
     }
 

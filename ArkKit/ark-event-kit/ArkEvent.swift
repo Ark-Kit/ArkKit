@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ArkEvent<Data>: Codable {
+protocol ArkEvent<Data> {
     associatedtype Data = ArkEventData
 
     var eventData: Data { get }
