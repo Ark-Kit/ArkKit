@@ -27,7 +27,7 @@ class SystemManager {
 
     private(set) var uniqueSystemsByType = Set<SystemType>()
 
-    func add(_ system: UpdateSystem, schedule: Schedule = .update, isUnique: Bool = true) {
+    func add(_ system: System, schedule: Schedule = .update, isUnique: Bool = true) {
         let identifier = ObjectIdentifier(type(of: system))
 
         if isUnique {
@@ -47,14 +47,14 @@ class SystemManager {
         systemsBySchedule[schedule]?[identifier]?.append(system)
     }
 
-    func remove<T: UpdateSystem>(ofType type: T.Type) {
+    func remove<T: System>(ofType type: T.Type) {
         let identifier = ObjectIdentifier(type)
         for schedule in systemsBySchedule.keys {
             systemsBySchedule[schedule]?.removeValue(forKey: identifier)
         }
     }
 
-    func system<T: UpdateSystem>(ofType type: T.Type) -> [T] {
+    func system<T: System>(ofType type: T.Type) -> [T] {
         let identifier = ObjectIdentifier(type)
         return systemsBySchedule.flatMap { _, systemsMapping in
             systemsMapping[identifier]?.compactMap({ system in system as? T }) ?? []
