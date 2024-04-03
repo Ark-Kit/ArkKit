@@ -119,7 +119,7 @@ class Ark {
                 continue
             }
             let system = ArkUpdateSystem(action: action, context: self.actionContext)
-            arkState.arkECS.addSystem(system)
+            arkState.arkECS.addSystem(system, schedule: .update, isUnique: false)
         }
     }
 

@@ -13,6 +13,10 @@
 		0230A48E2BB950AF001CFDAF /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */; };
 		0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */; };
 		0267BA1E2BBB07D80010F729 /* ArkUpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */; };
+		0267BA232BBD0F940010F729 /* SystemRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA222BBD0F940010F729 /* SystemRunner.swift */; };
+		0267BA262BBD0FE00010F729 /* StartUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA252BBD0FE00010F729 /* StartUpSystem.swift */; };
+		0267BA282BBD0FF00010F729 /* UpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA272BBD0FF00010F729 /* UpdateSystem.swift */; };
+		0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA292BBD10060010F729 /* CleanUpSystem.swift */; };
 		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
 		02A438292BB00D2B000135BC /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438282BB00D2B000135BC /* MockAction.swift */; };
 		02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382A2BB00D4D000135BC /* MockECSContext.swift */; };
@@ -208,6 +212,10 @@
 		0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
 		0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTrigger.swift; sourceTree = "<group>"; };
 		0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUpdateSystem.swift; sourceTree = "<group>"; };
+		0267BA222BBD0F940010F729 /* SystemRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemRunner.swift; sourceTree = "<group>"; };
+		0267BA252BBD0FE00010F729 /* StartUpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpSystem.swift; sourceTree = "<group>"; };
+		0267BA272BBD0FF00010F729 /* UpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSystem.swift; sourceTree = "<group>"; };
+		0267BA292BBD10060010F729 /* CleanUpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanUpSystem.swift; sourceTree = "<group>"; };
 		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
 		02A438282BB00D2B000135BC /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		02A4382A2BB00D4D000135BC /* MockECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockECSContext.swift; sourceTree = "<group>"; };
@@ -422,6 +430,18 @@
 				02E0E8EA2BA280890043E2BA /* view-components */,
 			);
 			path = "ark-uikit-lib";
+			sourceTree = "<group>";
+		};
+		0267BA242BBD0FC70010F729 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				AD787A852B9C6C91003EBBD0 /* System.swift */,
+				0267BA252BBD0FE00010F729 /* StartUpSystem.swift */,
+				0267BA272BBD0FF00010F729 /* UpdateSystem.swift */,
+				0267BA292BBD10060010F729 /* CleanUpSystem.swift */,
+				0267BA222BBD0F940010F729 /* SystemRunner.swift */,
+			);
+			path = system;
 			sourceTree = "<group>";
 		};
 		02A438242BB007B1000135BC /* ark-rule-kit-tests */ = {
@@ -1031,9 +1051,9 @@
 			children = (
 				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
 				AD787A832B9C6C78003EBBD0 /* Component.swift */,
+				0267BA242BBD0FC70010F729 /* system */,
 				28A032DD2BAD4ED200851BFF /* InternalSystems */,
 				280CD3DA2BA8044600372C5D /* InternalComponents */,
-				AD787A852B9C6C91003EBBD0 /* System.swift */,
 				AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */,
 				AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */,
 				AD6E03602B9F15FA00974EBF /* ArkECS.swift */,
@@ -1322,6 +1342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0267BA282BBD0FF00010F729 /* UpdateSystem.swift in Sources */,
 				280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */,
 				280CD3C42BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift in Sources */,
 				AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */,
@@ -1331,11 +1352,13 @@
 				0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */,
 				945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */,
 				02C394F72BA4428A0075F1CA /* UIKitJoystick.swift in Sources */,
+				0267BA262BBD0FE00010F729 /* StartUpSystem.swift in Sources */,
 				280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */,
 				02C395242BA849B40075F1CA /* JoystickRenderableComponent.swift in Sources */,
 				942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */,
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
+				0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */,
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
@@ -1423,6 +1446,7 @@
 				02C395222BA849700075F1CA /* PolygonRenderableComponent.swift in Sources */,
 				9479A3B12BA953D800F99013 /* ShapeRenderableComponent.swift in Sources */,
 				02C395012BA5A2BE0075F1CA /* Action.swift in Sources */,
+				0267BA232BBD0F940010F729 /* SystemRunner.swift in Sources */,
 				02C394E02BA405C10075F1CA /* Canvas.swift in Sources */,
 				ADA848022BBC7DF000B19378 /* ArkSerializableEvent.swift in Sources */,
 				942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */,

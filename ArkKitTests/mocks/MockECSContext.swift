@@ -31,6 +31,6 @@ class MockECSContext: ArkECSContext {
         nil
     }
 
-    func addSystem(_ system: any ArkKit.System) {
+    func addSystem(_ system: any ArkKit.UpdateSystem) {
     }
 }

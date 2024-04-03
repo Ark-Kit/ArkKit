@@ -3,7 +3,7 @@ import Foundation
 /**
  *  A system which updates a StopWatchComponent instances in ArkECS after the given delta.
  */
-class ArkTimeSystem: System {
+class ArkTimeSystem: UpdateSystem {
     static let ARK_WORLD_TIME = "_ArkWorldTime"
 
     var active: Bool

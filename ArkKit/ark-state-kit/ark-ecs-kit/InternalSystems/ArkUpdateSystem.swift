@@ -1,6 +1,6 @@
 import Foundation
 
-class ArkUpdateSystem: System {
+class ArkUpdateSystem: UpdateSystem {
     var active: Bool
     let action: any Action<TimeInterval>
     let context: ArkActionContext

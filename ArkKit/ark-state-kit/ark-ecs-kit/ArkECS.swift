@@ -9,8 +9,16 @@ class ArkECS {
         self.systemManager = SystemManager()
     }
 
+    func startup() {
+        self.systemManager.startup()
+    }
+
     func update(deltaTime: TimeInterval) {
         systemManager.update(deltaTime: deltaTime, arkECS: self)
+    }
+
+    func cleanup() {
+        self.systemManager.finish()
     }
 }
 
@@ -53,7 +61,7 @@ extension ArkECS: ArkECSContext {
         entityManager.getComponents(from: entity)
     }
 
-    func addSystem(_ system: System) {
-        systemManager.add(system)
+    func addSystem(_ system: UpdateSystem, schedule: Schedule = .update, isUnique: Bool = true) {
+        systemManager.add(system, schedule: schedule, isUnique: isUnique)
     }
 }
