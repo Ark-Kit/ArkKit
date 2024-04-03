@@ -10,7 +10,10 @@ import Foundation
 typealias EntityID = UUID
 
 struct Entity {
-    let id: EntityID = UUID()
+    var id = EntityID()
+}
+
+extension Entity: Codable {
 }
 
 extension Entity: Hashable {

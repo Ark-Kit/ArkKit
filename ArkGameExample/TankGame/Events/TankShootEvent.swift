@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct TankShootEventData: ArkEventData {
+struct TankShootEventData: ArkSerializableEventData {
     var name: String
-    var tankEntity: Entity
+    var tankId: Int
 }
 
-struct TankShootEvent: ArkEvent {
+struct TankShootEvent: ArkSerializableEvent {
     static var id = UUID()
     var eventData: TankShootEventData
     var priority: Int?

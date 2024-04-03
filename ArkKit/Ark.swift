@@ -13,7 +13,7 @@ import Foundation
  */
 class Ark {
     let rootView: any AbstractRootView
-    let arkState: ArkState
+    var arkState: ArkState
     var gameLoop: GameLoop?
 
     let blueprint: ArkBlueprint
@@ -64,7 +64,7 @@ class Ark {
             return
         }
 
-        // Initializee game with rootView, and passing in contexts (state)
+        // Initialize game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasContext: canvasContext,
@@ -75,10 +75,10 @@ class Ark {
 
     private func setup(_ rules: [any Rule]) {
         // filter for event-based rules only
-        let eventRules: [any Rule<ArkEventID>] = rules.filter { rule in
-            rule.trigger is ArkEventID
+        let eventRules: [any Rule<RuleEventType>] = rules.filter { rule in
+            rule.trigger is RuleEventType
         }.map { rule in
-            guard let eventRule = rule as? any Rule<ArkEventID> else {
+            guard let eventRule = rule as? any Rule<RuleEventType> else {
                 fatalError("[Ark.setup(rules)] map failed: Unexpected type in array")
             }
             return eventRule
@@ -88,11 +88,11 @@ class Ark {
             if x.trigger == y.trigger {
                 return x.action.priority < y.action.priority
             }
-            return x.trigger < y.trigger
+            return true
         })
         // subscribe all rules to the eventManager
         for rule in sortedRules {
-            arkState.eventManager.subscribe(to: rule.trigger) { event in
+            arkState.eventManager.subscribe(to: rule.trigger.eventType) { event in
                 event.executeAction(rule.action, context: self.actionContext)
             }
         }
