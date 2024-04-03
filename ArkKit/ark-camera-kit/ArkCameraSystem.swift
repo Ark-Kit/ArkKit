@@ -14,9 +14,12 @@ class ArkCameraSystem: UpdateSystem {
                 continue
             }
             // track entity holding the camera based on the entity's position
-            let updatedCameraComp = CameraComponent(anchorPoint: positionOfEntity.position,
-                                                    size: cameraComp.size,
-                                                    zoom: cameraComp.zoom)
+            let updatedCameraComp = CameraComponent(
+                viewPosition: cameraComp.viewPosition,
+                anchorPoint: positionOfEntity.position,
+                size: cameraComp.size,
+                zoom: cameraComp.zoom
+            )
             arkECS.upsertComponent(updatedCameraComp, to: entityWithCamera)
         }
     }

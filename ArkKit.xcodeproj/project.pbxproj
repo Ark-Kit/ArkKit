@@ -19,6 +19,7 @@
 		0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA292BBD10060010F729 /* CleanUpSystem.swift */; };
 		0267BA2D2BBD2AB90010F729 /* CameraComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */; };
 		0267BA2F2BBD2BD70010F729 /* ArkCameraSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */; };
+		0267BA312BBD40C20010F729 /* CanvasToViewPositionMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA302BBD40C20010F729 /* CanvasToViewPositionMapper.swift */; };
 		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
 		02A438292BB00D2B000135BC /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438282BB00D2B000135BC /* MockAction.swift */; };
 		02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4382A2BB00D4D000135BC /* MockECSContext.swift */; };
@@ -212,6 +213,7 @@
 		0267BA292BBD10060010F729 /* CleanUpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanUpSystem.swift; sourceTree = "<group>"; };
 		0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponent.swift; sourceTree = "<group>"; };
 		0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCameraSystem.swift; sourceTree = "<group>"; };
+		0267BA302BBD40C20010F729 /* CanvasToViewPositionMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasToViewPositionMapper.swift; sourceTree = "<group>"; };
 		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
 		02A438282BB00D2B000135BC /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		02A4382A2BB00D4D000135BC /* MockECSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockECSContext.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 			children = (
 				0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */,
 				0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */,
+				0267BA302BBD40C20010F729 /* CanvasToViewPositionMapper.swift */,
 			);
 			path = "ark-camera-kit";
 			sourceTree = "<group>";
@@ -1378,6 +1381,7 @@
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
+				0267BA312BBD40C20010F729 /* CanvasToViewPositionMapper.swift in Sources */,
 				8FEB218A2BAF3C8E00788E20 /* ImpactExplosionAnimation.swift in Sources */,
 				AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */,
 				02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */,
