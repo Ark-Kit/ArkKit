@@ -19,16 +19,18 @@ struct ArkBlueprint {
         return newSelf
     }
 
+    /// Defines the event-based action to execute when the specified event occurs.
     func on<Event: ArkEvent>(
         _ eventType: Event.Type,
+        conditionalOn conditions: (ArkECSContext) -> Bool...,
         then callback: @escaping ActionCallback<Event>
     ) -> Self {
         let action = ArkEventAction(callback: callback)
         var newRules = rules
-
-         let eventRule = ArkRule(trigger: RuleTrigger.event(eventType),
-                                 action: action)
-         newRules.append(eventRule)
+        let eventRule = ArkRule(trigger: RuleTrigger.event(eventType),
+                                action: action,
+                                conditions: conditions)
+        newRules.append(eventRule)
 
         var newSelf = self
         newSelf.rules = newRules
@@ -37,13 +39,16 @@ struct ArkBlueprint {
 
     func on<Event: ArkEvent>(
         _ eventType: Event.Type,
+        conditionalOn conditions: (ArkECSContext) -> Bool...,
         chain callbacks: ActionCallback<Event>...
     ) -> Self {
         var newRules = rules
         for (i, callback) in callbacks.enumerated() {
             let action = ArkEventAction(callback: callback, priority: i + 1)
+
              let eventRule = ArkRule(trigger: RuleTrigger.event(eventType),
-                                     action: action)
+                                     action: action,
+                                     conditions: conditions)
              newRules.append(eventRule)
         }
         var newSelf = self

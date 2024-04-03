@@ -93,7 +93,11 @@ class Ark {
         // subscribe all rules to the eventManager
         for rule in sortedRules {
             arkState.eventManager.subscribe(to: rule.trigger.eventType) { event in
-                event.executeAction(rule.action, context: self.actionContext)
+                let areConditionsSatisfied = rule.conditions
+                    .allSatisfy { $0(self.actionContext.ecs) }
+                if areConditionsSatisfied {
+                    event.executeAction(rule.action, context: self.actionContext)
+                }
             }
         }
 
