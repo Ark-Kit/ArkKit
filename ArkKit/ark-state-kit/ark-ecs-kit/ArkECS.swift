@@ -53,7 +53,7 @@ extension ArkECS: ArkECSContext {
         entityManager.getComponents(from: entity)
     }
 
-    func addSystem(_ system: System) {
-        systemManager.add(system)
+    func addSystem(_ system: UpdateSystem, schedule: Schedule = .update, isUnique: Bool = true) {
+        systemManager.add(system, schedule: schedule, isUnique: isUnique)
     }
 }

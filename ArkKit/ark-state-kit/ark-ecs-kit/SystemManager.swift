@@ -13,36 +13,87 @@ import Foundation
 enum Schedule {
     case startup
     case update
-    case finish
+    case cleanup
 }
 
 class SystemManager {
     typealias SystemType = ObjectIdentifier
 
-    private(set) var systems: OrderedDictionary<SystemType, [System]> = OrderedDictionary()
+    private(set) var systemsBySchedule: [Schedule: OrderedDictionary<SystemType, [System]>] = [
+        .startup: OrderedDictionary(),
+        .update: OrderedDictionary(),
+        .cleanup: OrderedDictionary()
+    ]
 
-    func add(_ system: System) {
+    private(set) var uniqueSystemsByType = Set<SystemType>()
+
+    func add(_ system: UpdateSystem, schedule: Schedule = .update, isUnique: Bool = true) {
         let identifier = ObjectIdentifier(type(of: system))
-        if systems[identifier] == nil {
-            systems[identifier] = []
+
+        if isUnique {
+            uniqueSystemsByType.insert(identifier)
         }
-        systems[identifier]?.append(system)
+
+        if systemsBySchedule[schedule]?[identifier] == nil {
+            systemsBySchedule[schedule]?[identifier] = []
+        }
+
+        let shouldNotAdd = uniqueSystemsByType.contains(identifier) &&
+        (systemsBySchedule[schedule]?[identifier]?.count ?? 0) > 0
+
+        if shouldNotAdd {
+            return
+        }
+        systemsBySchedule[schedule]?[identifier]?.append(system)
     }
 
-    func remove<T: System>(ofType type: T.Type) {
+    func remove<T: UpdateSystem>(ofType type: T.Type) {
         let identifier = ObjectIdentifier(type)
-        systems.removeValue(forKey: identifier)
+        for schedule in systemsBySchedule.keys {
+            systemsBySchedule[schedule]?.removeValue(forKey: identifier)
+        }
     }
 
-    func system<T: System>(ofType type: T.Type) -> [T] {
+    func system<T: UpdateSystem>(ofType type: T.Type) -> [T] {
         let identifier = ObjectIdentifier(type)
-        return systems[identifier]?.compactMap({ system in  system as? T }) ?? []
+        return systemsBySchedule.flatMap { _, systemsMapping in
+            systemsMapping[identifier]?.compactMap({ system in system as? T }) ?? []
+        }
+    }
+
+    func startup() {
+        guard let startupSystems = systemsBySchedule[.startup] else {
+            return
+        }
+        let runner = ArkSystemRunner()
+        for (_, systemsPerType) in startupSystems {
+            for system in systemsPerType {
+                system.run(using: runner)
+                system.active = false
+            }
+        }
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        for (_, systemsPerType) in systems {
+        guard let updateSystems = systemsBySchedule[.update] else {
+            return
+        }
+        let runner = ArkSystemRunner(deltaTime: deltaTime, arkECS: arkECS)
+        for (_, systemsPerType) in updateSystems {
             for system in systemsPerType {
-                system.update(deltaTime: deltaTime, arkECS: arkECS)
+                system.run(using: runner)
+            }
+        }
+    }
+
+    func finish() {
+        guard let cleanupSystems = systemsBySchedule[.cleanup] else {
+            return
+        }
+        let runner = ArkSystemRunner()
+        for (_, systemsPerType) in cleanupSystems {
+            for system in systemsPerType {
+                system.run(using: runner)
             }
         }
     }

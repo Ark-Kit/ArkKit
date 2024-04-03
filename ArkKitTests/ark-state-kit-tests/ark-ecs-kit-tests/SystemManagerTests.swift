@@ -3,7 +3,7 @@ import XCTest
 
 class SystemManagerTests: XCTestCase {
 
-    class MockSystem: System {
+    class MockSystem: UpdateSystem {
         var active = true
 
         private(set) var updateCalled = false
@@ -27,7 +27,7 @@ class SystemManagerTests: XCTestCase {
         systemManager.add(testSystem)
 
         let retrievedSystem: [MockSystem] = systemManager.system(ofType: MockSystem.self)
-        XCTAssertGreaterThan(retrievedSystem.count, 0, "System should be added to the manager.")
+        XCTAssertEqual(retrievedSystem.count, 1, "System should be added to the manager.")
     }
 
     func testRemoveSystemRemovesSystem() {
@@ -46,9 +46,9 @@ class SystemManagerTests: XCTestCase {
         let testSystem = MockSystem()  // Assuming MockSystem conforms to your System protocol
         systemManager.add(testSystem)
 
-        let retrievedSystem: [MockSystem] = systemManager.system(ofType: MockSystem.self)
+        let retrievedSystems: [MockSystem] = systemManager.system(ofType: MockSystem.self)
 
-        XCTAssertEqual(retrievedSystem.count, 1, "The correct system should be retrieved.")
+        XCTAssertEqual(retrievedSystems.count, 1, "The correct system should be retrieved.")
     }
 
     func testUpdateCallsUpdateOnAllSystems() {
