@@ -11,9 +11,17 @@ class ArkState {
         self.eventManager = eventManager
     }
 
+    func start() {
+        arkECS.startup()
+    }
+
     func update(deltaTime: TimeInterval) {
         eventManager.processEvents()
         arkECS.update(deltaTime: deltaTime)
+    }
+
+    func finish() {
+        arkECS.cleanup()
     }
 
     func setup(_ setupDelegate: ArkStateSetupDelegate, displayContext: ArkDisplayContext) {

@@ -7,6 +7,7 @@ class ArkGameModel {
     init(gameState: ArkState, canvasContext: CanvasContext) {
         self.gameState = gameState
         self.canvasContext = canvasContext
+        self.gameState?.start()
     }
 
     func updateState(dt: Double) {
@@ -18,7 +19,7 @@ class ArkGameModel {
             name: "DisplayUpdateEvent",
             newSize: size
         )
-        var event = ScreenResizeEvent(eventData: eventData)
+        let event = ScreenResizeEvent(eventData: eventData)
         gameState?.eventManager.emit(event)
     }
 
