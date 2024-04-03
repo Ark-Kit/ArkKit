@@ -13,18 +13,27 @@ struct DatedEvent {
 }
 
 class ArkEventManager: ArkEventContext {
-    private var listeners: [ArkEventID: [(any ArkEvent) -> Void]] = [:]
+    private var listeners: [ObjectIdentifier: [(any ArkEvent) -> Void]] = [:]
     private var eventQueue = PriorityQueue<DatedEvent>(sort: ArkEventManager.compareEventPriority)
+    var delegate: ArkEventContextDelegate?
 
-    func subscribe(to eventId: ArkEventID, _ listener: @escaping (any ArkEvent) -> Void) {
-        if listeners[eventId] == nil {
-            listeners[eventId] = []
+    func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
+        let typeID = ObjectIdentifier(eventType)
+        if listeners[typeID] == nil {
+            listeners[typeID] = []
+            ArkEventRegistry.shared.register(eventType)
         }
 
-        listeners[eventId]?.append(listener)
+        listeners[typeID]?.append(listener)
     }
 
     func emit<Event: ArkEvent>(_ event: Event) {
+        let datedEvent = DatedEvent(event: event)
+        eventQueue.enqueue(datedEvent)
+        delegate?.didEmitEvent(event)
+    }
+
+    func emitWithoutDelegate<Event: ArkEvent>(_ event: Event) {
         let datedEvent = DatedEvent(event: event)
         eventQueue.enqueue(datedEvent)
     }
@@ -34,7 +43,7 @@ class ArkEventManager: ArkEventContext {
             guard let datedEvent = eventQueue.dequeue() else {
                 fatalError("[ArkEventManager.processEvents()] dequeue failed: Expected event, found nil.")
             }
-            guard let listenersToExecute = listeners[type(of: datedEvent.event).id] else {
+            guard let listenersToExecute = listeners[ObjectIdentifier(type(of: datedEvent.event))] else {
                 continue
             }
             listenersToExecute.forEach { listener in
@@ -53,4 +62,8 @@ class ArkEventManager: ArkEventContext {
 
         return datedEvent1.timestamp < datedEvent2.timestamp
     }
+}
+
+protocol ArkEventManagerDelegate: ArkEventContextDelegate {
+    func didEmitEvent<Event: ArkEvent>(_ event: Event)
 }

@@ -13,7 +13,7 @@ import Foundation
  */
 class Ark {
     let rootView: any AbstractRootView
-    let arkState: ArkState
+    var arkState: ArkState
     var gameLoop: GameLoop?
 
     let blueprint: ArkBlueprint
@@ -64,7 +64,7 @@ class Ark {
             return
         }
 
-        // Initializee game with rootView, and passing in contexts (state)
+        // Initialize game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasContext: canvasContext,
@@ -79,7 +79,7 @@ class Ark {
             if x.event == y.event {
                 return x.action.priority < y.action.priority
             }
-            return x.event < y.event
+            return true
         })
         // subscribe all rules to the eventManager
         for rule in sortedRules {

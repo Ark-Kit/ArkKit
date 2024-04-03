@@ -7,6 +7,8 @@ class TankGameManager {
     var shootButton2: EntityID?
     var collisionStrategyManager = TankGameCollisionStrategyManager()
 
+    private var tankIdEntityMap = [Int: Entity]()
+
     private(set) var blueprint: ArkBlueprint
 
     init(frameWidth: Double, frameHeight: Double) {
@@ -49,35 +51,38 @@ class TankGameManager {
                     tankIndex: 1,
                     in: ecs,
                     zPosition: 5)
+                self.tankIdEntityMap[1] = tankEntity1
+
                 let tankEntity2 = TankGameEntityCreator.createTank(
                     at: CGPoint(x: 400, y: 180),
                     rotation: Double.pi,
                     tankIndex: 2,
                     in: ecs,
                     zPosition: 5)
+                self.tankIdEntityMap[2] = tankEntity2
 
                 let joystick1Entity = TankGameEntityCreator.createJoyStick(
                     center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
-                    tankEntity: tankEntity1,
+                    tankId: 1,
                     in: ecs,
                     eventContext: events,
                     zPosition: 999)
                 let joystick2Entity = TankGameEntityCreator.createJoyStick(
                     center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
-                    tankEntity: tankEntity2,
+                    tankId: 2,
                     in: ecs,
                     eventContext: events,
                     zPosition: 999)
 
                 let shootButton1Entity = TankGameEntityCreator.createShootButton(
                     at: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
-                    tankEntity: tankEntity1,
+                    tankId: 1,
                     in: ecs,
                     eventContext: events,
                     zPosition: 999)
                 let shootButton2Entity = TankGameEntityCreator.createShootButton(
                     at: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
-                    tankEntity: tankEntity2,
+                    tankId: 2,
                     in: ecs,
                     eventContext: events,
                     zPosition: 999)
@@ -92,6 +97,8 @@ class TankGameManager {
     func setUpSystems() {}
 
     func setUpRules() {
+        blueprint = blueprint.setupMultiplayer(serviceName: "tankGame")
+
         blueprint = blueprint
             .on(ScreenResizeEvent.self) { event, context in
                 self.handleScreenResize(event, in: context)
@@ -100,9 +107,9 @@ class TankGameManager {
                 self.handleTankMove(event, in: context)
             }
             .on(TankMoveEvent.self, chain: {_, _ in
-                print("first")
+//                print("first")
             }, { _, _ in
-                print("last")
+//                print("last")
             })
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
@@ -225,18 +232,20 @@ extension TankGameManager {
     private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
+        guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
+            return
+        }
 
         guard var tankPhysicsComponent = ecs.getComponent(
             ofType: PhysicsComponent.self,
-            for: tankMoveEventData.tankEntity),
+            for: tankEntity),
             var tankRotationComponent = ecs.getComponent(
                 ofType: RotationComponent.self,
-                for: tankMoveEventData.tankEntity)
+                for: tankEntity)
         else {
             return
         }
 
-        let tankEntity = tankMoveEventData.tankEntity
         let velocityScale = 1.5
 
         if tankMoveEventData.magnitude == 0 {
@@ -259,23 +268,26 @@ extension TankGameManager {
     private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
+        guard let tankEntity = tankIdEntityMap[eventData.tankId] else {
+            return
+        }
 
         guard let tankPositionComponent = ecs.getComponent(
             ofType: PositionComponent.self,
-            for: eventData.tankEntity)
+            for: tankEntity)
         else {
             return
         }
 
         guard let tankRotationComponent = ecs.getComponent(
             ofType: RotationComponent.self,
-            for: eventData.tankEntity)
+            for: tankEntity)
         else {
             return
         }
 
         guard let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self,
-                                                          for: eventData.tankEntity)
+                                                          for: tankEntity)
         else {
             return
         }
