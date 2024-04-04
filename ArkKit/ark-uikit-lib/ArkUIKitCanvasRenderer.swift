@@ -26,7 +26,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         canvasView.center = rootView.center
     }
 
-    func render(_ circle: CircleRenderableComponent) -> any Renderable {
+    func render(_ circle: CircleRenderableComponent) -> any Renderable<UIView> {
         UIKitCircle(radius: circle.radius, center: circle.center)
             .rotate(by: circle.rotation)
             .zPosition(circle.zPosition)
@@ -34,7 +34,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             .applyModifiers(modifierInfo: circle, colorGetter: getColor)
     }
 
-    func render(_ rect: RectRenderableComponent) -> any Renderable {
+    func render(_ rect: RectRenderableComponent) -> any Renderable<UIView> {
         UIKitRect(width: rect.width, height: rect.height, center: rect.center)
             .rotate(by: rect.rotation)
             .zPosition(rect.zPosition)
@@ -42,7 +42,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             .applyModifiers(modifierInfo: rect, colorGetter: getColor)
     }
 
-    func render(_ polygon: PolygonRenderableComponent) -> any Renderable {
+    func render(_ polygon: PolygonRenderableComponent) -> any Renderable<UIView> {
         UIKitPolygon(points: polygon.points, frame: polygon.frame)
             .rotate(by: polygon.rotation)
             .zPosition(polygon.zPosition)
@@ -50,7 +50,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             .applyModifiers(modifierInfo: polygon, colorGetter: getColor)
     }
 
-    func render(_ image: BitmapImageRenderableComponent) -> any Renderable {
+    func render(_ image: BitmapImageRenderableComponent) -> any Renderable<UIView> {
         UIKitImageBitmap(imageResourcePath: image.imageResourcePath,
                          center: image.center,
                          width: image.width,
@@ -61,7 +61,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
         .applyModifiers(modifierInfo: image)
     }
 
-    func render(_ button: ButtonRenderableComponent) -> any Renderable {
+    func render(_ button: ButtonRenderableComponent) -> any Renderable<UIView> {
         UIKitButton(width: button.width, height: button.height, center: button.center)
             .rotate(by: button.rotation)
             .zPosition(button.zPosition)
@@ -70,7 +70,7 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             .style(button.buttonStyleConfig, colorGetter: getColor)
     }
 
-    func render(_ joystick: JoystickRenderableComponent) -> any Renderable {
+    func render(_ joystick: JoystickRenderableComponent) -> any Renderable<UIView> {
         UIKitJoystick(center: joystick.center, radius: joystick.radius)
             .rotate(by: joystick.rotation)
             .zPosition(joystick.zPosition)

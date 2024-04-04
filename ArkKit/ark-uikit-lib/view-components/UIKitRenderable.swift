@@ -1,6 +1,6 @@
 import UIKit
 
-protocol UIKitRenderable: UIView, Renderable {
+protocol UIKitRenderable: UIView, Renderable where Container == UIView {
 }
 
 extension UIKitRenderable {
