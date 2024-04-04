@@ -16,6 +16,7 @@ class ArkCameraContext: CameraContext {
         self.ecs = ecs
     }
 
+    /// Transforms the dumbest canvas into a Canvas with notion of Cameras.
     func transform(_ canvas: any Canvas) -> any Canvas {
         let cameras = cameraEntities
 
@@ -23,7 +24,7 @@ class ArkCameraContext: CameraContext {
             return canvas
         }
 
-        var transformedCanvas = filterForScreenComponents(canvas)
+        var transformedCanvas = filterForScreenComponents(canvas) // joystick, buttons, etc
 
         for cameraEntity in cameras {
             guard let cameraContainerComp = ecs.getComponent(
@@ -50,7 +51,8 @@ class ArkCameraContext: CameraContext {
         let renderableComponents = cameraCanva.canvasEntityToRenderableMapping.flatMap { _, mapping in mapping.values }
         return ContainerRenderableComponent(
             center: placedCamera.screenPosition,
-            size: placedCamera.camera.size,
+            size: placedCamera.size,
+            renderLayer: .screen,
             zPosition: 0,
             renderableComponents: renderableComponents
         )

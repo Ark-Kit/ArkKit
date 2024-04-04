@@ -5,12 +5,11 @@ import UIKit
  * It is `Ark`'s view for Apple's `UIKit` framework.
  */
 class ArkUIKitView<T>: UIViewController, GameLoopable {
-    var viewModel: ArkViewModel?
+    var viewModel: ArkViewModel<T>?
     var gameLoop: GameLoop?
-    var canvasView: UIView?
     var rootViewResizeDelegate: ScreenResizeDelegate?
     var cachedScreenSize: CGSize?
-    var canvasRenderer: (any CanvasRenderer<UIView>)?
+    var renderableBuilder: (any RenderableBuilder<UIView>)?
     var cameraContext: CameraContext?
 
     var rootView: UIView {
@@ -21,13 +20,6 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         setupSimulator()
-        rootView.backgroundColor = .black
-
-        let canvasView = UIView()
-        canvasView.backgroundColor = .white
-        rootView.addSubview(canvasView)
-
-        self.canvasView = canvasView
     }
 
     func setupSimulator() {
@@ -44,11 +36,6 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
         cachedScreenSize = rootView.frame.size
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.canvasView?.removeFromSuperview()
-    }
-
     func handleGameProgress(dt: Double) {
         viewModel?.updateGame(for: dt)
     }
@@ -59,20 +46,13 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
 }
 
 extension ArkUIKitView: GameStateRenderer {
-    func render(canvas: Canvas, with canvasContext: CanvasContext) {
-        guard let canvasView = self.canvasView else {
-            return
-        }
+    func render(flatCanvas: Canvas, with canvasContext: any CanvasContext<UIView>) {
+        let renderableBuilder = renderableBuilder ?? ArkUIKitRenderableBuilder()
 
-        canvasView.frame = canvasContext.canvasFrame
-        let canvasRenderer = canvasRenderer ?? ArkUIKitCanvasRenderer(
-            rootView: self.view,
-            canvasView: canvasView,
-            canvasFrame: canvasContext.canvasFrame
-        )
-
-        let canvasToRender = cameraContext?.transform(canvas) ?? canvas
-        canvasContext.render(canvasToRender, using: canvasRenderer)
+        // this canvas transform og canvas into mega canvas (Screen + Camera)
+        let canvasToRender = cameraContext?.transform(flatCanvas) ?? flatCanvas
+        // n camera containers + one screen container
+        canvasContext.render(canvasToRender, using: renderableBuilder)
     }
 }
 

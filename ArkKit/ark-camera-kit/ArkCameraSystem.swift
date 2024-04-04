@@ -19,12 +19,12 @@ class ArkCameraSystem: UpdateSystem {
             let updatedCameraComp = CameraContainerComponent(
                 camera: Camera(
                     canvasPosition: positionOfEntity.position,
-                    size: cameraComp.camera.size,
                     zoom: cameraComp.camera.zoom
                 ),
-                screenPosition: cameraComp.screenPosition
+                screenPosition: cameraComp.screenPosition,
+                size: cameraComp.size
             )
-//            arkECS.upsertComponent(updatedCameraComp, to: entityWithCamera)
+            arkECS.upsertComponent(updatedCameraComp, to: entityWithCamera)
         }
     }
 }

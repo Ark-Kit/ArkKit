@@ -13,16 +13,14 @@ struct ContainerRenderableComponent: RenderableComponent {
     var renderLayer: RenderLayer = .canvas
     var isUserInteractionEnabled = true
     var shouldRerenderDelegate: ShouldRerenderDelegate?
-    var zPosition: Double = 9_999
+    var zPosition: Double = 0.0
     var rotation: Double = 0.0
 
     let renderableComponents: [any RenderableComponent]
 
-    func render<T>(using renderer: any CanvasRenderer<T>) -> any Renderable<T> {
-        renderer.render(self)
+    func buildRenderable<T>(using builder: any RenderableBuilder<T>) -> any Renderable<T> {
+        builder.build(self)
     }
 
-    func update(using updater: any CanvasComponentUpdater) -> ContainerRenderableComponent {
-        updater.update(self)
-    }
+    // TODO: move letterbox logic here --> propagate to the UIKitContainer
 }

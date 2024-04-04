@@ -23,12 +23,8 @@ struct BitmapImageRenderableComponent: RenderableComponent {
         self.height = height
     }
 
-    func render<T>(using renderer: any CanvasRenderer<T>) -> any Renderable<T> {
-        renderer.render(self)
-    }
-
-    func update(using updater: any CanvasComponentUpdater) -> BitmapImageRenderableComponent {
-        updater.update(self)
+    func buildRenderable<T>(using builder: any RenderableBuilder<T>) -> any Renderable<T> {
+        builder.build(self)
     }
 }
 

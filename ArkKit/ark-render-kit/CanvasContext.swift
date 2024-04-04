@@ -1,24 +1,27 @@
 import Foundation
 
-protocol CanvasContext {
+protocol CanvasContext<View> {
+    associatedtype View
     typealias RenderableComponentType = ObjectIdentifier
-    var canvasFrame: CGRect { get }
+
+    var rootView: any AbstractRootView<View> { get }
     var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] { get }
-    func getCanvas() -> Canvas
-    func render<T>(_ canvas: any Canvas, using renderer: any CanvasRenderer<T>)
+
+    func getMegaCanvas() -> Canvas
+    func render(_ canvas: any Canvas, using renderer: any RenderableBuilder<View>)
 }
 
-class ArkCanvasContext: CanvasContext {
-    private(set) var canvasFrame: CGRect
+class ArkCanvasContext<View>: CanvasContext {
     private(set) var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] = [:]
+    private(set) var rootView: any AbstractRootView<View>
     private let ecs: ArkECS
 
-    init(ecs: ArkECS, canvasFrame: CGRect) {
+    init(ecs: ArkECS, rootView: any AbstractRootView<View>) {
         self.ecs = ecs
-        self.canvasFrame = canvasFrame
+        self.rootView = rootView
     }
 
-    func render<T>(_ canvas: any Canvas, using renderer: any CanvasRenderer<T>) {
+    func render(_ canvas: any Canvas, using builder: any RenderableBuilder<View>) {
         // unmounting outdated components
         for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
             let componentTypeIdentifier = ObjectIdentifier(renderableCompType)
@@ -43,8 +46,10 @@ class ArkCanvasContext: CanvasContext {
                     }
                     previousRenderable.unmount()
                 }
-                let renderable = renderableComponent.render(using: renderer)
-                renderer.upsertToView(renderable, at: renderableComponent.renderLayer)
+
+                let renderable = renderableComponent.buildRenderable(using: builder)
+                render(renderable)
+
                 if memo[entityId] != nil {
                     memo[entityId]?[componentType] = (renderableComponent, renderable)
                 } else {
@@ -55,7 +60,8 @@ class ArkCanvasContext: CanvasContext {
     }
 
     /// Outputs a logical canvas with the relevant entities in the canvas and their renderable components only
-    func getCanvas() -> any Canvas {
+    func getMegaCanvas() -> any Canvas {
+        // MEGA CANVAS IS DUMB
         var arkCanvas = ArkCanvas()
         for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
             let renderableEntities = ecs.getEntities(with: [renderableCompType])
@@ -71,5 +77,10 @@ class ArkCanvasContext: CanvasContext {
             }
         }
         return arkCanvas
+    }
+
+    private func render(_ renderable: any Renderable<View>) {
+        // TODO: add letterbox logic here
+        renderable.render(into: rootView.abstractView)
     }
 }

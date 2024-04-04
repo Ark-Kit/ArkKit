@@ -4,6 +4,10 @@ class RootViewController: UINavigationController {
 }
 
 extension RootViewController: AbstractRootView {
+    var abstractView: UIView {
+        self.view
+    }
+
     var size: CGSize {
         view.frame.size
     }

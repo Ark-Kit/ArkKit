@@ -23,11 +23,7 @@ struct CircleRenderableComponent: ShapeRenderableComponent {
         return copy
     }
 
-    func render<T>(using renderer: any CanvasRenderer<T>) -> any Renderable<T> {
-        renderer.render(self)
-    }
-
-    func update(using updater: any CanvasComponentUpdater) -> CircleRenderableComponent {
-        updater.update(self)
+    func buildRenderable<T>(using builder: any RenderableBuilder<T>) -> any Renderable<T> {
+        builder.build(self)
     }
 }

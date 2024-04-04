@@ -33,18 +33,21 @@ class Ark<View> {
                          audio: audioContext)
     }
 
-    var canvasContext: ArkCanvasContext {
-        ArkCanvasContext(ecs: arkState.arkECS,
-                         canvasFrame: CGRect(x: 0, y: 0,
-                                             width: blueprint.frameWidth,
-                                             height: blueprint.frameHeight))
+    var canvasContext: ArkCanvasContext<View> {
+        ArkCanvasContext(
+            ecs: arkState.arkECS,
+//            canvasFrame: CGRect(x: 0, y: 0,
+//                                width: blueprint.frameWidth,
+//                                height: blueprint.frameHeight),
+            rootView: rootView
+        )
     }
 
-    var canvasRenderer: (any CanvasRenderer<View>)?
+    var canvasRenderer: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint,
-         canvasRenderer: (any CanvasRenderer<View>)? = nil) {
+         canvasRenderer: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()

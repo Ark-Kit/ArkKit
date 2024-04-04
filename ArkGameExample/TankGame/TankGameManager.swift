@@ -46,7 +46,7 @@ class TankGameManager {
                 self.createTankEntities(ecs: ecs, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
 
                 let tankEntity1 = TankGameEntityCreator.createTank(
-                    at: CGPoint(x: 400, y: 1_000),
+                    at: CGPoint(x: canvasWidth / 2, y: 1_000),
                     rotation: 0,
                     tankIndex: 1,
                     in: ecs,
@@ -54,10 +54,14 @@ class TankGameManager {
                 self.tankIdEntityMap[1] = tankEntity1
                 ecs.upsertComponent(CameraContainerComponent(
                     camera: Camera(
-                        canvasPosition: CGPoint(x: 410, y: 590),
-                        size: CGSize(width: 820, height: 1_180)
+                        canvasPosition: CGPoint(x: canvasWidth / 2, y: 1_000)
                     ),
-                    screenPosition: CGPoint(x: 410, y: 590)), to: tankEntity1)
+
+                    // center of the camera's output in screen coordinates, relative to screen
+                    screenPosition: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
+                    // relative to screen
+                    size: CGSize(width: 500, height: 500)
+                ), to: tankEntity1)
 
                 let tankEntity2 = TankGameEntityCreator.createTank(
                     at: CGPoint(x: 400, y: 180),
@@ -123,7 +127,7 @@ class TankGameManager {
             .on(TankMoveEvent.self,
                 executeIf: { _ in false }, { _ in true },
                 then: { _, _ in
-//                print("will not execute")
+                print("will not execute")
             })
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)

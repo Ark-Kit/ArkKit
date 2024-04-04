@@ -4,6 +4,6 @@ protocol ArkView<View>: AbstractView,
                         ArkGameWorldUpdateLoopDelegate {
     associatedtype View
 
-    var viewModel: ArkViewModel? { get set }
-    var canvasRenderer: (any CanvasRenderer<View>)? { get set }
+    var viewModel: ArkViewModel<View>? { get set }
+    var renderableBuilder: (any RenderableBuilder<View>)? { get set }
 }

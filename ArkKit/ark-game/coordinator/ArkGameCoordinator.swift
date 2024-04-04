@@ -3,16 +3,16 @@ import Foundation
 class ArkGameCoordinator<View> {
     let rootView: any AbstractParentView<View>
     let arkState: ArkState
-    let canvasContext: CanvasContext
+    let canvasContext: any CanvasContext<View>
     var gameLoop: GameLoop
 
-    var canvasRenderer: (any CanvasRenderer<View>)?
+    var canvasRenderer: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractParentView<View>,
          arkState: ArkState,
-         canvasContext: CanvasContext,
+         canvasContext: any CanvasContext<View>,
          gameLoop: GameLoop,
-         canvasRenderer: (any CanvasRenderer<View>)? = nil
+         canvasRenderer: (any RenderableBuilder<View>)? = nil
     ) {
         self.rootView = rootView
         self.arkState = arkState
@@ -45,6 +45,6 @@ class ArkGameCoordinator<View> {
         arkView.didMove(to: rootView)
 
         // inject renderer dependency into arkView
-        arkView.canvasRenderer = canvasRenderer
+        arkView.renderableBuilder = canvasRenderer
     }
 }
