@@ -4,13 +4,14 @@ import UIKit
  * `ArkUIKitView` is the main page that will render the game's canvas.
  * It is `Ark`'s view for Apple's `UIKit` framework.
  */
-class ArkUIKitView: UIViewController, GameLoopable {
+class ArkUIKitView<T>: UIViewController, GameLoopable {
     var viewModel: ArkViewModel?
     var gameLoop: GameLoop?
     var canvasView: UIView?
     var rootViewResizeDelegate: ScreenResizeDelegate?
     var cachedScreenSize: CGSize?
-    var canvasRenderer: (any CanvasRenderer)?
+    var canvasRenderer: (any CanvasRenderer<UIView>)?
+    var cameraContext: ArkCameraContext?
 
     var rootView: UIView {
         view
@@ -69,12 +70,14 @@ extension ArkUIKitView: GameStateRenderer {
             canvasView: canvasView,
             canvasFrame: canvasContext.canvasFrame
         )
-        canvasContext.render(canvas, using: canvasRenderer)
+
+        let canvasToRender = cameraContext?.transform(canvas) ?? canvas
+        canvasContext.render(canvasToRender, using: canvasRenderer)
     }
 }
 
-extension ArkUIKitView: AbstractView {
-    func didMove(to parent: any AbstractParentView) {
+extension ArkUIKitView<UIView>: AbstractView {
+    func didMove(to parent: any AbstractParentView<UIView>) {
         guard let parentViewController = parent as? UIViewController else {
             return
         }
@@ -93,5 +96,5 @@ extension ArkUIKitView: ArkGameWorldUpdateLoopDelegate {
     }
 }
 
-extension ArkUIKitView: ArkView {
+extension ArkUIKitView<UIView>: ArkView {
 }
