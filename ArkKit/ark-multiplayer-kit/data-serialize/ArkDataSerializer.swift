@@ -24,11 +24,11 @@ class ArkDataSerializer {
     static func decodeEvent(from data: Data, typeName: String, eventRegistry: ArkEventRegistry) throws -> any ArkEvent {
         let wrappedData = try JSONDecoder().decode(DataWrapper.self, from: data)
         guard wrappedData.type == .event, wrappedData.name == typeName else {
-            throw NSError(domain: "ArkEventDataSerializer", code: 1, 
+            throw NSError(domain: "ArkEventDataSerializer", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Invalid event data or type"])
         }
         guard let event = try eventRegistry.decode(from: wrappedData.payload, typeName: typeName) else {
-            throw NSError(domain: "ArkEventDataSerializer", code: 2, 
+            throw NSError(domain: "ArkEventDataSerializer", code: 2,
                           userInfo: [NSLocalizedDescriptionKey: "Failed to decode event"])
         }
         return event

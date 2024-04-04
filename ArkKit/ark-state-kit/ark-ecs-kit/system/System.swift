@@ -9,6 +9,5 @@ import Foundation
 
 protocol System: AnyObject {
     var active: Bool { get set }
-
-    func update(deltaTime: TimeInterval, arkECS: ArkECS)
+    func run(using runner: SystemRunner)
 }

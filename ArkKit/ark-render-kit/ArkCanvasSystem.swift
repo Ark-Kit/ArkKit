@@ -1,6 +1,6 @@
 import Foundation
 
-class ArkCanvasSystem: System {
+class ArkCanvasSystem: UpdateSystem {
     var active: Bool
     static let canvasComponentTypes: [any RenderableComponent.Type] = [
         ButtonRenderableComponent.self,

@@ -94,7 +94,15 @@ class TankGameManager {
             }
     }
 
-    func setUpSystems() {}
+    func setUpSystems() {
+        blueprint = blueprint
+            .forEachTick { deltaTime, _ in
+                print("first one", deltaTime)
+            }
+            .forEachTick { deltaTime, _ in
+                print("second one", deltaTime)
+            }
+    }
 
     func setUpRules() {
         blueprint = blueprint.setupMultiplayer(serviceName: "tankGame")
@@ -106,10 +114,10 @@ class TankGameManager {
             .on(TankMoveEvent.self) { event, context in
                 self.handleTankMove(event, in: context)
             }
-            .on(TankMoveEvent.self, chain: {_, _ in
-//                print("first")
-            }, { _, _ in
-//                print("last")
+            .on(TankMoveEvent.self,
+                executeIf: { _ in false }, { _ in true },
+                then: { _, _ in
+                print("will not execute")
             })
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
@@ -120,6 +128,7 @@ class TankGameManager {
             .on(ArkCollisionEndedEvent.self) { event, context in
                 self.handleContactEnd(event, in: context)
             }
+
     }
 
     private func createTankEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {

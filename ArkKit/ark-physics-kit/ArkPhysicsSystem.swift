@@ -3,7 +3,7 @@ import Foundation
 /**
  *  A system which updates all running animation instances in ArkECS after the given delta.
  */
-class ArkPhysicsSystem: System {
+class ArkPhysicsSystem: UpdateSystem {
     var active: Bool
     var simulator: AbstractPhysicsArkSimulator
     var scene: AbstractArkPhysicsScene?

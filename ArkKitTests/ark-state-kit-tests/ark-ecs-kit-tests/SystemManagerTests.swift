@@ -3,7 +3,7 @@ import XCTest
 
 class SystemManagerTests: XCTestCase {
 
-    class MockSystem: System {
+    class MockSystem: UpdateSystem {
         var active = true
 
         private(set) var updateCalled = false
@@ -26,8 +26,8 @@ class SystemManagerTests: XCTestCase {
 
         systemManager.add(testSystem)
 
-        let retrievedSystem: MockSystem? = systemManager.system(ofType: MockSystem.self)
-        XCTAssertNotNil(retrievedSystem, "System should be added to the manager.")
+        let retrievedSystem: [MockSystem] = systemManager.system(ofType: MockSystem.self)
+        XCTAssertEqual(retrievedSystem.count, 1, "System should be added to the manager.")
     }
 
     func testRemoveSystemRemovesSystem() {
@@ -37,8 +37,8 @@ class SystemManagerTests: XCTestCase {
 
         systemManager.remove(ofType: MockSystem.self)
 
-        let retrievedSystem: MockSystem? = systemManager.system(ofType: MockSystem.self)
-        XCTAssertNil(retrievedSystem, "System should be removed from the manager.")
+        let retrievedSystems: [MockSystem] = systemManager.system(ofType: MockSystem.self)
+        XCTAssertEqual(retrievedSystems.count, 0, "System should be removed from the manager.")
     }
 
     func testSystemReturnsCorrectSystem() {
@@ -46,9 +46,9 @@ class SystemManagerTests: XCTestCase {
         let testSystem = MockSystem()  // Assuming MockSystem conforms to your System protocol
         systemManager.add(testSystem)
 
-        let retrievedSystem: MockSystem? = systemManager.system(ofType: MockSystem.self)
+        let retrievedSystems: [MockSystem] = systemManager.system(ofType: MockSystem.self)
 
-        XCTAssertNotNil(retrievedSystem, "The correct system should be retrieved.")
+        XCTAssertEqual(retrievedSystems.count, 1, "The correct system should be retrieved.")
     }
 
     func testUpdateCallsUpdateOnAllSystems() {

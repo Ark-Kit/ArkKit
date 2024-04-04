@@ -1,11 +1,17 @@
-protocol Rule {
-    associatedtype Event: ArkEvent
+protocol Rule<Trigger> {
+    associatedtype Trigger: Equatable
+    associatedtype Data
 
-    var event: Event.Type { get }
-    var action: any Action<Event> { get }
+    var trigger: Trigger { get }
+    var action: any Action<Data> { get }
+    var conditions: [RuleCondition] { get }
 }
 
-struct ArkRule<Event: ArkEvent>: Rule {
-    let event: Event.Type
-    let action: any Action<Event>
+struct ArkRule<Trigger, Data>: Rule where Trigger: Equatable {
+    let trigger: Trigger
+
+    let action: any Action<Data>
+    var conditions: [RuleCondition] = []
 }
+
+typealias RuleCondition = (ArkECSContext) -> Bool

@@ -19,13 +19,18 @@ struct ArkBlueprint {
         return newSelf
     }
 
+    /// Defines the event-based action to execute when the specified event occurs.
     func on<Event: ArkEvent>(
         _ eventType: Event.Type,
+        executeIf conditions: (ArkECSContext) -> Bool...,
         then callback: @escaping ActionCallback<Event>
     ) -> Self {
-        let action = ArkAction(callback: callback)
+        let action = ArkEventAction(callback: callback)
         var newRules = rules
-        newRules.append(ArkRule(event: eventType, action: action))
+        let eventRule = ArkRule(trigger: RuleTrigger.event(eventType),
+                                action: action,
+                                conditions: conditions)
+        newRules.append(eventRule)
 
         var newSelf = self
         newSelf.rules = newRules
@@ -34,23 +39,33 @@ struct ArkBlueprint {
 
     func on<Event: ArkEvent>(
         _ eventType: Event.Type,
+        executeIf conditions: (ArkECSContext) -> Bool...,
         chain callbacks: ActionCallback<Event>...
     ) -> Self {
         var newRules = rules
         for (i, callback) in callbacks.enumerated() {
-            let action = ArkAction(callback: callback, priority: i + 1)
-            newRules.append(ArkRule(event: eventType, action: action))
+            let action = ArkEventAction(callback: callback, priority: i + 1)
+
+             let eventRule = ArkRule(trigger: RuleTrigger.event(eventType),
+                                     action: action,
+                                     conditions: conditions)
+             newRules.append(eventRule)
         }
         var newSelf = self
         newSelf.rules = newRules
         return newSelf
     }
 
-    func when(_ predicate: () -> Bool,
-              then callback: (ArkActionContext) -> Void) {
-        // TODO: turn predicate into a system
-        // that checks every tick if predicate evaluates to true
-        // create callback to deal witl
+    func forEachTick(_ callback: @escaping UpdateActionCallback) -> Self {
+        var newSelf = self
+        var newRules = rules
+
+        let action = ArkTickAction(callback: callback)
+        let ruleForSystem = ArkRule(trigger: RuleTrigger.updateSystem, action: action)
+
+        newRules.append(ruleForSystem)
+        newSelf.rules = newRules
+        return newSelf
     }
 
     func setupMultiplayer(serviceName: String = "Ark") -> Self {

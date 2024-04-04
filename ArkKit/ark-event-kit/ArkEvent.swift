@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias ArkEventTypeIdentifier = ObjectIdentifier
+
 protocol ArkEvent<Data> {
     associatedtype Data = ArkEventData
 
