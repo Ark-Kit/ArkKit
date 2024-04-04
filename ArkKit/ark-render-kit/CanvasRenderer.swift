@@ -5,9 +5,10 @@
  *
  * Devs can also **extend** the `CanvasRenderer` if they have custom canvas elements to render.
  */
-protocol CanvasRenderer {
+protocol CanvasRenderer<Container> {
     associatedtype ConcreteColor
     associatedtype Container
+
     var canvasView: Container { get }
     var rootView: Container { get }
     var colorMapping: [AbstractColor: ConcreteColor] { get }
@@ -20,7 +21,7 @@ protocol CanvasRenderer {
     func render(_ button: ButtonRenderableComponent) -> any Renderable<Container>
     func render(_ joystick: JoystickRenderableComponent) -> any Renderable<Container>
 
-    func upsertToView<T: Renderable>(_ renderable: T, at renderLayer: RenderLayer)
+    func upsertToView(_ renderable: any Renderable<Container>, at renderLayer: RenderLayer)
 }
 
 extension CanvasRenderer {

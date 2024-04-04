@@ -10,7 +10,7 @@ protocol RenderableComponent: Component, Memoizable {
     var isUserInteractionEnabled: Bool { get set }
     var shouldRerenderDelegate: ShouldRerenderDelegate? { get set }
 
-    func render(using renderer: any CanvasRenderer) -> any Renderable
+    func render<T>(using renderer: any CanvasRenderer<T>) -> any Renderable<T>
     func update(using updater: any CanvasComponentUpdater) -> Self
 
     func center(x: Double?, y: Double?) -> Self

@@ -4,7 +4,7 @@ class ArkViewModel {
     private let gameModel: ArkGameModel
 
     weak var viewRendererDelegate: GameStateRenderer?
-    weak var viewDelegate: AbstractView? {
+    weak var viewDelegate: (any AbstractView)? {
         didSet {
             guard let currentView = viewDelegate else {
                 return

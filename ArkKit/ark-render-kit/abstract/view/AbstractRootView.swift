@@ -1,5 +1,5 @@
 import Foundation
 
-protocol AbstractRootView: AbstractParentView {
+protocol AbstractRootView<View>: AbstractParentView {
     var size: CGSize { get }
 }

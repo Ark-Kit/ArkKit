@@ -78,11 +78,8 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             .applyModifiers(modifierInfo: joystick)
     }
 
-    func upsertToView<T: Renderable>(_ renderable: T, at renderLayer: RenderLayer) {
-        guard let layer = getParentView(layer: renderLayer) as? T.Container else {
-            return
-        }
-        renderable.render(into: layer)
+    func upsertToView(_ renderable: any Renderable<UIView>, at renderLayer: RenderLayer) {
+        renderable.render(into: getParentView(layer: renderLayer))
     }
 
     let defaultColor: UIColor = .black

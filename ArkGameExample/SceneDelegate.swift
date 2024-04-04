@@ -1,8 +1,8 @@
 import UIKit
-
+import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    private var ark: Ark?
+    private var ark: Ark<UIView>?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -54,7 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate {
     func loadArkBlueprintToScene(_ blueprint: ArkBlueprint, window: UIWindow) {
-        guard let rootView = window.rootViewController as? AbstractRootView else {
+        guard let rootView = window.rootViewController as? any AbstractRootView<UIView> else {
             return
         }
         ark = Ark(rootView: rootView, blueprint: blueprint)

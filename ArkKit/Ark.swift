@@ -11,8 +11,8 @@ import Foundation
  * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
  * relying on the `arkInstance` will not emit.
  */
-class Ark {
-    let rootView: any AbstractRootView
+class Ark<View> {
+    let rootView: any AbstractRootView<View>
     var arkState: ArkState
     var gameLoop: GameLoop?
 
@@ -40,11 +40,11 @@ class Ark {
                                              height: blueprint.frameHeight))
     }
 
-    var canvasRenderer: (any CanvasRenderer)?
+    var canvasRenderer: (any CanvasRenderer<View>)?
 
-    init(rootView: any AbstractRootView,
+    init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint,
-         canvasRenderer: (any CanvasRenderer)? = nil) {
+         canvasRenderer: (any CanvasRenderer<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
@@ -63,7 +63,6 @@ class Ark {
         guard let gameLoop = self.gameLoop else {
             return
         }
-
         // Initialize game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,

@@ -5,7 +5,7 @@ protocol CanvasContext {
     var canvasFrame: CGRect { get }
     var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] { get }
     func getCanvas() -> Canvas
-    func render(_ canvas: any Canvas, using renderer: any CanvasRenderer)
+    func render<T>(_ canvas: any Canvas, using renderer: any CanvasRenderer<T>)
 }
 
 class ArkCanvasContext: CanvasContext {
@@ -18,7 +18,7 @@ class ArkCanvasContext: CanvasContext {
         self.canvasFrame = canvasFrame
     }
 
-    func render(_ canvas: any Canvas, using renderer: any CanvasRenderer) {
+    func render<T>(_ canvas: any Canvas, using renderer: any CanvasRenderer<T>) {
         // unmounting outdated components
         for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
             let componentTypeIdentifier = ObjectIdentifier(renderableCompType)
