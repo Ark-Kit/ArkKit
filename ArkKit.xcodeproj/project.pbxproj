@@ -17,7 +17,7 @@
 		0267BA262BBD0FE00010F729 /* StartUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA252BBD0FE00010F729 /* StartUpSystem.swift */; };
 		0267BA282BBD0FF00010F729 /* UpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA272BBD0FF00010F729 /* UpdateSystem.swift */; };
 		0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA292BBD10060010F729 /* CleanUpSystem.swift */; };
-		0267BA2D2BBD2AB90010F729 /* CameraComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */; };
+		0267BA2D2BBD2AB90010F729 /* PlacedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA2C2BBD2AB90010F729 /* PlacedComponent.swift */; };
 		0267BA2F2BBD2BD70010F729 /* ArkCameraSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */; };
 		0267BA312BBD40C20010F729 /* CanvasToViewPositionMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA302BBD40C20010F729 /* CanvasToViewPositionMapper.swift */; };
 		02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A438252BB007C9000135BC /* ArkRuleKitTests.swift */; };
@@ -219,7 +219,7 @@
 		0267BA252BBD0FE00010F729 /* StartUpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpSystem.swift; sourceTree = "<group>"; };
 		0267BA272BBD0FF00010F729 /* UpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSystem.swift; sourceTree = "<group>"; };
 		0267BA292BBD10060010F729 /* CleanUpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanUpSystem.swift; sourceTree = "<group>"; };
-		0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponent.swift; sourceTree = "<group>"; };
+		0267BA2C2BBD2AB90010F729 /* PlacedComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacedComponent.swift; sourceTree = "<group>"; };
 		0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCameraSystem.swift; sourceTree = "<group>"; };
 		0267BA302BBD40C20010F729 /* CanvasToViewPositionMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasToViewPositionMapper.swift; sourceTree = "<group>"; };
 		02A438252BB007C9000135BC /* ArkRuleKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRuleKitTests.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 		0267BA2B2BBD2A9E0010F729 /* ark-camera-kit */ = {
 			isa = PBXGroup;
 			children = (
-				0267BA2C2BBD2AB90010F729 /* CameraComponent.swift */,
+				0267BA2C2BBD2AB90010F729 /* PlacedComponent.swift */,
 				0267BA2E2BBD2BD70010F729 /* ArkCameraSystem.swift */,
 				0267BA302BBD40C20010F729 /* CanvasToViewPositionMapper.swift */,
 			);
@@ -1412,7 +1412,7 @@
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* RootViewController.swift in Sources */,
 				02C394E32BA407420075F1CA /* Ark.swift in Sources */,
-				0267BA2D2BBD2AB90010F729 /* CameraComponent.swift in Sources */,
+				0267BA2D2BBD2AB90010F729 /* PlacedComponent.swift in Sources */,
 				AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
 				02C3951C2BA8492B0075F1CA /* BitmapImageRenderableComponent.swift in Sources */,

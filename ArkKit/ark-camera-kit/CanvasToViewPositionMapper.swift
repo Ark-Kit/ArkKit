@@ -6,15 +6,15 @@ protocol AbstractCanvasToViewPositionMapper {
 
 struct CanvasToViewPositionMapper: AbstractCanvasToViewPositionMapper {
     var canvasFrame: CGRect
-    var cameraComponent: CameraComponent?
+    var cameraComponent: PlacedCamera?
 
     func transform(_ positionOnCanvas: CGPoint) -> CGPoint {
-        guard let camera = cameraComponent else {
+        guard let cameraComp = cameraComponent else {
             return positionOnCanvas
         }
 
-        let anchorPoint = camera.anchorPoint
-        let viewPosition = camera.viewPosition
+        let anchorPoint = cameraComp.camera.canvasPosition
+        let viewPosition = cameraComp.screenPosition
         // transform positionOnCanvas to position on view based on anchorPoint to viewPosition
         let positionOnView = positionOnCanvas
         return positionOnView
