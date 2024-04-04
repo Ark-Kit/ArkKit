@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/ryanpeh/Documents/Programming/cs3217/LevelKit/ArkKit.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

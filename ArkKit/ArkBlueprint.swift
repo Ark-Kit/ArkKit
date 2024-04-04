@@ -27,7 +27,7 @@ struct ArkBlueprint {
     ) -> Self {
         let action = ArkEventAction(callback: callback)
         var newRules = rules
-        let eventRule = ArkRule(trigger: RuleTrigger.event(Event.id),
+        let eventRule = ArkRule(trigger: RuleTrigger.event(eventType),
                                 action: action,
                                 conditions: conditions)
         newRules.append(eventRule)
@@ -45,10 +45,11 @@ struct ArkBlueprint {
         var newRules = rules
         for (i, callback) in callbacks.enumerated() {
             let action = ArkEventAction(callback: callback, priority: i + 1)
-            let eventRule = ArkRule(trigger: RuleTrigger.event(Event.id),
-                                    action: action,
-                                    conditions: conditions)
-            newRules.append(eventRule)
+
+             let eventRule = ArkRule(trigger: RuleTrigger.event(eventType),
+                                     action: action,
+                                     conditions: conditions)
+             newRules.append(eventRule)
         }
         var newSelf = self
         newSelf.rules = newRules
@@ -64,6 +65,26 @@ struct ArkBlueprint {
 
         newRules.append(ruleForSystem)
         newSelf.rules = newRules
+        return newSelf
+    }
+
+    func setupMultiplayer(serviceName: String = "Ark") -> Self {
+        let fn: ArkStateSetupDelegate = { context in
+            var events = context.events
+
+            let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
+            let multiplayerEventManager = ArkMultiplayerEventManager(arkEventManager: events,
+                                                                     networkManagerDelegate: multiplayerManager)
+            multiplayerManager.multiplayerEventManager = multiplayerEventManager
+
+            events.delegate = multiplayerEventManager
+        }
+
+        var stateSetupFunctionsCopy = setupFunctions
+        stateSetupFunctionsCopy.insert(fn, at: 0)
+
+        var newSelf = self
+        newSelf.setupFunctions = stateSetupFunctionsCopy
         return newSelf
     }
 }

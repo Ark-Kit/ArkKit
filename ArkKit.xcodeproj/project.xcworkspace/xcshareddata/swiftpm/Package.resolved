@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "p2psharekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dobster/P2PShareKit/",
+      "state" : {
+        "revision" : "e383b109e24044ce0735e2251047c662ab68b9b4",
+        "version" : "0.2.0"
+      }
+    }
+  ],
+  "version" : 2
+}

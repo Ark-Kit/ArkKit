@@ -33,7 +33,7 @@ enum TankGameEntityCreator {
 
     @discardableResult
     static func createJoyStick(center: CGPoint,
-                               tankEntity: Entity,
+                               tankId: Int,
                                in ecsContext: ArkECSContext,
                                eventContext: ArkEventContext,
                                zPosition: Double) -> Entity {
@@ -46,19 +46,19 @@ enum TankGameEntityCreator {
                 .zPosition(zPosition)
                 .layer(.screen)
                 .onPanStart { angle, mag in
-                    let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
+                    let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankId: tankId,
                                                               angle: angle, magnitude: mag)
                     let tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
                     eventContext.emit(tankMoveEvent)
                 }
                 .onPanChange { angle, mag in
-                    let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
+                    let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankId: tankId,
                                                               angle: angle, magnitude: mag)
                     let tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
                     eventContext.emit(tankMoveEvent)
                 }
                 .onPanEnd { _, _ in
-                    let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankEntity: tankEntity,
+                    let tankMoveEventData = TankMoveEventData(name: "TankMoveEvent", tankId: tankId,
                                                               angle: 0, magnitude: 0)
                     let tankMoveEvent: any ArkEvent = TankMoveEvent(eventData: tankMoveEventData)
                     eventContext.emit(tankMoveEvent)
@@ -66,7 +66,7 @@ enum TankGameEntityCreator {
         ])
     }
 
-    static func createShootButton(at position: CGPoint, tankEntity: Entity, in ecsContext: ArkECSContext,
+    static func createShootButton(at position: CGPoint, tankId: Int, in ecsContext: ArkECSContext,
                                   eventContext: ArkEventContext, zPosition: Double) -> Entity {
         ecsContext.createEntity(with: [
             ButtonRenderableComponent(width: 50, height: 50)
@@ -77,7 +77,7 @@ enum TankGameEntityCreator {
                 .layer(.screen)
                 .zPosition(zPosition)
                 .onTap {
-                    let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankEntity: tankEntity)
+                    let tankShootEventData = TankShootEventData(name: "TankShootEvent", tankId: tankId)
                     var tankShootEvent: any ArkEvent = TankShootEvent(eventData: tankShootEventData)
                     eventContext.emit(tankShootEvent)
                 }
