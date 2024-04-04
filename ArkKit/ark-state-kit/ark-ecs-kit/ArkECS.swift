@@ -9,16 +9,16 @@ class ArkECS {
         self.systemManager = SystemManager()
     }
 
-    func startup() {
-        self.systemManager.startup()
+    func startUp() {
+        self.systemManager.startUp()
     }
 
     func update(deltaTime: TimeInterval) {
         systemManager.update(deltaTime: deltaTime, arkECS: self)
     }
 
-    func cleanup() {
-        self.systemManager.finish()
+    func cleanUp() {
+        self.systemManager.cleanUp()
     }
 }
 

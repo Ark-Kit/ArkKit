@@ -11,8 +11,8 @@ class ArkState {
         self.eventManager = eventManager
     }
 
-    func start() {
-        arkECS.startup()
+    func startUp() {
+        arkECS.startUp()
     }
 
     func update(deltaTime: TimeInterval) {
@@ -20,8 +20,8 @@ class ArkState {
         arkECS.update(deltaTime: deltaTime)
     }
 
-    func finish() {
-        arkECS.cleanup()
+    func cleanUp() {
+        arkECS.cleanUp()
     }
 
     func setup(_ setupDelegate: ArkStateSetupDelegate, displayContext: ArkDisplayContext) {
