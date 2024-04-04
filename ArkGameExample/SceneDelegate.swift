@@ -1,5 +1,5 @@
 import UIKit
-import SwiftUI
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private var ark: Ark<UIView>?
