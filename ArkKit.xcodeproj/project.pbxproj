@@ -52,7 +52,7 @@
 		02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395252BA890470075F1CA /* ArkCanvasSystem.swift */; };
 		02C395282BA891AA0075F1CA /* ArkUIKitRenderableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395272BA891AA0075F1CA /* ArkUIKitRenderableBuilder.swift */; };
 		02C3952A2BA8952F0075F1CA /* CanvasContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395292BA8952F0075F1CA /* CanvasContext.swift */; };
-		02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3952B2BA897890075F1CA /* ArkCanvas.swift */; };
+		02C3952C2BA897890075F1CA /* ArkFlatCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3952B2BA897890075F1CA /* ArkFlatCanvas.swift */; };
 		02C395322BA9ED230075F1CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 02C395312BA9ED230075F1CA /* README.md */; };
 		02C395342BAAF0EC0075F1CA /* WorldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395332BAAF0EC0075F1CA /* WorldComponent.swift */; };
 		02C9CC2F2BBED04E0098E849 /* ContainerRenderableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC2E2BBED04E0098E849 /* ContainerRenderableComponent.swift */; };
@@ -255,7 +255,7 @@
 		02C395252BA890470075F1CA /* ArkCanvasSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCanvasSystem.swift; sourceTree = "<group>"; };
 		02C395272BA891AA0075F1CA /* ArkUIKitRenderableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUIKitRenderableBuilder.swift; sourceTree = "<group>"; };
 		02C395292BA8952F0075F1CA /* CanvasContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContext.swift; sourceTree = "<group>"; };
-		02C3952B2BA897890075F1CA /* ArkCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCanvas.swift; sourceTree = "<group>"; };
+		02C3952B2BA897890075F1CA /* ArkFlatCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkFlatCanvas.swift; sourceTree = "<group>"; };
 		02C395312BA9ED230075F1CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		02C395332BAAF0EC0075F1CA /* WorldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldComponent.swift; sourceTree = "<group>"; };
 		02C9CC2E2BBED04E0098E849 /* ContainerRenderableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerRenderableComponent.swift; sourceTree = "<group>"; };
@@ -493,7 +493,7 @@
 				02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */,
 				02C395252BA890470075F1CA /* ArkCanvasSystem.swift */,
 				02C395292BA8952F0075F1CA /* CanvasContext.swift */,
-				02C3952B2BA897890075F1CA /* ArkCanvas.swift */,
+				02C3952B2BA897890075F1CA /* ArkFlatCanvas.swift */,
 				8FEB21772BADE30F00788E20 /* RenderLayer.swift */,
 				8FEB21792BADE60300788E20 /* DisplayContext.swift */,
 			);
@@ -1444,7 +1444,7 @@
 				0267BA312BBD40C20010F729 /* CameraContext.swift in Sources */,
 				8FEB218A2BAF3C8E00788E20 /* ImpactExplosionAnimation.swift in Sources */,
 				AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */,
-				02C3952C2BA897890075F1CA /* ArkCanvas.swift in Sources */,
+				02C3952C2BA897890075F1CA /* ArkFlatCanvas.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
 				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
 				8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */,

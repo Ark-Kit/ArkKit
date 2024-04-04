@@ -24,7 +24,7 @@ class ArkCameraContext: CameraContext {
             return canvas
         }
 
-        var transformedCanvas = filterForScreenComponents(canvas) // joystick, buttons, etc
+        var transformedCanvas = ArkMegaCanvas(screenElements: filterForScreenComponents(canvas))
 
         for cameraEntity in cameras {
             guard let cameraContainerComp = ecs.getComponent(
@@ -35,6 +35,7 @@ class ArkCameraContext: CameraContext {
 
             let cameraCanvas = translateCanvasToCamera(cameraContainerComp, original: canvas)
             let containerRenderable = collectCameraCanvasToContainer(cameraCanvas, placedCamera: cameraContainerComp)
+
             transformedCanvas.addEntityRenderableToCanvas(
                 entityId: cameraEntity.id,
                 componentType: ObjectIdentifier(ContainerRenderableComponent.self),
@@ -48,7 +49,7 @@ class ArkCameraContext: CameraContext {
         _ cameraCanva: any Canvas,
         placedCamera: CameraContainerComponent
     ) -> ContainerRenderableComponent {
-        let renderableComponents = cameraCanva.canvasEntityToRenderableMapping.flatMap { _, mapping in mapping.values }
+        let renderableComponents = cameraCanva.canvasElements.flatMap { _, mapping in mapping.values }
         return ContainerRenderableComponent(
             center: placedCamera.screenPosition,
             size: placedCamera.size,
@@ -57,13 +58,14 @@ class ArkCameraContext: CameraContext {
             renderableComponents: renderableComponents
         )
     }
+
     private func translateCanvasToCamera(_ cameraContainerComp: CameraContainerComponent,
                                          original canvas: Canvas) -> Canvas {
-        var transformedCanvas = ArkCanvas()
+        var transformedCanvas = ArkFlatCanvas()
         let fixedViewPosition = cameraContainerComp.screenPosition
         let canvasPosition = cameraContainerComp.camera.canvasPosition
 
-        canvas.canvasEntityToRenderableMapping.forEach { entityId, mapping in
+        canvas.canvasElements.forEach { entityId, mapping in
             mapping.forEach { compType, comp in
                 if comp.renderLayer == .screen {
                     return
@@ -87,18 +89,20 @@ class ArkCameraContext: CameraContext {
                 y: point.y + translated.y)
     }
 
-    private func filterForScreenComponents(_ canvas: any Canvas) -> ArkCanvas {
-        var transformedCanvas = ArkCanvas()
-        canvas.canvasEntityToRenderableMapping.forEach { entityId, mapping in
+    private func filterForScreenComponents(_ canvas: any Canvas) -> Canvas.CanvasElements {
+        var result: Canvas.CanvasElements = [:]
+
+        canvas.canvasElements.forEach { entityId, mapping in
             let screenRenderables = mapping.filter { _, comp in
                 comp.renderLayer == .screen
             }
             for (compType, comp) in screenRenderables {
-                transformedCanvas.addEntityRenderableToCanvas(entityId: entityId,
-                                                              componentType: compType,
-                                                              renderableComponent: comp)
+                if result[entityId] == nil {
+                    result[entityId] = [:]
+                }
+                result[entityId]?[compType] = comp
             }
         }
-        return transformedCanvas
+        return result
     }
 }

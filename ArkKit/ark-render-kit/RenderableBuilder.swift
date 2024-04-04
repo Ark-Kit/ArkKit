@@ -1,9 +1,9 @@
 /**
- * The `CanvasRenderer` implements the rendering logic of each `Renderable`.
+ * The `RenderableBuilder` implements the rendering logic of each `Renderable`.
  *
- * It should be implemented by the `ArkUiAdapter` or other `UiAdapters` to render various renderables.
+ * It should be implemented by the `ArkUiKit-Library` or other `Ui-Libraries` to render various renderables.
  *
- * Devs can also **extend** the `CanvasRenderer` if they have custom canvas elements to render.
+ * Devs can also **extend** the `RenderableBuilder` if they have custom renderable components to render.
  */
 protocol RenderableBuilder<Container> {
     associatedtype ConcreteColor

@@ -24,6 +24,6 @@ class ArkGameModel<T> {
     }
 
     func retrieveCanvas() -> Canvas? {
-        canvasContext?.getMegaCanvas()
+        canvasContext?.getFlatCanvas()
     }
 }

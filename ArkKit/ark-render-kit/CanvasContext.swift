@@ -7,7 +7,7 @@ protocol CanvasContext<View> {
     var rootView: any AbstractRootView<View> { get }
     var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] { get }
 
-    func getMegaCanvas() -> Canvas
+    func getFlatCanvas() -> ArkFlatCanvas
     func render(_ canvas: any Canvas, using renderer: any RenderableBuilder<View>)
 }
 
@@ -25,7 +25,7 @@ class ArkCanvasContext<View>: CanvasContext {
         // unmounting outdated components
         for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
             let componentTypeIdentifier = ObjectIdentifier(renderableCompType)
-            let validEntityIds: Set<EntityID> = Set(canvas.canvasEntityToRenderableMapping
+            let validEntityIds: Set<EntityID> = Set(canvas.canvasElements
                 .filter { _, compTypeDict in compTypeDict.keys.contains(componentTypeIdentifier) }
                 .map { entityId, _ in entityId })
             for entityId in memo.keys where !validEntityIds.contains(entityId) {
@@ -38,7 +38,7 @@ class ArkCanvasContext<View>: CanvasContext {
         }
 
         // rerendering - unmounting old, rendering new
-        for (entityId, component) in canvas.canvasEntityToRenderableMapping {
+        for (entityId, component) in canvas.canvasElements {
             for (componentType, renderableComponent) in component {
                 if let (previousCanvasComp, previousRenderable) = memo[entityId]?[componentType] {
                     if !renderableComponent.hasUpdated(previous: previousCanvasComp) {
@@ -60,9 +60,8 @@ class ArkCanvasContext<View>: CanvasContext {
     }
 
     /// Outputs a logical canvas with the relevant entities in the canvas and their renderable components only
-    func getMegaCanvas() -> any Canvas {
-        // MEGA CANVAS IS DUMB
-        var arkCanvas = ArkCanvas()
+    func getFlatCanvas() -> ArkFlatCanvas {
+        var arkCanvas = ArkFlatCanvas()
         for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
             let renderableEntities = ecs.getEntities(with: [renderableCompType])
             let componentType = ObjectIdentifier(renderableCompType)
