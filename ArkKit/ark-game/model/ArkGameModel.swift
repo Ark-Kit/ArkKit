@@ -7,7 +7,7 @@ class ArkGameModel {
     init(gameState: ArkState, canvasContext: CanvasContext) {
         self.gameState = gameState
         self.canvasContext = canvasContext
-        self.gameState?.start()
+        self.gameState?.startUp()
     }
 
     func updateState(dt: Double) {

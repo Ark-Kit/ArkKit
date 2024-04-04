@@ -11,18 +11,18 @@ import Foundation
  * `Schedule` represents the lifecycle of systems
  */
 enum Schedule {
-    case startup
+    case startUp
     case update
-    case cleanup
+    case cleanUp
 }
 
 class SystemManager {
     typealias SystemType = ObjectIdentifier
 
     private(set) var systemsBySchedule: [Schedule: OrderedDictionary<SystemType, [System]>] = [
-        .startup: OrderedDictionary(),
+        .startUp: OrderedDictionary(),
         .update: OrderedDictionary(),
-        .cleanup: OrderedDictionary()
+        .cleanUp: OrderedDictionary()
     ]
 
     private(set) var uniqueSystemsByType = Set<SystemType>()
@@ -61,8 +61,8 @@ class SystemManager {
         }
     }
 
-    func startup() {
-        guard let startupSystems = systemsBySchedule[.startup] else {
+    func startUp() {
+        guard let startupSystems = systemsBySchedule[.startUp] else {
             return
         }
         let runner = ArkSystemRunner()
@@ -86,8 +86,8 @@ class SystemManager {
         }
     }
 
-    func finish() {
-        guard let cleanupSystems = systemsBySchedule[.cleanup] else {
+    func cleanUp() {
+        guard let cleanupSystems = systemsBySchedule[.cleanUp] else {
             return
         }
         let runner = ArkSystemRunner()

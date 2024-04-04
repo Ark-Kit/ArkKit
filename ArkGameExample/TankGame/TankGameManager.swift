@@ -115,7 +115,7 @@ class TankGameManager {
                 self.handleTankMove(event, in: context)
             }
             .on(TankMoveEvent.self,
-                conditionalOn: { _ in false }, { _ in true },
+                executeIf: { _ in false }, { _ in true },
                 then: { _, _ in
                 print("will not execute")
             })

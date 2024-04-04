@@ -22,7 +22,7 @@ struct ArkBlueprint {
     /// Defines the event-based action to execute when the specified event occurs.
     func on<Event: ArkEvent>(
         _ eventType: Event.Type,
-        conditionalOn conditions: (ArkECSContext) -> Bool...,
+        executeIf conditions: (ArkECSContext) -> Bool...,
         then callback: @escaping ActionCallback<Event>
     ) -> Self {
         let action = ArkEventAction(callback: callback)
@@ -39,7 +39,7 @@ struct ArkBlueprint {
 
     func on<Event: ArkEvent>(
         _ eventType: Event.Type,
-        conditionalOn conditions: (ArkECSContext) -> Bool...,
+        executeIf conditions: (ArkECSContext) -> Bool...,
         chain callbacks: ActionCallback<Event>...
     ) -> Self {
         var newRules = rules
