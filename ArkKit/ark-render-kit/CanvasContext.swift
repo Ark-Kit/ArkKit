@@ -10,8 +10,9 @@ protocol CanvasContext {
 
 class ArkCanvasContext: CanvasContext {
     private(set) var canvasFrame: CGRect
-    var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] = [:]
+    private(set) var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] = [:]
     private let ecs: ArkECS
+
     init(ecs: ArkECS, canvasFrame: CGRect) {
         self.ecs = ecs
         self.canvasFrame = canvasFrame
@@ -19,15 +20,22 @@ class ArkCanvasContext: CanvasContext {
 
     func render(_ canvas: any Canvas, using renderer: any CanvasRenderer) {
         // unmounting outdated components
-        for (entityId, component) in canvas.componentsToUnmount {
-            for (componentType, renderable) in component {
-                renderable?.unmount()
-                memo[entityId]?.removeValue(forKey: componentType)
+        for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
+            let componentTypeIdentifier = ObjectIdentifier(renderableCompType)
+            let validEntityIds: Set<EntityID> = Set(canvas.canvasEntityToRenderableMapping
+                .filter { _, compTypeDict in compTypeDict.keys.contains(componentTypeIdentifier) }
+                .map { entityId, _ in entityId })
+            for entityId in memo.keys where !validEntityIds.contains(entityId) {
+                // entity is no longer valid
+                if let (_, renderableFromEntity) = memo[entityId]?[componentTypeIdentifier] {
+                    renderableFromEntity.unmount()
+                    memo[entityId]?.removeValue(forKey: componentTypeIdentifier)
+                }
             }
         }
 
         // rerendering - unmounting old, rendering new
-        for (entityId, component) in canvas.componentsToMount {
+        for (entityId, component) in canvas.canvasEntityToRenderableMapping {
             for (componentType, renderableComponent) in component {
                 if let (previousCanvasComp, previousRenderable) = memo[entityId]?[componentType] {
                     if !renderableComponent.hasUpdated(previous: previousCanvasComp) {
@@ -46,35 +54,20 @@ class ArkCanvasContext: CanvasContext {
         }
     }
 
+    /// Outputs a logical canvas with the relevant entities in the canvas and their renderable components only
     func getCanvas() -> any Canvas {
         var arkCanvas = ArkCanvas()
-        for canvasCompType in ArkCanvasSystem.canvasComponentTypes {
-            let entitiesWithCanvas = ecs.getEntities(with: [canvasCompType])
-            let componentType = ObjectIdentifier(canvasCompType)
-            // check if entity has outdaeted canvas components
-            let validEntityIds = Set(entitiesWithCanvas.map { entity in entity.id })
-            for entityId in memo.keys where !validEntityIds.contains(entityId) {
-                // entity is no longer valid
-                if let renderableFromEntity = memo[entityId]?[componentType] {
-                    arkCanvas.addComponentToUnmount(entityId: entityId,
-                                                    componentType: componentType,
-                                                    renderable: renderableFromEntity.1)
-                }
-            }
+        for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
+            let renderableEntities = ecs.getEntities(with: [renderableCompType])
+            let componentType = ObjectIdentifier(renderableCompType)
 
-            // update canvas
-            for entity in entitiesWithCanvas {
-                guard let renderableComponent = ecs.getComponent(ofType: canvasCompType, for: entity) else {
+            for entity in renderableEntities {
+                guard let renderableComponent = ecs.getComponent(ofType: renderableCompType, for: entity) else {
                     continue
                 }
-                if let (previousRenderableComponent, _) = memo[entity.id]?[componentType] {
-                    if !renderableComponent.hasUpdated(previous: previousRenderableComponent) {
-                        continue
-                    }
-                }
-                arkCanvas.addComponentToMount(entityId: entity.id,
-                                              componentType: componentType,
-                                              renderableComponent: renderableComponent)
+                arkCanvas.addEntityRenderableToCanvas(entityId: entity.id,
+                                                      componentType: componentType,
+                                                      renderableComponent: renderableComponent)
             }
         }
         return arkCanvas

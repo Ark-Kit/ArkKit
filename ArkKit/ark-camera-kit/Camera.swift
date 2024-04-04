@@ -1,14 +1,17 @@
 import Foundation
 
-struct PlacedCamera: Component {
-    let camera: PlacedComponent
+struct CameraContainerComponent: Component {
+    let camera: Camera
+
+    /// Screen position is the center of the camera placed on to the screen coordinate
     let screenPosition: CGPoint
 }
 
 /**
- * Defines the visible portion of the canvas based off the `anchorPoint`
+ * Defines the visible portion of the canvas based off the `canvasPosition`.
+ * The camera takes a slice of renderable components at the canvas layer based off the size.
  */
-struct PlacedComponent {
+struct Camera {
     /// Defines the anchor position within the `canvas` (game world).
     let canvasPosition: CGPoint
 
