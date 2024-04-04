@@ -53,13 +53,13 @@ class TankGameManager {
                     zPosition: 5)
                 self.tankIdEntityMap[1] = tankEntity1
 
-                let tankEntity2 = TankGameEntityCreator.createTank(
-                    at: CGPoint(x: 400, y: 180),
-                    rotation: Double.pi,
-                    tankIndex: 2,
-                    in: ecs,
-                    zPosition: 5)
-                self.tankIdEntityMap[2] = tankEntity2
+//                let tankEntity2 = TankGameEntityCreator.createTank(
+//                    at: CGPoint(x: 400, y: 180),
+//                    rotation: Double.pi,
+//                    tankIndex: 2,
+//                    in: ecs,
+//                    zPosition: 5)
+//                self.tankIdEntityMap[2] = tankEntity2
 
                 let joystick1Entity = TankGameEntityCreator.createJoyStick(
                     center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),

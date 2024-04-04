@@ -11,7 +11,7 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
     var rootViewResizeDelegate: ScreenResizeDelegate?
     var cachedScreenSize: CGSize?
     var canvasRenderer: (any CanvasRenderer<UIView>)?
-    var cameraContext: ArkCameraContext?
+    var cameraContext: CameraContext?
 
     var rootView: UIView {
         view

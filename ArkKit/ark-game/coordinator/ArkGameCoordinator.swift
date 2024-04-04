@@ -38,6 +38,7 @@ class ArkGameCoordinator<View> {
         // inject dependencies between game loop and view
         arkView.gameLoop = gameLoop
         gameLoop.updateGameWorldDelegate = arkView
+        arkView.cameraContext = ArkCameraContext(ecs: arkState.arkECS)
 
         // push view-controller to rootView
         rootView.pushView(arkView, animated: false)

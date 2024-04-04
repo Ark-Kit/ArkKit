@@ -8,6 +8,6 @@ import Foundation
  * like `SwiftUI`.
  */
 protocol GameStateRenderer: AnyObject {
-    var cameraContext: ArkCameraContext? { get set }
+    var cameraContext: CameraContext? { get set }
     func render(canvas: Canvas, with canvasContext: CanvasContext)
 }

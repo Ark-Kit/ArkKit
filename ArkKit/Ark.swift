@@ -143,10 +143,12 @@ class Ark<View> {
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
+        let cameraSystem = ArkCameraSystem()
         arkState.arkECS.addSystem(timeSystem)
         arkState.arkECS.addSystem(physicsSystem)
         arkState.arkECS.addSystem(animationSystem)
         arkState.arkECS.addSystem(canvasSystem)
+        arkState.arkECS.addSystem(cameraSystem)
 
         // inject dependency into game loop
         simulator.physicsScene?.sceneContactUpdateDelegate = physicsSystem
