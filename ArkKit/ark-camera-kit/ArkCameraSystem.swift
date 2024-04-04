@@ -10,7 +10,9 @@ class ArkCameraSystem: UpdateSystem {
 
         for entityWithCamera in entitiesWithCamera {
             guard let positionOfEntity = arkECS.getComponent(ofType: PositionComponent.self, for: entityWithCamera),
-                  let cameraComp = arkECS.getComponent(ofType: CameraContainerComponent.self, for: entityWithCamera) else {
+                  let cameraComp = arkECS.getComponent(
+                    ofType: CameraContainerComponent.self, for: entityWithCamera
+                  ) else {
                 continue
             }
             // track entity holding the camera based on the entity's position
@@ -22,7 +24,7 @@ class ArkCameraSystem: UpdateSystem {
                 ),
                 screenPosition: cameraComp.screenPosition
             )
-            arkECS.upsertComponent(updatedCameraComp, to: entityWithCamera)
+//            arkECS.upsertComponent(updatedCameraComp, to: entityWithCamera)
         }
     }
 }

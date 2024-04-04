@@ -52,14 +52,20 @@ class TankGameManager {
                     in: ecs,
                     zPosition: 5)
                 self.tankIdEntityMap[1] = tankEntity1
+                ecs.upsertComponent(CameraContainerComponent(
+                    camera: Camera(
+                        canvasPosition: CGPoint(x: 410, y: 590),
+                        size: CGSize(width: 820, height: 1_180)
+                    ),
+                    screenPosition: CGPoint(x: 410, y: 590)), to: tankEntity1)
 
-//                let tankEntity2 = TankGameEntityCreator.createTank(
-//                    at: CGPoint(x: 400, y: 180),
-//                    rotation: Double.pi,
-//                    tankIndex: 2,
-//                    in: ecs,
-//                    zPosition: 5)
-//                self.tankIdEntityMap[2] = tankEntity2
+                let tankEntity2 = TankGameEntityCreator.createTank(
+                    at: CGPoint(x: 400, y: 180),
+                    rotation: Double.pi,
+                    tankIndex: 2,
+                    in: ecs,
+                    zPosition: 5)
+                self.tankIdEntityMap[2] = tankEntity2
 
                 let joystick1Entity = TankGameEntityCreator.createJoyStick(
                     center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
@@ -96,11 +102,11 @@ class TankGameManager {
 
     func setUpSystems() {
         blueprint = blueprint
-            .forEachTick { deltaTime, _ in
-                print("first one", deltaTime)
+            .forEachTick { _, _ in
+//                print("first one", deltaTime)
             }
-            .forEachTick { deltaTime, _ in
-                print("second one", deltaTime)
+            .forEachTick { _, _ in
+//                print("second one", deltaTime)
             }
     }
 
@@ -117,7 +123,7 @@ class TankGameManager {
             .on(TankMoveEvent.self,
                 executeIf: { _ in false }, { _ in true },
                 then: { _, _ in
-                print("will not execute")
+//                print("will not execute")
             })
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)

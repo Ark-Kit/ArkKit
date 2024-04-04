@@ -5,4 +5,5 @@ protocol CanvasComponentUpdater {
     func update(_ image: BitmapImageRenderableComponent) -> BitmapImageRenderableComponent
     func update(_ button: ButtonRenderableComponent) -> ButtonRenderableComponent
     func update(_ joystick: JoystickRenderableComponent) -> JoystickRenderableComponent
+    func update(_ container: ContainerRenderableComponent) -> ContainerRenderableComponent
 }

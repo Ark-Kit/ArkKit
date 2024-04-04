@@ -1,35 +1,60 @@
 import Foundation
 
 protocol CameraContext {
+    var cameraEntities: [Entity] { get }
     func transform(_ canvas: any Canvas) -> any Canvas
 }
 
 class ArkCameraContext: CameraContext {
     private let ecs: ArkECSContext
 
+    var cameraEntities: [Entity] {
+        ecs.getEntities(with: [CameraContainerComponent.self])
+    }
+
     init(ecs: ArkECSContext) {
         self.ecs = ecs
     }
 
     func transform(_ canvas: any Canvas) -> any Canvas {
-        let cameraEntities = ecs.getEntities(with: [CameraContainerComponent.self])
+        let cameras = cameraEntities
 
-        if cameraEntities.isEmpty {
+        if cameras.isEmpty {
             return canvas
         }
 
-        // transform the canvas into a camera canvas by translating positions
-        let cameraTranslatedCanvas: [any Canvas] = cameraEntities.map { cameraEntity in
+        var transformedCanvas = filterForScreenComponents(canvas)
+
+        for cameraEntity in cameras {
             guard let cameraContainerComp = ecs.getComponent(
                 ofType: CameraContainerComponent.self, for: cameraEntity
             ) else {
-                return ArkCanvas()
+                continue
             }
-            return translateCanvasToCamera(cameraContainerComp, original: canvas)
+
+            let cameraCanvas = translateCanvasToCamera(cameraContainerComp, original: canvas)
+            let containerRenderable = collectCameraCanvasToContainer(cameraCanvas, placedCamera: cameraContainerComp)
+            transformedCanvas.addEntityRenderableToCanvas(
+                entityId: cameraEntity.id,
+                componentType: ObjectIdentifier(ContainerRenderableComponent.self),
+                renderableComponent: containerRenderable
+            )
         }
-        return cameraTranslatedCanvas.first ?? ArkCanvas()
+        return transformedCanvas
     }
 
+    private func collectCameraCanvasToContainer(
+        _ cameraCanva: any Canvas,
+        placedCamera: CameraContainerComponent
+    ) -> ContainerRenderableComponent {
+        let renderableComponents = cameraCanva.canvasEntityToRenderableMapping.flatMap { _, mapping in mapping.values }
+        return ContainerRenderableComponent(
+            center: placedCamera.screenPosition,
+            size: placedCamera.camera.size,
+            zPosition: 0,
+            renderableComponents: renderableComponents
+        )
+    }
     private func translateCanvasToCamera(_ cameraContainerComp: CameraContainerComponent,
                                          original canvas: Canvas) -> Canvas {
         var transformedCanvas = ArkCanvas()
@@ -39,9 +64,6 @@ class ArkCameraContext: CameraContext {
         canvas.canvasEntityToRenderableMapping.forEach { entityId, mapping in
             mapping.forEach { compType, comp in
                 if comp.renderLayer == .screen {
-                    transformedCanvas.addEntityRenderableToCanvas(
-                        entityId: entityId, componentType: compType, renderableComponent: comp
-                    )
                     return
                 }
 
@@ -61,5 +83,20 @@ class ArkCameraContext: CameraContext {
     private func translate(point: CGPoint, by translated: CGPoint) -> CGPoint {
         CGPoint(x: point.x + translated.x,
                 y: point.y + translated.y)
+    }
+
+    private func filterForScreenComponents(_ canvas: any Canvas) -> ArkCanvas {
+        var transformedCanvas = ArkCanvas()
+        canvas.canvasEntityToRenderableMapping.forEach { entityId, mapping in
+            let screenRenderables = mapping.filter { _, comp in
+                comp.renderLayer == .screen
+            }
+            for (compType, comp) in screenRenderables {
+                transformedCanvas.addEntityRenderableToCanvas(entityId: entityId,
+                                                              componentType: compType,
+                                                              renderableComponent: comp)
+            }
+        }
+        return transformedCanvas
     }
 }

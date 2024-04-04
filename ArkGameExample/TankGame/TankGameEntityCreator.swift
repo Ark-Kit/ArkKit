@@ -26,10 +26,7 @@ enum TankGameEntityCreator {
                              contactTestBitMask: TankGamePhysicsCategory.ball |
                              TankGamePhysicsCategory.tank |
                              TankGamePhysicsCategory.wall |
-                             TankGamePhysicsCategory.water),
-            CameraContainerComponent(camera: Camera(canvasPosition: position,
-                                                    size: CGSize(width: 10, height: 10)),
-                                     screenPosition: CGPoint(x: 500, y: 500))
+                             TankGamePhysicsCategory.water)
         ])
         return tankEntity
     }

@@ -78,6 +78,19 @@ class ArkUIKitCanvasRenderer: CanvasRenderer {
             .applyModifiers(modifierInfo: joystick)
     }
 
+    func render(_ container: ContainerRenderableComponent) -> any Renderable<UIView> {
+        UIKitContainer(frame: container.frame)
+            .zPosition(container.zPosition)
+            .rotate(by: container.rotation)
+            .setIsUserInteractionEnabled(container.isUserInteractionEnabled)
+            .addToContainer(
+                container.renderableComponents.map { comp in
+                    comp.render(using: self)
+                }
+            )
+            .clipToBounds()
+    }
+
     func upsertToView(_ renderable: any Renderable<UIView>, at renderLayer: RenderLayer) {
         renderable.render(into: getParentView(layer: renderLayer))
     }

@@ -20,6 +20,7 @@ protocol CanvasRenderer<Container> {
     func render(_ image: BitmapImageRenderableComponent) -> any Renderable<Container>
     func render(_ button: ButtonRenderableComponent) -> any Renderable<Container>
     func render(_ joystick: JoystickRenderableComponent) -> any Renderable<Container>
+    func render(_ container: ContainerRenderableComponent) -> any Renderable<Container>
 
     func upsertToView(_ renderable: any Renderable<Container>, at renderLayer: RenderLayer)
 }
