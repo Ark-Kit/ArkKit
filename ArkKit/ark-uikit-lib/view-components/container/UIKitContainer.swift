@@ -10,10 +10,6 @@ final class UIKitContainer: UIView, UIKitRenderable {
             }
             self.addSubview(viewComp)
         }
-        for subview in self.subviews {
-            let convertedFrame = subview.convert(subview.bounds, to: self)
-            subview.frame = convertedFrame
-        }
         return self
     }
 
