@@ -3,19 +3,6 @@ import UIKit
 class ArkUIKitRenderableBuilder: RenderableBuilder {
     typealias ConcreteColor = UIColor
 
-//    init() {
-////        self.canvasView = canvasView
-//        // Scale canvasView to fit the rootView
-//        // TODO: letterbox each camera frame into rootFrame
-//        // let scaleFactor = letterboxScaleFactor(rootFrame: rootView.frame, canvasFrame: canvasFrame)
-//
-////        canvasView.bounds = canvasFrame
-////        canvasView.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
-////        canvasView.center = rootView.center
-//        // n container views
-//        // 1. how to fill up the rootView directly without making another child
-//    }
-
     func build(_ circle: CircleRenderableComponent) -> any Renderable<UIView> {
         UIKitCircle(radius: circle.radius, center: circle.center)
             .rotate(by: circle.rotation)
