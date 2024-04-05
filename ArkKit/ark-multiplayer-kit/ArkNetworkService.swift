@@ -28,16 +28,24 @@ class ArkNetworkService: ArkNetworkProtocol {
     deinit {
         session.stopSharing()
     }
+    
+    var deviceID: String {
+        UIDevice.current.name
+    }
 
     private func setUpHandlers() {
         self.session.peersChangeHandler = { [weak self] peers in
-            self?.peers = peers
-            self?.delegate?.connectedDevicesChanged(manager: self!, connectedDevices: peers.map { $0.peerID })
-            print("Peers changed: \(peers.map { $0.peerID })")
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.peers = peers
+            strongSelf.delegate?.connectedDevicesChanged(manager: strongSelf, connectedDevices: peers.map { $0.peerID })
+            print("Peers changed: \(peers.map { $0.info["name"] ?? $0.peerID })")
         }
 
         self.session.newPeerHandler = { peer in
-            print("New peer joined: \(peer.peerID)")
+            print("New peer joined: \(peer.info["name"] ?? peer.peerID)")
         }
 
         self.session.messageReceivedHandler = { [weak self] _, data in
@@ -49,6 +57,14 @@ class ArkNetworkService: ArkNetworkProtocol {
         if !self.peers.isEmpty {
             session.sendToAllPeers(data: data)
         }
+    }
+    
+    func sendData(_ data: Data, to peerName: String) {
+        guard let peerInfo = peers.first(where: { $0.info["name"] == peerName }) else {
+            return
+        }
+        
+        session.send(to: peerInfo.peerID, data: data)
     }
 }
 

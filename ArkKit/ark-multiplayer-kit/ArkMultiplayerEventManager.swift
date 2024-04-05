@@ -8,18 +8,17 @@
 import Foundation
 
 class ArkMultiplayerEventManager: ArkEventManagerDelegate {
-
     private var arkEventManager: ArkEventContext
-    var networkManagerDelegate: ArkMultiplayerManagerDelegate?
+    var delegate: ArkMultiplayerEventManagerDelegate?
 
     init(arkEventManager: ArkEventContext = ArkEventManager(),
-         networkManagerDelegate: ArkMultiplayerManagerDelegate? = nil) {
+         delegate: ArkMultiplayerEventManagerDelegate? = nil) {
         self.arkEventManager = arkEventManager
-        self.networkManagerDelegate = networkManagerDelegate
+        self.delegate = delegate
     }
 
     func didEmitEvent<Event>(_ event: Event) where Event: ArkEvent {
-        networkManagerDelegate?.shouldSendEvent(event)
+        delegate?.shouldSendEvent(event)
     }
 
     func emitWithoutBroadcast<Event>(_ event: Event) where Event: ArkEvent {
@@ -27,6 +26,6 @@ class ArkMultiplayerEventManager: ArkEventManagerDelegate {
     }
 }
 
-protocol ArkMultiplayerManagerDelegate: AnyObject {
+protocol ArkMultiplayerEventManagerDelegate: AnyObject {
     func shouldSendEvent<Event: ArkEvent>(_ event: Event)
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias EntityID = UUID
+typealias EntityID = Int
 
 struct Entity {
     var id = EntityID()

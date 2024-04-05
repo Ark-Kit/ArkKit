@@ -155,6 +155,7 @@
 		9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AE2BA952E300F99013 /* AbstractShape.swift */; };
 		9479A3B12BA953D800F99013 /* ShapeRenderableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B02BA953D800F99013 /* ShapeRenderableComponent.swift */; };
 		9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B32BA95E7E00F99013 /* AbstractColor.swift */; };
+		AD260CA82BBFCC7E008B9654 /* EntityIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD260CA72BBFCC7E008B9654 /* EntityIDGenerator.swift */; };
 		AD2B59AC2BB87F2200198E99 /* ArkNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */; };
 		AD2B59B02BB94DE000198E99 /* ArkMultiplayerEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AF2BB94DE000198E99 /* ArkMultiplayerEventManager.swift */; };
 		AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59B12BB94FBE00198E99 /* ArkMultiplayerManager.swift */; };
@@ -193,6 +194,7 @@
 		ADA847FD2BBC4B5500B19378 /* ArkNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA847FC2BBC4B5500B19378 /* ArkNetworkProtocol.swift */; };
 		ADA847FF2BBC4EA800B19378 /* ArkDataSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA847FE2BBC4EA800B19378 /* ArkDataSerializer.swift */; };
 		ADA848022BBC7DF000B19378 /* ArkSerializableEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA848012BBC7DF000B19378 /* ArkSerializableEvent.swift */; };
+		ADD74C092BBFEBF3008CE36B /* ArkMultiplayerECS.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C082BBFEBF3008CE36B /* ArkMultiplayerECS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -354,6 +356,7 @@
 		9479A3AE2BA952E300F99013 /* AbstractShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractShape.swift; sourceTree = "<group>"; };
 		9479A3B02BA953D800F99013 /* ShapeRenderableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderableComponent.swift; sourceTree = "<group>"; };
 		9479A3B32BA95E7E00F99013 /* AbstractColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractColor.swift; sourceTree = "<group>"; };
+		AD260CA72BBFCC7E008B9654 /* EntityIDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityIDGenerator.swift; sourceTree = "<group>"; };
 		AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkService.swift; sourceTree = "<group>"; };
 		AD2B59AF2BB94DE000198E99 /* ArkMultiplayerEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerEventManager.swift; sourceTree = "<group>"; };
 		AD2B59B12BB94FBE00198E99 /* ArkMultiplayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerManager.swift; sourceTree = "<group>"; };
@@ -394,6 +397,7 @@
 		ADA847FC2BBC4B5500B19378 /* ArkNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkProtocol.swift; sourceTree = "<group>"; };
 		ADA847FE2BBC4EA800B19378 /* ArkDataSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkDataSerializer.swift; sourceTree = "<group>"; };
 		ADA848012BBC7DF000B19378 /* ArkSerializableEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSerializableEvent.swift; sourceTree = "<group>"; };
+		ADD74C082BBFEBF3008CE36B /* ArkMultiplayerECS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerECS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -982,6 +986,15 @@
 			path = color;
 			sourceTree = "<group>";
 		};
+		AD260CA62BBFCC6C008B9654 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
+				AD260CA72BBFCC7E008B9654 /* EntityIDGenerator.swift */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
 		AD2B59AA2BB87F0F00198E99 /* ark-multiplayer-kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -991,6 +1004,7 @@
 				AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */,
 				ADA847FC2BBC4B5500B19378 /* ArkNetworkProtocol.swift */,
 				AD2B59B52BB958E400198E99 /* DataWrapper.swift */,
+				ADD74C082BBFEBF3008CE36B /* ArkMultiplayerECS.swift */,
 			);
 			path = "ark-multiplayer-kit";
 			sourceTree = "<group>";
@@ -1049,7 +1063,7 @@
 		AD6E035F2B9F067100974EBF /* ark-ecs-kit */ = {
 			isa = PBXGroup;
 			children = (
-				AD787A812B9C6BD9003EBBD0 /* Entity.swift */,
+				AD260CA62BBFCC6C008B9654 /* entity */,
 				AD787A832B9C6C78003EBBD0 /* Component.swift */,
 				0267BA242BBD0FC70010F729 /* system */,
 				28A032DD2BAD4ED200851BFF /* InternalSystems */,
@@ -1357,6 +1371,7 @@
 				02C395242BA849B40075F1CA /* JoystickRenderableComponent.swift in Sources */,
 				942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */,
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
+				ADD74C092BBFEBF3008CE36B /* ArkMultiplayerECS.swift in Sources */,
 				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
 				0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */,
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
@@ -1381,6 +1396,7 @@
 				02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */,
 				02D8E94C2BAC99FC00BF3A07 /* GameLoopable.swift in Sources */,
 				280CD3D02BA74E6000372C5D /* AbstractArkPhysicsScene.swift in Sources */,
+				AD260CA82BBFCC7E008B9654 /* EntityIDGenerator.swift in Sources */,
 				02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */,
 				AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */,
 				28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */,

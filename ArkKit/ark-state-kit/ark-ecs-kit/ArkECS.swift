@@ -27,7 +27,7 @@ extension ArkECS: ArkECSContext {
     func createEntity() -> Entity {
         entityManager.createEntity()
     }
-
+    
     func removeEntity(_ entity: Entity) {
         entityManager.removeEntity(entity)
     }

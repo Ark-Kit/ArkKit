@@ -10,9 +10,19 @@ import Foundation
 class EntityManager {
     private var entities = Set<Entity>()
     private var componentsByType = [ObjectIdentifier: [Entity: Component]]()
+    private var idGenerator = EntityIDGenerator()
 
     func createEntity() -> Entity {
-        let entity = Entity()
+        let entity = Entity(id: idGenerator.generate())
+        entities.insert(entity)
+        return entity
+    }
+    
+    func createEntity(withId id: EntityID) -> Entity? {
+        let entity = Entity(id: id)
+        if entities.contains(entity) {
+            return nil // Entity with this ID already exists
+        }
         entities.insert(entity)
         return entity
     }

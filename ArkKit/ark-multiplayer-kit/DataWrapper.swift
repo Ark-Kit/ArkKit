@@ -8,7 +8,7 @@
 import Foundation
 
 enum PayloadType: String, Codable {
-    case event, state
+    case event, ecsFunction
 }
 
 struct DataWrapper: Codable {
