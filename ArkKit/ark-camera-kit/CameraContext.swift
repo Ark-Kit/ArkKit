@@ -83,7 +83,7 @@ class ArkCameraContext: CameraContext {
                 return copy
             }
         )
-        .setIsUserInteractionEnabled(true)
+        .setIsUserInteractionEnabled(false)
         .mask(size: placedCamera.size,
               origin: CGPoint(
                 x: placedCamera.screenPosition.x - placedCamera.size.width / 2,

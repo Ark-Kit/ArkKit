@@ -12,10 +12,6 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
     var renderableBuilder: (any RenderableBuilder<UIView>)?
     var cameraContext: CameraContext?
 
-    var rootView: UIView {
-        view
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
@@ -29,11 +25,11 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if cachedScreenSize != rootView.frame.size {
-            rootViewResizeDelegate?(rootView.frame.size)
+        if cachedScreenSize != view.frame.size {
+            rootViewResizeDelegate?(view.frame.size)
         }
 
-        cachedScreenSize = rootView.frame.size
+        cachedScreenSize = view.frame.size
     }
 
     func handleGameProgress(dt: Double) {
@@ -57,6 +53,10 @@ extension ArkUIKitView: GameStateRenderer {
 }
 
 extension ArkUIKitView<UIView>: AbstractView {
+    var abstractView: UIView {
+        self.view
+    }
+
     func didMove(to parent: any AbstractParentView<UIView>) {
         guard let parentViewController = parent as? UIViewController else {
             return

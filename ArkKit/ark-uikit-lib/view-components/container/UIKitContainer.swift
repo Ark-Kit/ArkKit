@@ -17,12 +17,8 @@ final class UIKitContainer: UIView, UIKitRenderable {
         return self
     }
 
-    func clipToBounds() -> Self {
-        self.clipsToBounds = true
-        return self
-    }
-
     func scale(by scaleFactor: CGFloat) -> Self {
+        // TODO: this letterbox effect is weird on scaleFactor in diagonal
         self.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
 
         // Adjust the position of each subview

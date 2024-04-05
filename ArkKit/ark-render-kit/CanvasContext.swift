@@ -4,7 +4,7 @@ protocol CanvasContext<View> {
     associatedtype View
     typealias RenderableComponentType = ObjectIdentifier
 
-    var rootView: any AbstractRootView<View> { get }
+    var arkView: any ArkView<View> { get }
     var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] { get }
 
     func getFlatCanvas() -> ArkFlatCanvas
@@ -13,21 +13,23 @@ protocol CanvasContext<View> {
 
 class ArkCanvasContext<View>: CanvasContext {
     private(set) var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] = [:]
-    private(set) var rootView: any AbstractRootView<View>
+    private(set) var arkView: any ArkView<View>
     private let ecs: ArkECS
 
-    init(ecs: ArkECS, rootView: any AbstractRootView<View>) {
+    init(ecs: ArkECS, arkView: any ArkView<View>) {
         self.ecs = ecs
-        self.rootView = rootView
+        self.arkView = arkView
     }
 
     func render(_ canvas: any Canvas, using builder: any RenderableBuilder<View>) {
         // unmounting outdated components
         for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
             let componentTypeIdentifier = ObjectIdentifier(renderableCompType)
-            let validEntityIds: Set<EntityID> = Set(canvas.canvasElements
-                .filter { _, compTypeDict in compTypeDict.keys.contains(componentTypeIdentifier) }
-                .map { entityId, _ in entityId })
+            let validEntityIds: Set<EntityID> = Set(
+                canvas.canvasElements
+                    .filter { _, compTypeDict in compTypeDict.keys.contains(componentTypeIdentifier) }
+                    .map { entityId, _ in entityId }
+            )
             for entityId in memo.keys where !validEntityIds.contains(entityId) {
                 // entity is no longer valid
                 if let (_, renderableFromEntity) = memo[entityId]?[componentTypeIdentifier] {
@@ -80,6 +82,6 @@ class ArkCanvasContext<View>: CanvasContext {
 
     private func render(_ renderable: any Renderable<View>) {
         // TODO: add letterbox logic here
-        renderable.render(into: rootView.abstractView)
+        renderable.render(into: arkView.abstractView)
     }
 }

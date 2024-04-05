@@ -33,13 +33,6 @@ class Ark<View> {
                          audio: audioContext)
     }
 
-    var canvasContext: ArkCanvasContext<View> {
-        ArkCanvasContext(
-            ecs: arkState.arkECS,
-            rootView: rootView
-        )
-    }
-
     var canvasRenderer: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractRootView<View>,
@@ -59,6 +52,7 @@ class Ark<View> {
         setupDefaultSystems(blueprint)
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
+        alignCamera()
 
         guard let gameLoop = self.gameLoop else {
             return
@@ -66,7 +60,6 @@ class Ark<View> {
         // Initialize game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
-                                                 canvasContext: canvasContext,
                                                  displayContext: displayContext,
                                                  gameLoop: gameLoop,
                                                  canvasRenderer: canvasRenderer)
@@ -165,6 +158,24 @@ class Ark<View> {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
+    }
+
+    private func alignCamera() {
+        let cameraEntities = arkState.arkECS.getEntities(with: [CameraContainerComponent.self])
+        if !cameraEntities.isEmpty {
+            return
+        }
+        arkState.arkECS.createEntity(with: [CameraContainerComponent(
+            camera: Camera(canvasPosition: CGPoint(
+                x: displayContext.canvasSize.width / 2,
+                y: displayContext.canvasSize.height / 2
+            )),
+            screenPosition: CGPoint(
+                x: displayContext.screenSize.width / 2,
+                y: displayContext.screenSize.height / 2
+            ),
+            size: displayContext.screenSize)
+        ])
     }
 }
 
