@@ -29,11 +29,7 @@ struct PolygonRenderableComponent: ShapeRenderableComponent {
         return copy
     }
 
-    func render(using renderer: any CanvasRenderer) -> any Renderable {
-        renderer.render(self)
-    }
-
-    func update(using updater: any CanvasComponentUpdater) -> PolygonRenderableComponent {
-        updater.update(self)
+    func buildRenderable<T>(using builder: any RenderableBuilder<T>) -> any Renderable<T> {
+        builder.build(self)
     }
 }

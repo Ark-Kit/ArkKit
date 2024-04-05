@@ -11,8 +11,8 @@ import Foundation
  * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
  * relying on the `arkInstance` will not emit.
  */
-class Ark {
-    let rootView: any AbstractRootView
+class Ark<View> {
+    let rootView: any AbstractRootView<View>
     var arkState: ArkState
     var gameLoop: GameLoop?
 
@@ -33,18 +33,18 @@ class Ark {
                          audio: audioContext)
     }
 
-    var canvasContext: ArkCanvasContext {
-        ArkCanvasContext(ecs: arkState.arkECS,
-                         canvasFrame: CGRect(x: 0, y: 0,
-                                             width: blueprint.frameWidth,
-                                             height: blueprint.frameHeight))
+    var canvasContext: ArkCanvasContext<View> {
+        ArkCanvasContext(
+            ecs: arkState.arkECS,
+            rootView: rootView
+        )
     }
 
-    var canvasRenderer: (any CanvasRenderer)?
+    var canvasRenderer: (any RenderableBuilder<View>)?
 
-    init(rootView: any AbstractRootView,
+    init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint,
-         canvasRenderer: (any CanvasRenderer)? = nil) {
+         canvasRenderer: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
@@ -63,11 +63,11 @@ class Ark {
         guard let gameLoop = self.gameLoop else {
             return
         }
-
         // Initialize game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasContext: canvasContext,
+                                                 displayContext: displayContext,
                                                  gameLoop: gameLoop,
                                                  canvasRenderer: canvasRenderer)
         gameCoordinator.start()
@@ -144,10 +144,12 @@ class Ark {
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
+        let cameraSystem = ArkCameraSystem()
         arkState.arkECS.addSystem(timeSystem)
         arkState.arkECS.addSystem(physicsSystem)
         arkState.arkECS.addSystem(animationSystem)
         arkState.arkECS.addSystem(canvasSystem)
+        arkState.arkECS.addSystem(cameraSystem)
 
         // inject dependency into game loop
         simulator.physicsScene?.sceneContactUpdateDelegate = physicsSystem
