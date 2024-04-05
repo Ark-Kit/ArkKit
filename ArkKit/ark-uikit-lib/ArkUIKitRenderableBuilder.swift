@@ -3,20 +3,6 @@ import UIKit
 class ArkUIKitRenderableBuilder: RenderableBuilder {
     typealias ConcreteColor = UIColor
 
-//    private func getParentView(layer: RenderLayer) -> UIView {
-//        // TODO: camera number 1
-//        // child determining parent
-//        // invert to parent to child
-//        // SCREEN VIEW vs CANVAS/CAMERA VIEW
-//        switch layer {
-//        case .canvas:
-////            return canvasView
-//            return rootView
-//        case .screen:
-//            return rootView
-//        }
-//    }
-
 //    init() {
 ////        self.canvasView = canvasView
 //        // Scale canvasView to fit the rootView
@@ -92,7 +78,8 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
                     comp.buildRenderable(using: self)
                 }
             )
-            .clipToBounds()
+            .setMask(container.mask)
+            .scale(by: container.letterboxScaleFactor)
     }
 
     let defaultColor: UIColor = .black

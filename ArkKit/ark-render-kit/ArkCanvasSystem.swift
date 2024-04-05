@@ -8,7 +8,8 @@ class ArkCanvasSystem: UpdateSystem {
         CircleRenderableComponent.self,
         RectRenderableComponent.self,
         PolygonRenderableComponent.self,
-        BitmapImageRenderableComponent.self
+        BitmapImageRenderableComponent.self,
+        ContainerRenderableComponent.self
     ]
 
     init(active: Bool = true) {

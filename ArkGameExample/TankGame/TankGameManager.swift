@@ -60,7 +60,7 @@ class TankGameManager {
                     // center of the camera's output in screen coordinates, relative to screen
                     screenPosition: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
                     // relative to screen
-                    size: CGSize(width: 500, height: 500)
+                    size: CGSize(width: screenWidth, height: screenHeight / 4)
                 ), to: tankEntity1)
 
                 let tankEntity2 = TankGameEntityCreator.createTank(

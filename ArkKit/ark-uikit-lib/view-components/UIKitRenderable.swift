@@ -34,4 +34,14 @@ extension UIKitRenderable {
     func unmount() {
         self.removeFromSuperview()
     }
+
+    func letterbox(into view: UIView) {
+//        let rootFrame = view.frame
+//        let canvasFrame = self.frame
+//        let widthScaleFactor = rootFrame.width / canvasFrame.width
+//        let heightScaleFactor = rootFrame.height / canvasFrame.height
+//        let letterboxScaleFactor = min(widthScaleFactor, heightScaleFactor)
+//
+//        self.transform = CGAffineTransform(scaleX: letterboxScaleFactor, y: letterboxScaleFactor)
+    }
 }
