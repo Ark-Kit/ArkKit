@@ -2,20 +2,22 @@ import Foundation
 
 protocol CameraContext {
     var cameraEntities: [Entity] { get }
+    var displayContext: DisplayContext { get }
+
     func transform(_ canvas: any Canvas) -> any Canvas
 }
 
 class ArkCameraContext: CameraContext {
     private let ecs: ArkECSContext
-    private let screenSize: CGSize
+    let displayContext: DisplayContext
 
     var cameraEntities: [Entity] {
         ecs.getEntities(with: [CameraContainerComponent.self])
     }
 
-    init(ecs: ArkECSContext, screenSize: CGSize) {
+    init(ecs: ArkECSContext, displayContext: DisplayContext) {
         self.ecs = ecs
-        self.screenSize = screenSize
+        self.displayContext = displayContext
     }
 
     /// Transforms the dumbest canvas into a Canvas with notion of Cameras.
@@ -35,8 +37,7 @@ class ArkCameraContext: CameraContext {
                 continue
             }
 
-            let cameraCanvas = translateCanvasToCamera(cameraContainerComp, original: canvas)
-            let containerRenderable = collectCameraCanvasToContainer(cameraCanvas, placedCamera: cameraContainerComp)
+            let containerRenderable = collectCanvasToContainerAndTranslate(canvas, placedCamera: cameraContainerComp)
 
             transformedCanvas.addEntityRenderableToCanvas(
                 entityId: cameraEntity.id,
@@ -47,17 +48,40 @@ class ArkCameraContext: CameraContext {
         return transformedCanvas
     }
 
-    private func collectCameraCanvasToContainer(
+    private func collectCanvasToContainerAndTranslate(
         _ cameraCanva: any Canvas,
         placedCamera: CameraContainerComponent
     ) -> ContainerRenderableComponent {
-        let renderableComponents = cameraCanva.canvasElements.flatMap { _, mapping in mapping.values }
+        var renderableComponents: [any RenderableComponent] = []
+        cameraCanva.canvasElements.forEach { _, mapping in
+            mapping.forEach { _, comp in
+                if comp.renderLayer == .screen {
+                    return
+                }
+                let copy = comp
+                renderableComponents.append(copy)
+            }
+        }
+
+        let canvasCameraPosition = CGPoint(
+            x: placedCamera.screenPosition.x / displayContext.screenSize.width * displayContext.canvasSize.width,
+            y: placedCamera.screenPosition.y / displayContext.screenSize.height * displayContext.canvasSize.height
+        )
+
+        let translation = CGAffineTransform(
+            translationX: canvasCameraPosition.x - placedCamera.camera.canvasPosition.x,
+            y: canvasCameraPosition.y - placedCamera.camera.canvasPosition.y
+        )
         return ContainerRenderableComponent(
-            center: CGPoint(x: 410, y: 590),
-            size: CGSize(width: 820, height: 1_180),
+            center: placedCamera.camera.canvasPosition.applying(translation)/*CGPoint(x: 410, y: 590)*/,
+            size: displayContext.canvasSize, // needs the "world size" as the component size
             renderLayer: .canvas,
             zPosition: 0,
-            renderableComponents: renderableComponents
+            renderableComponents: renderableComponents.map { comp in
+                var copy = comp
+                copy.center = copy.center.applying(translation)
+                return copy
+            }
         )
         .setIsUserInteractionEnabled(true)
         .mask(size: placedCamera.size,
@@ -65,36 +89,7 @@ class ArkCameraContext: CameraContext {
                 x: placedCamera.screenPosition.x - placedCamera.size.width / 2,
                 y: placedCamera.screenPosition.y - placedCamera.size.height / 2
               ))
-        .letterbox(into: screenSize)
-    }
-
-    private func translateCanvasToCamera(_ cameraContainerComp: CameraContainerComponent,
-                                         original canvas: Canvas) -> Canvas {
-        var transformedCanvas = ArkFlatCanvas()
-
-        canvas.canvasElements.forEach { entityId, mapping in
-            mapping.forEach { compType, comp in
-                if comp.renderLayer == .screen {
-                    return
-                }
-
-                var copy = comp
-//                copy.center = copy.center.applying(translation)
-//                translate(point: comp.center, by: CGPoint(
-//                    x: canvasPosition.x - fixedViewPosition.x,
-//                    y: canvasPosition.y - fixedViewPosition.y
-//                ))
-                transformedCanvas.addEntityRenderableToCanvas(
-                    entityId: entityId, componentType: compType, renderableComponent: copy
-                )
-            }
-        }
-        return transformedCanvas
-    }
-
-    private func translate(point: CGPoint, by translated: CGPoint) -> CGPoint {
-        CGPoint(x: point.x + translated.x,
-                y: point.y + translated.y)
+        .letterbox(into: displayContext.screenSize)
     }
 
     private func filterForScreenComponents(_ canvas: any Canvas) -> Canvas.CanvasElements {

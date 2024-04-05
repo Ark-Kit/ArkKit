@@ -36,9 +36,6 @@ class Ark<View> {
     var canvasContext: ArkCanvasContext<View> {
         ArkCanvasContext(
             ecs: arkState.arkECS,
-//            canvasFrame: CGRect(x: 0, y: 0,
-//                                width: blueprint.frameWidth,
-//                                height: blueprint.frameHeight),
             rootView: rootView
         )
     }
@@ -70,6 +67,7 @@ class Ark<View> {
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
                                                  canvasContext: canvasContext,
+                                                 displayContext: displayContext,
                                                  gameLoop: gameLoop,
                                                  canvasRenderer: canvasRenderer)
         gameCoordinator.start()

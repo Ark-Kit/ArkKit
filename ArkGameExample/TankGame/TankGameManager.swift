@@ -58,9 +58,9 @@ class TankGameManager {
                     ),
 
                     // center of the camera's output in screen coordinates, relative to screen
-                    screenPosition: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
+                    screenPosition: CGPoint(x: screenWidth / 3, y: screenHeight / 2),
                     // relative to screen
-                    size: CGSize(width: screenWidth, height: screenHeight / 4)
+                    size: CGSize(width: screenWidth / 2, height: screenHeight / 5)
                 ), to: tankEntity1)
 
                 let tankEntity2 = TankGameEntityCreator.createTank(
@@ -70,6 +70,17 @@ class TankGameManager {
                     in: ecs,
                     zPosition: 5)
                 self.tankIdEntityMap[2] = tankEntity2
+
+                ecs.upsertComponent(CameraContainerComponent(
+                    camera: Camera(
+                        canvasPosition: CGPoint(x: 400, y: 180)
+                    ),
+
+                    // center of the camera's output in screen coordinates, relative to screen
+                    screenPosition: CGPoint(x: screenWidth - screenWidth / 3, y: screenHeight / 2),
+                    // relative to screen
+                    size: CGSize(width: screenWidth / 2, height: screenHeight - screenHeight / 5)
+                ), to: tankEntity2)
 
                 let joystick1Entity = TankGameEntityCreator.createJoyStick(
                     center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
