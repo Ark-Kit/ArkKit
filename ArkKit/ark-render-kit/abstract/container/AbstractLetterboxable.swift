@@ -1,6 +1,6 @@
 import Foundation
 
 protocol AbstractLetterboxable {
-    var letterboxScaleFactor: CGFloat { get }
+    var letterboxWidthScaleFactor: CGFloat { get }
     func letterbox(into screenSize: CGSize) -> Self
 }

@@ -65,8 +65,9 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
                     comp.buildRenderable(using: self)
                 }
             )
+            .scale(byWidth: container.letterboxWidthScaleFactor,
+                   byHeight: container.letterboxHeightScaleFactor)
             .setMask(container.mask)
-            .scale(by: container.letterboxScaleFactor)
     }
 
     let defaultColor: UIColor = .black

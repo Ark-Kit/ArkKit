@@ -15,26 +15,11 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
     var shouldRerenderDelegate: ShouldRerenderDelegate?
     var zPosition: Double = 0.0
     var rotation: Double = 0.0
-    private(set) var letterboxScaleFactor: CGFloat = 1.0
+    private(set) var letterboxWidthScaleFactor: CGFloat = 1.0
+    private(set) var letterboxHeightScaleFactor: CGFloat = 1.0
     var mask: CGRect?
 
     let renderableComponents: [any RenderableComponent]
-
-//    init(center: CGPoint, size: CGSize, renderLayer: RenderLayer,
-//         renderableComponents: [any RenderableComponent],
-//         isUserInteractionEnabled: Bool = true, shouldRerenderDelegate: ShouldRerenderDelegate? = nil,
-//         zPosition: Double = 0.0, rotation: Double = 0.0, letterboxScaleFactor: CGFloat = 1.0) {
-//        self.center = center
-//        self.size = size
-//        self.renderLayer = renderLayer
-//        self.isUserInteractionEnabled = isUserInteractionEnabled
-//        self.shouldRerenderDelegate = shouldRerenderDelegate
-//        self.zPosition = zPosition
-//        self.rotation = rotation
-//        self.letterboxScaleFactor = letterboxScaleFactor
-//        self.windowSize = size
-//        self.renderableComponents = renderableComponents
-//    }
 
     func buildRenderable<T>(using builder: any RenderableBuilder<T>) -> any Renderable<T> {
         builder.build(self)
@@ -51,8 +36,8 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
         var copy = self
         let widthScaleFactor = screenSize.width / self.frame.width
         let heightScaleFactor = screenSize.height / self.frame.height
-        let letterboxScaleFactor = min(widthScaleFactor, heightScaleFactor)
-        copy.letterboxScaleFactor = letterboxScaleFactor
+        copy.letterboxWidthScaleFactor = widthScaleFactor
+        copy.letterboxHeightScaleFactor = heightScaleFactor
         return copy
     }
 
@@ -64,7 +49,7 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
 
     func mask(size: CGSize, origin: CGPoint) -> Self {
         var copy = self
-        copy.mask = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
+        copy.mask = CGRect(origin: origin, size: size)
         return copy
     }
 }

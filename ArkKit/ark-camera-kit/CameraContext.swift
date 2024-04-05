@@ -73,8 +73,8 @@ class ArkCameraContext: CameraContext {
             y: canvasCameraPosition.y - placedCamera.camera.canvasPosition.y
         )
         return ContainerRenderableComponent(
-            center: placedCamera.camera.canvasPosition.applying(translation)/*CGPoint(x: 410, y: 590)*/,
-            size: displayContext.canvasSize, // needs the "world size" as the component size
+            center: placedCamera.camera.canvasPosition.applying(translation),
+            size: displayContext.canvasSize,
             renderLayer: .canvas,
             zPosition: 0,
             renderableComponents: renderableComponents.map { comp in

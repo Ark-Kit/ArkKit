@@ -17,32 +17,22 @@ final class UIKitContainer: UIView, UIKitRenderable {
         return self
     }
 
-    func scale(by scaleFactor: CGFloat) -> Self {
+    func scale(byWidth widthScaleFactor: CGFloat, byHeight heightScaleFactor: CGFloat) -> Self {
         // TODO: this letterbox effect is weird on scaleFactor in diagonal
-        self.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
-
-        // Adjust the position of each subview
-        for subview in self.subviews {
-            // Convert the subview's frame to the container's coordinate system
-            let convertedFrame = subview.convert(subview.bounds, to: self)
-
-            // Calculate the new position based on the scaling factor
-            let newFrame = CGRect(x: convertedFrame.origin.x * scaleFactor,
-                                  y: convertedFrame.origin.y * scaleFactor,
-                                  width: convertedFrame.size.width * scaleFactor,
-                                  height: convertedFrame.size.height * scaleFactor)
-
-            // Apply the new frame
-            subview.frame = newFrame
-        }
+        self.transform = self.transform.scaledBy(x: widthScaleFactor, y: heightScaleFactor)
+        self.frame.origin = CGPoint.zero
         return self
     }
 
     func setMask(_ maskFrame: CGRect?) -> Self {
-        guard let maskFrame = maskFrame else {
+        guard let mask = maskFrame else {
             return self
         }
-        let maskView = UIView(frame: maskFrame)
+        let maskView = UIView(frame: mask)
+        let convertedMaskFrame = maskView.convert(maskView.bounds, to: self)
+        maskView.frame = convertedMaskFrame
+        // any opaque color
+        // reference: https://developer.apple.com/documentation/uikit/uiview/1622557-mask
         maskView.backgroundColor = .blue
         self.mask = maskView
         return self
