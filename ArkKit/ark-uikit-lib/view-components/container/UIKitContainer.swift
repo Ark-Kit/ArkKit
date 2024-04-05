@@ -18,7 +18,6 @@ final class UIKitContainer: UIView, UIKitRenderable {
     }
 
     func scale(byWidth widthScaleFactor: CGFloat, byHeight heightScaleFactor: CGFloat) -> Self {
-        // TODO: this letterbox effect is weird on scaleFactor in diagonal
         self.transform = self.transform.scaledBy(x: widthScaleFactor, y: heightScaleFactor)
         self.frame.origin = CGPoint.zero
         return self

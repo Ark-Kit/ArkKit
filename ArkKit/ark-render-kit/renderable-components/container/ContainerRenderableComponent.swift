@@ -31,7 +31,6 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
         return copy
     }
 
-    // TODO: move letterbox logic here --> propagate to the UIKitContainer
     func letterbox(into screenSize: CGSize) -> Self {
         var copy = self
         let widthScaleFactor = screenSize.width / self.frame.width

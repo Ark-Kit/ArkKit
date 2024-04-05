@@ -81,7 +81,6 @@ class ArkCanvasContext<View>: CanvasContext {
     }
 
     private func render(_ renderable: any Renderable<View>) {
-        // TODO: add letterbox logic here
         renderable.render(into: arkView.abstractView)
     }
 }
