@@ -11,6 +11,7 @@
 		0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4852BB7F300001CFDAF /* ArkView.swift */; };
 		0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */; };
 		0230A48E2BB950AF001CFDAF /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */; };
+		0266151D2BC1405C00B56A85 /* TankRaceGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0266151C2BC1405C00B56A85 /* TankRaceGame.swift */; };
 		0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */; };
 		0267BA1E2BBB07D80010F729 /* ArkUpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */; };
 		0267BA232BBD0F940010F729 /* SystemRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA222BBD0F940010F729 /* SystemRunner.swift */; };
@@ -55,8 +56,8 @@
 		02C3952C2BA897890075F1CA /* ArkFlatCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C3952B2BA897890075F1CA /* ArkFlatCanvas.swift */; };
 		02C395322BA9ED230075F1CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 02C395312BA9ED230075F1CA /* README.md */; };
 		02C395342BAAF0EC0075F1CA /* WorldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395332BAAF0EC0075F1CA /* WorldComponent.swift */; };
-		02C9CC2F2BBED04E0098E849 /* ContainerRenderableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC2E2BBED04E0098E849 /* ContainerRenderableComponent.swift */; };
-		02C9CC322BBED5C40098E849 /* UIKitContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC312BBED5C40098E849 /* UIKitContainer.swift */; };
+		02C9CC2F2BBED04E0098E849 /* CameraContainerRenderableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC2E2BBED04E0098E849 /* CameraContainerRenderableComponent.swift */; };
+		02C9CC322BBED5C40098E849 /* UIKitCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC312BBED5C40098E849 /* UIKitCamera.swift */; };
 		02C9CC382BBF30180098E849 /* AbstractLetterboxable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC372BBF30180098E849 /* AbstractLetterboxable.swift */; };
 		02D8E91E2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8EE2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png */; };
 		02D8E91F2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8EF2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png */; };
@@ -222,6 +223,7 @@
 		0230A4852BB7F300001CFDAF /* ArkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkView.swift; sourceTree = "<group>"; };
 		0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkViewFactory.swift; sourceTree = "<group>"; };
 		0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		0266151C2BC1405C00B56A85 /* TankRaceGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGame.swift; sourceTree = "<group>"; };
 		0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTrigger.swift; sourceTree = "<group>"; };
 		0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUpdateSystem.swift; sourceTree = "<group>"; };
 		0267BA222BBD0F940010F729 /* SystemRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemRunner.swift; sourceTree = "<group>"; };
@@ -266,8 +268,8 @@
 		02C3952B2BA897890075F1CA /* ArkFlatCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkFlatCanvas.swift; sourceTree = "<group>"; };
 		02C395312BA9ED230075F1CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		02C395332BAAF0EC0075F1CA /* WorldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldComponent.swift; sourceTree = "<group>"; };
-		02C9CC2E2BBED04E0098E849 /* ContainerRenderableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerRenderableComponent.swift; sourceTree = "<group>"; };
-		02C9CC312BBED5C40098E849 /* UIKitContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitContainer.swift; sourceTree = "<group>"; };
+		02C9CC2E2BBED04E0098E849 /* CameraContainerRenderableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContainerRenderableComponent.swift; sourceTree = "<group>"; };
+		02C9CC312BBED5C40098E849 /* UIKitCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCamera.swift; sourceTree = "<group>"; };
 		02C9CC372BBF30180098E849 /* AbstractLetterboxable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractLetterboxable.swift; sourceTree = "<group>"; };
 		02D8E8EE2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_001.png; sourceTree = "<group>"; };
 		02D8E8EF2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_002.png; sourceTree = "<group>"; };
@@ -456,6 +458,14 @@
 			path = "ark-uikit-lib";
 			sourceTree = "<group>";
 		};
+		0266151B2BC1402400B56A85 /* TankRaceGame */ = {
+			isa = PBXGroup;
+			children = (
+				0266151C2BC1405C00B56A85 /* TankRaceGame.swift */,
+			);
+			path = TankRaceGame;
+			sourceTree = "<group>";
+		};
 		0267BA242BBD0FC70010F729 /* system */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +599,7 @@
 		02C395102BA6EBBA0075F1CA /* ArkGameExample */ = {
 			isa = PBXGroup;
 			children = (
+				0266151B2BC1402400B56A85 /* TankRaceGame */,
 				AD36A7522BAC0A59003E938B /* TankGame */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
@@ -644,7 +655,7 @@
 		02C9CC2D2BBED0400098E849 /* container */ = {
 			isa = PBXGroup;
 			children = (
-				02C9CC2E2BBED04E0098E849 /* ContainerRenderableComponent.swift */,
+				02C9CC2E2BBED04E0098E849 /* CameraContainerRenderableComponent.swift */,
 			);
 			path = container;
 			sourceTree = "<group>";
@@ -652,7 +663,7 @@
 		02C9CC302BBED5B70098E849 /* container */ = {
 			isa = PBXGroup;
 			children = (
-				02C9CC312BBED5C40098E849 /* UIKitContainer.swift */,
+				02C9CC312BBED5C40098E849 /* UIKitCamera.swift */,
 			);
 			path = container;
 			sourceTree = "<group>";
@@ -1429,7 +1440,7 @@
 				8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */,
 				287B005F2BC19F32002F0114 /* TankReviveEvent.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
-				02C9CC322BBED5C40098E849 /* UIKitContainer.swift in Sources */,
+				02C9CC322BBED5C40098E849 /* UIKitCamera.swift in Sources */,
 				ADA847FD2BBC4B5500B19378 /* ArkNetworkProtocol.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleRenderableComponent.swift in Sources */,
 				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,
@@ -1439,6 +1450,7 @@
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */,
+				0266151D2BC1405C00B56A85 /* TankRaceGame.swift in Sources */,
 				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
 				8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */,
 				280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */,
@@ -1466,7 +1478,7 @@
 				AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
 				02C3951C2BA8492B0075F1CA /* BitmapImageRenderableComponent.swift in Sources */,
-				02C9CC2F2BBED04E0098E849 /* ContainerRenderableComponent.swift in Sources */,
+				02C9CC2F2BBED04E0098E849 /* CameraContainerRenderableComponent.swift in Sources */,
 				02C395182BA83FC40075F1CA /* ButtonRenderableComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,

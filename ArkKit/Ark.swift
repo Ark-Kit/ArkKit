@@ -33,18 +33,18 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
                          audio: audioContext)
     }
 
-    var canvasRenderer: (any RenderableBuilder<View>)?
+    var canvasRenderableBuilder: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint<AudioEnum>,
-         canvasRenderer: (any RenderableBuilder<View>)? = nil) {
+         canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioContext()
-        self.canvasRenderer = canvasRenderer
+        self.canvasRenderableBuilder = canvasRenderableBuilder
     }
 
     func start() {
@@ -63,7 +63,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
                                                  arkState: arkState,
                                                  displayContext: displayContext,
                                                  gameLoop: gameLoop,
-                                                 canvasRenderer: canvasRenderer)
+                                                 canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
     }
 
@@ -170,15 +170,18 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
     }
 
     private func alignCamera() {
-        let cameraEntities = arkState.arkECS.getEntities(with: [CameraContainerComponent.self])
+        let cameraEntities = arkState.arkECS.getEntities(with: [PlacedCameraComponent.self])
         if !cameraEntities.isEmpty {
             return
         }
-        arkState.arkECS.createEntity(with: [CameraContainerComponent(
-            camera: Camera(canvasPosition: CGPoint(
-                x: displayContext.canvasSize.width / 2,
-                y: displayContext.canvasSize.height / 2
-            )),
+        arkState.arkECS.createEntity(with: [PlacedCameraComponent(
+            camera: Camera(
+                canvasPosition: CGPoint(
+                    x: displayContext.canvasSize.width / 2,
+                    y: displayContext.canvasSize.height / 2
+                ),
+                zoom: 1.0
+            ),
             screenPosition: CGPoint(
                 x: displayContext.screenSize.width / 2,
                 y: displayContext.screenSize.height / 2
