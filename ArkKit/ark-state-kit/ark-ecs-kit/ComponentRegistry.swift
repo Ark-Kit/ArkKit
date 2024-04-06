@@ -51,14 +51,13 @@ class ComponentRegistry {
         let classPtr = address(of: theClass)
 
         for someClass in classes {
-            guard let someSuperClass = class_getSuperclass(someClass), address(of: someSuperClass) == classPtr else {
+            guard let someSuperClass = class_getSuperclass(someClass),
+                  address(of: someSuperClass) == classPtr,
+                  let castedClass = someClass as? T else {
                 continue
             }
-            // swiftlint:disable force_cast
-            result.append(someClass as! T)
-            // swiftlint:enable force_cast
+            result.append(castedClass)
         }
-
         return result
     }
 

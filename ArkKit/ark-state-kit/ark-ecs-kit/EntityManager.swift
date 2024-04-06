@@ -48,7 +48,7 @@ class EntityManager {
         return componentsByType[typeID]?[entity] as? T
     }
 
-    func createEntity(id: EntityID? = nil, with components: [Component]) -> Entity {
+    func createEntity(with components: [Component], id: EntityID? = nil) -> Entity {
         let entityId = id ?? idGenerator.generate()
         let entity = Entity(id: entityId)
         entities.insert(entity)

@@ -56,7 +56,7 @@ extension ArkECS: ArkECSContext {
 
     @discardableResult
     func createEntity(id: EntityID, with components: [any Component]) -> Entity {
-        entityManager.createEntity(id: id, with: components)
+        entityManager.createEntity(with: components, id: id)
     }
 
     func getEntity(id: EntityID) -> Entity? {
