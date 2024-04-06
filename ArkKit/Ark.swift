@@ -11,13 +11,13 @@ import Foundation
  * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
  * relying on the `arkInstance` will not emit.
  */
-class Ark<View> {
+class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
     let rootView: any AbstractRootView<View>
     var arkState: ArkState
     var gameLoop: GameLoop?
 
-    let blueprint: ArkBlueprint
-    let audioContext: AudioContext
+    let blueprint: ArkBlueprint<AudioEnum>
+    let audioContext: any AudioContext<AudioEnum>
 
     var displayContext: ArkDisplayContext {
         ArkDisplayContext(
@@ -26,7 +26,7 @@ class Ark<View> {
             screenSize: rootView.size)
     }
 
-    var actionContext: ArkActionContext {
+    var actionContext: ArkActionContext<AudioEnum> {
         ArkActionContext(ecs: arkState.arkECS,
                          events: arkState.eventManager,
                          display: displayContext,
@@ -36,14 +36,14 @@ class Ark<View> {
     var canvasRenderableBuilder: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractRootView<View>,
-         blueprint: ArkBlueprint,
+         blueprint: ArkBlueprint<AudioEnum>,
          canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
-        self.audioContext = ArkAudioPlayer()
+        self.audioContext = ArkAudioContext()
         self.canvasRenderableBuilder = canvasRenderableBuilder
     }
 
@@ -52,6 +52,7 @@ class Ark<View> {
         setupDefaultSystems(blueprint)
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
+        setup(blueprint.soundMapping)
         alignCamera()
 
         guard let gameLoop = self.gameLoop else {
@@ -108,7 +109,7 @@ class Ark<View> {
         }
 
         for rule in timeRules {
-            guard let action = rule.action as? any Action<TimeInterval> else {
+            guard let action = rule.action as? any Action<TimeInterval, AudioEnum> else {
                 continue
             }
             let system = ArkUpdateSystem(action: action, context: self.actionContext)
@@ -122,11 +123,19 @@ class Ark<View> {
         }
     }
 
+    private func setup(_ soundMapping: [AudioEnum: any Sound]?) {
+        guard let soundMapping = soundMapping else {
+            return
+        }
+
+        audioContext.load(soundMapping)
+    }
+
     private func setupDefaultEntities() {
         arkState.arkECS.createEntity(with: [StopWatchComponent(name: ArkTimeSystem.ARK_WORLD_TIME)])
     }
 
-    private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
+    private func setupDefaultSystems(_ blueprint: ArkBlueprint<AudioEnum>) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
 
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
@@ -150,7 +159,7 @@ class Ark<View> {
         self.gameLoop?.updatePhysicsSceneDelegate = physicsSystem
     }
 
-    private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {
+    private func getWorldSize(_ blueprint: ArkBlueprint<AudioEnum>) -> (width: Double, height: Double) {
         guard let worldEntity = arkState.arkECS.getEntities(with: [WorldComponent.self]).first,
               let worldComponent = arkState.arkECS
               .getComponent(ofType: WorldComponent.self, for: worldEntity)
@@ -185,8 +194,8 @@ class Ark<View> {
 extension ArkEvent {
     /// A workaround to prevent weird behavior when trying to execute
     /// `action.execute(event, context: context)`
-    func executeAction(_ action: some Action, context: ArkActionContext) {
-        guard let castedAction = action as? any Action<Self> else {
+    func executeAction<AudioEnum: ArkAudioEnum>(_ action: some Action, context: ArkActionContext<AudioEnum>) {
+        guard let castedAction = action as? any Action<Self, AudioEnum> else {
             return
         }
 

@@ -2,7 +2,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    private var ark: Ark<UIView>?
+    private var ark: (any ArkProtocol)?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -55,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
-    func loadArkBlueprintToScene(_ blueprint: ArkBlueprint, window: UIWindow) {
+    func loadArkBlueprintToScene<AudioEnum: ArkAudioEnum>(_ blueprint: ArkBlueprint<AudioEnum>, window: UIWindow) {
         guard let rootView = window.rootViewController as? any AbstractRootView<UIView> else {
             return
         }

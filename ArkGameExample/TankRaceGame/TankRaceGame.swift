@@ -1,7 +1,7 @@
 import Foundation
 
 class TankRaceGame {
-    private(set) var blueprint = ArkBlueprint(frameWidth: 900, frameHeight: 10_000)
+    private(set) var blueprint = ArkBlueprintWithoutSound(frameWidth: 900, frameHeight: 10_000)
     private var tankIdEntityMap = [Int: Entity]()
 
     func load() {
@@ -93,7 +93,7 @@ class TankRaceGame {
         }
     }
 
-    private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext) {
+    private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext<NoSound>) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
         guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
