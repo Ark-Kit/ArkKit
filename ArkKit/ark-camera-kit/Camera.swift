@@ -5,7 +5,7 @@ struct CameraContainerComponent: Component {
 
     /// Screen position is the center of the camera placed on to the screen coordinate
     let screenPosition: CGPoint
-    
+
     /// The screen size is ot help limit the camera view to a specific size
     // TODO: What happens if camera is smaller than screen size?
     let screenSize: CGSize

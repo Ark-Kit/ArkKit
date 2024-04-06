@@ -34,8 +34,10 @@ class TankRaceGame {
             ecs.upsertComponent(CameraContainerComponent(
                 camera: Camera(canvasPosition: tank1Pos),
                 screenPosition: CGPoint(x: (screenWidth / 3) - screenWidthIncrement, y: screenHeight / 2),
+                screenSize: CGSize(width: screenWidth, height: screenHeight),
                 size: CGSize(width: screenWidth / 3, height: screenHeight)
             ), to: tank1)
+
             let tank2 = TankGameEntityCreator.createTank(
                 at: tank2Pos, rotation: 0.0, tankIndex: 2, in: ecs, zPosition: 1.0
             )
@@ -47,13 +49,16 @@ class TankRaceGame {
             self.tankIdEntityMap[3] = tank3
 
             ecs.upsertComponent(CameraContainerComponent(
-                camera: Camera(canvasPosition: tank1Pos),
+                camera: Camera(canvasPosition: tank2Pos),
                 screenPosition: CGPoint(x: 2 * (screenWidth / 3) - screenWidthIncrement, y: screenHeight / 2),
+                screenSize: CGSize(width: screenWidth, height: screenHeight),
                 size: CGSize(width: screenWidth / 3, height: screenHeight)
             ), to: tank2)
+//
             ecs.upsertComponent(CameraContainerComponent(
-                camera: Camera(canvasPosition: tank1Pos),
+                camera: Camera(canvasPosition: tank3Pos),
                 screenPosition: CGPoint(x: (screenWidth) - screenWidthIncrement, y: screenHeight / 2),
+                screenSize: CGSize(width: screenWidth, height: screenHeight),
                 size: CGSize(width: screenWidth / 3, height: screenHeight)
             ), to: tank3)
 
@@ -71,7 +76,7 @@ class TankRaceGame {
                 zPosition: 999)
             TankGameEntityCreator.createJoyStick(
                 center: CGPoint(x: screenWidth * 9 / 12, y: screenHeight * 7 / 8),
-                tankId: 2,
+                tankId: 3,
                 in: ecs,
                 eventContext: events,
                 zPosition: 999)

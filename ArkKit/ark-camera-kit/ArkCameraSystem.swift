@@ -21,12 +21,12 @@ class ArkCameraSystem: UpdateSystem {
             let updatedCameraPosition = translateToCameraPosition(
                 positionOfEntity.position,
                 screenSize: cameraComp.screenSize,
-                size: cameraComp.size
+                cameraSize: cameraComp.size
             )
-            
+
             let updatedCameraComp = CameraContainerComponent(
                 camera: Camera(
-                    canvasPosition: updatedCameraPosition,
+                    canvasPosition: positionOfEntity.position,
                     zoom: cameraComp.camera.zoom
                 ),
                 screenPosition: cameraComp.screenPosition,
@@ -36,12 +36,19 @@ class ArkCameraSystem: UpdateSystem {
             arkECS.upsertComponent(updatedCameraComp, to: entityWithCamera)
         }
     }
-    
-    func translateToCameraPosition(_ position: CGPoint, screenSize: CGSize, size: CGSize) -> CGPoint {
-        let minX = size.width / 2
-        let maxX = screenSize.width - size.width / 2
-        let minY = size.height / 2
-        let maxY = screenSize.height - size.height / 2
+
+    func translateToCameraPosition(_ position: CGPoint, screenSize: CGSize, cameraSize: CGSize) -> CGPoint {
+//        let cameraFrame = CGRect(origin: position, size: cameraSize)
+//        let screenFrame = CGRect(origin: .zero, size: screenSize)
+//        let bestFitFrame = CGRect(x: max(cameraFrame.minX, screenFrame.minX),
+//                                  y: max(cameraFrame.minY, screenFrame.minY),
+//                                  width: cameraSize.width,
+//                                  height: cameraSize.height)
+//        return CGPoint(x: bestFitFrame.midX, y: bestFitFrame.midY)
+        let minX = cameraSize.width / 2
+        let maxX = screenSize.width - cameraSize.width / 2
+        let minY = cameraSize.height / 2
+        let maxY = screenSize.height - cameraSize.height / 2
 
         let clampedX = max(minX, min(position.x, maxX))
         let clampedY = max(minY, min(position.y, maxY))
