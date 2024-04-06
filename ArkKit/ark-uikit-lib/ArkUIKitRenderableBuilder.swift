@@ -65,8 +65,9 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
                     comp.buildRenderable(using: self)
                 }
             )
-            .scale(byWidth: container.letterboxWidthScaleFactor,
-                   byHeight: container.letterboxHeightScaleFactor)
+            .scaleFromOrigin(byWidth: container.letterboxWidthScaleFactor,
+                             byHeight: container.letterboxHeightScaleFactor)
+            .scaleFromCenter(byWidth: container.zoom, byHeight: container.zoom)
             .setMask(container.mask)
     }
 

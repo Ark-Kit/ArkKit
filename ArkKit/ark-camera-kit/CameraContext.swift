@@ -12,7 +12,7 @@ class ArkCameraContext: CameraContext {
     let displayContext: DisplayContext
 
     var cameraEntities: [Entity] {
-        ecs.getEntities(with: [CameraContainerComponent.self])
+        ecs.getEntities(with: [PlacedCameraComponent.self])
     }
 
     init(ecs: ArkECSContext, displayContext: DisplayContext) {
@@ -32,7 +32,7 @@ class ArkCameraContext: CameraContext {
 
         for cameraEntity in cameras {
             guard let cameraContainerComp = ecs.getComponent(
-                ofType: CameraContainerComponent.self, for: cameraEntity
+                ofType: PlacedCameraComponent.self, for: cameraEntity
             ) else {
                 continue
             }
@@ -50,7 +50,7 @@ class ArkCameraContext: CameraContext {
 
     private func collectCanvasToContainerAndTranslate(
         _ cameraCanva: any Canvas,
-        placedCamera: CameraContainerComponent
+        placedCamera: PlacedCameraComponent
     ) -> ContainerRenderableComponent {
         var renderableComponents: [any RenderableComponent] = []
         cameraCanva.canvasElements.forEach { _, mapping in
@@ -63,33 +63,31 @@ class ArkCameraContext: CameraContext {
             }
         }
 
-        let canvasCameraPosition = CGPoint(
-            x: placedCamera.screenPosition.x / displayContext.screenSize.width * displayContext.canvasSize.width,
-            y: placedCamera.screenPosition.y / displayContext.screenSize.height * displayContext.canvasSize.height
-        )
+//        let canvasCameraPosition = CGPoint(
+//            x: placedCamera.screenPosition.x / displayContext.screenSize.width * displayContext.canvasSize.width,
+//            y: placedCamera.screenPosition.y / displayContext.screenSize.height * displayContext.canvasSize.height
+//        )
+//
+//        let translation = CGAffineTransform(
+//            translationX: canvasCameraPosition.x - placedCamera.camera.canvasPosition.x,
+//            y: canvasCameraPosition.y - placedCamera.camera.canvasPosition.y
+//        )
 
-        let translation = CGAffineTransform(
-            translationX: canvasCameraPosition.x - placedCamera.camera.canvasPosition.x,
-            y: canvasCameraPosition.y - placedCamera.camera.canvasPosition.y
-        )
         return ContainerRenderableComponent(
-            center: placedCamera.camera.canvasPosition.applying(translation),
+            center: placedCamera.camera.canvasPosition,
             size: displayContext.canvasSize,
             renderLayer: .canvas,
             zPosition: 0,
-            renderableComponents: renderableComponents.map { comp in
-                var copy = comp
-                copy.center = copy.center.applying(translation)
-                return copy
-            }
+            renderableComponents: renderableComponents
         )
         .setIsUserInteractionEnabled(false)
+        .letterbox(into: displayContext.screenSize)
+        .zoom(by: placedCamera.camera.zoom)
         .mask(size: placedCamera.size,
               origin: CGPoint(
                 x: placedCamera.screenPosition.x - placedCamera.size.width / 2,
                 y: placedCamera.screenPosition.y - placedCamera.size.height / 2
               ))
-        .letterbox(into: displayContext.screenSize)
     }
 
     private func filterForScreenComponents(_ canvas: any Canvas) -> Canvas.CanvasElements {

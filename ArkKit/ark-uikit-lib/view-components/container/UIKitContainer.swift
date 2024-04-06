@@ -13,7 +13,7 @@ final class UIKitContainer: UIView, UIKitRenderable {
         return self
     }
 
-    func scale(byWidth widthScaleFactor: CGFloat, byHeight heightScaleFactor: CGFloat) -> Self {
+    func scaleFromOrigin(byWidth widthScaleFactor: CGFloat, byHeight heightScaleFactor: CGFloat) -> Self {
         self.transform = self.transform.scaledBy(x: widthScaleFactor, y: heightScaleFactor)
         self.frame.origin = CGPoint.zero
         return self
@@ -30,6 +30,13 @@ final class UIKitContainer: UIView, UIKitRenderable {
         // reference: https://developer.apple.com/documentation/uikit/uiview/1622557-mask
         maskView.backgroundColor = .blue
         self.mask = maskView
+        return self
+    }
+
+    func scaleFromCenter(byWidth widthScaleFactor: CGFloat, byHeight heightScaleFactor: CGFloat) -> Self {
+        let center = self.center
+        self.transform = self.transform.scaledBy(x: widthScaleFactor, y: heightScaleFactor)
+        self.center = center
         return self
     }
 }

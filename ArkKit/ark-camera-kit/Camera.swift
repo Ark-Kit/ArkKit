@@ -1,14 +1,10 @@
 import Foundation
 
-struct CameraContainerComponent: Component {
+struct PlacedCameraComponent: Component {
     let camera: Camera
 
     /// Screen position is the center of the camera placed on to the screen coordinate
     let screenPosition: CGPoint
-
-    /// The screen size is ot help limit the camera view to a specific size
-    // TODO: What happens if camera is smaller than screen size?
-    let canvasSize: CGSize
 
     /// Defines the size of the camera view relative to the `screen` size.
     /// The size of the camera should be at most the size of the `screen`.
@@ -23,10 +19,16 @@ struct Camera {
     /// Defines the anchor position within the `canvas` (game world).
     let canvasPosition: CGPoint
 
+    /// Defines the size of the camera world that the camera uses
+    let canvasSize: CGSize
+
     let zoom: Double
 
-    init(canvasPosition: CGPoint, zoom: Double = 1.0) {
+    init(canvasPosition: CGPoint,
+         canvasSize: CGSize,
+         zoom: Double = 1.0) {
         self.canvasPosition = canvasPosition
+        self.canvasSize = canvasSize
         self.zoom = zoom
     }
 }

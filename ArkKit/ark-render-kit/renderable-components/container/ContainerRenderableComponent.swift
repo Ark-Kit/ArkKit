@@ -35,8 +35,13 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
 
     func letterbox(into screenSize: CGSize) -> Self {
         var copy = self
-        let widthScaleFactor = screenSize.width / self.frame.width
-        let heightScaleFactor = screenSize.height / self.frame.height
+
+        let baseWidth = self.frame.width
+        let baseHeight = self.frame.height
+
+        let widthScaleFactor = screenSize.width / baseWidth
+        let heightScaleFactor = screenSize.height / baseHeight
+
         copy.letterboxWidthScaleFactor = widthScaleFactor
         copy.letterboxHeightScaleFactor = heightScaleFactor
         return copy
