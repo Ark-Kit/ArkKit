@@ -1,12 +1,12 @@
 import Foundation
 
-class ArkUpdateSystem: UpdateSystem {
+class ArkUpdateSystem<AudioEnum: ArkAudioEnum>: UpdateSystem {
     var active: Bool
-    let action: any Action<TimeInterval>
-    let context: ArkActionContext
+    let action: any Action<TimeInterval, AudioEnum>
+    let context: ArkActionContext<AudioEnum>
 
-    init(action: any Action<TimeInterval>,
-         context: ArkActionContext,
+    init(action: any Action<TimeInterval, AudioEnum>,
+         context: ArkActionContext<AudioEnum>,
          active: Bool = true) {
 
         self.active = active

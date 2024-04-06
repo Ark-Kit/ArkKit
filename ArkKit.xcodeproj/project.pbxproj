@@ -151,6 +151,7 @@
 		8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21872BAE752F00788E20 /* ScreenResizeEvent.swift */; };
 		8FEB218A2BAF3C8E00788E20 /* ImpactExplosionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21892BAF3C8E00788E20 /* ImpactExplosionAnimation.swift */; };
 		8FEB218C2BAF453900788E20 /* ArkAnimationsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB218B2BAF453900788E20 /* ArkAnimationsComponent.swift */; };
+		941BE21E2BC0EC1900707997 /* ArkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE21D2BC0EC1900707997 /* ArkProtocol.swift */; };
 		942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16762BADF3ED00F0186B /* AudioContext.swift */; };
 		942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16782BADF40600F0186B /* ArkAudioPlayer.swift */; };
 		942A16852BAEA43B00F0186B /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16842BAEA43B00F0186B /* Sound.swift */; };
@@ -359,6 +360,7 @@
 		8FEB21872BAE752F00788E20 /* ScreenResizeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenResizeEvent.swift; sourceTree = "<group>"; };
 		8FEB21892BAF3C8E00788E20 /* ImpactExplosionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpactExplosionAnimation.swift; sourceTree = "<group>"; };
 		8FEB218B2BAF453900788E20 /* ArkAnimationsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationsComponent.swift; sourceTree = "<group>"; };
+		941BE21D2BC0EC1900707997 /* ArkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkProtocol.swift; sourceTree = "<group>"; };
 		942A16762BADF3ED00F0186B /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		942A16782BADF40600F0186B /* ArkAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAudioPlayer.swift; sourceTree = "<group>"; };
 		942A16842BAEA43B00F0186B /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
@@ -1168,6 +1170,7 @@
 			isa = PBXGroup;
 			children = (
 				02C394E22BA407420075F1CA /* Ark.swift */,
+				941BE21D2BC0EC1900707997 /* ArkProtocol.swift */,
 				02C3950C2BA5FE5C0075F1CA /* ArkBlueprint.swift */,
 				0230A4822BB7EECD001CFDAF /* ark-uikit-lib */,
 				0267BA2B2BBD2A9E0010F729 /* ark-camera-kit */,
@@ -1515,6 +1518,7 @@
 				8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */,
 				280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */,
 				280CD3D62BA7F8CC00372C5D /* SKPhysicsScene.swift in Sources */,
+				941BE21E2BC0EC1900707997 /* ArkProtocol.swift in Sources */,
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
 				942A16852BAEA43B00F0186B /* Sound.swift in Sources */,
 				0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */,
