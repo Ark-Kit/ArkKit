@@ -1,10 +1,8 @@
 import Foundation
 @testable import ArkKit
 
-class MockAudioContext: AudioContext {
-    func stop<S>(_ sound: S, playerId: UUID?) where S: ArkKit.Sound {
-    }
-
-    func play<S>(_ sound: S, playerId: UUID?) where S: ArkKit.Sound {
-    }
+class MockAudioContext<AudioEnum: ArkAudioEnum>: AudioContext {
+    func load(_ soundMapping: [AudioEnum: any ArkKit.Sound]) {}
+    func play(_ audio: AudioEnum, audioPlayerId: UUID?) {}
+    func stop(_ audio: AudioEnum, audioPlayerId: UUID?) {}
 }
