@@ -43,14 +43,13 @@ class TankGameManager {
 
                 TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
 
-                self.createTankEntities(ecs: ecs, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
-                let tankEntityContext1 = TankCreationContext(position: CGPoint(x: canvasWidth / 2, y: 1_000),
-                                                             rotation: 0,
-                                                             tankIndex: 1,
-                                                             zPosition: 5,
-                                                             hp: 50)
+                self.createTankTerrainEntities(ecs: ecs, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
                 let tankEntity1 = TankGameEntityCreator.createTank(
-                    with: tankEntityContext1,
+                    with: TankCreationContext(position: CGPoint(x: canvasWidth / 2, y: 1_000),
+                                              rotation: 0,
+                                              tankIndex: 1,
+                                              zPosition: 5,
+                                              hp: 50),
                     in: ecs)
                 self.tankIdEntityMap[1] = tankEntity1
 //                ecs.upsertComponent(CameraContainerComponent(
@@ -63,13 +62,12 @@ class TankGameManager {
 //                    // relative to screen
 //                    size: CGSize(width: screenWidth / 4, height: screenHeight / 4)
 //                ), to: tankEntity1)
-                let tankEntityContext2 = TankCreationContext(position: CGPoint(x: 400, y: 180),
-                                                             rotation: Double.pi,
-                                                             tankIndex: 2,
-                                                             zPosition: 5,
-                                                             hp: 50)
                 let tankEntity2 = TankGameEntityCreator.createTank(
-                    with: tankEntityContext2,
+                    with: TankCreationContext(position: CGPoint(x: 400, y: 180),
+                                              rotation: Double.pi,
+                                              tankIndex: 2,
+                                              zPosition: 5,
+                                              hp: 50),
                     in: ecs)
                 self.tankIdEntityMap[2] = tankEntity2
 
@@ -153,8 +151,11 @@ class TankGameManager {
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
             }
-            .on(TankHPModifyEvent.self) { event, context in
-                self.handleTankHPModify(event, in: context)
+            .on(TankHpModifyEvent.self) { event, context in
+                self.handleTankHpModify(event, in: context)
+            }
+            .on(TankReviveEvent.self) { event, context in
+                self.handleTankRevive(event, in: context)
             }
             .on(TankDestroyedEvent.self) { event, context in
                 self.handleTankDestroyed(event, in: context)
@@ -167,71 +168,71 @@ class TankGameManager {
             }
     }
 
-    private func createTankEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {
+    private func createTankTerrainEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {
         TankGameEntityCreator
             .createTerrainObjects(in: ecs,
                                   objectsSpecs: [
-                                      TankSpecification(
-                                          type: 0,
-                                          location: CGPoint(x: canvasWidth / 2,
-                                                            y: canvasHeight / 2),
-                                          size: CGSize(width: canvasWidth,
-                                                       height: canvasHeight / 5),
-                                          zPos: 1),
-                                      TankSpecification(
-                                          type: 1,
-                                          location: CGPoint(x: canvasWidth * 3 / 4,
-                                                            y: canvasHeight * 3 / 4),
-                                          size: CGSize(width: 100, height: 100),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 3,
-                                          location: CGPoint(x: canvasWidth * 1 / 4,
-                                                            y: canvasHeight * 1 / 4),
-                                          size: CGSize(width: 120, height: 120),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 2,
-                                          location: CGPoint(x: canvasWidth * 2 / 5,
-                                                            y: canvasHeight * 2 / 3),
-                                          size: CGSize(width: 70, height: 70),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 4,
-                                          location: CGPoint(x: canvasWidth * 3 / 5,
-                                                            y: canvasHeight * 1 / 3),
-                                          size: CGSize(width: 80, height: 80),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 1,
-                                          location: CGPoint(x: canvasWidth * 1 / 6,
-                                                            y: canvasHeight * 3 / 7),
-                                          size: CGSize(width: 80, height: 80),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 1,
-                                          location: CGPoint(x: canvasWidth * 5 / 6,
-                                                            y: canvasHeight * 4 / 7),
-                                          size: CGSize(width: 80, height: 80),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 3,
-                                          location: CGPoint(x: canvasWidth * 1 / 2,
-                                                            y: canvasHeight * 1 / 2),
-                                          size: CGSize(width: 85, height: 85),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 4,
-                                          location: CGPoint(x: canvasWidth * 7 / 8,
-                                                            y: canvasHeight * 1 / 3),
-                                          size: CGSize(width: 95, height: 95),
-                                          zPos: 2),
-                                      TankSpecification(
-                                          type: 5,
-                                          location: CGPoint(x: canvasWidth * 1 / 6,
-                                                            y: canvasHeight * 3 / 4),
-                                          size: CGSize(width: 90, height: 90),
-                                          zPos: 2)
+                                      TankSpecification(type: 0,
+                                                        location: CGPoint(x: canvasWidth / 2,
+                                                                          y: canvasHeight / 2),
+                                                        size: CGSize(width: canvasWidth,
+                                                                     height: canvasHeight / 5),
+                                                        zPos: 1),
+                                      TankSpecification(type: 1,
+                                                        location: CGPoint(x: canvasWidth * 3 / 4,
+                                                                          y: canvasHeight * 3 / 4),
+                                                        size: CGSize(width: 100, height: 100),
+                                                        zPos: 2),
+                                      TankSpecification(type: 3,
+                                                        location: CGPoint(x: canvasWidth * 1 / 4,
+                                                                          y: canvasHeight * 1 / 4),
+                                                        size: CGSize(width: 120, height: 120),
+                                                        zPos: 2),
+                                      TankSpecification(type: 2,
+                                                        location: CGPoint(x: canvasWidth * 2 / 5,
+                                                                          y: canvasHeight * 2 / 3),
+                                                        size: CGSize(width: 70, height: 70),
+                                                        zPos: 2),
+                                      TankSpecification(type: 4,
+                                                        location: CGPoint(x: canvasWidth * 3 / 5,
+                                                                          y: canvasHeight * 1 / 3),
+                                                        size: CGSize(width: 80, height: 80),
+                                                        zPos: 2),
+                                      TankSpecification(type: 1,
+                                                        location: CGPoint(x: canvasWidth * 1 / 6,
+                                                                          y: canvasHeight * 3 / 7),
+                                                        size: CGSize(width: 80, height: 80),
+                                                        zPos: 2),
+                                      TankSpecification(type: 1,
+                                                        location: CGPoint(x: canvasWidth * 5 / 6,
+                                                                          y: canvasHeight * 4 / 7),
+                                                        size: CGSize(width: 80, height: 80),
+                                                        zPos: 2),
+                                      TankSpecification(type: 3,
+                                                        location: CGPoint(x: canvasWidth * 1 / 2,
+                                                                          y: canvasHeight * 1 / 2),
+                                                        size: CGSize(width: 85, height: 85),
+                                                        zPos: 2),
+                                      TankSpecification(type: 4,
+                                                        location: CGPoint(x: canvasWidth * 7 / 8,
+                                                                          y: canvasHeight * 1 / 3),
+                                                        size: CGSize(width: 95, height: 95),
+                                                        zPos: 2),
+                                      TankSpecification(type: 5,
+                                                        location: CGPoint(x: canvasWidth * 1 / 6,
+                                                                          y: canvasHeight * 3 / 4),
+                                                        size: CGSize(width: 90, height: 90),
+                                                        zPos: 2),
+                                      TankSpecification(type: 7,
+                                                        location: CGPoint(x: canvasWidth * 1 / 3,
+                                                                          y: canvasHeight * 1 / 2),
+                                                        size: CGSize(width: 45, height: 45),
+                                                        zPos: 2),
+                                      TankSpecification(type: 7,
+                                                        location: CGPoint(x: canvasWidth * 2 / 3,
+                                                                          y: canvasHeight * 1 / 2),
+                                                        size: CGSize(width: 45, height: 45),
+                                                        zPos: 2)
                                   ])
     }
 }
@@ -277,17 +278,13 @@ extension TankGameManager {
     private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
-        guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
-            return
-        }
-
-        guard var tankPhysicsComponent = ecs.getComponent(
+        guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId],
+            var tankPhysicsComponent = ecs.getComponent(
             ofType: PhysicsComponent.self,
             for: tankEntity),
-            var tankRotationComponent = ecs.getComponent(
+                    var tankRotationComponent = ecs.getComponent(
                 ofType: RotationComponent.self,
-                for: tankEntity)
-        else {
+                for: tankEntity) else {
             return
         }
 
@@ -313,30 +310,12 @@ extension TankGameManager {
     private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
-        guard let tankEntity = tankIdEntityMap[eventData.tankId] else {
+        guard let tankEntity = tankIdEntityMap[eventData.tankId],
+              let tankPositionComponent = ecs.getComponent(ofType: PositionComponent.self, for: tankEntity),
+              let tankRotationComponent = ecs.getComponent(ofType: RotationComponent.self, for: tankEntity),
+              let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity) else {
             return
         }
-
-        guard let tankPositionComponent = ecs.getComponent(
-            ofType: PositionComponent.self,
-            for: tankEntity)
-        else {
-            return
-        }
-
-        guard let tankRotationComponent = ecs.getComponent(
-            ofType: RotationComponent.self,
-            for: tankEntity)
-        else {
-            return
-        }
-
-        guard let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self,
-                                                          for: tankEntity)
-        else {
-            return
-        }
-
         let tankLength = (tankPhysicsComponent.size?.height ?? 0.0) / 2 + 20
 
         let dx = cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
@@ -383,22 +362,25 @@ extension TankGameManager {
                                                       in: context)
     }
 
-    private func handleTankHPModify(_ event: TankHPModifyEvent, in context: ArkActionContext) {
+    private func handleTankHpModify(_ event: TankHpModifyEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
-        guard let tankHPComponent = ecs.getComponent(ofType: TankHPComponent.self, for: tankEntity),
+        guard var tankHpComponent = ecs.getComponent(ofType: TankHpComponent.self, for: tankEntity),
               let hpBarComponent = ecs.getComponent(ofType: RectRenderableComponent.self, for: tankEntity) else {
             return
         }
         let hpChange = eventData.hpChange
-        let newHp = tankHPComponent.hp + hpChange
-        ecs.upsertComponent(TankHPComponent(hp: newHp), to: tankEntity)
-        let newHPBarComponent =
-                    TankGameEntityCreator.createHPBarComponent(hp: newHp, zPosition: hpBarComponent.zPosition)
-        ecs.upsertComponent(newHPBarComponent, to: tankEntity)
+        let newHp = tankHpComponent.hp + hpChange
+        tankHpComponent.hp = newHp
+        ecs.upsertComponent(tankHpComponent, to: tankEntity)
+        let newHpBarComponent =
+                    TankGameEntityCreator.createHpBarComponent(hp: newHp, zPosition: hpBarComponent.zPosition)
+        ecs.upsertComponent(newHpBarComponent, to: tankEntity)
 
         if newHp <= 0 {
+            let tankReviveEvent = TankReviveEvent(eventData: TankReviveEventData(name: "", tankEntity: tankEntity))
+            context.events.emit(tankReviveEvent)
             let tankDestroyedEvent =
                     TankDestroyedEvent(eventData: TankDestroyedEventData(name: "Tank \(tankEntity) destroyed",
                                                                          tankEntity: tankEntity))
@@ -406,18 +388,38 @@ extension TankGameManager {
         }
     }
 
+    private func handleTankRevive(_ event: TankReviveEvent, in context: ArkActionContext) {
+        let ecs = context.ecs
+        let eventData = event.eventData
+        let tankEntity = eventData.tankEntity
+        guard var tankHpComponent = context.ecs.getComponent(ofType: TankHpComponent.self, for: tankEntity),
+              !tankHpComponent.isRevived,
+              let hpBarComponent = ecs.getComponent(ofType: RectRenderableComponent.self, for: tankEntity)
+        else {
+            return
+        }
+        tankHpComponent.hp = tankHpComponent.maxHp
+        tankHpComponent.isRevived = true
+        ecs.upsertComponent(tankHpComponent, to: tankEntity)
+        let newHpBarComponent =
+                    TankGameEntityCreator.createHpBarComponent(hp: tankHpComponent.maxHp,
+                                                               zPosition: hpBarComponent.zPosition)
+        ecs.upsertComponent(newHpBarComponent, to: tankEntity)
+    }
+
     private func handleTankDestroyed(_ event: TankDestroyedEvent, in context: ArkActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
-        guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity) else {
+        guard let tankHpComponent = context.ecs.getComponent(ofType: TankHpComponent.self, for: tankEntity),
+              tankHpComponent.hp <= 0,
+              var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity) else {
             return
         }
         physicsComponent.toBeRemoved = true
         context.ecs.upsertComponent(physicsComponent, to: tankEntity)
         if let positionComponent = context.ecs.getComponent(ofType: PositionComponent.self, for: tankEntity) {
-            ImpactExplosionAnimation(perFrameDuration: 0.1)
-                .create(in: ecs, at: positionComponent.position)
+            ImpactExplosionAnimation(perFrameDuration: 0.1).create(in: ecs, at: positionComponent.position)
         }
     }
 }

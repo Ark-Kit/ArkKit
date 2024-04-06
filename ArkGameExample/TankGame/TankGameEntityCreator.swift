@@ -24,7 +24,7 @@ struct TankShootButtonCreationContext {
 }
 
 enum TankGameEntityCreator {
-    static func createHPBarComponent(hp: Double, zPosition: Double) -> RectRenderableComponent {
+    static func createHpBarComponent(hp: Double, zPosition: Double) -> RectRenderableComponent {
         RectRenderableComponent(width: hp, height: 10)
             .modify(fillInfo: ShapeFillInfo(color: .red), strokeInfo: ShapeStrokeInfo(lineWidth: 3, color: .black))
             .zPosition(zPosition + 1)
@@ -53,8 +53,8 @@ enum TankGameEntityCreator {
                              TankGamePhysicsCategory.tank |
                              TankGamePhysicsCategory.wall |
                              TankGamePhysicsCategory.water),
-            createHPBarComponent(hp: tankContext.hp, zPosition: tankContext.zPosition + 1),
-            TankHPComponent(hp: tankContext.hp)
+            createHpBarComponent(hp: tankContext.hp, zPosition: tankContext.zPosition + 1),
+            TankHpComponent(hp: tankContext.hp, maxHp: tankContext.hp)
         ])
 
         return tankEntity
@@ -198,7 +198,8 @@ enum TankGameEntityCreator {
     }
 
     static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [TankSpecification]) {
-        let strategies: [TankGameTerrainObjectStrategy] = [TankGameLakeStrategy(), TankGameStoneStrategy()]
+        let strategies: [TankGameTerrainObjectStrategy] = [TankGameLakeStrategy(),
+                                                           TankGameStoneStrategy(), TankGameHealthPackStrategy()]
         let terrainObjectBuilder = TankGameTerrainObjectBuilder(strategies: strategies, ecsContext: ecsContext)
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)

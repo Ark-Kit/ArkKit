@@ -1,17 +1,17 @@
 import Foundation
 
-struct TankHPModifyEventData: ArkSerializableEventData {
+struct TankHpModifyEventData: ArkSerializableEventData {
     var name: String
     var tankEntity: Entity
     var hpChange: Double
 }
 
-struct TankHPModifyEvent: ArkSerializableEvent {
+struct TankHpModifyEvent: ArkSerializableEvent {
     static var id = UUID()
-    var eventData: TankHPModifyEventData
+    var eventData: TankHpModifyEventData
     var priority: Int?
 
-    init(eventData: TankHPModifyEventData, priority: Int? = nil) {
+    init(eventData: TankHpModifyEventData, priority: Int? = nil) {
         self.eventData = eventData
         self.priority = priority
     }

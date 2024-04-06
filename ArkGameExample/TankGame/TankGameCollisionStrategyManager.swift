@@ -7,6 +7,7 @@ enum TankGamePhysicsCategory {
     static let water: UInt32 = 0x1 << 2
     static let wall: UInt32 = 0x1 << 3
     static let rock: UInt32 = 0x1 << 4
+    static let healthPack: UInt32 = 0x1 << 5
 }
 
 protocol CollisionHandlingStrategy {
@@ -31,6 +32,8 @@ class TankGameCollisionStrategyManager {
                  for: (TankGamePhysicsCategory.tank, TankGamePhysicsCategory.water))
         register(strategy: TankBallCollisionStrategy(),
                  for: (TankGamePhysicsCategory.tank, TankGamePhysicsCategory.ball))
+        register(strategy: TankHealthPackCollisionStrategy(),
+                 for: (TankGamePhysicsCategory.tank, TankGamePhysicsCategory.healthPack))
     }
 
     private func register(strategy: CollisionHandlingStrategy, for categories: (UInt32, UInt32)) {
@@ -118,8 +121,8 @@ class TankBallCollisionStrategy: CollisionHandlingStrategy {
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
         markBallForRemoval(entityB, in: context)
-        let hpModifyEvent = TankHPModifyEvent(eventData:
-                                                TankHPModifyEventData(name: "", tankEntity: entityA, hpChange: -10))
+        let hpModifyEvent = TankHpModifyEvent(eventData:
+                                                TankHpModifyEventData(name: "", tankEntity: entityA, hpChange: -10))
         context.events.emit(hpModifyEvent)
     }
 
@@ -148,4 +151,19 @@ class TankWaterCollisionStrategy: CollisionHandlingStrategy {
                               in context: ArkActionContext) {
         adjustLinearDamping(for: entityA, to: 0.1, in: context)
     }
+}
+
+class TankHealthPackCollisionStrategy: CollisionHandlingStrategy {
+    func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
+                              bitMaskA: UInt32, bitMaskB: UInt32, in context: ArkActionContext) {
+        markEntityForRemoval(entityB, in: context)
+        let hpModifyEvent =
+                TankHpModifyEvent(eventData: TankHpModifyEventData(name: "", tankEntity: entityA, hpChange: 20))
+        context.events.emit(hpModifyEvent)
+    }
+
+    func handleCollisionEnded(between entityA: Entity, and entityB: Entity, bitMaskA: UInt32,
+                              bitMaskB: UInt32, in context: ArkActionContext) {
+    }
+
 }
