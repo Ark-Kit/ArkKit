@@ -17,9 +17,14 @@ class TankGameManager {
     }
 
     func setUp() {
+        setUpAudio()
         setUpEntities()
         setUpSystems()
         setUpRules()
+    }
+
+    func setUpAudio() {
+        blueprint = blueprint.withAudio(tankGameSoundMapping)
     }
 
     func setUpEntities() {

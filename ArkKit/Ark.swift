@@ -43,7 +43,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
-        self.audioContext = ArkAudioPlayer()
+        self.audioContext = ArkAudioContext()
         self.canvasRenderer = canvasRenderer
     }
 

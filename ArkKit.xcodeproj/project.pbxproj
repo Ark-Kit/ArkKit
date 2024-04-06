@@ -153,8 +153,9 @@
 		8FEB218C2BAF453900788E20 /* ArkAnimationsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB218B2BAF453900788E20 /* ArkAnimationsComponent.swift */; };
 		941BE21E2BC0EC1900707997 /* ArkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE21D2BC0EC1900707997 /* ArkProtocol.swift */; };
 		941BE2202BC104D000707997 /* TankGameSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE21F2BC104D000707997 /* TankGameSounds.swift */; };
+		941BE2242BC1317900707997 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE2232BC1317900707997 /* SoundPlayer.swift */; };
 		942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16762BADF3ED00F0186B /* AudioContext.swift */; };
-		942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16782BADF40600F0186B /* ArkAudioPlayer.swift */; };
+		942A16792BADF40600F0186B /* ArkAudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16782BADF40600F0186B /* ArkAudioContext.swift */; };
 		942A16852BAEA43B00F0186B /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A16842BAEA43B00F0186B /* Sound.swift */; };
 		943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943D418B2BAEBF2E00F9E88F /* ArkSetupContext.swift */; };
 		943D418F2BAEC50E00F9E88F /* shoot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 943D418E2BAEC50E00F9E88F /* shoot.mp3 */; };
@@ -363,8 +364,9 @@
 		8FEB218B2BAF453900788E20 /* ArkAnimationsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationsComponent.swift; sourceTree = "<group>"; };
 		941BE21D2BC0EC1900707997 /* ArkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkProtocol.swift; sourceTree = "<group>"; };
 		941BE21F2BC104D000707997 /* TankGameSounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameSounds.swift; sourceTree = "<group>"; };
+		941BE2232BC1317900707997 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		942A16762BADF3ED00F0186B /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
-		942A16782BADF40600F0186B /* ArkAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAudioPlayer.swift; sourceTree = "<group>"; };
+		942A16782BADF40600F0186B /* ArkAudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAudioContext.swift; sourceTree = "<group>"; };
 		942A16842BAEA43B00F0186B /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		943D418B2BAEBF2E00F9E88F /* ArkSetupContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSetupContext.swift; sourceTree = "<group>"; };
 		943D418E2BAEC50E00F9E88F /* shoot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shoot.mp3; sourceTree = "<group>"; };
@@ -928,7 +930,8 @@
 			isa = PBXGroup;
 			children = (
 				942A16762BADF3ED00F0186B /* AudioContext.swift */,
-				942A16782BADF40600F0186B /* ArkAudioPlayer.swift */,
+				942A16782BADF40600F0186B /* ArkAudioContext.swift */,
+				941BE2232BC1317900707997 /* SoundPlayer.swift */,
 				942A16842BAEA43B00F0186B /* Sound.swift */,
 			);
 			path = "ark-audio-kit";
@@ -1413,7 +1416,7 @@
 				0267BA262BBD0FE00010F729 /* StartUpSystem.swift in Sources */,
 				280CD3C82BA743D900372C5D /* AbstractArkPhysicsBody.swift in Sources */,
 				02C395242BA849B40075F1CA /* JoystickRenderableComponent.swift in Sources */,
-				942A16792BADF40600F0186B /* ArkAudioPlayer.swift in Sources */,
+				942A16792BADF40600F0186B /* ArkAudioContext.swift in Sources */,
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
 				0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */,
@@ -1531,6 +1534,7 @@
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
 				02C395282BA891AA0075F1CA /* ArkUIKitRenderableBuilder.swift in Sources */,
+				941BE2242BC1317900707997 /* SoundPlayer.swift in Sources */,
 				280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,
 				AD2B59AC2BB87F2200198E99 /* ArkNetworkService.swift in Sources */,
