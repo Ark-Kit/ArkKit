@@ -12,12 +12,6 @@ class EntityManager {
     private var componentsByType = [ObjectIdentifier: [Entity: Component]]()
     private var idGenerator = EntityIDGenerator()
 
-//    func createEntity() -> Entity {
-//        let entity = Entity(id: idGenerator.generate())
-//        entities.insert(entity)
-//        return entity
-//    }
-
     func createEntity(id: EntityID? = nil) -> Entity {
         let entityId = id ?? idGenerator.generate()
         let entity = Entity(id: entityId)

@@ -11,12 +11,12 @@ class ComponentRegistry {
     static let shared = ComponentRegistry()
 
     private init() {
-
+//        setUpComponentTypes()
+        loadComponentTypes()
     }
 
     private var componentTypes: [String: (Data) throws -> any Component] = [:]
 
-    // Registers an event type with its corresponding decoder
     func register<T: Component>(_ componentType: T.Type) {
         guard let componentType = componentType as? any SendableComponent.Type else {
             return
@@ -34,8 +34,23 @@ class ComponentRegistry {
         return try decoder(data)
     }
 
+    private func loadComponentTypes() {
+        let componentTypes: [Component.Type] = [
+            PositionComponent.self,
+            CameraContainerComponent.self,
+            PhysicsComponent.self,
+            ArkAnimationsComponent.self,
+            ContainerRenderableComponent.self,
+            BitmapImageRenderableComponent.self,
+            RotationComponent.self,
+            WorldComponent.self,
+            StopWatchComponent.self
+        ]
+    }
+
     private func setUpComponentTypes() {
         let componentTypes = subclasses(of: SendableComponent.self)
+        print("subclasses: \(componentTypes)")
         for componentType in componentTypes {
             if let componentType = componentType as? any Component.Type {
                 register(componentType)

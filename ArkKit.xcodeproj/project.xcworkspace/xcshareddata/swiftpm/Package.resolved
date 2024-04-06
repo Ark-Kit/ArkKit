@@ -1,5 +1,4 @@
 {
-  "originHash" : "5b4ee4b3c55bec1dd1630d4cab7f72225b9ac100b34f7f97bad2539bbfd1db4e",
   "pins" : [
     {
       "identity" : "p2psharekit",
@@ -11,5 +10,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-class ArkMultiplayerECS: ArkECSContext {
+class ArkMultiplayerECS: ArkECS {
     let arkECS: ArkECS
     var delegate: ArkMultiplayerECSDelegate?
 
@@ -9,11 +9,8 @@ class ArkMultiplayerECS: ArkECSContext {
         self.arkECS = arkECS
         self.delegate = delegate
     }
-    func startUp() {
-        arkECS.startUp()
-    }
 
-    func update(deltaTime: TimeInterval) {
+    override func update(deltaTime: TimeInterval) {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
@@ -21,12 +18,8 @@ class ArkMultiplayerECS: ArkECSContext {
         arkECS.update(deltaTime: deltaTime)
     }
 
-    func cleanUp() {
-        arkECS.cleanUp()
-    }
-
     @discardableResult
-    func createEntity() -> Entity {
+    override func createEntity() -> Entity {
         guard delegate?.isModificationEnabled ?? true else {
             return Entity()
         }
@@ -36,7 +29,7 @@ class ArkMultiplayerECS: ArkECSContext {
         return entity
     }
 
-    func removeEntity(_ entity: Entity) {
+    override func removeEntity(_ entity: Entity) {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
@@ -45,7 +38,7 @@ class ArkMultiplayerECS: ArkECSContext {
         delegate?.didRemoveEntity(entity)
     }
 
-    func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
+    override func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
@@ -54,7 +47,7 @@ class ArkMultiplayerECS: ArkECSContext {
         delegate?.didUpsertComponent(component, to: entity)
     }
 
-    func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
+    override func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
@@ -62,12 +55,12 @@ class ArkMultiplayerECS: ArkECSContext {
         arkECS.removeComponent(componentType, from: entity)
     }
 
-    func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
+    override func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
         arkECS.getComponent(ofType: type, for: entity)
     }
 
     @discardableResult
-    func createEntity(with components: [any Component]) -> Entity {
+    override func createEntity(with components: [any Component]) -> Entity {
         guard delegate?.isModificationEnabled ?? true else {
             return Entity()
         }
@@ -78,19 +71,19 @@ class ArkMultiplayerECS: ArkECSContext {
         return entity
     }
 
-    func getEntity(id: EntityID) -> Entity? {
+    override func getEntity(id: EntityID) -> Entity? {
         arkECS.getEntity(id: id)
     }
 
-    func getEntities(with componentTypes: [any Component.Type]) -> [Entity] {
+    override func getEntities(with componentTypes: [any Component.Type]) -> [Entity] {
         arkECS.getEntities(with: componentTypes)
     }
 
-    func getComponents(from entity: Entity) -> [any Component] {
+    override func getComponents(from entity: Entity) -> [any Component] {
         arkECS.getComponents(from: entity)
     }
 
-    func addSystem(_ system: UpdateSystem, schedule: Schedule = .update, isUnique: Bool = true) {
+    override func addSystem(_ system: UpdateSystem, schedule: Schedule = .update, isUnique: Bool = true) {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }

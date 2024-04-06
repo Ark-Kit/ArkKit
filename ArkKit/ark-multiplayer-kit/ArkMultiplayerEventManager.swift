@@ -7,25 +7,37 @@
 
 import Foundation
 
-class ArkMultiplayerEventManager: ArkEventManagerDelegate {
-    private var arkEventManager: ArkEventContext
+class ArkMultiplayerEventManager: ArkEventManager {
+    private var arkEventManager: ArkEventManager
     var delegate: ArkMultiplayerEventManagerDelegate?
 
-    init(arkEventManager: ArkEventContext = ArkEventManager(),
+    init(arkEventManager: ArkEventManager = ArkEventManager(),
          delegate: ArkMultiplayerEventManagerDelegate? = nil) {
         self.arkEventManager = arkEventManager
         self.delegate = delegate
     }
 
-    func didEmitEvent<Event>(_ event: Event) where Event: ArkEvent {
-        delegate?.shouldSendEvent(event)
+    override func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
+        arkEventManager.subscribe(to: eventType, listener)
     }
 
-    func emitWithoutBroadcast<Event>(_ event: Event) where Event: ArkEvent {
-        arkEventManager.emitWithoutDelegate(event)
+    override func emit<Event: ArkEvent>(_ event: Event) {
+        if delegate?.isBroadcastEvent == true {
+            delegate?.shouldSendEvent(event)
+        }
+        arkEventManager.emit(event)
+    }
+
+    func emitWithoutBroadcast<Event: ArkEvent>(_ event: Event) {
+        arkEventManager.emit(event)
+    }
+
+    override func processEvents() {
+        arkEventManager.processEvents()
     }
 }
 
 protocol ArkMultiplayerEventManagerDelegate: AnyObject {
+    var isBroadcastEvent: Bool { get }
     func shouldSendEvent<Event: ArkEvent>(_ event: Event)
 }

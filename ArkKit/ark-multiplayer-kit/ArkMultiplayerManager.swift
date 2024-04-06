@@ -67,14 +67,19 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
 }
 
 extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
+    var isBroadcastEvent: Bool {
+        self.role == .slave
+    }
+
     func shouldSendEvent<Event: ArkEvent>(_ event: Event) {
         sendEvent(event: event)
     }
 
     private func sendEvent(event: any ArkEvent) {
         do {
-            if let encodedEvent = try ArkDataSerializer.encodeEvent(event) {
-                networkService.sendData(data: encodedEvent)
+            if let encodedEvent = try ArkDataSerializer.encodeEvent(event),
+               let target = masterPeer {
+                networkService.sendData(encodedEvent, to: target)
             }
         } catch {
             print("Error encoding or sending event: \(error)")
@@ -92,8 +97,8 @@ extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
 
         do {
             if let encodedECSFunction = try ArkECSSerializer.encodeECSFunction(action: function, entity: entity,
-                                                                   component: component,
-                                                                   components: components) {
+                                                                               component: component,
+                                                                               components: components) {
                 networkService.sendData(data: encodedECSFunction)
             }
         } catch {

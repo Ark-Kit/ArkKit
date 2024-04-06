@@ -1,6 +1,6 @@
 import Foundation
 
-class ArkECS {
+class ArkECS: ArkECSContext {
     private let entityManager: EntityManager
     private let systemManager: SystemManager
 
@@ -20,9 +20,7 @@ class ArkECS {
     func cleanUp() {
         self.systemManager.cleanUp()
     }
-}
 
-extension ArkECS: ArkECSContext {
     @discardableResult
     func createEntity() -> Entity {
         entityManager.createEntity()

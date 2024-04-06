@@ -30,7 +30,7 @@ class ArkNetworkService: ArkNetworkProtocol {
     }
 
     var deviceID: String {
-        UIDevice.current.name
+        myPeerInfo.peerID
     }
 
     private func setUpHandlers() {

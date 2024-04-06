@@ -195,7 +195,6 @@
 		AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */; };
 		AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A892B9C70D8003EBBD0 /* ArkState.swift */; };
 		AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */; };
-		ADA847F42BBC11F400B19378 /* P2PShare in Frameworks */ = {isa = PBXBuildFile; productRef = ADA847F32BBC11F400B19378 /* P2PShare */; };
 		ADA847FD2BBC4B5500B19378 /* ArkNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA847FC2BBC4B5500B19378 /* ArkNetworkProtocol.swift */; };
 		ADA847FF2BBC4EA800B19378 /* ArkDataSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA847FE2BBC4EA800B19378 /* ArkDataSerializer.swift */; };
 		ADA848022BBC7DF000B19378 /* ArkSerializableEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA848012BBC7DF000B19378 /* ArkSerializableEvent.swift */; };
@@ -204,6 +203,7 @@
 		ADD74C0E2BC0573E008CE36B /* SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C0D2BC0573E008CE36B /* SendableComponent.swift */; };
 		ADD74C102BC05759008CE36B /* SendableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C0F2BC05759008CE36B /* SendableEntity.swift */; };
 		ADD74C122BC15C52008CE36B /* ComponentRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C112BC15C52008CE36B /* ComponentRegistry.swift */; };
+		ADD74C162BC19232008CE36B /* P2PShare in Frameworks */ = {isa = PBXBuildFile; productRef = ADD74C152BC19232008CE36B /* P2PShare */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -423,7 +423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADA847F42BBC11F400B19378 /* P2PShare in Frameworks */,
+				ADD74C162BC19232008CE36B /* P2PShare in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1260,7 +1260,7 @@
 			);
 			name = ArkKit;
 			packageProductDependencies = (
-				ADA847F32BBC11F400B19378 /* P2PShare */,
+				ADD74C152BC19232008CE36B /* P2PShare */,
 			);
 			productName = LevelKit;
 			productReference = AD787A4D2B9C636F003EBBD0 /* ArkKit.app */;
@@ -1313,7 +1313,7 @@
 			);
 			mainGroup = AD787A442B9C636F003EBBD0;
 			packageReferences = (
-				ADA847F22BBC11F400B19378 /* XCRemoteSwiftPackageReference "P2PShareKit" */,
+				ADD74C142BC19232008CE36B /* XCRemoteSwiftPackageReference "P2PShareKit" */,
 			);
 			productRefGroup = AD787A4E2B9C636F003EBBD0 /* Products */;
 			projectDirPath = "";
@@ -1873,7 +1873,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		ADA847F22BBC11F400B19378 /* XCRemoteSwiftPackageReference "P2PShareKit" */ = {
+		ADD74C142BC19232008CE36B /* XCRemoteSwiftPackageReference "P2PShareKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dobster/P2PShareKit/";
 			requirement = {
@@ -1884,9 +1884,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		ADA847F32BBC11F400B19378 /* P2PShare */ = {
+		ADD74C152BC19232008CE36B /* P2PShare */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = ADA847F22BBC11F400B19378 /* XCRemoteSwiftPackageReference "P2PShareKit" */;
+			package = ADD74C142BC19232008CE36B /* XCRemoteSwiftPackageReference "P2PShareKit" */;
 			productName = P2PShare;
 		};
 /* End XCSwiftPackageProductDependency section */
