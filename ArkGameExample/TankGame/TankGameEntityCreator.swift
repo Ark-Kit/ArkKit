@@ -183,7 +183,13 @@ enum TankGameEntityCreator {
                                  background: [[Int]]) {
         let strategies: [TankGameTerrainStrategy] = [TankGameMap1Strategy(),
                                                      TankGameMap2Strategy(),
-                                                     TankGameMap3Strategy()]
+                                                     TankGameMap3Strategy(),
+                                                     TankGameTile1AStrategy(),
+                                                     TankGameTile1BStrategy(),
+                                                     TankGameTile1CStrategy(),
+                                                     TankGameTile2AStrategy(),
+                                                     TankGameTile2BStrategy(),
+                                                     TankGameTile2CStrategy()]
         let mapBuilder = TankGameMapBuilder(width: width, height: height,
                                             strategies: strategies,
                                             ecsContext: ecsContext,
