@@ -157,7 +157,7 @@ class TankWaterCollisionStrategy: CollisionHandlingStrategy {
 
 class TankHealthPackCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
-                              bitMaskA: UInt32, bitMaskB: UInt32, in context: ArkActionContext) {
+                              bitMaskA: UInt32, bitMaskB: UInt32, in context: ArkActionContext<TankGameSounds>) {
         markEntityForRemoval(entityB, in: context)
         let hpModifyEvent =
                 TankHpModifyEvent(eventData: TankHpModifyEventData(name: "", tankEntity: entityA, hpChange: 20))
@@ -165,7 +165,7 @@ class TankHealthPackCollisionStrategy: CollisionHandlingStrategy {
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity, bitMaskA: UInt32,
-                              bitMaskB: UInt32, in context: ArkActionContext) {
+                              bitMaskB: UInt32, in context: ArkActionContext<TankGameSounds>) {
     }
 
 }
