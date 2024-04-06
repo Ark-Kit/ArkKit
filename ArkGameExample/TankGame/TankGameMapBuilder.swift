@@ -67,3 +67,39 @@ class TankGameMap3Strategy: TankGameTerrainStrategy {
         value == 3 ? "map_3" : nil
     }
 }
+
+class TankGameTile1AStrategy: TankGameTerrainStrategy {
+    func imageResourcePath(forValue value: Int) -> String? {
+        value == 4 ? "Ground_Tile_01_A" : nil
+    }
+}
+
+class TankGameTile1BStrategy: TankGameTerrainStrategy {
+    func imageResourcePath(forValue value: Int) -> String? {
+        value == 5 ? "Ground_Tile_01_B" : nil
+    }
+}
+
+class TankGameTile1CStrategy: TankGameTerrainStrategy {
+    func imageResourcePath(forValue value: Int) -> String? {
+        value == 6 ? "Ground_Tile_01_C" : nil
+    }
+}
+
+class TankGameTile2AStrategy: TankGameTerrainStrategy {
+    func imageResourcePath(forValue value: Int) -> String? {
+        value == 7 ? "Ground_Tile_02_A" : nil
+    }
+}
+
+class TankGameTile2BStrategy: TankGameTerrainStrategy {
+    func imageResourcePath(forValue value: Int) -> String? {
+        value == 8 ? "Ground_Tile_02_B" : nil
+    }
+}
+
+class TankGameTile2CStrategy: TankGameTerrainStrategy {
+    func imageResourcePath(forValue value: Int) -> String? {
+        value == 9 ? "Ground_Tile_02_C" : nil
+    }
+}
