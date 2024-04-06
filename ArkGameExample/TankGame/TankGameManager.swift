@@ -60,6 +60,7 @@ class TankGameManager {
 //                    // center of the camera's output in screen coordinates, relative to screen
 //                    screenPosition: CGPoint(x: screenWidth / 4, y: screenHeight / 2),
 //                    // relative to screen
+//                    screenSize: CGSize(width: canvasWidth, height: canvasHeight),
 //                    size: CGSize(width: screenWidth / 4, height: screenHeight / 4)
 //                ), to: tankEntity1)
 
@@ -79,6 +80,7 @@ class TankGameManager {
 //                    // center of the camera's output in screen coordinates, relative to screen
 //                    screenPosition: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
 //                    // relative to screen
+//                    screenSize: CGSize(width: canvasWidth, height: canvasHeight),
 //                    size: CGSize(width: screenWidth / 2, height: screenHeight / 2)
 //                ), to: tankEntity2)
 

@@ -1,3 +1,5 @@
+import Foundation
+
 class ArkCameraSystem: UpdateSystem {
     var active: Bool
 
@@ -16,15 +18,34 @@ class ArkCameraSystem: UpdateSystem {
                 continue
             }
             // track entity holding the camera based on the entity's position
+            let updatedCameraPosition = translateToCameraPosition(
+                positionOfEntity.position,
+                screenSize: cameraComp.screenSize,
+                size: cameraComp.size
+            )
+            
             let updatedCameraComp = CameraContainerComponent(
                 camera: Camera(
-                    canvasPosition: positionOfEntity.position,
+                    canvasPosition: updatedCameraPosition,
                     zoom: cameraComp.camera.zoom
                 ),
                 screenPosition: cameraComp.screenPosition,
+                screenSize: cameraComp.screenSize,
                 size: cameraComp.size
             )
             arkECS.upsertComponent(updatedCameraComp, to: entityWithCamera)
         }
+    }
+    
+    func translateToCameraPosition(_ position: CGPoint, screenSize: CGSize, size: CGSize) -> CGPoint {
+        let minX = size.width / 2
+        let maxX = screenSize.width - size.width / 2
+        let minY = size.height / 2
+        let maxY = screenSize.height - size.height / 2
+
+        let clampedX = max(minX, min(position.x, maxX))
+        let clampedY = max(minY, min(position.y, maxY))
+
+        return CGPoint(x: clampedX, y: clampedY)
     }
 }
