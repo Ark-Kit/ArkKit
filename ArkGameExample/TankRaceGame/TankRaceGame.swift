@@ -1,7 +1,6 @@
 import Foundation
 
 class TankRaceGame {
-    // ideally, i can set canavs size to be up to 10_000
     private(set) var blueprint = ArkBlueprint(frameWidth: 900, frameHeight: 10_000)
     private var tankIdEntityMap = [Int: Entity]()
 
