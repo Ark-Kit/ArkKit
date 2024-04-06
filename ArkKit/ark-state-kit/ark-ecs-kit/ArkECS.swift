@@ -23,6 +23,7 @@ class ArkECS {
 }
 
 extension ArkECS: ArkECSContext {
+
     @discardableResult
     func createEntity() -> Entity {
         entityManager.createEntity()
@@ -36,8 +37,8 @@ extension ArkECS: ArkECSContext {
         entityManager.upsertComponent(component, to: entity)
     }
 
-    func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
-        entityManager.removeComponent(ofType: componentType, from: entity)
+    func removeComponent<T>(ofType type: T.Type, from entity: Entity) where T: Component {
+        entityManager.removeComponent(ofType: type, from: entity)
     }
 
     func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
