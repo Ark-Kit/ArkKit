@@ -85,16 +85,25 @@ extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
         self.role == .master
     }
     
-    private func sendEcsFunction() {
+    private func sendEcsFunction(function: String, entity: Entity, component: Component? = nil,
+                                 components: [Component]? = nil) {
         
+        do {
+            if let encodedECSFunction = try ArkECSSerializer.encodeECSFunction(action: function, entity: entity,
+                                                                   component: component,
+                                                                   components: components) {
+                networkService.sendData(data: encodedECSFunction)
+            }
+        } catch {
+            print("Error encoding or sending ecs function: \(error)")
+        }
     }
     
     func didCreateEntity(_ entity: Entity) {
         guard self.role == .master else {
             return
         }
-        
-        // Send create entity function to slave
+        sendEcsFunction(function: "createEntity", entity: entity)
     }
     
     
@@ -102,31 +111,21 @@ extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
         guard self.role == .master else {
             return
         }
-        
-        // Send remove entity function to slave
-    }
-    func didRemoveComponent<T: Component>(_ componentType: T.Type, from entity: Entity) {
-        guard self.role == .master else {
-            return
-        }
-        
-        // Send remove component function to slave
+        sendEcsFunction(function: "removeEntity", entity: entity)
     }
     
     func didUpsertComponent<T: Component>(_ component: T, to entity: Entity) {
         guard self.role == .master else {
             return
         }
-        
-        // Send upsert component function to slave
+        sendEcsFunction(function: "upsertComponent", entity: entity, component: component)
     }
     
     func didCreateEntity(_ entity: Entity, with components: [Component]) {
         guard self.role == .master else {
             return
         }
-        
-        // Send create entity with components function to slave
+        sendEcsFunction(function: "createEntity", entity: entity, components: components)
     }
     
 }

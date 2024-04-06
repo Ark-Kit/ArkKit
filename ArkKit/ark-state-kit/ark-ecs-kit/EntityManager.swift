@@ -12,17 +12,16 @@ class EntityManager {
     private var componentsByType = [ObjectIdentifier: [Entity: Component]]()
     private var idGenerator = EntityIDGenerator()
 
-    func createEntity() -> Entity {
-        let entity = Entity(id: idGenerator.generate())
-        entities.insert(entity)
-        return entity
-    }
+//    func createEntity() -> Entity {
+//        let entity = Entity(id: idGenerator.generate())
+//        entities.insert(entity)
+//        return entity
+//    }
     
-    func createEntity(withId id: EntityID) -> Entity? {
-        let entity = Entity(id: id)
-        if entities.contains(entity) {
-            return nil // Entity with this ID already exists
-        }
+    func createEntity(id: EntityID? = nil) -> Entity {
+        let entityId = id ?? idGenerator.generate()
+        let entity = Entity(id: entityId)
+
         entities.insert(entity)
         return entity
     }
@@ -49,8 +48,9 @@ class EntityManager {
         return componentsByType[typeID]?[entity] as? T
     }
 
-    func createEntity(with components: [Component]) -> Entity {
-        let entity = Entity()
+    func createEntity(id: EntityID? = nil, with components: [Component]) -> Entity {
+        let entityId = id ?? idGenerator.generate()
+        let entity = Entity(id: entityId)
         entities.insert(entity)
         for comp in components {
             upsertComponent(comp, to: entity)

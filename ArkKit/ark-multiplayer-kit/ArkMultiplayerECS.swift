@@ -60,7 +60,6 @@ class ArkMultiplayerECS: ArkECSContext {
         }
         
         arkECS.removeComponent(componentType, from: entity)
-        delegate?.didRemoveComponent(componentType, from: entity)
     }
 
     func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
@@ -104,7 +103,6 @@ protocol ArkMultiplayerECSDelegate {
     var isModificationEnabled: Bool { get }
     func didCreateEntity(_ entity: Entity)
     func didRemoveEntity(_ entity: Entity)
-    func didRemoveComponent<T: Component>(_ componentType: T.Type, from entity: Entity)
     func didUpsertComponent<T: Component>(_ component: T, to entity: Entity)
     func didCreateEntity(_ entity: Entity, with components: [Component])
 }

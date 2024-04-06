@@ -28,6 +28,11 @@ extension ArkECS: ArkECSContext {
         entityManager.createEntity()
     }
     
+    @discardableResult
+    func createEntity(id: EntityID) -> Entity {
+        entityManager.createEntity(id: id)
+    }
+    
     func removeEntity(_ entity: Entity) {
         entityManager.removeEntity(entity)
     }
@@ -47,6 +52,11 @@ extension ArkECS: ArkECSContext {
     @discardableResult
     func createEntity(with components: [any Component]) -> Entity {
         entityManager.createEntity(with: components)
+    }
+    
+    @discardableResult
+    func createEntity(id: EntityID, with components: [any Component]) -> Entity {
+        entityManager.createEntity(id: id, with: components)
     }
 
     func getEntity(id: EntityID) -> Entity? {
