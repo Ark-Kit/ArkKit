@@ -77,3 +77,24 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
         ])
     }
 }
+
+class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
+    func canHandleType(_ type: Int) -> Bool {
+        type == 7
+    }
+    func createObject(type: Int, location: CGPoint, size: CGSize, zPos: Double, in ecsContext: ArkECSContext) {
+        let imageResourcePath = "health-red"
+        ecsContext.createEntity(with: [
+            BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
+                                           width: size.width, height: size.height)
+            .zPosition(zPos)
+            .center(location),
+            PositionComponent(position: location),
+            RotationComponent(angleInRadians: 0),
+            PhysicsComponent(shape: .circle, radius: size.width / 2, mass: 1, isDynamic: false, allowsRotation: false,
+                             categoryBitMask: TankGamePhysicsCategory.healthPack,
+                             collisionBitMask: TankGamePhysicsCategory.none,
+                             contactTestBitMask: TankGamePhysicsCategory.tank)
+        ])
+    }
+}

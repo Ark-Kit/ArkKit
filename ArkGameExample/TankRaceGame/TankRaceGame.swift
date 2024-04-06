@@ -22,12 +22,14 @@ class TankRaceGame {
                                                    background: [[1, 1, 1], [2, 2, 2], [3, 3, 3]])
 
             TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
+
             let screenWidthIncrement = screenWidth / 3 / 2
+
             let tank1Pos = CGPoint(x: 150, y: 9_800)
             let tank2Pos = CGPoint(x: 450, y: 9_800)
             let tank3Pos = CGPoint(x: 750, y: 9_800)
 
-            let tank1 = TankGameEntityCreator.createTank(
+            let tank1 = self.createTank(
                 at: tank1Pos, rotation: 0.0, tankIndex: 1, in: ecs, zPosition: 1.0
             )
 
@@ -41,10 +43,10 @@ class TankRaceGame {
                 size: CGSize(width: screenWidth / 3, height: screenHeight)
             ), to: tank1)
 
-            let tank2 = TankGameEntityCreator.createTank(
+            let tank2 = self.createTank(
                 at: tank2Pos, rotation: 0.0, tankIndex: 2, in: ecs, zPosition: 1.0
             )
-            let tank3 = TankGameEntityCreator.createTank(
+            let tank3 = self.createTank(
                 at: tank3Pos, rotation: 0.0, tankIndex: 3, in: ecs, zPosition: 1.0
             )
             self.tankIdEntityMap[1] = tank1
@@ -125,5 +127,35 @@ class TankRaceGame {
             tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
             ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
         }
+    }
+
+    @discardableResult private func createTank(
+        at position: CGPoint,
+        rotation: CGFloat,
+        tankIndex: Int,
+        in ecsContext: ArkECSContext,
+        zPosition: Double) -> Entity {
+        let tankEntity = ecsContext.createEntity(with: [
+            BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankIndex)",
+                                           width: 80,
+                                           height: 100)
+                .center(position)
+                .rotation(rotation)
+                .zPosition(zPosition)
+                .scaleAspectFill(),
+            PositionComponent(position: position),
+            RotationComponent(angleInRadians: rotation),
+            PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
+                             isDynamic: false, allowsRotation: false, restitution: 0,
+                             categoryBitMask: TankGamePhysicsCategory.tank,
+                             collisionBitMask: TankGamePhysicsCategory.rock |
+                             TankGamePhysicsCategory.wall |
+                             TankGamePhysicsCategory.tank,
+                             contactTestBitMask: TankGamePhysicsCategory.ball |
+                             TankGamePhysicsCategory.tank |
+                             TankGamePhysicsCategory.wall |
+                             TankGamePhysicsCategory.water)
+        ])
+        return tankEntity
     }
 }
