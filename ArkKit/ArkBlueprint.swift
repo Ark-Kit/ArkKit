@@ -7,6 +7,7 @@ struct ArkBlueprint {
     private(set) var rules: [any Rule] = []
     private(set) var setupFunctions: [ArkStateSetupDelegate] = []
 
+    // game world size
     private(set) var frameWidth: Double
     private(set) var frameHeight: Double
 

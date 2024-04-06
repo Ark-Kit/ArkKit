@@ -1,10 +1,10 @@
 import Foundation
 
-class ArkViewModel {
-    private let gameModel: ArkGameModel
+class ArkViewModel<T> {
+    private let gameModel: ArkGameModel<T>
 
-    weak var viewRendererDelegate: GameStateRenderer?
-    weak var viewDelegate: AbstractView? {
+    weak var viewRendererDelegate: (any GameStateRenderer<T>)?
+    weak var viewDelegate: (any AbstractView)? {
         didSet {
             guard let currentView = viewDelegate else {
                 return
@@ -20,11 +20,11 @@ class ArkViewModel {
             guard let currentCanvas = canvas, let canvasContext = gameModel.canvasContext else {
                 return
             }
-            viewRendererDelegate?.render(canvas: currentCanvas, with: canvasContext)
+            viewRendererDelegate?.render(flatCanvas: currentCanvas, with: canvasContext)
         }
     }
 
-    init(gameModel: ArkGameModel) {
+    init(gameModel: ArkGameModel<T>) {
         self.gameModel = gameModel
     }
 

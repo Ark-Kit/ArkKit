@@ -1,10 +1,10 @@
 import Foundation
 
-class ArkGameModel {
+class ArkGameModel<T> {
     var gameState: ArkState?
-    var canvasContext: CanvasContext?
+    var canvasContext: (any CanvasContext<T>)?
 
-    init(gameState: ArkState, canvasContext: CanvasContext) {
+    init(gameState: ArkState, canvasContext: any CanvasContext<T>) {
         self.gameState = gameState
         self.canvasContext = canvasContext
         self.gameState?.startUp()
@@ -24,6 +24,6 @@ class ArkGameModel {
     }
 
     func retrieveCanvas() -> Canvas? {
-        canvasContext?.getCanvas()
+        canvasContext?.getFlatCanvas()
     }
 }

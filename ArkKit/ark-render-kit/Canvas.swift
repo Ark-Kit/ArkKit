@@ -20,6 +20,6 @@
  */
 protocol Canvas {
     typealias RenderableComponentType = ObjectIdentifier
-    var componentsToUnmount: [EntityID: [RenderableComponentType: (any Renderable)?]] { get }
-    var componentsToMount: [EntityID: [RenderableComponentType: any RenderableComponent]] { get }
+    typealias CanvasElements = [EntityID: [RenderableComponentType: any RenderableComponent]]
+    var canvasElements: CanvasElements { get }
 }

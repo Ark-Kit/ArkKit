@@ -1,11 +1,10 @@
 import UIKit
 
 class ArkViewFactory {
-    static func generateView(_ parentView: AbstractParentView) -> ArkView? {
-        if parentView is UIViewController {
-            return ArkUIKitView()
+    static func generateView<T>(_ parentView: any AbstractParentView<T>) -> (any ArkView<T>)? {
+        guard let arkView = ArkUIKitView<UIView>() as? (any ArkView<T>) else {
+            return nil
         }
-        // TODO: add SwiftUI version
-        return nil
+        return arkView
     }
 }
