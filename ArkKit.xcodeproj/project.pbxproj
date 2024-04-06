@@ -57,7 +57,7 @@
 		02C395322BA9ED230075F1CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 02C395312BA9ED230075F1CA /* README.md */; };
 		02C395342BAAF0EC0075F1CA /* WorldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C395332BAAF0EC0075F1CA /* WorldComponent.swift */; };
 		02C9CC2F2BBED04E0098E849 /* CameraContainerRenderableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC2E2BBED04E0098E849 /* CameraContainerRenderableComponent.swift */; };
-		02C9CC322BBED5C40098E849 /* UIKitContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC312BBED5C40098E849 /* UIKitContainer.swift */; };
+		02C9CC322BBED5C40098E849 /* UIKitCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC312BBED5C40098E849 /* UIKitCamera.swift */; };
 		02C9CC382BBF30180098E849 /* AbstractLetterboxable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9CC372BBF30180098E849 /* AbstractLetterboxable.swift */; };
 		02D8E91E2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8EE2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png */; };
 		02D8E91F2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D8E8EF2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png */; };
@@ -262,7 +262,7 @@
 		02C395312BA9ED230075F1CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		02C395332BAAF0EC0075F1CA /* WorldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldComponent.swift; sourceTree = "<group>"; };
 		02C9CC2E2BBED04E0098E849 /* CameraContainerRenderableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContainerRenderableComponent.swift; sourceTree = "<group>"; };
-		02C9CC312BBED5C40098E849 /* UIKitContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitContainer.swift; sourceTree = "<group>"; };
+		02C9CC312BBED5C40098E849 /* UIKitCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCamera.swift; sourceTree = "<group>"; };
 		02C9CC372BBF30180098E849 /* AbstractLetterboxable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractLetterboxable.swift; sourceTree = "<group>"; };
 		02D8E8EE2BAC419400BF3A07 /* Sprite_Effects_Explosion_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_001.png; sourceTree = "<group>"; };
 		02D8E8EF2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite_Effects_Explosion_002.png; sourceTree = "<group>"; };
@@ -649,7 +649,7 @@
 		02C9CC302BBED5B70098E849 /* container */ = {
 			isa = PBXGroup;
 			children = (
-				02C9CC312BBED5C40098E849 /* UIKitContainer.swift */,
+				02C9CC312BBED5C40098E849 /* UIKitCamera.swift */,
 			);
 			path = container;
 			sourceTree = "<group>";
@@ -1416,7 +1416,7 @@
 				8F5573C12BA42614007030C8 /* Renderable.swift in Sources */,
 				8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
-				02C9CC322BBED5C40098E849 /* UIKitContainer.swift in Sources */,
+				02C9CC322BBED5C40098E849 /* UIKitCamera.swift in Sources */,
 				ADA847FD2BBC4B5500B19378 /* ArkNetworkProtocol.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleRenderableComponent.swift in Sources */,
 				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,

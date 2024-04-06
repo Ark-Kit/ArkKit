@@ -56,7 +56,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
     }
 
     func build(_ container: CameraContainerRenderableComponent) -> any Renderable<UIView> {
-        UIKitContainer(frame: container.frame)
+        UIKitCamera(frame: container.frame)
             .zPosition(container.zPosition)
             .rotate(by: container.rotation)
             .setIsUserInteractionEnabled(container.isUserInteractionEnabled)

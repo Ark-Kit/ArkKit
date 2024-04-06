@@ -1,6 +1,6 @@
 import UIKit
 
-final class UIKitContainer: UIView, UIKitRenderable {
+final class UIKitCamera: UIView, UIKitRenderable {
     var renderableComponents: [any RenderableComponent] = []
 
     func addToContainer(_ renderables: [any Renderable<UIView>]) -> Self {
@@ -28,8 +28,22 @@ final class UIKitContainer: UIView, UIKitRenderable {
             return self
         }
 
+        // Translate to center mask onto focus
         self.center.x += mask.midX - focus.applying(self.transform).x
         self.center.y += mask.midY - focus.applying(self.transform).y
+
+        if self.frame.maxY < mask.maxY {
+            self.center.y += mask.maxY - self.frame.maxY
+        }
+        if self.frame.maxX < mask.maxX {
+            self.center.x += mask.maxX - self.frame.maxX
+        }
+        if self.frame.minX > mask.minX {
+            self.center.x += mask.minX - self.frame.minX
+        }
+        if self.frame.minY > mask.minY {
+            self.center.y += mask.minY - self.frame.minY
+        }
 
         let maskView = UIView(frame: mask)
         let convertedMaskFrame = maskView.convert(maskView.bounds, to: self)

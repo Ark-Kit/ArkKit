@@ -2,7 +2,7 @@ import Foundation
 
 class TankRaceGame {
     // ideally, i can set canavs size to be up to 10_000
-    private(set) var blueprint = ArkBlueprint(frameWidth: 900, frameHeight: 2_000)
+    private(set) var blueprint = ArkBlueprint(frameWidth: 900, frameHeight: 10_000)
     private var tankIdEntityMap = [Int: Entity]()
 
     func load() {
@@ -24,9 +24,9 @@ class TankRaceGame {
 
             TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
             let screenWidthIncrement = screenWidth / 3 / 2
-            let tank1Pos = CGPoint(x: 150, y: 1_600)
-            let tank2Pos = CGPoint(x: 450, y: 800)
-            let tank3Pos = CGPoint(x: 750, y: 800)
+            let tank1Pos = CGPoint(x: 150, y: 9_800)
+            let tank2Pos = CGPoint(x: 450, y: 9_800)
+            let tank3Pos = CGPoint(x: 750, y: 9_800)
 
             let tank1 = TankGameEntityCreator.createTank(
                 at: tank1Pos, rotation: 0.0, tankIndex: 1, in: ecs, zPosition: 1.0
@@ -36,7 +36,7 @@ class TankRaceGame {
                 camera: Camera(
                     canvasPosition: tank1Pos,
                     zoomWidth: 1,
-                    zoomHeight: 1.5
+                    zoomHeight: 10.0
                 ),
                 screenPosition: CGPoint(x: (screenWidth / 3) - screenWidthIncrement, y: screenHeight / 2),
                 size: CGSize(width: screenWidth / 3, height: screenHeight)
@@ -52,19 +52,21 @@ class TankRaceGame {
             self.tankIdEntityMap[2] = tank2
             self.tankIdEntityMap[3] = tank3
 
-//            ecs.upsertComponent(PlacedCameraComponent(
-//                camera: Camera(canvasPosition: tank2Pos, zoom: 2.0),
-//                screenPosition: CGPoint(x: 2 * (screenWidth / 3) - screenWidthIncrement, y: screenHeight / 2),
-//                size: CGSize(width: screenWidth / 3, height: screenHeight)
-//            ), to: tank2)
-//
-//            ecs.upsertComponent(PlacedCameraComponent(
-//                camera: Camera(canvasPosition: tank3Pos, canvasSize: CGSize(width: self.blueprint.frameWidth,
-//                                                                            height: self.blueprint.frameHeight)),
-//                screenPosition: CGPoint(x: (screenWidth) - screenWidthIncrement, y: screenHeight / 2),
-////                canvasSize: CGSize(width: canvasWidth, height: canvasHeight),
-//                size: CGSize(width: screenWidth / 3, height: screenHeight)
-//            ), to: tank3)
+            ecs.upsertComponent(PlacedCameraComponent(
+                camera: Camera(canvasPosition: tank2Pos,
+                               zoomWidth: 1,
+                               zoomHeight: 10.0),
+                screenPosition: CGPoint(x: 2 * (screenWidth / 3) - screenWidthIncrement, y: screenHeight / 2),
+                size: CGSize(width: screenWidth / 3, height: screenHeight)
+            ), to: tank2)
+
+            ecs.upsertComponent(PlacedCameraComponent(
+                camera: Camera(canvasPosition: tank3Pos,
+                               zoomWidth: 1,
+                               zoomHeight: 10.0),
+                screenPosition: CGPoint(x: (screenWidth) - screenWidthIncrement, y: screenHeight / 2),
+                size: CGSize(width: screenWidth / 3, height: screenHeight)
+            ), to: tank3)
 
             TankGameEntityCreator.createJoyStick(
                 center: CGPoint(x: screenWidth * 1 / 12, y: screenHeight * 7 / 8),
