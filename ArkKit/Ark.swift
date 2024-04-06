@@ -171,9 +171,7 @@ class Ark<View> {
                     x: displayContext.canvasSize.width / 2,
                     y: displayContext.canvasSize.height / 2
                 ),
-                canvasSize: CGSize(width: displayContext.canvasSize.width / 1,
-                                   height: displayContext.canvasSize.height / 1),
-                zoom: 1.5
+                zoom: 1.0
             ),
             screenPosition: CGPoint(
                 x: displayContext.screenSize.width / 2,

@@ -41,7 +41,7 @@ class ArkCameraContext: CameraContext {
 
             transformedCanvas.addEntityRenderableToCanvas(
                 entityId: cameraEntity.id,
-                componentType: ObjectIdentifier(ContainerRenderableComponent.self),
+                componentType: ObjectIdentifier(CameraContainerRenderableComponent.self),
                 renderableComponent: containerRenderable
             )
         }
@@ -51,7 +51,7 @@ class ArkCameraContext: CameraContext {
     private func collectCanvasToContainerAndTranslate(
         _ cameraCanva: any Canvas,
         placedCamera: PlacedCameraComponent
-    ) -> ContainerRenderableComponent {
+    ) -> CameraContainerRenderableComponent {
         var renderableComponents: [any RenderableComponent] = []
         cameraCanva.canvasElements.forEach { _, mapping in
             mapping.forEach { _, comp in
@@ -62,24 +62,18 @@ class ArkCameraContext: CameraContext {
                 renderableComponents.append(copy)
             }
         }
-
-//        let canvasCameraPosition = CGPoint(
-//            x: placedCamera.screenPosition.x / displayContext.screenSize.width * displayContext.canvasSize.width,
-//            y: placedCamera.screenPosition.y / displayContext.screenSize.height * displayContext.canvasSize.height
-//        )
-//
-//        let translation = CGAffineTransform(
-//            translationX: canvasCameraPosition.x - placedCamera.camera.canvasPosition.x,
-//            y: canvasCameraPosition.y - placedCamera.camera.canvasPosition.y
-//        )
-
-        return ContainerRenderableComponent(
-            center: placedCamera.camera.canvasPosition,
+        return CameraContainerRenderableComponent(
+            center: CGPoint(x: displayContext.canvasSize.width / 2, y: displayContext.canvasSize.height / 2),
             size: displayContext.canvasSize,
             renderLayer: .canvas,
             zPosition: 0,
-            renderableComponents: renderableComponents
+            renderableComponents: renderableComponents.map { comp in
+                var copy = comp
+                copy.center = copy.center
+                return copy
+            }
         )
+        .track(placedCamera.camera.canvasPosition)
         .setIsUserInteractionEnabled(false)
         .letterbox(into: displayContext.screenSize)
         .zoom(by: placedCamera.camera.zoom)

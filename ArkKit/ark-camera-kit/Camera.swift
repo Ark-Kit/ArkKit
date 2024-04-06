@@ -19,16 +19,24 @@ struct Camera {
     /// Defines the anchor position within the `canvas` (game world).
     let canvasPosition: CGPoint
 
-    /// Defines the size of the camera world that the camera uses
-    let canvasSize: CGSize
-
-    let zoom: Double
+    let zoom: CameraZoom
 
     init(canvasPosition: CGPoint,
-         canvasSize: CGSize,
          zoom: Double = 1.0) {
         self.canvasPosition = canvasPosition
-        self.canvasSize = canvasSize
-        self.zoom = zoom
+        self.zoom = CameraZoom(widthZoom: zoom, heightZoom: zoom)
     }
+
+    init(canvasPosition: CGPoint,
+         zoomWidth: Double = 1.0,
+         zoomHeight: Double = 1.0) {
+        self.canvasPosition = canvasPosition
+        self.zoom = CameraZoom(widthZoom: zoomWidth,
+                               heightZoom: zoomHeight)
+    }
+}
+
+struct CameraZoom {
+    let widthZoom: Double
+    let heightZoom: Double
 }

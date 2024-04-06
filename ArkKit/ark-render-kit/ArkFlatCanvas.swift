@@ -49,7 +49,7 @@ struct ArkMegaCanvas: Canvas {
     mutating func addEntityRenderableToCanvas(entityId: EntityID,
                                               componentType: RenderableComponentType,
                                               renderableComponent: any RenderableComponent) {
-        guard componentType == RenderableComponentType(ContainerRenderableComponent.self) else {
+        guard componentType == RenderableComponentType(CameraContainerRenderableComponent.self) else {
             return
         }
         if cameraElements[entityId] != nil {

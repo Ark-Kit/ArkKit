@@ -55,7 +55,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
             .applyModifiers(modifierInfo: joystick)
     }
 
-    func build(_ container: ContainerRenderableComponent) -> any Renderable<UIView> {
+    func build(_ container: CameraContainerRenderableComponent) -> any Renderable<UIView> {
         UIKitContainer(frame: container.frame)
             .zPosition(container.zPosition)
             .rotate(by: container.rotation)
@@ -65,10 +65,10 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
                     comp.buildRenderable(using: self)
                 }
             )
+            .scaleFromOrigin(byWidth: container.zoom.widthZoom, byHeight: container.zoom.heightZoom)
             .scaleFromOrigin(byWidth: container.letterboxWidthScaleFactor,
                              byHeight: container.letterboxHeightScaleFactor)
-            .scaleFromCenter(byWidth: container.zoom, byHeight: container.zoom)
-            .setMask(container.mask)
+            .setMask(container.mask, on: container.trackPosition)
     }
 
     let defaultColor: UIColor = .black

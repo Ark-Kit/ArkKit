@@ -9,7 +9,7 @@ class ArkCanvasSystem: UpdateSystem {
         RectRenderableComponent.self,
         PolygonRenderableComponent.self,
         BitmapImageRenderableComponent.self,
-        ContainerRenderableComponent.self
+        CameraContainerRenderableComponent.self
     ]
 
     init(active: Bool = true) {
