@@ -8,7 +8,7 @@ struct CameraContainerComponent: Component {
     
     /// The screen size is ot help limit the camera view to a specific size
     // TODO: What happens if camera is smaller than screen size?
-    let screenSize: CGSize
+    let canvasSize: CGSize
 
     /// Defines the size of the camera view relative to the `screen` size.
     /// The size of the camera should be at most the size of the `screen`.
