@@ -9,7 +9,7 @@ class TankGameManager {
 
     private var tankIdEntityMap = [Int: Entity]()
 
-    private(set) var blueprint: ArkBlueprint
+    private(set) var blueprint: ArkBlueprint<TankGameSounds>
 
     init(frameWidth: Double, frameHeight: Double) {
         self.blueprint = ArkBlueprint(frameWidth: frameWidth, frameHeight: frameHeight)
@@ -238,7 +238,7 @@ class TankGameManager {
 }
 
 extension TankGameManager {
-    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkActionContext) {
+    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkActionContext<TankGameSounds>) {
         let eventData = event.eventData
         let screenSize = eventData.newSize
         let ecs = context.ecs
@@ -275,7 +275,7 @@ extension TankGameManager {
         }
     }
 
-    private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext) {
+    private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext<TankGameSounds>) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
         guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId],
@@ -307,7 +307,7 @@ extension TankGameManager {
         }
     }
 
-    private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext) {
+    private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext<TankGameSounds>) {
         let ecs = context.ecs
         let eventData = event.eventData
         guard let tankEntity = tankIdEntityMap[eventData.tankId],
@@ -333,10 +333,10 @@ extension TankGameManager {
                 angle: tankRotationComponent.angleInRadians ?? 0,
                 zPosition: 5),
                 in: ecs)
-        context.audio.play(TankShootSound())
+        context.audio.play(.shoot)
     }
 
-    private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: ArkActionContext) {
+    private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: ArkActionContext<TankGameSounds>) {
         let eventData = event.eventData
 
         let entityA = eventData.entityA
@@ -349,7 +349,7 @@ extension TankGameManager {
                                                       in: context)
     }
 
-    private func handleContactEnd(_ event: ArkCollisionEndedEvent, in context: ArkActionContext) {
+    private func handleContactEnd(_ event: ArkCollisionEndedEvent, in context: ArkActionContext<TankGameSounds>) {
         let eventData = event.eventData
 
         let entityA = eventData.entityA
@@ -362,7 +362,7 @@ extension TankGameManager {
                                                       in: context)
     }
 
-    private func handleTankHpModify(_ event: TankHpModifyEvent, in context: ArkActionContext) {
+    private func handleTankHpModify(_ event: TankHpModifyEvent, in context: ArkActionContext<TankGameSounds>) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
@@ -388,7 +388,7 @@ extension TankGameManager {
         }
     }
 
-    private func handleTankRevive(_ event: TankReviveEvent, in context: ArkActionContext) {
+    private func handleTankRevive(_ event: TankReviveEvent, in context: ArkActionContext<TankGameSounds>) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
@@ -407,7 +407,7 @@ extension TankGameManager {
         ecs.upsertComponent(newHpBarComponent, to: tankEntity)
     }
 
-    private func handleTankDestroyed(_ event: TankDestroyedEvent, in context: ArkActionContext) {
+    private func handleTankDestroyed(_ event: TankDestroyedEvent, in context: ArkActionContext<TankGameSounds>) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity

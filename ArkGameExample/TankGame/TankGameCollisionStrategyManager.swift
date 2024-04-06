@@ -13,11 +13,11 @@ enum TankGamePhysicsCategory {
 protocol CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext)
+                              in context: ArkActionContext<TankGameSounds>)
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext)
+                              in context: ArkActionContext<TankGameSounds>)
 }
 
 class TankGameCollisionStrategyManager {
@@ -45,7 +45,7 @@ class TankGameCollisionStrategyManager {
 
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {
+                              in context: ArkActionContext<TankGameSounds>) {
         if let strategy = strategies[bitMaskA]?[bitMaskB] {
             strategy.handleCollisionBegan(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
@@ -60,7 +60,7 @@ class TankGameCollisionStrategyManager {
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {
+                              in context: ArkActionContext<TankGameSounds>) {
         if let strategy = strategies[bitMaskA]?[bitMaskB] {
             strategy.handleCollisionEnded(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
@@ -74,7 +74,7 @@ class TankGameCollisionStrategyManager {
     }
 }
 
-func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext) {
+func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext<TankGameSounds>) {
     guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entity) else {
         return
     }
@@ -82,7 +82,7 @@ func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext) {
     context.ecs.upsertComponent(physicsComponent, to: entity)
 }
 
-func markBallForRemoval(_ entity: Entity, in context: ArkActionContext) {
+func markBallForRemoval(_ entity: Entity, in context: ArkActionContext<TankGameSounds>) {
     markEntityForRemoval(entity, in: context)
 
     let ecs = context.ecs
@@ -95,31 +95,31 @@ func markBallForRemoval(_ entity: Entity, in context: ArkActionContext) {
 class BallWallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {
+                              in context: ArkActionContext<TankGameSounds>) {
         markBallForRemoval(entityA, in: context)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {}
+                              in context: ArkActionContext<TankGameSounds>) {}
 }
 
 class BallRockCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {
+                              in context: ArkActionContext<TankGameSounds>) {
         markBallForRemoval(entityA, in: context)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {}
+                              in context: ArkActionContext<TankGameSounds>) {}
 }
 
 class TankBallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {
+                              in context: ArkActionContext<TankGameSounds>) {
         markBallForRemoval(entityB, in: context)
         let hpModifyEvent = TankHpModifyEvent(eventData:
                                                 TankHpModifyEventData(name: "", tankEntity: entityA, hpChange: -10))
@@ -128,11 +128,13 @@ class TankBallCollisionStrategy: CollisionHandlingStrategy {
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {}
+                              in context: ArkActionContext<TankGameSounds>) {}
 }
 
 class TankWaterCollisionStrategy: CollisionHandlingStrategy {
-    private func adjustLinearDamping(for entity: Entity, to damping: CGFloat, in context: ArkActionContext) {
+    private func adjustLinearDamping(for entity: Entity,
+                                     to damping: CGFloat,
+                                     in context: ArkActionContext<TankGameSounds>) {
         guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entity) else {
             return
         }
@@ -142,13 +144,13 @@ class TankWaterCollisionStrategy: CollisionHandlingStrategy {
 
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {
+                              in context: ArkActionContext<TankGameSounds>) {
         adjustLinearDamping(for: entityA, to: 0.7, in: context)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext) {
+                              in context: ArkActionContext<TankGameSounds>) {
         adjustLinearDamping(for: entityA, to: 0.1, in: context)
     }
 }
