@@ -100,3 +100,10 @@ struct ArkBlueprint<AudioEnum: ArkAudioEnum> {
         return newSelf
     }
 }
+
+/// Represents an ArkBlueprint without sounds added.
+typealias ArkBlueprintWithoutSound = ArkBlueprint<NoSound>
+
+enum NoSound: Int {
+    case none
+}
