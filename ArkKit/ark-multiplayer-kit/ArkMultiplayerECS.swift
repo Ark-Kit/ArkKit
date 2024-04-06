@@ -3,7 +3,7 @@ import Foundation
 class ArkMultiplayerECS: ArkECSContext {
     let arkECS: ArkECS
     var delegate: ArkMultiplayerECSDelegate?
-    
+
     init(arkECS: ArkECS = ArkECS(),
          delegate: ArkMultiplayerECSDelegate? = nil) {
         self.arkECS = arkECS
@@ -17,7 +17,7 @@ class ArkMultiplayerECS: ArkECSContext {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
-        
+
         arkECS.update(deltaTime: deltaTime)
     }
 
@@ -27,20 +27,20 @@ class ArkMultiplayerECS: ArkECSContext {
 
     @discardableResult
     func createEntity() -> Entity {
-        guard delegate?.isModificationEnabled ?? true else { 
+        guard delegate?.isModificationEnabled ?? true else {
             return Entity()
         }
-        
+
         let entity = arkECS.createEntity()
         delegate?.didCreateEntity(entity)
         return entity
     }
-    
+
     func removeEntity(_ entity: Entity) {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
-        
+
         arkECS.removeEntity(entity)
         delegate?.didRemoveEntity(entity)
     }
@@ -58,12 +58,12 @@ class ArkMultiplayerECS: ArkECSContext {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
-        
+
         arkECS.removeComponent(componentType, from: entity)
     }
 
     func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
-        return arkECS.getComponent(ofType: type, for: entity)
+        arkECS.getComponent(ofType: type, for: entity)
     }
 
     @discardableResult
@@ -71,10 +71,10 @@ class ArkMultiplayerECS: ArkECSContext {
         guard delegate?.isModificationEnabled ?? true else {
             return Entity()
         }
-        
+
         let entity = arkECS.createEntity(with: components)
         delegate?.didCreateEntity(entity, with: components)
-        
+
         return entity
     }
 
@@ -94,7 +94,7 @@ class ArkMultiplayerECS: ArkECSContext {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
-        
+
         arkECS.addSystem(system, schedule: .update, isUnique: isUnique)
     }
 }

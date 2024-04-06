@@ -15,7 +15,7 @@ class EntityIDGenerator {
         if let recycledID = recycledIDs.popFirst() {
             return recycledID
         }
-        
+
         let id = currentID
         currentID += 1
         return id

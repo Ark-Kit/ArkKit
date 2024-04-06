@@ -74,7 +74,7 @@ struct ArkBlueprint {
 
             let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
             let multiplayerEventManager = ArkMultiplayerEventManager(arkEventManager: events,
-                                                                     networkManagerDelegate: multiplayerManager)
+                                                                     delegate: multiplayerManager)
             multiplayerManager.multiplayerEventManager = multiplayerEventManager
 
             events.delegate = multiplayerEventManager

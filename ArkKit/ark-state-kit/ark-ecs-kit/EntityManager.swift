@@ -17,7 +17,7 @@ class EntityManager {
 //        entities.insert(entity)
 //        return entity
 //    }
-    
+
     func createEntity(id: EntityID? = nil) -> Entity {
         let entityId = id ?? idGenerator.generate()
         let entity = Entity(id: entityId)

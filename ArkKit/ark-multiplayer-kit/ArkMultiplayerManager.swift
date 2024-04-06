@@ -35,11 +35,13 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
                                                               typeName: wrappedData.name) {
                 processEvent(event: event)
             }
-            
-            if wrappedData.type == .ecsFunction {
-                
+
+            if wrappedData.type == .ecsFunction, let arkMultiplayerECS = arkMultiplayerECS {
+                try ArkECSSerializer.decodeECSFunction(data: wrappedData.payload,
+                                                       name: wrappedData.name,
+                                                       ecs: arkMultiplayerECS.arkECS)
             }
-            
+
         } catch {
             print("Error decoding received data: \(error)")
         }
@@ -53,7 +55,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
         peers = connectedDevices
         updateRoles()
     }
-    
+
     private func updateRoles() {
         let sortedPeers = (peers + [networkService.deviceID]).sorted()
         masterPeer = sortedPeers.first
@@ -68,7 +70,7 @@ extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
     func shouldSendEvent<Event: ArkEvent>(_ event: Event) {
         sendEvent(event: event)
     }
-    
+
     private func sendEvent(event: any ArkEvent) {
         do {
             if let encodedEvent = try ArkDataSerializer.encodeEvent(event) {
@@ -84,10 +86,10 @@ extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
     var isModificationEnabled: Bool {
         self.role == .master
     }
-    
+
     private func sendEcsFunction(function: String, entity: Entity, component: Component? = nil,
                                  components: [Component]? = nil) {
-        
+
         do {
             if let encodedECSFunction = try ArkECSSerializer.encodeECSFunction(action: function, entity: entity,
                                                                    component: component,
@@ -98,34 +100,33 @@ extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
             print("Error encoding or sending ecs function: \(error)")
         }
     }
-    
+
     func didCreateEntity(_ entity: Entity) {
         guard self.role == .master else {
             return
         }
         sendEcsFunction(function: "createEntity", entity: entity)
     }
-    
-    
+
     func didRemoveEntity(_ entity: Entity) {
         guard self.role == .master else {
             return
         }
         sendEcsFunction(function: "removeEntity", entity: entity)
     }
-    
+
     func didUpsertComponent<T: Component>(_ component: T, to entity: Entity) {
         guard self.role == .master else {
             return
         }
         sendEcsFunction(function: "upsertComponent", entity: entity, component: component)
     }
-    
+
     func didCreateEntity(_ entity: Entity, with components: [Component]) {
         guard self.role == .master else {
             return
         }
         sendEcsFunction(function: "createEntity", entity: entity, components: components)
     }
-    
+
 }

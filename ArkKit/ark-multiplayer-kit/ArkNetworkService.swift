@@ -28,7 +28,7 @@ class ArkNetworkService: ArkNetworkProtocol {
     deinit {
         session.stopSharing()
     }
-    
+
     var deviceID: String {
         UIDevice.current.name
     }
@@ -38,7 +38,7 @@ class ArkNetworkService: ArkNetworkProtocol {
             guard let strongSelf = self else {
                 return
             }
-            
+
             strongSelf.peers = peers
             strongSelf.delegate?.connectedDevicesChanged(manager: strongSelf, connectedDevices: peers.map { $0.peerID })
             print("Peers changed: \(peers.map { $0.info["name"] ?? $0.peerID })")
@@ -58,12 +58,12 @@ class ArkNetworkService: ArkNetworkProtocol {
             session.sendToAllPeers(data: data)
         }
     }
-    
+
     func sendData(_ data: Data, to peerName: String) {
         guard let peerInfo = peers.first(where: { $0.info["name"] == peerName }) else {
             return
         }
-        
+
         session.send(to: peerInfo.peerID, data: data)
     }
 }

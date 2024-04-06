@@ -7,5 +7,5 @@
 
 import Foundation
 
-struct SendableComponent: Component, Codable {
+protocol SendableComponent: Component, Codable {
 }

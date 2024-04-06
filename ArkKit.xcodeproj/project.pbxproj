@@ -198,6 +198,7 @@
 		ADD74C0C2BC05677008CE36B /* ArkECSSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C0B2BC05677008CE36B /* ArkECSSerializer.swift */; };
 		ADD74C0E2BC0573E008CE36B /* SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C0D2BC0573E008CE36B /* SendableComponent.swift */; };
 		ADD74C102BC05759008CE36B /* SendableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C0F2BC05759008CE36B /* SendableEntity.swift */; };
+		ADD74C122BC15C52008CE36B /* ComponentRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD74C112BC15C52008CE36B /* ComponentRegistry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -404,6 +405,7 @@
 		ADD74C0B2BC05677008CE36B /* ArkECSSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSSerializer.swift; sourceTree = "<group>"; };
 		ADD74C0D2BC0573E008CE36B /* SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableComponent.swift; sourceTree = "<group>"; };
 		ADD74C0F2BC05759008CE36B /* SendableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableEntity.swift; sourceTree = "<group>"; };
+		ADD74C112BC15C52008CE36B /* ComponentRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentRegistry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1077,6 +1079,7 @@
 				AD787A872B9C6D3A003EBBD0 /* EntityManager.swift */,
 				AD787A8B2B9C70FC003EBBD0 /* SystemManager.swift */,
 				AD6E03602B9F15FA00974EBF /* ArkECS.swift */,
+				ADD74C112BC15C52008CE36B /* ComponentRegistry.swift */,
 			);
 			path = "ark-ecs-kit";
 			sourceTree = "<group>";
@@ -1440,6 +1443,7 @@
 				28A032E52BAD781900851BFF /* AbstractPhysicsArkSimulator.swift in Sources */,
 				02C395152BA83FAE0075F1CA /* RenderableComponent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
+				ADD74C122BC15C52008CE36B /* ComponentRegistry.swift in Sources */,
 				28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
 				8FEB218A2BAF3C8E00788E20 /* ImpactExplosionAnimation.swift in Sources */,
