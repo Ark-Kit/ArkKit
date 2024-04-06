@@ -11,6 +11,7 @@
 		0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4852BB7F300001CFDAF /* ArkView.swift */; };
 		0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */; };
 		0230A48E2BB950AF001CFDAF /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */; };
+		0266151D2BC1405C00B56A85 /* TankRaceGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0266151C2BC1405C00B56A85 /* TankRaceGame.swift */; };
 		0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */; };
 		0267BA1E2BBB07D80010F729 /* ArkUpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */; };
 		0267BA232BBD0F940010F729 /* SystemRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0267BA222BBD0F940010F729 /* SystemRunner.swift */; };
@@ -215,6 +216,7 @@
 		0230A4852BB7F300001CFDAF /* ArkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkView.swift; sourceTree = "<group>"; };
 		0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkViewFactory.swift; sourceTree = "<group>"; };
 		0230A48D2BB950AF001CFDAF /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		0266151C2BC1405C00B56A85 /* TankRaceGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGame.swift; sourceTree = "<group>"; };
 		0267BA1B2BBB05B70010F729 /* RuleTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTrigger.swift; sourceTree = "<group>"; };
 		0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkUpdateSystem.swift; sourceTree = "<group>"; };
 		0267BA222BBD0F940010F729 /* SystemRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemRunner.swift; sourceTree = "<group>"; };
@@ -442,6 +444,14 @@
 			path = "ark-uikit-lib";
 			sourceTree = "<group>";
 		};
+		0266151B2BC1402400B56A85 /* TankRaceGame */ = {
+			isa = PBXGroup;
+			children = (
+				0266151C2BC1405C00B56A85 /* TankRaceGame.swift */,
+			);
+			path = TankRaceGame;
+			sourceTree = "<group>";
+		};
 		0267BA242BBD0FC70010F729 /* system */ = {
 			isa = PBXGroup;
 			children = (
@@ -575,6 +585,7 @@
 		02C395102BA6EBBA0075F1CA /* ArkGameExample */ = {
 			isa = PBXGroup;
 			children = (
+				0266151B2BC1402400B56A85 /* TankRaceGame */,
 				AD36A7522BAC0A59003E938B /* TankGame */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
@@ -1415,6 +1426,7 @@
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */,
+				0266151D2BC1405C00B56A85 /* TankRaceGame.swift in Sources */,
 				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
 				8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */,
 				280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */,

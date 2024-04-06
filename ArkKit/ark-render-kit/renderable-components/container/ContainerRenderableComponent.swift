@@ -15,9 +15,11 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
     var shouldRerenderDelegate: ShouldRerenderDelegate?
     var zPosition: Double = 0.0
     var rotation: Double = 0.0
+
     private(set) var letterboxWidthScaleFactor: CGFloat = 1.0
     private(set) var letterboxHeightScaleFactor: CGFloat = 1.0
-    var mask: CGRect?
+    private(set) var mask: CGRect?
+    private(set) var zoom: Double = 1.0
 
     let renderableComponents: [any RenderableComponent]
 
@@ -49,6 +51,12 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
     func mask(size: CGSize, origin: CGPoint) -> Self {
         var copy = self
         copy.mask = CGRect(origin: origin, size: size)
+        return copy
+    }
+
+    func zoom(by scale: Double = 1.0) -> Self {
+        var copy = self
+        copy.zoom = scale
         return copy
     }
 }
