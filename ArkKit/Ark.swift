@@ -174,6 +174,7 @@ class Ark<View> {
                 x: displayContext.screenSize.width / 2,
                 y: displayContext.screenSize.height / 2
             ),
+            screenSize: displayContext.screenSize,
             size: displayContext.screenSize)
         ])
     }
