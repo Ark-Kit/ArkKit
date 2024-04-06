@@ -126,6 +126,9 @@
 		282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */; };
 		286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */; };
 		286C09C22BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */; };
+		287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00542BC16E6C002F0114 /* TankHPComponent.swift */; };
+		287B00572BC17127002F0114 /* TankDestroyedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00562BC17127002F0114 /* TankDestroyedEvent.swift */; };
+		287B00592BC17131002F0114 /* TankHPModifyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00582BC17131002F0114 /* TankHPModifyEvent.swift */; };
 		28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */; };
 		28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */; };
 		28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */; };
@@ -330,6 +333,9 @@
 		282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBodyManager.swift; sourceTree = "<group>"; };
 		286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameMapBuilder.swift; sourceTree = "<group>"; };
 		286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
+		287B00542BC16E6C002F0114 /* TankHPComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPComponent.swift; sourceTree = "<group>"; };
+		287B00562BC17127002F0114 /* TankDestroyedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankDestroyedEvent.swift; sourceTree = "<group>"; };
+		287B00582BC17131002F0114 /* TankHPModifyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPModifyEvent.swift; sourceTree = "<group>"; };
 		28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPhysicsComponent.swift; sourceTree = "<group>"; };
 		28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchComponent.swift; sourceTree = "<group>"; };
 		28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkTimeSystem.swift; sourceTree = "<group>"; };
@@ -1053,6 +1059,7 @@
 			isa = PBXGroup;
 			children = (
 				AD36A75A2BAC331F003E938B /* TankComponent.swift */,
+				287B00542BC16E6C002F0114 /* TankHPComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1062,6 +1069,8 @@
 			children = (
 				AD36A75D2BAC361B003E938B /* TankMoveEvent.swift */,
 				AD5F69742BAC879400A5518D /* TankShootEvent.swift */,
+				287B00562BC17127002F0114 /* TankDestroyedEvent.swift */,
+				287B00582BC17131002F0114 /* TankHPModifyEvent.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -1359,7 +1368,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		AD787A8D2B9C73E4003EBBD0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1385,6 +1394,7 @@
 				280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */,
 				280CD3C42BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift in Sources */,
 				AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */,
+				287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */,
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
 				8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */,
 				28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */,
@@ -1401,6 +1411,7 @@
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
+				287B00592BC17131002F0114 /* TankHPModifyEvent.swift in Sources */,
 				AD36A75E2BAC361B003E938B /* TankMoveEvent.swift in Sources */,
 				8F5573C12BA42614007030C8 /* Renderable.swift in Sources */,
 				8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */,
@@ -1418,6 +1429,7 @@
 				AD6E03612B9F15FA00974EBF /* ArkECS.swift in Sources */,
 				8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */,
 				280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */,
+				287B00572BC17127002F0114 /* TankDestroyedEvent.swift in Sources */,
 				02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */,
 				02D8E94C2BAC99FC00BF3A07 /* GameLoopable.swift in Sources */,
 				280CD3D02BA74E6000372C5D /* AbstractArkPhysicsScene.swift in Sources */,

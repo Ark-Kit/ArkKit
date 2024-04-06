@@ -43,9 +43,14 @@ class TankGameCollisionStrategyManager {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        if let strategy = strategies[bitMaskA]?[bitMaskB] ?? strategies[bitMaskB]?[bitMaskA] {
+        if let strategy = strategies[bitMaskA]?[bitMaskB] {
             strategy.handleCollisionBegan(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
+                                          in: context)
+        }
+        if let strategy = strategies[bitMaskB]?[bitMaskA] {
+            strategy.handleCollisionBegan(between: entityB, and: entityA,
+                                          bitMaskA: bitMaskB, bitMaskB: bitMaskA,
                                           in: context)
         }
     }
@@ -53,9 +58,14 @@ class TankGameCollisionStrategyManager {
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        if let strategy = strategies[bitMaskA]?[bitMaskB] ?? strategies[bitMaskB]?[bitMaskA] {
+        if let strategy = strategies[bitMaskA]?[bitMaskB] {
             strategy.handleCollisionEnded(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
+                                          in: context)
+        }
+        if let strategy = strategies[bitMaskB]?[bitMaskA] {
+            strategy.handleCollisionEnded(between: entityB, and: entityA,
+                                          bitMaskA: bitMaskB, bitMaskB: bitMaskA,
                                           in: context)
         }
     }
@@ -73,9 +83,7 @@ func markBallForRemoval(_ entity: Entity, in context: ArkActionContext) {
     markEntityForRemoval(entity, in: context)
 
     let ecs = context.ecs
-    var positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: entity)
-
-    if let positionComponent {
+    if let positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: entity) {
         ImpactExplosionAnimation(perFrameDuration: 0.1)
             .create(in: ecs, at: positionComponent.position)
     }
@@ -85,11 +93,7 @@ class BallWallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        if bitMaskA == TankGamePhysicsCategory.ball {
-            markBallForRemoval(entityA, in: context)
-        } else if bitMaskB == TankGamePhysicsCategory.ball {
-            markBallForRemoval(entityB, in: context)
-        }
+        markBallForRemoval(entityA, in: context)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
@@ -101,11 +105,7 @@ class BallRockCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        if bitMaskA == TankGamePhysicsCategory.ball {
-            markBallForRemoval(entityA, in: context)
-        } else if bitMaskB == TankGamePhysicsCategory.ball {
-            markBallForRemoval(entityB, in: context)
-        }
+        markBallForRemoval(entityA, in: context)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
@@ -117,11 +117,10 @@ class TankBallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        if bitMaskA == TankGamePhysicsCategory.ball {
-            markBallForRemoval(entityA, in: context)
-        } else if bitMaskB == TankGamePhysicsCategory.ball {
-            markBallForRemoval(entityB, in: context)
-        }
+        markBallForRemoval(entityB, in: context)
+        let hpModifyEvent = TankHPModifyEvent(eventData:
+                                                TankHPModifyEventData(name: "", tankEntity: entityA, hpChange: -10))
+        context.events.emit(hpModifyEvent)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
@@ -141,20 +140,12 @@ class TankWaterCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        if bitMaskA == TankGamePhysicsCategory.tank {
-            adjustLinearDamping(for: entityA, to: 0.7, in: context)
-        } else if bitMaskB == TankGamePhysicsCategory.ball {
-            adjustLinearDamping(for: entityA, to: 0.7, in: context)
-        }
+        adjustLinearDamping(for: entityA, to: 0.7, in: context)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: ArkActionContext) {
-        if bitMaskA == TankGamePhysicsCategory.tank {
-            adjustLinearDamping(for: entityA, to: 0.1, in: context)
-        } else if bitMaskB == TankGamePhysicsCategory.ball {
-            adjustLinearDamping(for: entityA, to: 0.1, in: context)
-        }
+        adjustLinearDamping(for: entityA, to: 0.1, in: context)
     }
 }

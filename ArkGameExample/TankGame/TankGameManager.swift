@@ -44,13 +44,14 @@ class TankGameManager {
                 TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
 
                 self.createTankEntities(ecs: ecs, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
-
+                let tankEntityContext1 = TankCreationContext(position: CGPoint(x: canvasWidth / 2, y: 1_000),
+                                                             rotation: 0,
+                                                             tankIndex: 1,
+                                                             zPosition: 5,
+                                                             hp: 50)
                 let tankEntity1 = TankGameEntityCreator.createTank(
-                    at: CGPoint(x: canvasWidth / 2, y: 1_000),
-                    rotation: 0,
-                    tankIndex: 1,
-                    in: ecs,
-                    zPosition: 5)
+                    with: tankEntityContext1,
+                    in: ecs)
                 self.tankIdEntityMap[1] = tankEntity1
 //                ecs.upsertComponent(CameraContainerComponent(
 //                    camera: Camera(
@@ -62,13 +63,14 @@ class TankGameManager {
 //                    // relative to screen
 //                    size: CGSize(width: screenWidth / 4, height: screenHeight / 4)
 //                ), to: tankEntity1)
-
+                let tankEntityContext2 = TankCreationContext(position: CGPoint(x: 400, y: 180),
+                                                             rotation: Double.pi,
+                                                             tankIndex: 2,
+                                                             zPosition: 5,
+                                                             hp: 50)
                 let tankEntity2 = TankGameEntityCreator.createTank(
-                    at: CGPoint(x: 400, y: 180),
-                    rotation: Double.pi,
-                    tankIndex: 2,
-                    in: ecs,
-                    zPosition: 5)
+                    with: tankEntityContext2,
+                    in: ecs)
                 self.tankIdEntityMap[2] = tankEntity2
 
 //                ecs.upsertComponent(CameraContainerComponent(
@@ -96,17 +98,25 @@ class TankGameManager {
                     zPosition: 999)
 
                 let shootButton1Entity = TankGameEntityCreator.createShootButton(
-                    at: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
-                    tankId: 1,
+                    with: TankShootButtonCreationContext(
+                        position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
+                        tankId: 1,
+                        zPosition: 999,
+                        rotate: false
+                    ),
                     in: ecs,
-                    eventContext: events,
-                    zPosition: 999)
+                    eventContext: events
+                )
                 let shootButton2Entity = TankGameEntityCreator.createShootButton(
-                    at: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
-                    tankId: 2,
+                    with: TankShootButtonCreationContext(
+                        position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
+                        tankId: 2,
+                        zPosition: 999,
+                        rotate: true
+                    ),
                     in: ecs,
-                    eventContext: events,
-                    zPosition: 999)
+                    eventContext: events
+                )
 
                 self.joystick1 = joystick1Entity.id
                 self.joystick2 = joystick2Entity.id
@@ -143,13 +153,18 @@ class TankGameManager {
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
             }
+            .on(TankHPModifyEvent.self) { event, context in
+                self.handleTankHPModify(event, in: context)
+            }
+            .on(TankDestroyedEvent.self) { event, context in
+                self.handleTankDestroyed(event, in: context)
+            }
             .on(ArkCollisionBeganEvent.self) { event, context in
                 self.handleContactBegan(event, in: context)
             }
             .on(ArkCollisionEndedEvent.self) { event, context in
                 self.handleContactEnd(event, in: context)
             }
-
     }
 
     private func createTankEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {
@@ -330,14 +345,15 @@ extension TankGameManager {
         let ballVelocity = 300.0
 
         TankGameEntityCreator
-            .createBall(position: CGPoint(x: tankPositionComponent.position.x + dx * (tankLength + ballRadius * 1.1),
-                                          y: tankPositionComponent.position.y + dy * (tankLength + ballRadius * 1.1)),
-                        radius: ballRadius,
-                        velocity: CGVector(dx: ballVelocity * dx,
-                                           dy: ballVelocity * dy),
-                        angle: tankRotationComponent.angleInRadians ?? 0,
-                        in: ecs,
-                        zPosition: 5)
+            .createBall(with: TankBallCreationContext(
+                position: CGPoint(x: tankPositionComponent.position.x + dx * (tankLength + ballRadius * 1.1),
+                                  y: tankPositionComponent.position.y + dy * (tankLength + ballRadius * 1.1)),
+                radius: ballRadius,
+                velocity: CGVector(dx: ballVelocity * dx,
+                                   dy: ballVelocity * dy),
+                angle: tankRotationComponent.angleInRadians ?? 0,
+                zPosition: 5),
+                in: ecs)
         context.audio.play(TankShootSound())
     }
 
@@ -365,5 +381,43 @@ extension TankGameManager {
         collisionStrategyManager.handleCollisionEnded(between: entityA, and: entityB,
                                                       bitMaskA: bitMaskA, bitMaskB: bitMaskB,
                                                       in: context)
+    }
+
+    private func handleTankHPModify(_ event: TankHPModifyEvent, in context: ArkActionContext) {
+        let ecs = context.ecs
+        let eventData = event.eventData
+        let tankEntity = eventData.tankEntity
+        guard let tankHPComponent = ecs.getComponent(ofType: TankHPComponent.self, for: tankEntity),
+              let hpBarComponent = ecs.getComponent(ofType: RectRenderableComponent.self, for: tankEntity) else {
+            return
+        }
+        let hpChange = eventData.hpChange
+        let newHp = tankHPComponent.hp + hpChange
+        ecs.upsertComponent(TankHPComponent(hp: newHp), to: tankEntity)
+        let newHPBarComponent =
+                    TankGameEntityCreator.createHPBarComponent(hp: newHp, zPosition: hpBarComponent.zPosition)
+        ecs.upsertComponent(newHPBarComponent, to: tankEntity)
+
+        if newHp <= 0 {
+            let tankDestroyedEvent =
+                    TankDestroyedEvent(eventData: TankDestroyedEventData(name: "Tank \(tankEntity) destroyed",
+                                                                         tankEntity: tankEntity))
+            context.events.emit(tankDestroyedEvent)
+        }
+    }
+
+    private func handleTankDestroyed(_ event: TankDestroyedEvent, in context: ArkActionContext) {
+        let ecs = context.ecs
+        let eventData = event.eventData
+        let tankEntity = eventData.tankEntity
+        guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity) else {
+            return
+        }
+        physicsComponent.toBeRemoved = true
+        context.ecs.upsertComponent(physicsComponent, to: tankEntity)
+        if let positionComponent = context.ecs.getComponent(ofType: PositionComponent.self, for: tankEntity) {
+            ImpactExplosionAnimation(perFrameDuration: 0.1)
+                .create(in: ecs, at: positionComponent.position)
+        }
     }
 }
