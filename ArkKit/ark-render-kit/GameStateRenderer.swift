@@ -7,6 +7,8 @@ import Foundation
  * The GameStateRenderer delegate is its own protocol so that adapters can be created for other UI implementations
  * like `SwiftUI`.
  */
-protocol GameStateRenderer: AnyObject {
-    func render(canvas: Canvas, with canvasContext: CanvasContext)
+protocol GameStateRenderer<View>: AnyObject {
+    associatedtype View
+    var cameraContext: CameraContext? { get set }
+    func render(flatCanvas: Canvas, with canvasContext: any CanvasContext<View>)
 }

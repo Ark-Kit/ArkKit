@@ -11,8 +11,8 @@ import Foundation
  * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
  * relying on the `arkInstance` will not emit.
  */
-class Ark {
-    let rootView: any AbstractRootView
+class Ark<View> {
+    let rootView: any AbstractRootView<View>
     var arkState: ArkState
     var gameLoop: GameLoop?
 
@@ -33,18 +33,11 @@ class Ark {
                          audio: audioContext)
     }
 
-    var canvasContext: ArkCanvasContext {
-        ArkCanvasContext(ecs: arkState.arkECS,
-                         canvasFrame: CGRect(x: 0, y: 0,
-                                             width: blueprint.frameWidth,
-                                             height: blueprint.frameHeight))
-    }
+    var canvasRenderer: (any RenderableBuilder<View>)?
 
-    var canvasRenderer: (any CanvasRenderer)?
-
-    init(rootView: any AbstractRootView,
+    init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint,
-         canvasRenderer: (any CanvasRenderer)? = nil) {
+         canvasRenderer: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
@@ -59,15 +52,15 @@ class Ark {
         setupDefaultSystems(blueprint)
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
+        alignCamera()
 
         guard let gameLoop = self.gameLoop else {
             return
         }
-
         // Initialize game with rootView, and passing in contexts (state)
         let gameCoordinator = ArkGameCoordinator(rootView: rootView,
                                                  arkState: arkState,
-                                                 canvasContext: canvasContext,
+                                                 displayContext: displayContext,
                                                  gameLoop: gameLoop,
                                                  canvasRenderer: canvasRenderer)
         gameCoordinator.start()
@@ -144,10 +137,12 @@ class Ark {
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
+        let cameraSystem = ArkCameraSystem()
         arkState.arkECS.addSystem(timeSystem)
         arkState.arkECS.addSystem(physicsSystem)
         arkState.arkECS.addSystem(animationSystem)
         arkState.arkECS.addSystem(canvasSystem)
+        arkState.arkECS.addSystem(cameraSystem)
 
         // inject dependency into game loop
         simulator.physicsScene?.sceneContactUpdateDelegate = physicsSystem
@@ -163,6 +158,24 @@ class Ark {
             return (blueprint.frameWidth, blueprint.frameHeight)
         }
         return (worldComponent.width, worldComponent.height)
+    }
+
+    private func alignCamera() {
+        let cameraEntities = arkState.arkECS.getEntities(with: [CameraContainerComponent.self])
+        if !cameraEntities.isEmpty {
+            return
+        }
+        arkState.arkECS.createEntity(with: [CameraContainerComponent(
+            camera: Camera(canvasPosition: CGPoint(
+                x: displayContext.canvasSize.width / 2,
+                y: displayContext.canvasSize.height / 2
+            )),
+            screenPosition: CGPoint(
+                x: displayContext.screenSize.width / 2,
+                y: displayContext.screenSize.height / 2
+            ),
+            size: displayContext.screenSize)
+        ])
     }
 }
 
