@@ -13,6 +13,7 @@ class ArkNetworkService: ArkNetworkProtocol {
     private var peers: [PeerInfo] = []
     private var session: MultipeerSession!
     var delegate: ArkNetworkDelegate?
+    private(set) var serviceName: String
 
     required init(serviceName: String = "Ark") {
         let config = MultipeerSessionConfig(myPeerInfo: myPeerInfo,
@@ -20,6 +21,7 @@ class ArkNetworkService: ArkNetworkProtocol {
                                             presharedKey: "12345",
                                             identity: serviceName)
         self.session = MultipeerSession(config: config, queue: .main)
+        self.serviceName = serviceName
         setUpHandlers()
 
         session.startSharing()

@@ -12,7 +12,7 @@ enum PeerRole {
     case slave
 }
 
-class ArkMultiplayerManager: ArkNetworkDelegate {
+class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     private var networkService: ArkNetworkProtocol
     var multiplayerEventManager: ArkMultiplayerEventManager?
     var arkMultiplayerECS: ArkMultiplayerECS?
@@ -23,6 +23,25 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
     init(serviceName: String) {
         self.networkService = ArkNetworkService(serviceName: serviceName)
         self.networkService.delegate = self
+    }
+    
+    var playerNumber: Int {
+        let sortedPeers = (peers + [networkService.deviceID]).sorted()
+        if let deviceIndex = sortedPeers.firstIndex(of: networkService.deviceID) {
+            return deviceIndex + 1
+        } else {
+            return 0
+        }
+    }
+    
+    var serviceName: String {
+        get {
+            networkService.serviceName
+        }
+        set {
+            self.networkService = ArkNetworkService(serviceName: newValue)
+            self.networkService.delegate = self
+        }
     }
 
     func gameDataReceived(manager: ArkNetworkService, gameData: Data) {
@@ -63,7 +82,6 @@ class ArkMultiplayerManager: ArkNetworkDelegate {
         role = masterPeer == networkService.deviceID ? .master : .slave
         print("Updated role: \(role)")
     }
-
 }
 
 extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
