@@ -9,7 +9,7 @@ protocol CameraContext {
 
 class ArkCameraContext: CameraContext {
     private let ecs: ArkECSContext
-    let displayContext: DisplayContext
+    private(set) var displayContext: DisplayContext
 
     var cameraEntities: [Entity] {
         ecs.getEntities(with: [PlacedCameraComponent.self])
@@ -46,6 +46,13 @@ class ArkCameraContext: CameraContext {
             )
         }
         return transformedCanvas
+    }
+
+    func updateDisplay(_ newDisplaySize: CGSize) {
+        self.displayContext = ArkDisplayContext(
+            canvasSize: displayContext.canvasSize,
+            screenSize: newDisplaySize
+        )
     }
 
     private func collectCanvasToContainerAndTranslate(

@@ -50,5 +50,15 @@ class ArkGameCoordinator<View> {
 
         // inject renderer dependency into arkView
         arkView.renderableBuilder = canvasRenderer
+
+        // set up listener for cameraContext to resize events
+        arkState.eventManager.subscribe(to: ScreenResizeEvent.self) { event in
+            guard let resizeEvent = event as? ScreenResizeEvent else {
+                return
+            }
+            let eventData = resizeEvent.eventData
+            let screenSize = eventData.newSize
+            cameraContext.updateDisplay(screenSize)
+        }
     }
 }
