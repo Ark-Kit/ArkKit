@@ -20,7 +20,8 @@ class ArkViewModel<T> {
             guard let currentCanvas = canvas, let canvasContext = gameModel.canvasContext else {
                 return
             }
-            viewRendererDelegate?.render(flatCanvas: currentCanvas, with: canvasContext)
+            let canvasToRender = gameModel.cameraContext?.transform(currentCanvas) ?? currentCanvas
+            viewRendererDelegate?.render(canvasToRender, with: canvasContext)
         }
     }
 

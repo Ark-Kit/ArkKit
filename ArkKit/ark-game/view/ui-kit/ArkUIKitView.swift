@@ -10,7 +10,6 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
     var rootViewResizeDelegate: ScreenResizeDelegate?
     var cachedScreenSize: CGSize?
     var renderableBuilder: (any RenderableBuilder<UIView>)?
-    var cameraContext: CameraContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +41,9 @@ class ArkUIKitView<T>: UIViewController, GameLoopable {
 }
 
 extension ArkUIKitView: GameStateRenderer {
-    func render(flatCanvas: Canvas, with canvasContext: any CanvasContext<UIView>) {
+    func render(_ canvas: Canvas, with canvasContext: any CanvasContext<UIView>) {
         let renderableBuilder = renderableBuilder ?? ArkUIKitRenderableBuilder()
-
-        // this canvas transform og canvas into mega canvas (Screen + Camera)
-        let canvasToRender = cameraContext?.transform(flatCanvas) ?? flatCanvas
-        // n camera containers + one screen container
-        canvasContext.render(canvasToRender, using: renderableBuilder)
+        canvasContext.render(canvas, using: renderableBuilder)
     }
 }
 
