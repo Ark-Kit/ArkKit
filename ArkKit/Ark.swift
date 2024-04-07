@@ -18,6 +18,7 @@ class Ark<View> {
 
     let blueprint: ArkBlueprint
     let audioContext: AudioContext
+    var multiplayerContext: ArkMultiplayerContext?
 
     var displayContext: ArkDisplayContext {
         ArkDisplayContext(
@@ -37,8 +38,7 @@ class Ark<View> {
 
     init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint,
-         canvasRenderer: (any RenderableBuilder<View>)? = nil,
-         multiplayer: Bool = false) {
+         canvasRenderer: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
@@ -46,10 +46,6 @@ class Ark<View> {
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioPlayer()
         self.canvasRenderer = canvasRenderer
-
-        if multiplayer {
-            setupMultiplayer()
-        }
     }
 
     func start() {
@@ -70,8 +66,9 @@ class Ark<View> {
                                                  canvasRenderer: canvasRenderer)
         gameCoordinator.start()
     }
+    
 
-    private func setupMultiplayer() {
+    func multiplayer(serviceName: String) {
         let multiplayerManager = ArkMultiplayerManager(serviceName: "tankGame")
         let eventManager = ArkMultiplayerEventManager()
         let ecsManager = ArkMultiplayerECS()
@@ -79,6 +76,7 @@ class Ark<View> {
         ecsManager.delegate = multiplayerManager
 
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
+        self.multiplayerContext = multiplayerManager
     }
 
     private func setup(_ rules: [any Rule]) {

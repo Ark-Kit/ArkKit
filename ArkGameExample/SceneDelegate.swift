@@ -57,7 +57,8 @@ extension SceneDelegate {
         guard let rootView = window.rootViewController as? any AbstractRootView<UIView> else {
             return
         }
-        ark = Ark(rootView: rootView, blueprint: blueprint, multiplayer: true)
+        ark = Ark(rootView: rootView, blueprint: blueprint)
+        ark?.multiplayer(serviceName: "tankGame")
         ark?.start()
     }
 }
