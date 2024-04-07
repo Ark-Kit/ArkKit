@@ -48,13 +48,6 @@ class ArkCameraContext: CameraContext {
         return transformedCanvas
     }
 
-    func updateDisplay(_ newDisplaySize: CGSize) {
-        self.displayContext = ArkDisplayContext(
-            canvasSize: displayContext.canvasSize,
-            screenSize: newDisplaySize
-        )
-    }
-
     private func collectCanvasToContainerAndTranslate(
         _ cameraCanva: any Canvas,
         placedCamera: PlacedCameraComponent
