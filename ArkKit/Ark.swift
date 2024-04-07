@@ -19,12 +19,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
     let blueprint: ArkBlueprint<AudioEnum>
     let audioContext: any AudioContext<AudioEnum>
 
-    var displayContext: ArkDisplayContext {
-        ArkDisplayContext(
-            canvasSize: CGSize(width: blueprint.frameWidth,
-                               height: blueprint.frameHeight),
-            screenSize: rootView.size)
-    }
+    var displayContext: DisplayContext
 
     var actionContext: ArkActionContext<AudioEnum> {
         ArkActionContext(ecs: arkState.arkECS,
@@ -45,10 +40,18 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioContext()
         self.canvasRenderableBuilder = canvasRenderableBuilder
+        self.displayContext = ArkDisplayContext(
+            canvasSize: CGSize(
+                width: blueprint.frameWidth,
+                height: blueprint.frameHeight
+            ),
+            screenSize: rootView.size
+        )
     }
 
     func start() {
         setupDefaultEntities()
+        setupDefaultListeners()
         setupDefaultSystems(blueprint)
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
@@ -65,6 +68,16 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
                                                  gameLoop: gameLoop,
                                                  canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
+    }
+
+    private func setupDefaultListeners() {
+        arkState.eventManager.subscribe(to: ScreenResizeEvent.self) { [weak self] event in
+            guard let resizeEvent = event as? ScreenResizeEvent,
+                  let self = self else {
+                return
+            }
+            self.displayContext.updateScreenSize(resizeEvent.eventData.newSize)
+        }
     }
 
     private func setup(_ rules: [any Rule]) {

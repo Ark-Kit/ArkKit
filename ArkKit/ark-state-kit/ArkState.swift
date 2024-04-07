@@ -24,12 +24,12 @@ class ArkState {
         arkECS.cleanUp()
     }
 
-    func setup(_ setupDelegate: ArkStateSetupDelegate, displayContext: ArkDisplayContext) {
+    func setup(_ setupDelegate: ArkStateSetupDelegate, displayContext: DisplayContext) {
         let context = createActionContext(displayContext: displayContext)
         setupDelegate(context)
     }
 
-    private func createActionContext(displayContext: ArkDisplayContext) -> ArkSetupContext {
+    private func createActionContext(displayContext: DisplayContext) -> ArkSetupContext {
         ArkSetupContext(ecs: arkECS, events: eventManager, display: displayContext)
     }
 }

@@ -258,6 +258,17 @@ extension TankGameManager {
                 position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8))
             ecs.upsertComponent(positionComponent, to: shootButton2Entity)
         }
+
+        if let camEntity = ecs.getEntities(with: [PlacedCameraComponent.self]).first {
+            if let placedCameraComponent = ecs.getComponent(ofType: PlacedCameraComponent.self, for: camEntity) {
+                let updatedPlacedCameraComponent = PlacedCameraComponent(
+                    camera: placedCameraComponent.camera,
+                    screenPosition: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
+                    size: screenSize
+                )
+                ecs.upsertComponent(updatedPlacedCameraComponent, to: camEntity)
+            }
+        }
     }
 
     private func handleTankMove(_ event: TankMoveEvent, in context: ArkActionContext<TankGameSounds>) {

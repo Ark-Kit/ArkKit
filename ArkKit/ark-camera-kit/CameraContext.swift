@@ -9,7 +9,7 @@ protocol CameraContext {
 
 class ArkCameraContext: CameraContext {
     private let ecs: ArkECSContext
-    let displayContext: DisplayContext
+    private(set) var displayContext: DisplayContext
 
     var cameraEntities: [Entity] {
         ecs.getEntities(with: [PlacedCameraComponent.self])
