@@ -74,7 +74,7 @@ class TankGameCollisionStrategyManager {
     }
 }
 
-func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext<TankGameSounds>) {
+func markEntityForRemoval<AudioEnum: ArkAudioEnum>(_ entity: Entity, in context: ArkActionContext<AudioEnum>) {
     guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entity) else {
         return
     }
@@ -82,7 +82,7 @@ func markEntityForRemoval(_ entity: Entity, in context: ArkActionContext<TankGam
     context.ecs.upsertComponent(physicsComponent, to: entity)
 }
 
-func markBallForRemoval(_ entity: Entity, in context: ArkActionContext<TankGameSounds>) {
+func markBallForRemoval<AudioEnum: ArkAudioEnum>(_ entity: Entity, in context: ArkActionContext<AudioEnum>) {
     markEntityForRemoval(entity, in: context)
 
     let ecs = context.ecs

@@ -6,13 +6,12 @@ class TankGameManager {
     var shootButton1: EntityID?
     var shootButton2: EntityID?
     var collisionStrategyManager = TankGameCollisionStrategyManager()
+    private(set) var blueprint: ArkBlueprint<TankGameSounds>
 
     private var tankIdEntityMap = [Int: Entity]()
 
-    private(set) var blueprint: ArkBlueprint<TankGameSounds>
-
-    init(frameWidth: Double, frameHeight: Double) {
-        self.blueprint = ArkBlueprint(frameWidth: frameWidth, frameHeight: frameHeight)
+    init() {
+        self.blueprint = ArkBlueprint(frameWidth: 820, frameHeight: 1_180)
         setUp()
     }
 
@@ -39,12 +38,13 @@ class TankGameManager {
                 let screenHeight = display.screenSize.height
                 let canvasWidth = display.canvasSize.width
                 let canvasHeight = display.canvasSize.height
-
-                TankGameEntityCreator.createBackground(width: canvasWidth,
-                                                       height: canvasHeight,
-                                                       in: ecs,
-                                                       zPosition: 0,
-                                                       background: [[1, 1, 1], [2, 2, 2], [3, 3, 3]])
+                TankGameEntityCreator.createBackground(with: TankBackgroundCreationContext(width: canvasWidth,
+                                                                                           height: canvasHeight,
+                                                                                           zPosition: 0,
+                                                                                           background: [[1, 2, 3],
+                                                                                                        [1, 2, 3],
+                                                                                                        [1, 2, 3]]),
+                                                       in: ecs)
 
                 TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
 
