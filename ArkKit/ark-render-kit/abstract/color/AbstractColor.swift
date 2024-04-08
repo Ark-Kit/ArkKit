@@ -8,5 +8,5 @@
 import Foundation
 
 enum AbstractColor {
-    case `default`, blue, red, green, black
+    case `default`, blue, red, green, black, white, gray
 }
