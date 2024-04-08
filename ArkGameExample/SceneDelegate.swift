@@ -18,11 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = RootViewController()
         window.makeKeyAndVisible()
 //        let arkBlueprint = defineArkBlueprint()
-//        let tankGameManager = TankGameManager(frameWidth: 820, frameHeight: 1_180)
+//        let tankGameManager = TankGameManager()
 //        loadArkBlueprintToScene(tankGameManager.blueprint, window: window)
 
         let tankRaceGame = TankRaceGame()
-        tankRaceGame.load()
         loadArkBlueprintToScene(tankRaceGame.blueprint, window: window)
     }
 
