@@ -24,25 +24,28 @@ struct TankShootButtonCreationContext {
 }
 
 enum TankGameEntityCreator {
-    static func createHpBarComponent(hp: Double, zPosition: Double) -> RectRenderableComponent {
+    static func createHpBarComponent(hp: Double, zPosition: Double) -> any RenderableComponent {
         RectRenderableComponent(width: hp, height: 10)
             .modify(fillInfo: ShapeFillInfo(color: .red), strokeInfo: ShapeStrokeInfo(lineWidth: 3, color: .black))
             .zPosition(zPosition + 1)
-            .layer(.screen)
+            .layer(.canvas)
     }
 
     @discardableResult
     static func createTank(with tankContext: TankCreationContext, in ecsContext: ArkECSContext) -> Entity {
+        let position = tankContext.position
+        let rotation = tankContext.rotation
+        let zPosition = tankContext.zPosition
         let tankEntity = ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankContext.tankIndex)",
                                            width: 80,
                                            height: 100)
-            .center(tankContext.position)
-            .rotation(tankContext.rotation)
-            .zPosition(tankContext.zPosition)
-                .scaleAspectFill(),
-            PositionComponent(position: tankContext.position),
-            RotationComponent(angleInRadians: tankContext.rotation),
+            .center(position)
+            .rotation(rotation)
+            .zPosition(zPosition)
+            .scaleAspectFill(),
+            PositionComponent(position: position),
+            RotationComponent(angleInRadians: rotation),
             PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
                              isDynamic: false, allowsRotation: false, restitution: 0,
                              categoryBitMask: TankGamePhysicsCategory.tank,
@@ -53,7 +56,7 @@ enum TankGameEntityCreator {
                              TankGamePhysicsCategory.tank |
                              TankGamePhysicsCategory.wall |
                              TankGamePhysicsCategory.water),
-            createHpBarComponent(hp: tankContext.hp, zPosition: tankContext.zPosition + 1),
+            createHpBarComponent(hp: tankContext.hp, zPosition: zPosition + 1),
             TankHpComponent(hp: tankContext.hp, maxHp: tankContext.hp)
         ])
 
