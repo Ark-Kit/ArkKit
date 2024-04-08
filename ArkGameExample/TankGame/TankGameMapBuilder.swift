@@ -1,20 +1,52 @@
 import Foundation
 
 class TankGameMapBuilder {
-    let strategies: [TankGameTerrainStrategy]
     let ecsContext: ArkECSContext
     let zPosition: Double
     let gridSize: Double = 80.0
     let width: Double
     let height: Double
+    var strategies: [TankGameTerrainStrategy]
 
-    init(width: Double, height: Double, strategies: [TankGameTerrainStrategy],
+    init(width: Double, height: Double,
          ecsContext: ArkECSContext, zPosition: Double) {
-        self.strategies = strategies
         self.ecsContext = ecsContext
         self.zPosition = zPosition
         self.width = width
         self.height = height
+        self.strategies = []
+        self.setup()
+    }
+
+    func setup() {
+        self.register(TankGameMap1Strategy())
+        self.register(TankGameMap2Strategy())
+        self.register(TankGameMap3Strategy())
+        self.register(TankGameTile1AStrategy())
+        self.register(TankGameTile1BStrategy())
+        self.register(TankGameTile1CStrategy())
+        self.register(TankGameTile2AStrategy())
+        self.register(TankGameTile2BStrategy())
+        self.register(TankGameTile2CStrategy())
+}
+
+    func register(_ strategy: TankGameTerrainStrategy) {
+        strategies.append(strategy)
+    }
+
+    func createTileGrid(rows: Int, cols: Int) -> [[Int]] {
+        let patterns = [[4, 7], [5, 8], [6, 9]]
+        return (0..<rows).map { row in
+            (0..<cols).map { col in
+                let patternIndex = (col / (cols / patterns.count)) % patterns.count
+                return patterns[patternIndex][row % patterns[patternIndex].count]
+            }
+        }
+    }
+
+    func buildMap(rows: Int, cols: Int) {
+        let array = createTileGrid(rows: rows, cols: cols)
+        buildMap(from: array)
     }
 
     func buildMap(from values: [[Int]]) {
@@ -24,8 +56,8 @@ class TankGameMapBuilder {
         let numCols = Double(firstRow.count)
         let gridSize = CGSize(width: width / numCols, height: height / numRows)
 
-        for (x, row) in values.enumerated() {
-            for (y, value) in row.enumerated() {
+        for (y, row) in values.enumerated() {
+            for (x, value) in row.enumerated() {
                 for strategy in strategies {
                     if let imageResourcePath = strategy.imageResourcePath(forValue: value) {
                         let component = BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,

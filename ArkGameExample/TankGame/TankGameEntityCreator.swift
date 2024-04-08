@@ -23,6 +23,13 @@ struct TankShootButtonCreationContext {
     let rotate: Bool
 }
 
+struct TankBackgroundCreationContext {
+    let width: CGFloat
+    let height: CGFloat
+    let zPosition: Double
+    let background: [[Int]]
+}
+
 enum TankGameEntityCreator {
     static func createHpBarComponent(hp: Double, zPosition: Double) -> any RenderableComponent {
         RectRenderableComponent(width: hp, height: 10)
@@ -141,7 +148,7 @@ enum TankGameEntityCreator {
                              isDynamic: true,
                              allowsRotation: true, restitution: 0.8,
                              categoryBitMask: TankGamePhysicsCategory.ball,
-                             collisionBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall |
+                             collisionBitMask: TankGamePhysicsCategory.wall |
                                             TankGamePhysicsCategory.rock,
                              contactTestBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall |
                                             TankGamePhysicsCategory.rock | TankGamePhysicsCategory.tank)
@@ -179,31 +186,17 @@ enum TankGameEntityCreator {
                          size: CGSize(width: thickness, height: height))
     }
 
-    static func createBackground(width: Double,
-                                 height: Double,
-                                 in ecsContext: ArkECSContext,
-                                 zPosition: Double,
-                                 background: [[Int]]) {
-        let strategies: [TankGameTerrainStrategy] = [TankGameMap1Strategy(),
-                                                     TankGameMap2Strategy(),
-                                                     TankGameMap3Strategy(),
-                                                     TankGameTile1AStrategy(),
-                                                     TankGameTile1BStrategy(),
-                                                     TankGameTile1CStrategy(),
-                                                     TankGameTile2AStrategy(),
-                                                     TankGameTile2BStrategy(),
-                                                     TankGameTile2CStrategy()]
-        let mapBuilder = TankGameMapBuilder(width: width, height: height,
-                                            strategies: strategies,
+    static func createBackground(with backgroundContext: TankBackgroundCreationContext,
+                                 in ecsContext: ArkECSContext) {
+        let mapBuilder = TankGameMapBuilder(width: backgroundContext.width,
+                                            height: backgroundContext.height,
                                             ecsContext: ecsContext,
                                             zPosition: 0.0)
-        mapBuilder.buildMap(from: background)
+        mapBuilder.buildMap(from: backgroundContext.background)
     }
 
     static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [TankSpecification]) {
-        let strategies: [TankGameTerrainObjectStrategy] = [TankGameLakeStrategy(),
-                                                           TankGameStoneStrategy(), TankGameHealthPackStrategy()]
-        let terrainObjectBuilder = TankGameTerrainObjectBuilder(strategies: strategies, ecsContext: ecsContext)
+        let terrainObjectBuilder = TankGameTerrainObjectBuilder(ecsContext: ecsContext)
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)
     }

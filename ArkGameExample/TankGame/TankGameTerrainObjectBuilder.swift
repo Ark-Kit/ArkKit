@@ -11,9 +11,20 @@ class TankGameTerrainObjectBuilder {
     var strategies: [TankGameTerrainObjectStrategy]
     var ecsContext: ArkECSContext
 
-    init(strategies: [TankGameTerrainObjectStrategy], ecsContext: ArkECSContext) {
-        self.strategies = strategies
+    init(ecsContext: ArkECSContext) {
+        self.strategies = []
         self.ecsContext = ecsContext
+        self.setup()
+    }
+
+    func setup() {
+        self.register(TankGameLakeStrategy())
+        self.register(TankGameStoneStrategy())
+        self.register(TankGameHealthPackStrategy())
+    }
+
+    func register(_ strategy: TankGameTerrainObjectStrategy) {
+        strategies.append(strategy)
     }
 
     func buildObjects(from specifications: [TankSpecification]) {
@@ -32,7 +43,9 @@ class TankGameTerrainObjectBuilder {
 
 protocol TankGameTerrainObjectStrategy {
     func canHandleType(_ type: Int) -> Bool
-    func createObject(type: Int, location: CGPoint, size: CGSize, zPos: Double, in ecsContext: ArkECSContext)
+    @discardableResult
+    func createObject(type: Int, location: CGPoint, size: CGSize,
+                      zPos: Double, in ecsContext: ArkECSContext) -> Entity
 }
 
 class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
@@ -40,7 +53,9 @@ class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
         type == 0
     }
 
-    func createObject(type: Int, location: CGPoint, size: CGSize, zPos: Double, in ecsContext: ArkECSContext) {
+    @discardableResult
+    func createObject(type: Int, location: CGPoint, size: CGSize,
+                      zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: "lake",
                                            width: size.width, height: size.height)
@@ -61,9 +76,12 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
     func canHandleType(_ type: Int) -> Bool {
         type >= 1 && type <= 6
     }
-    func createObject(type: Int, location: CGPoint, size: CGSize, zPos: Double, in ecsContext: ArkECSContext) {
+
+    @discardableResult
+    func createObject(type: Int, location: CGPoint, size: CGSize,
+                      zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         let imageResourcePath = "stones_\(type)"
-        ecsContext.createEntity(with: [
+        return ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
                                            width: size.width, height: size.height)
             .zPosition(zPos)
@@ -82,9 +100,12 @@ class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
     func canHandleType(_ type: Int) -> Bool {
         type == 7
     }
-    func createObject(type: Int, location: CGPoint, size: CGSize, zPos: Double, in ecsContext: ArkECSContext) {
+
+    @discardableResult
+    func createObject(type: Int, location: CGPoint, size: CGSize,
+                      zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         let imageResourcePath = "health-red"
-        ecsContext.createEntity(with: [
+        return ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
                                            width: size.width, height: size.height)
             .zPosition(zPos)
