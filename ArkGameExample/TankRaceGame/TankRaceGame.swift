@@ -6,6 +6,8 @@ class TankRaceGame {
     var moveButton2: EntityID?
     var moveButton3: EntityID?
 
+    var joystick1: EntityID?
+
     var fireButton1: EntityID?
     var fireButton2: EntityID?
     var fireButton3: EntityID?
@@ -50,7 +52,7 @@ class TankRaceGame {
             let tank2Pos = CGPoint(x: 450, y: 9_800)
             let tank3Pos = CGPoint(x: 750, y: 9_800)
 
-            let tank1 = self.createTank(
+            let tank1 = TankRaceGameEntityCreator.createTank(
                 at: tank1Pos, rotation: 0.0, tankIndex: 1, in: ecs, zPosition: 1.0
             )
 
@@ -64,10 +66,10 @@ class TankRaceGame {
                 size: CGSize(width: screenWidth / 3, height: screenHeight)
             ), to: tank1)
 
-            let tank2 = self.createTank(
+            let tank2 = TankRaceGameEntityCreator.createTank(
                 at: tank2Pos, rotation: 0.0, tankIndex: 2, in: ecs, zPosition: 1.0
             )
-            let tank3 = self.createTank(
+            let tank3 = TankRaceGameEntityCreator.createTank(
                 at: tank3Pos, rotation: 0.0, tankIndex: 3, in: ecs, zPosition: 1.0
             )
             self.tankIdEntityMap[1] = tank1
@@ -114,6 +116,9 @@ class TankRaceGame {
         }
         .on(TankDestroyedEvent.self) { event, context in
             self.handleRockDestroyed(event, in: context)
+        }
+        .on(TankMoveEvent.self) { event, context in
+            self.handleTankMoveJoystick(event, in: context)
         }
     }
 
@@ -170,6 +175,15 @@ class TankRaceGame {
         self.fireButton1 = fireButton1.id
         self.fireButton2 = fireButton2.id
         self.fireButton3 = fireButton3.id
+
+        let joystick1 = TankGameEntityCreator.createJoyStick(
+                        center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
+                        tankId: 1,
+                        in: ecs,
+                        eventContext: events,
+                        zPosition: 999)
+
+        self.joystick1 = joystick1.id
     }
 
     private func handleTankMove(_ event: TankRaceMoveEvent, in context: ArkActionContext<NoSound>) {
@@ -192,34 +206,40 @@ class TankRaceGame {
         ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
     }
 
-    @discardableResult private func createTank(
-        at position: CGPoint,
-        rotation: CGFloat,
-        tankIndex: Int,
-        in ecsContext: ArkECSContext,
-        zPosition: Double) -> Entity {
-        let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankIndex)",
-                                           width: 80,
-                                           height: 100)
-            .center(position)
-            .rotation(rotation)
-            .zPosition(zPosition)
-            .scaleAspectFill(),
-            PositionComponent(position: position),
-            RotationComponent(angleInRadians: rotation),
-            PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
-                             isDynamic: false, allowsRotation: false, restitution: 0,
-                             categoryBitMask: TankGamePhysicsCategory.tank,
-                             collisionBitMask: TankGamePhysicsCategory.rock |
-                             TankGamePhysicsCategory.wall |
-                             TankGamePhysicsCategory.tank,
-                             contactTestBitMask: TankGamePhysicsCategory.ball |
-                             TankGamePhysicsCategory.tank |
-                             TankGamePhysicsCategory.wall |
-                             TankGamePhysicsCategory.water)
-        ])
-        return tankEntity
+    private func handleTankMoveJoystick(_ event: TankMoveEvent, in context: ArkActionContext<NoSound>) {
+        let ecs = context.ecs
+        let tankMoveEventData = event.eventData
+        guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
+            return
+        }
+
+        guard var tankPhysicsComponent = ecs.getComponent(
+            ofType: PhysicsComponent.self,
+            for: tankEntity),
+            var tankRotationComponent = ecs.getComponent(
+                ofType: RotationComponent.self,
+                for: tankEntity)
+        else {
+            return
+        }
+
+        let velocityScale = 1.5
+
+        if tankMoveEventData.magnitude == 0 {
+            tankPhysicsComponent.velocity = .zero
+            tankPhysicsComponent.isDynamic = false
+            ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
+        } else {
+            tankRotationComponent.angleInRadians = tankMoveEventData.angle
+            ecs.upsertComponent(tankRotationComponent, to: tankEntity)
+            let velocityX = tankMoveEventData.magnitude * velocityScale
+                * cos(tankMoveEventData.angle - Double.pi / 2)
+            let velocityY = tankMoveEventData.magnitude * velocityScale
+                * sin(tankMoveEventData.angle - Double.pi / 2)
+            tankPhysicsComponent.isDynamic = true
+            tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
+            ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
+        }
     }
 
     private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkActionContext<NoSound>) {

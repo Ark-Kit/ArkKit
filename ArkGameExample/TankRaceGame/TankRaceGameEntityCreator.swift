@@ -67,4 +67,34 @@ enum TankRaceGameEntityCreator {
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)
     }
+
+    static func createTank(
+        at position: CGPoint,
+        rotation: CGFloat,
+        tankIndex: Int,
+        in ecsContext: ArkECSContext,
+        zPosition: Double) -> Entity {
+        let tankEntity = ecsContext.createEntity(with: [
+            BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankIndex)",
+                                           width: 80,
+                                           height: 100)
+            .center(position)
+            .rotation(rotation)
+            .zPosition(zPosition)
+            .scaleAspectFill(),
+            PositionComponent(position: position),
+            RotationComponent(angleInRadians: rotation),
+            PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
+                             isDynamic: false, allowsRotation: false, restitution: 0,
+                             categoryBitMask: TankGamePhysicsCategory.tank,
+                             collisionBitMask: TankGamePhysicsCategory.rock |
+                             TankGamePhysicsCategory.wall |
+                             TankGamePhysicsCategory.tank,
+                             contactTestBitMask: TankGamePhysicsCategory.ball |
+                             TankGamePhysicsCategory.tank |
+                             TankGamePhysicsCategory.wall |
+                             TankGamePhysicsCategory.water)
+        ])
+        return tankEntity
+    }
 }
