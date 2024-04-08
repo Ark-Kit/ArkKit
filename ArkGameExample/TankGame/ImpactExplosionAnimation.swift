@@ -3,10 +3,10 @@ import Foundation
 struct ImpactExplosionAnimation {
     let animation: ArkAnimation<String>
 
-    let width = 128.0
-    let height = 128.0
+    var width = 128.0
+    var height = 128.0
 
-    init(perFrameDuration: Double) {
+    init(perFrameDuration: Double, width: Double = 128.0, height: Double = 128.0) {
         animation = ArkAnimation()
             .keyframe("Sprite_Effects_Explosion_001", duration: perFrameDuration)
             .keyframe("Sprite_Effects_Explosion_002", duration: perFrameDuration)
@@ -16,6 +16,8 @@ struct ImpactExplosionAnimation {
             .keyframe("Sprite_Effects_Explosion_006", duration: perFrameDuration)
             .keyframe("Sprite_Effects_Explosion_007", duration: perFrameDuration)
             .keyframe("Sprite_Effects_Explosion_008", duration: perFrameDuration)
+        self.width = width
+        self.height = height
     }
 
     private func makeBitmapComponent(imageResourcePath: String) -> BitmapImageRenderableComponent {
@@ -23,6 +25,7 @@ struct ImpactExplosionAnimation {
             imageResourcePath: imageResourcePath,
             width: width,
             height: height)
+        .scaleAspectFill()
         .zPosition(100)
         .shouldRerender { old, new in
             old.imageResourcePath != new.imageResourcePath
