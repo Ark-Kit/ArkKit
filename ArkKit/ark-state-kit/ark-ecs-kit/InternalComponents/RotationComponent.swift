@@ -1,5 +1,5 @@
 import Foundation
 
-struct RotationComponent: Component {
+struct RotationComponent: SendableComponent {
     var angleInRadians: CGFloat?
 }

@@ -24,7 +24,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
         self.networkService = ArkNetworkService(serviceName: serviceName)
         self.networkService.delegate = self
     }
-    
+
     var playerNumber: Int {
         let sortedPeers = (peers + [networkService.deviceID]).sorted()
         if let deviceIndex = sortedPeers.firstIndex(of: networkService.deviceID) {
@@ -33,7 +33,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
             return 0
         }
     }
-    
+
     var serviceName: String {
         get {
             networkService.serviceName
