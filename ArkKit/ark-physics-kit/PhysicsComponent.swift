@@ -4,12 +4,14 @@ struct PhysicsComponent: Component {
     enum Shape {
         case circle
         case rectangle
+        case polygon
     }
 
     // A physics component can either have a size or a radius depending on the shape
     let shape: Shape
     var size: CGSize?
     var radius: CGFloat?
+    var vertices: [CGPoint]?
 
     var mass: CGFloat?
     var velocity: CGVector = .zero

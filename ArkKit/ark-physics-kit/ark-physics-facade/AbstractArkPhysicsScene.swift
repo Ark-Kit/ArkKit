@@ -13,6 +13,9 @@ protocol AbstractArkPhysicsScene {
     func createRectanglePhysicsBody(for entity: Entity,
                                     withSize size: CGSize,
                                     at position: CGPoint) -> AbstractArkPhysicsBody
+    func createPolygonPhysicsBody(for entity: Entity,
+                                  withVertices vertices: [CGPoint],
+                                  at position: CGPoint) -> AbstractArkPhysicsBody
     func getPhysicsBody(for entity: Entity) -> AbstractArkPhysicsBody?
     func removePhysicsBody(for entity: Entity)
     func apply(impulse: CGVector, to entity: Entity)
