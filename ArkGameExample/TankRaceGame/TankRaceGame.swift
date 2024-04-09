@@ -43,7 +43,9 @@ class TankRaceGame {
                                                                                                     [1, 2, 3],
                                                                                                     [1, 2, 3]]),
                                                    in: ecs)
-
+            TankRaceGameEntityCreator.createFinishLine(canvasWidth: canvasWidth, canvasHeight: canvasHeight,
+                                                       zPosition: 1,
+                                                       in: ecs, eventContext: events)
             TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
             self.createTankTerrainEntities(ecs: ecs, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
             let screenWidthIncrement = screenWidth / 3 / 2
@@ -53,7 +55,7 @@ class TankRaceGame {
             let tank3Pos = CGPoint(x: 750, y: 9_800)
 
             let tank1 = TankRaceGameEntityCreator.createTank(
-                at: tank1Pos, rotation: 0.0, tankIndex: 1, in: ecs, zPosition: 1.0
+                at: tank1Pos, rotation: 0.0, tankIndex: 1, in: ecs, zPosition: 2
             )
 
             ecs.upsertComponent(PlacedCameraComponent(
@@ -67,10 +69,10 @@ class TankRaceGame {
             ), to: tank1)
 
             let tank2 = TankRaceGameEntityCreator.createTank(
-                at: tank2Pos, rotation: 0.0, tankIndex: 2, in: ecs, zPosition: 1.0
+                at: tank2Pos, rotation: 0.0, tankIndex: 2, in: ecs, zPosition: 2
             )
             let tank3 = TankRaceGameEntityCreator.createTank(
-                at: tank3Pos, rotation: 0.0, tankIndex: 3, in: ecs, zPosition: 1.0
+                at: tank3Pos, rotation: 0.0, tankIndex: 3, in: ecs, zPosition: 2
             )
             self.tankIdEntityMap[1] = tank1
             self.tankIdEntityMap[2] = tank2
@@ -362,7 +364,7 @@ class TankRaceGame {
         let dx = cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
         let dy = sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
         let ballRadius = 15.0
-        let ballVelocity = 300.0
+        let ballVelocity = 600.0
 
         TankGameEntityCreator
             .createBall(with: TankBallCreationContext(

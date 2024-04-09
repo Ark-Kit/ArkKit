@@ -97,4 +97,31 @@ enum TankRaceGameEntityCreator {
         ])
         return tankEntity
     }
+
+    static func createFinishLine(canvasWidth: CGFloat,
+                                 canvasHeight: CGFloat,
+                                 zPosition: Double,
+                                 in ecsContext: ArkECSContext,
+                                 eventContext: ArkEventContext) {
+        let positions: [CGPoint] = [CGPoint(x: canvasWidth * 1 / 6, y: canvasWidth / 5),
+                                    CGPoint(x: canvasWidth * 1 / 2, y: canvasWidth / 5),
+                                    CGPoint(x: canvasWidth * 5 / 6, y: canvasWidth / 5)]
+        let entities = positions.map {
+            ecsContext.createEntity(with: [BitmapImageRenderableComponent(imageResourcePath: "finish-line",
+                                                                          width: canvasWidth / 3,
+                                                                          height: canvasWidth / 5)
+                                                .center($0)
+                                                .zPosition(zPosition)
+                                                .scaleAspectFill(),
+                                           PositionComponent(position: $0),
+                                           RotationComponent(),
+                                           PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
+                                                            isDynamic: false, allowsRotation: false, restitution: 0,
+                                                            categoryBitMask: TankGamePhysicsCategory.water,
+                                                            collisionBitMask: TankGamePhysicsCategory.none,
+                                                            contactTestBitMask: TankGamePhysicsCategory.tank)
+        ])
+        }
+
+    }
 }
