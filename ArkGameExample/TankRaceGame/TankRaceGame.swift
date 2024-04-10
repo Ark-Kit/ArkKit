@@ -1,7 +1,7 @@
 import Foundation
 
 class TankRaceGame {
-    private(set) var blueprint: ArkBlueprintWithoutSound
+    private(set) var blueprint: ArkBlueprint<NoExternalResources>
     var moveButton1: EntityID?
     var moveButton2: EntityID?
     var moveButton3: EntityID?
@@ -21,7 +21,7 @@ class TankRaceGame {
     private var tankIdEntityMap = [Int: Entity]()
 
     init() {
-        self.blueprint = ArkBlueprintWithoutSound(frameWidth: 900, frameHeight: 10_000)
+        self.blueprint = ArkBlueprint(frameWidth: 900, frameHeight: 10_000)
         load()
     }
 
@@ -188,7 +188,7 @@ class TankRaceGame {
         self.joystick1 = joystick1.id
     }
 
-    private func handleTankMove(_ event: TankRaceMoveEvent, in context: ArkActionContext<NoSound>) {
+    private func handleTankMove(_ event: TankRaceMoveEvent, in context: ArkActionContext<NoExternalResources>) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
         guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
@@ -208,7 +208,7 @@ class TankRaceGame {
         ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
     }
 
-    private func handleTankMoveJoystick(_ event: TankMoveEvent, in context: ArkActionContext<NoSound>) {
+    private func handleTankMoveJoystick(_ event: TankMoveEvent, in context: ArkActionContext<NoExternalResources>) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
         guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
@@ -244,7 +244,7 @@ class TankRaceGame {
         }
     }
 
-    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkActionContext<NoSound>) {
+    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkActionContext<NoExternalResources>) {
         let eventData = event.eventData
         let screenSize = eventData.newSize
         let ecs = context.ecs
@@ -337,7 +337,8 @@ class TankRaceGame {
         }
     }
 
-    private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: ArkActionContext<NoSound>) {
+    private func handleContactBegan(_ event: ArkCollisionBeganEvent,
+                                    in context: ArkActionContext<NoExternalResources>) {
         let eventData = event.eventData
 
         let entityA = eventData.entityA
@@ -350,7 +351,7 @@ class TankRaceGame {
                                                       in: context)
     }
 
-    private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext<NoSound>) {
+    private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext<NoExternalResources>) {
         let ecs = context.ecs
         let eventData = event.eventData
         guard let tankEntity = tankIdEntityMap[eventData.tankId],
@@ -378,7 +379,7 @@ class TankRaceGame {
                 in: ecs)
     }
 
-    private func handleRockHpModify(_ event: TankHpModifyEvent, in context: ArkActionContext<NoSound>) {
+    private func handleRockHpModify(_ event: TankHpModifyEvent, in context: ArkActionContext<NoExternalResources>) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
@@ -402,7 +403,7 @@ class TankRaceGame {
         }
     }
 
-    private func handleRockDestroyed(_ event: TankDestroyedEvent, in context: ArkActionContext<NoSound>) {
+    private func handleRockDestroyed(_ event: TankDestroyedEvent, in context: ArkActionContext<NoExternalResources>) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
@@ -414,7 +415,10 @@ class TankRaceGame {
         physicsComponent.toBeRemoved = true
         context.ecs.upsertComponent(physicsComponent, to: tankEntity)
         if let positionComponent = context.ecs.getComponent(ofType: PositionComponent.self, for: tankEntity) {
-            ImpactExplosionAnimation(perFrameDuration: 0.1, width: 256.0, height: 256.0).create(in: ecs, at: positionComponent.position)
+            ImpactExplosionAnimation(perFrameDuration: 0.1,
+                                     width: 256.0,
+                                     height: 256.0)
+            .create(in: ecs, at: positionComponent.position)
         }
     }
 }

@@ -1,12 +1,12 @@
 import Foundation
 
-class ArkUpdateSystem<AudioEnum: ArkAudioEnum>: UpdateSystem {
+class ArkUpdateSystem<ExternalResources: ArkExternalResources>: UpdateSystem {
     var active: Bool
-    let action: any Action<TimeInterval, AudioEnum>
-    let context: ArkActionContext<AudioEnum>
+    let action: any Action<TimeInterval, ExternalResources>
+    let context: ArkActionContext<ExternalResources>
 
-    init(action: any Action<TimeInterval, AudioEnum>,
-         context: ArkActionContext<AudioEnum>,
+    init(action: any Action<TimeInterval, ExternalResources>,
+         context: ArkActionContext<ExternalResources>,
          active: Bool = true) {
 
         self.active = active

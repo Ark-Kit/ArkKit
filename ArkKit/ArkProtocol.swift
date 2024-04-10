@@ -1,6 +1,6 @@
 protocol ArkProtocol {
     associatedtype View
-    associatedtype AudioEnum: ArkAudioEnum
+    associatedtype ExternalResources: ArkExternalResources
 
     func start()
 }
