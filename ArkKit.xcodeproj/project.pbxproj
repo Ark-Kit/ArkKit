@@ -172,6 +172,9 @@
 		9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3AE2BA952E300F99013 /* AbstractShape.swift */; };
 		9479A3B12BA953D800F99013 /* ShapeRenderableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B02BA953D800F99013 /* ShapeRenderableComponent.swift */; };
 		9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479A3B32BA95E7E00F99013 /* AbstractColor.swift */; };
+		94D053882BC6C6D2000280C6 /* ArkExternalResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053872BC6C6D2000280C6 /* ArkExternalResources.swift */; };
+		94D0538B2BC6CA2A000280C6 /* TankGameExternalResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0538A2BC6CA2A000280C6 /* TankGameExternalResources.swift */; };
+		94D0538E2BC6CB0D000280C6 /* ArkAudioEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0538D2BC6CB0D000280C6 /* ArkAudioEnum.swift */; };
 		AD2B59AC2BB87F2200198E99 /* ArkNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */; };
 		AD2B59B02BB94DE000198E99 /* ArkMultiplayerEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AF2BB94DE000198E99 /* ArkMultiplayerEventManager.swift */; };
 		AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59B12BB94FBE00198E99 /* ArkMultiplayerManager.swift */; };
@@ -388,6 +391,9 @@
 		9479A3AE2BA952E300F99013 /* AbstractShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractShape.swift; sourceTree = "<group>"; };
 		9479A3B02BA953D800F99013 /* ShapeRenderableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderableComponent.swift; sourceTree = "<group>"; };
 		9479A3B32BA95E7E00F99013 /* AbstractColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractColor.swift; sourceTree = "<group>"; };
+		94D053872BC6C6D2000280C6 /* ArkExternalResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkExternalResources.swift; sourceTree = "<group>"; };
+		94D0538A2BC6CA2A000280C6 /* TankGameExternalResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameExternalResources.swift; sourceTree = "<group>"; };
+		94D0538D2BC6CB0D000280C6 /* ArkAudioEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAudioEnum.swift; sourceTree = "<group>"; };
 		AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkService.swift; sourceTree = "<group>"; };
 		AD2B59AF2BB94DE000198E99 /* ArkMultiplayerEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerEventManager.swift; sourceTree = "<group>"; };
 		AD2B59B12BB94FBE00198E99 /* ArkMultiplayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerManager.swift; sourceTree = "<group>"; };
@@ -1059,6 +1065,24 @@
 			path = color;
 			sourceTree = "<group>";
 		};
+		94D053892BC6C9F0000280C6 /* ExternalAssets */ = {
+			isa = PBXGroup;
+			children = (
+				943D418D2BAEC50200F9E88F /* Audio */,
+				94D0538A2BC6CA2A000280C6 /* TankGameExternalResources.swift */,
+			);
+			path = ExternalAssets;
+			sourceTree = "<group>";
+		};
+		94D0538C2BC6CAC5000280C6 /* ark-external-resources */ = {
+			isa = PBXGroup;
+			children = (
+				94D053872BC6C6D2000280C6 /* ArkExternalResources.swift */,
+				94D0538D2BC6CB0D000280C6 /* ArkAudioEnum.swift */,
+			);
+			path = "ark-external-resources";
+			sourceTree = "<group>";
+		};
 		AD2B59AA2BB87F0F00198E99 /* ark-multiplayer-kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1075,7 +1099,7 @@
 		AD36A7522BAC0A59003E938B /* TankGame */ = {
 			isa = PBXGroup;
 			children = (
-				943D418D2BAEC50200F9E88F /* Audio */,
+				94D053892BC6C9F0000280C6 /* ExternalAssets */,
 				AD36A75C2BAC3612003E938B /* Events */,
 				AD36A7592BAC3309003E938B /* Components */,
 				AD36A7552BAC0D36003E938B /* TankGameManager.swift */,
@@ -1213,6 +1237,7 @@
 				AD6E03662BA1A5EA00974EBF /* ark-event-kit */,
 				AD787A802B9C6BCE003EBBD0 /* ark-state-kit */,
 				AD2B59AA2BB87F0F00198E99 /* ark-multiplayer-kit */,
+				94D0538C2BC6CAC5000280C6 /* ark-external-resources */,
 				280CD3C92BA7454A00372C5D /* extensions */,
 			);
 			path = ArkKit;
@@ -1427,6 +1452,7 @@
 			files = (
 				0267BA282BBD0FF00010F729 /* UpdateSystem.swift in Sources */,
 				280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */,
+				94D053882BC6C6D2000280C6 /* ArkExternalResources.swift in Sources */,
 				280CD3C42BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift in Sources */,
 				AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */,
 				287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */,
@@ -1482,6 +1508,7 @@
 				941BE2202BC104D000707997 /* TankGameSounds.swift in Sources */,
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
 				0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */,
+				94D0538B2BC6CA2A000280C6 /* TankGameExternalResources.swift in Sources */,
 				02D8E9532BAC9A5A00BF3A07 /* AbstractView.swift in Sources */,
 				02C3950D2BA5FE5C0075F1CA /* ArkBlueprint.swift in Sources */,
 				02C394EC2BA41DF00075F1CA /* ArkUIKitView.swift in Sources */,
@@ -1502,6 +1529,7 @@
 				0267BA2F2BBD2BD70010F729 /* ArkCameraSystem.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
 				28A032E52BAD781900851BFF /* AbstractPhysicsArkSimulator.swift in Sources */,
+				94D0538E2BC6CB0D000280C6 /* ArkAudioEnum.swift in Sources */,
 				02C395152BA83FAE0075F1CA /* RenderableComponent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */,

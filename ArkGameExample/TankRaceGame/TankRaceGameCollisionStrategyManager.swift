@@ -3,12 +3,14 @@ import Foundation
 protocol TankRaceCollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>)
+                              in context: TankRaceGameActionContext)
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>)
+                              in context: TankRaceGameActionContext)
 }
+
+typealias TankRaceGameActionContext = ArkActionContext<NoExternalResources>
 
 class TankRaceGameCollisionStrategyManager {
     private var strategies: [UInt32: [UInt32: TankRaceCollisionHandlingStrategy]] = [:]
@@ -35,7 +37,7 @@ class TankRaceGameCollisionStrategyManager {
 
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {
+                              in context: TankRaceGameActionContext) {
         if let strategy = strategies[bitMaskA]?[bitMaskB] {
             strategy.handleCollisionBegan(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
@@ -50,7 +52,7 @@ class TankRaceGameCollisionStrategyManager {
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {
+                              in context: TankRaceGameActionContext) {
         if let strategy = strategies[bitMaskA]?[bitMaskB] {
             strategy.handleCollisionEnded(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
@@ -67,7 +69,7 @@ class TankRaceGameCollisionStrategyManager {
 class TankRaceBallRockCollisionStrategy: TankRaceCollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {
+                              in context: TankRaceGameActionContext) {
         markBallForRemoval(entityA, in: context)
         let hpModifyEvent = TankHpModifyEvent(eventData:
                                                 TankHpModifyEventData(name: "", tankEntity: entityB, hpChange: -10))
@@ -76,25 +78,25 @@ class TankRaceBallRockCollisionStrategy: TankRaceCollisionHandlingStrategy {
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {}
+                              in context: TankRaceGameActionContext) {}
 }
 
 class TankRaceBallWallCollisionStrategy: TankRaceCollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {
+                              in context: TankRaceGameActionContext) {
         markBallForRemoval(entityA, in: context)
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {}
+                              in context: TankRaceGameActionContext) {}
 }
 
 class TankFinishLineCollisionStrategy: TankRaceCollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {
+                              in context: TankRaceGameActionContext) {
         let ecs = context.ecs
         if let positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: entityB) {
             ImpactExplosionAnimation(perFrameDuration: 0.1, width: 256, height: 256)
@@ -104,5 +106,5 @@ class TankFinishLineCollisionStrategy: TankRaceCollisionHandlingStrategy {
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: ArkActionContext<NoSound>) {}
+                              in context: TankRaceGameActionContext) {}
 }

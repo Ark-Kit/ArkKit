@@ -1,7 +1,7 @@
 import Foundation
 
 protocol AudioContext<AudioEnum> {
-    associatedtype AudioEnum where AudioEnum: RawRepresentable & Hashable
+    associatedtype AudioEnum: ArkAudioEnum
 
     func load(_ soundMapping: [AudioEnum: any Sound])
     func play(_ audio: AudioEnum, audioPlayerId: UUID?)
@@ -18,5 +18,3 @@ extension AudioContext {
         stop(audio, audioPlayerId: nil)
     }
 }
-
-typealias ArkAudioEnum = RawRepresentable & Hashable

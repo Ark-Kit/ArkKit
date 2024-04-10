@@ -56,7 +56,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
-    func loadArkBlueprintToScene<AudioEnum: ArkAudioEnum>(_ blueprint: ArkBlueprint<AudioEnum>, window: UIWindow) {
+    func loadArkBlueprintToScene<ExternalResources: ArkExternalResources>(_ blueprint: ArkBlueprint<ExternalResources>,
+                                                                          window: UIWindow) {
         guard let rootView = window.rootViewController as? any AbstractRootView<UIView> else {
             return
         }

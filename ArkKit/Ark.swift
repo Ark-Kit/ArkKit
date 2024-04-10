@@ -11,17 +11,17 @@ import Foundation
  * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
  * relying on the `arkInstance` will not emit.
  */
-class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
+class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     let rootView: any AbstractRootView<View>
     var arkState: ArkState
     var gameLoop: GameLoop?
 
-    let blueprint: ArkBlueprint<AudioEnum>
-    let audioContext: any AudioContext<AudioEnum>
+    let blueprint: ArkBlueprint<ExternalResources>
+    let audioContext: any AudioContext<ExternalResources.AudioEnum>
 
     var displayContext: DisplayContext
 
-    var actionContext: ArkActionContext<AudioEnum> {
+    var actionContext: ArkActionContext<ExternalResources> {
         ArkActionContext(ecs: arkState.arkECS,
                          events: arkState.eventManager,
                          display: displayContext,
@@ -31,7 +31,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
     var canvasRenderableBuilder: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractRootView<View>,
-         blueprint: ArkBlueprint<AudioEnum>,
+         blueprint: ArkBlueprint<ExternalResources>,
          canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
@@ -122,7 +122,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
         }
 
         for rule in timeRules {
-            guard let action = rule.action as? any Action<TimeInterval, AudioEnum> else {
+            guard let action = rule.action as? any Action<TimeInterval, ExternalResources> else {
                 continue
             }
             let system = ArkUpdateSystem(action: action, context: self.actionContext)
@@ -136,7 +136,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
         }
     }
 
-    private func setup(_ soundMapping: [AudioEnum: any Sound]?) {
+    private func setup(_ soundMapping: [ExternalResources.AudioEnum: any Sound]?) {
         guard let soundMapping = soundMapping else {
             return
         }
@@ -148,7 +148,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
         arkState.arkECS.createEntity(with: [StopWatchComponent(name: ArkTimeSystem.ARK_WORLD_TIME)])
     }
 
-    private func setupDefaultSystems(_ blueprint: ArkBlueprint<AudioEnum>) {
+    private func setupDefaultSystems(_ blueprint: ArkBlueprint<ExternalResources>) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
 
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
@@ -172,7 +172,7 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
         self.gameLoop?.updatePhysicsSceneDelegate = physicsSystem
     }
 
-    private func getWorldSize(_ blueprint: ArkBlueprint<AudioEnum>) -> (width: Double, height: Double) {
+    private func getWorldSize(_ blueprint: ArkBlueprint<ExternalResources>) -> (width: Double, height: Double) {
         guard let worldEntity = arkState.arkECS.getEntities(with: [WorldComponent.self]).first,
               let worldComponent = arkState.arkECS
               .getComponent(ofType: WorldComponent.self, for: worldEntity)
@@ -207,8 +207,9 @@ class Ark<View, AudioEnum: ArkAudioEnum>: ArkProtocol {
 extension ArkEvent {
     /// A workaround to prevent weird behavior when trying to execute
     /// `action.execute(event, context: context)`
-    func executeAction<AudioEnum: ArkAudioEnum>(_ action: some Action, context: ArkActionContext<AudioEnum>) {
-        guard let castedAction = action as? any Action<Self, AudioEnum> else {
+    func executeAction<ExternalResources: ArkExternalResources>(_ action: some Action,
+                                                                context: ArkActionContext<ExternalResources>) {
+        guard let castedAction = action as? any Action<Self, ExternalResources> else {
             return
         }
 

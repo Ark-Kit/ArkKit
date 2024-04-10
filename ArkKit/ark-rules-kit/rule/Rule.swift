@@ -1,17 +1,18 @@
 protocol Rule<Trigger> {
     associatedtype Trigger: Equatable
     associatedtype Data
-    associatedtype AudioEnum: ArkAudioEnum
+    associatedtype ExternalResources: ArkExternalResources
 
     var trigger: Trigger { get }
-    var action: any Action<Data, AudioEnum> { get }
+    var action: any Action<Data, ExternalResources> { get }
     var conditions: [RuleCondition] { get }
 }
 
-struct ArkRule<Trigger, Data, AudioEnum>: Rule where Trigger: Equatable, AudioEnum: ArkAudioEnum {
+struct ArkRule<Trigger, Data, ExternalResources>: Rule
+where Trigger: Equatable, ExternalResources: ArkExternalResources {
     let trigger: Trigger
 
-    let action: any Action<Data, AudioEnum>
+    let action: any Action<Data, ExternalResources>
     var conditions: [RuleCondition] = []
 }
 
