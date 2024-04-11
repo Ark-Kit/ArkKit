@@ -5,6 +5,6 @@
 //  Created by Ryan Peh on 21/3/24.
 //
 
-struct TankComponent: Component {
+struct TankComponent: SendableComponent {
     let playerIndex: Int
 }
