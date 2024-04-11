@@ -175,6 +175,11 @@
 		94D053882BC6C6D2000280C6 /* ArkExternalResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053872BC6C6D2000280C6 /* ArkExternalResources.swift */; };
 		94D0538B2BC6CA2A000280C6 /* TankGameExternalResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0538A2BC6CA2A000280C6 /* TankGameExternalResources.swift */; };
 		94D0538E2BC6CB0D000280C6 /* ArkAudioEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0538D2BC6CB0D000280C6 /* ArkAudioEnum.swift */; };
+		94D053932BC7DAA8000280C6 /* TankGameImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053922BC7DAA8000280C6 /* TankGameImages.swift */; };
+		94D053992BC7E7E0000280C6 /* TankRaceGameImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053982BC7E7E0000280C6 /* TankRaceGameImages.swift */; };
+		94D0539E2BC7F32E000280C6 /* TankRaceGameExternalResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0539D2BC7F32E000280C6 /* TankRaceGameExternalResources.swift */; };
+		94D053A12BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053A02BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift */; };
+		94D053A32BC80E8C000280C6 /* ArkImageEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053A22BC80E8C000280C6 /* ArkImageEnum.swift */; };
 		AD2B59AC2BB87F2200198E99 /* ArkNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */; };
 		AD2B59B02BB94DE000198E99 /* ArkMultiplayerEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AF2BB94DE000198E99 /* ArkMultiplayerEventManager.swift */; };
 		AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59B12BB94FBE00198E99 /* ArkMultiplayerManager.swift */; };
@@ -394,6 +399,11 @@
 		94D053872BC6C6D2000280C6 /* ArkExternalResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkExternalResources.swift; sourceTree = "<group>"; };
 		94D0538A2BC6CA2A000280C6 /* TankGameExternalResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameExternalResources.swift; sourceTree = "<group>"; };
 		94D0538D2BC6CB0D000280C6 /* ArkAudioEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAudioEnum.swift; sourceTree = "<group>"; };
+		94D053922BC7DAA8000280C6 /* TankGameImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameImages.swift; sourceTree = "<group>"; };
+		94D053982BC7E7E0000280C6 /* TankRaceGameImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameImages.swift; sourceTree = "<group>"; };
+		94D0539D2BC7F32E000280C6 /* TankRaceGameExternalResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameExternalResources.swift; sourceTree = "<group>"; };
+		94D053A02BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameExplosionAnimationKeyframes.swift; sourceTree = "<group>"; };
+		94D053A22BC80E8C000280C6 /* ArkImageEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkImageEnum.swift; sourceTree = "<group>"; };
 		AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkService.swift; sourceTree = "<group>"; };
 		AD2B59AF2BB94DE000198E99 /* ArkMultiplayerEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerEventManager.swift; sourceTree = "<group>"; };
 		AD2B59B12BB94FBE00198E99 /* ArkMultiplayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerManager.swift; sourceTree = "<group>"; };
@@ -475,6 +485,7 @@
 		0266151B2BC1402400B56A85 /* TankRaceGame */ = {
 			isa = PBXGroup;
 			children = (
+				94D053962BC7E788000280C6 /* ExternalAssets */,
 				0266151C2BC1405C00B56A85 /* TankRaceGame.swift */,
 				2812FCBE2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift */,
 				2812FCC22BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift */,
@@ -1068,6 +1079,8 @@
 		94D053892BC6C9F0000280C6 /* ExternalAssets */ = {
 			isa = PBXGroup;
 			children = (
+				94D0539F2BC80DFF000280C6 /* Animation */,
+				94D053912BC7DA9B000280C6 /* Image */,
 				943D418D2BAEC50200F9E88F /* Audio */,
 				94D0538A2BC6CA2A000280C6 /* TankGameExternalResources.swift */,
 			);
@@ -1079,8 +1092,42 @@
 			children = (
 				94D053872BC6C6D2000280C6 /* ArkExternalResources.swift */,
 				94D0538D2BC6CB0D000280C6 /* ArkAudioEnum.swift */,
+				94D053A22BC80E8C000280C6 /* ArkImageEnum.swift */,
 			);
 			path = "ark-external-resources";
+			sourceTree = "<group>";
+		};
+		94D053912BC7DA9B000280C6 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				94D053922BC7DAA8000280C6 /* TankGameImages.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		94D053962BC7E788000280C6 /* ExternalAssets */ = {
+			isa = PBXGroup;
+			children = (
+				94D053972BC7E78F000280C6 /* Image */,
+				94D0539D2BC7F32E000280C6 /* TankRaceGameExternalResources.swift */,
+			);
+			path = ExternalAssets;
+			sourceTree = "<group>";
+		};
+		94D053972BC7E78F000280C6 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				94D053982BC7E7E0000280C6 /* TankRaceGameImages.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		94D0539F2BC80DFF000280C6 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				94D053A02BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		AD2B59AA2BB87F0F00198E99 /* ark-multiplayer-kit */ = {
@@ -1506,6 +1553,7 @@
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */,
 				941BE2202BC104D000707997 /* TankGameSounds.swift in Sources */,
+				94D053A12BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift in Sources */,
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
 				0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */,
 				94D0538B2BC6CA2A000280C6 /* TankGameExternalResources.swift in Sources */,
@@ -1533,6 +1581,7 @@
 				02C395152BA83FAE0075F1CA /* RenderableComponent.swift in Sources */,
 				AD787A8A2B9C70D8003EBBD0 /* ArkState.swift in Sources */,
 				28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */,
+				94D0539E2BC7F32E000280C6 /* TankRaceGameExternalResources.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
 				0267BA312BBD40C20010F729 /* CameraContext.swift in Sources */,
 				8FEB218A2BAF3C8E00788E20 /* ImpactExplosionAnimation.swift in Sources */,
@@ -1543,6 +1592,7 @@
 				2812FCBF2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift in Sources */,
 				8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */,
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,
+				94D053A32BC80E8C000280C6 /* ArkImageEnum.swift in Sources */,
 				943D41932BAEC52C00F9E88F /* TankShootSound.swift in Sources */,
 				280CD3CB2BA7455A00372C5D /* CGVector+Extension.swift in Sources */,
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
@@ -1554,6 +1604,7 @@
 				02C3952A2BA8952F0075F1CA /* CanvasContext.swift in Sources */,
 				02D8E9512BAC9A3900BF3A07 /* AbstractParentView.swift in Sources */,
 				945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */,
+				94D053992BC7E7E0000280C6 /* TankRaceGameImages.swift in Sources */,
 				02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */,
 				8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */,
 				286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */,
@@ -1569,6 +1620,7 @@
 				02C394FB2BA444360075F1CA /* PanRenderable.swift in Sources */,
 				AD787A862B9C6C91003EBBD0 /* System.swift in Sources */,
 				8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */,
+				94D053932BC7DAA8000280C6 /* TankGameImages.swift in Sources */,
 				286C09C22BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift in Sources */,
 				02C395222BA849700075F1CA /* PolygonRenderableComponent.swift in Sources */,
 				9479A3B12BA953D800F99013 /* ShapeRenderableComponent.swift in Sources */,

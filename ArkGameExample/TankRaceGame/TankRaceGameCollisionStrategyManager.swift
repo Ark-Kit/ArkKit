@@ -10,7 +10,7 @@ protocol TankRaceCollisionHandlingStrategy {
                               in context: TankRaceGameActionContext)
 }
 
-typealias TankRaceGameActionContext = ArkActionContext<NoExternalResources>
+typealias TankRaceGameActionContext = ArkActionContext<TankRaceGameExternalResources>
 
 class TankRaceGameCollisionStrategyManager {
     private var strategies: [UInt32: [UInt32: TankRaceCollisionHandlingStrategy]] = [:]

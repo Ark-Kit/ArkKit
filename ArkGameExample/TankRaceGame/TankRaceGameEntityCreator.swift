@@ -68,6 +68,13 @@ enum TankRaceGameEntityCreator {
         terrainObjectBuilder.buildObjects(from: objectsSpecs)
     }
 
+    private static let tankIndexToImageAsset: [Int: TankRaceGameImages] = [
+        1: .tank_1,
+        2: .tank_2,
+        3: .tank_3,
+        4: .tank_4
+    ]
+
     static func createTank(
         at position: CGPoint,
         rotation: CGFloat,
@@ -75,7 +82,7 @@ enum TankRaceGameEntityCreator {
         in ecsContext: ArkECSContext,
         zPosition: Double) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankIndex)",
+            BitmapImageRenderableComponent(imageResourcePath: tankIndexToImageAsset[tankIndex] ?? .tank_1,
                                            width: 80,
                                            height: 100)
             .center(position)
@@ -107,19 +114,20 @@ enum TankRaceGameEntityCreator {
                                     CGPoint(x: canvasWidth * 1 / 2, y: canvasWidth / 5),
                                     CGPoint(x: canvasWidth * 5 / 6, y: canvasWidth / 5)]
         let entities = positions.map {
-            ecsContext.createEntity(with: [BitmapImageRenderableComponent(imageResourcePath: "finish-line",
-                                                                          width: canvasWidth / 3,
-                                                                          height: canvasWidth / 5)
-                                                .center($0)
-                                                .zPosition(zPosition)
-                                                .scaleAspectFill(),
-                                           PositionComponent(position: $0),
-                                           RotationComponent(),
-                                           PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
-                                                            isDynamic: false, allowsRotation: false, restitution: 0,
-                                                            categoryBitMask: TankGamePhysicsCategory.water,
-                                                            collisionBitMask: TankGamePhysicsCategory.none,
-                                                            contactTestBitMask: TankGamePhysicsCategory.tank)
+            ecsContext.createEntity(with: [
+                BitmapImageRenderableComponent(imageResourcePath: TankRaceGameImages.finish_line,
+                                                                   width: canvasWidth / 3,
+                                                                   height: canvasWidth / 5)
+                    .center($0)
+                    .zPosition(zPosition)
+                    .scaleAspectFill(),
+                PositionComponent(position: $0),
+                RotationComponent(),
+                PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
+                                 isDynamic: false, allowsRotation: false, restitution: 0,
+                                 categoryBitMask: TankGamePhysicsCategory.water,
+                                 collisionBitMask: TankGamePhysicsCategory.none,
+                                 contactTestBitMask: TankGamePhysicsCategory.tank)
         ])
         }
 

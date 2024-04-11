@@ -28,7 +28,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
     }
 
     func build(_ image: BitmapImageRenderableComponent) -> any Renderable<UIView> {
-        UIKitImageBitmap(imageResourcePath: image.imageResourcePath,
+        UIKitImageBitmap(imageResourcePath: image.imageResourcePath.rawValue,
                          center: image.center,
                          width: image.width,
                          height: image.height)

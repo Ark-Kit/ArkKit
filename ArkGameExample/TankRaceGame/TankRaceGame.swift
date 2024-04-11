@@ -1,7 +1,7 @@
 import Foundation
 
 class TankRaceGame {
-    private(set) var blueprint: ArkBlueprint<NoExternalResources>
+    private(set) var blueprint: ArkBlueprint<TankRaceGameExternalResources>
     var moveButton1: EntityID?
     var moveButton2: EntityID?
     var moveButton3: EntityID?
@@ -188,7 +188,7 @@ class TankRaceGame {
         self.joystick1 = joystick1.id
     }
 
-    private func handleTankMove(_ event: TankRaceMoveEvent, in context: ArkActionContext<NoExternalResources>) {
+    private func handleTankMove(_ event: TankRaceMoveEvent, in context: TankRaceGameActionContext) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
         guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
@@ -208,7 +208,7 @@ class TankRaceGame {
         ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
     }
 
-    private func handleTankMoveJoystick(_ event: TankMoveEvent, in context: ArkActionContext<NoExternalResources>) {
+    private func handleTankMoveJoystick(_ event: TankMoveEvent, in context: TankRaceGameActionContext) {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
         guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId] else {
@@ -244,7 +244,7 @@ class TankRaceGame {
         }
     }
 
-    private func handleScreenResize(_ event: ScreenResizeEvent, in context: ArkActionContext<NoExternalResources>) {
+    private func handleScreenResize(_ event: ScreenResizeEvent, in context: TankRaceGameActionContext) {
         let eventData = event.eventData
         let screenSize = eventData.newSize
         let ecs = context.ecs
@@ -338,7 +338,7 @@ class TankRaceGame {
     }
 
     private func handleContactBegan(_ event: ArkCollisionBeganEvent,
-                                    in context: ArkActionContext<NoExternalResources>) {
+                                    in context: TankRaceGameActionContext) {
         let eventData = event.eventData
 
         let entityA = eventData.entityA
@@ -351,7 +351,7 @@ class TankRaceGame {
                                                       in: context)
     }
 
-    private func handleTankShoot(_ event: TankShootEvent, in context: ArkActionContext<NoExternalResources>) {
+    private func handleTankShoot(_ event: TankShootEvent, in context: TankRaceGameActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
         guard let tankEntity = tankIdEntityMap[eventData.tankId],
@@ -379,7 +379,7 @@ class TankRaceGame {
                 in: ecs)
     }
 
-    private func handleRockHpModify(_ event: TankHpModifyEvent, in context: ArkActionContext<NoExternalResources>) {
+    private func handleRockHpModify(_ event: TankHpModifyEvent, in context: TankRaceGameActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
@@ -403,7 +403,7 @@ class TankRaceGame {
         }
     }
 
-    private func handleRockDestroyed(_ event: TankDestroyedEvent, in context: ArkActionContext<NoExternalResources>) {
+    private func handleRockDestroyed(_ event: TankDestroyedEvent, in context: TankRaceGameActionContext) {
         let ecs = context.ecs
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity

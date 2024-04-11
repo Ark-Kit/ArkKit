@@ -38,15 +38,24 @@ enum TankGameEntityCreator {
             .layer(.canvas)
     }
 
+    private static let tankIndexToImageAsset: [Int: TankGameImages] = [
+        1: .tank_1,
+        2: .tank_2,
+        3: .tank_3,
+        4: .tank_4
+    ]
+
     @discardableResult
     static func createTank(with tankContext: TankCreationContext, in ecsContext: ArkECSContext) -> Entity {
         let position = tankContext.position
         let rotation = tankContext.rotation
         let zPosition = tankContext.zPosition
         let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: "tank_\(tankContext.tankIndex)",
-                                           width: 80,
-                                           height: 100)
+            BitmapImageRenderableComponent(
+                imageResourcePath: tankIndexToImageAsset[tankContext.tankIndex] ?? .tank_1,
+                width: 80,
+                height: 100
+            )
             .center(position)
             .rotation(rotation)
             .zPosition(zPosition)
@@ -135,7 +144,9 @@ enum TankGameEntityCreator {
                            in ecsContext: ArkECSContext) {
         let radius = ballContext.radius
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: "ball", width: radius * 2.2, height: radius * 2.2)
+            BitmapImageRenderableComponent(
+                imageResourcePath: TankGameImages.ball, width: radius * 2.2, height: radius * 2.2
+            )
                 .center(ballContext.position)
                 .zPosition(ballContext.zPosition)
                 .scaleAspectFill(),

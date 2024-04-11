@@ -57,8 +57,8 @@ class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: "lake",
-                                           width: size.width, height: size.height)
+            BitmapImageRenderableComponent(imageResourcePath: TankGameImages.lake,
+                                                           width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location)
             .scaleToFill(),
@@ -77,12 +77,20 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
         type >= 1 && type <= 6
     }
 
+    private let stoneTypeToImageAsset: [Int: TankGameImages] = [
+        1: .stones_1,
+        2: .stones_2,
+        3: .stones_3,
+        4: .stones_4,
+        5: .stones_5,
+        6: .stones_6
+    ]
+
     @discardableResult
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
-        let imageResourcePath = "stones_\(type)"
-        return ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
+        ecsContext.createEntity(with: [
+            BitmapImageRenderableComponent(imageResourcePath: stoneTypeToImageAsset[type] ?? .stones_1,
                                            width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location),
@@ -104,10 +112,9 @@ class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
     @discardableResult
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
-        let imageResourcePath = "health-red"
-        return ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
-                                           width: size.width, height: size.height)
+        ecsContext.createEntity(with: [
+            BitmapImageRenderableComponent(imageResourcePath: TankGameImages.healthPack,
+                                                           width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location),
             PositionComponent(position: location),

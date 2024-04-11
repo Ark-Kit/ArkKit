@@ -2,6 +2,7 @@ import Foundation
 
 class ArkCanvasSystem: UpdateSystem {
     var active: Bool
+
     static let renderableComponentTypes: [any RenderableComponent.Type] = [
         ButtonRenderableComponent.self,
         JoystickRenderableComponent.self,

@@ -26,8 +26,8 @@ class ArkGameCoordinator<View> {
         guard var arkView = ArkViewFactory.generateView(rootView) else {
             return
         }
-        let canvasContext = ArkCanvasContext(ecs: arkState.arkECS,
-                                             arkView: arkView)
+        let canvasContext = ArkCanvasContext<View>(ecs: arkState.arkECS,
+                                                   arkView: arkView)
         let cameraContext = ArkCameraContext(ecs: arkState.arkECS,
                                              displayContext: displayContext)
         let arkGameModel = ArkGameModel(gameState: arkState,

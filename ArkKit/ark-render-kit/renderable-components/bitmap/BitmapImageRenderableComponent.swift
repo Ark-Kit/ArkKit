@@ -10,14 +10,14 @@ struct BitmapImageRenderableComponent: RenderableComponent {
 
     let width: Double
     let height: Double
-    var imageResourcePath: String
+    var imageResourcePath: any ArkImageEnum
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: String, width: Double, height: Double) {
+    init(imageResourcePath: some ArkImageEnum, width: Double, height: Double) {
         self.imageResourcePath = imageResourcePath
         self.width = width
         self.height = height
