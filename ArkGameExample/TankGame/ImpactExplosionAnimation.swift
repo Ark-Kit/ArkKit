@@ -1,7 +1,7 @@
 import Foundation
 
 struct ImpactExplosionAnimation {
-    let animation: ArkAnimation<TankGameImages>
+    let animation: ArkAnimation<TankGameExplosionAnimationKeyframes>
 
     var width = 128.0
     var height = 128.0
@@ -20,8 +20,8 @@ struct ImpactExplosionAnimation {
         self.height = height
     }
 
-    private func makeBitmapComponent(imageResourcePath: TankGameImages) ->
-    BitmapImageRenderableComponent<TankGameImages> {
+    private func makeBitmapComponent(imageResourcePath: TankGameExplosionAnimationKeyframes) ->
+    BitmapImageRenderableComponent {
         BitmapImageRenderableComponent(
             imageResourcePath: imageResourcePath,
             width: width,
@@ -29,7 +29,7 @@ struct ImpactExplosionAnimation {
         .scaleAspectFill()
         .zPosition(100)
         .shouldRerender { old, new in
-            old.imageResourcePath != new.imageResourcePath
+            old.imageResourcePath.rawValue != new.imageResourcePath.rawValue
         }
     }
 

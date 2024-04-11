@@ -1,19 +1,6 @@
 import CoreGraphics
 
-protocol BitmapImageRenderableComponentProtocol: RenderableComponent, AbstractBitmap {
-    associatedtype ImageEnum: ArkImageEnum
-
-    var width: Double { get }
-    var height: Double { get }
-    var imageResourcePath: ImageEnum { get }
-
-    var isClipToBounds: Bool { get }
-    var isScaleAspectFit: Bool { get }
-    var isScaleToFill: Bool { get }
-    var isScaleAspectFill: Bool { get }
-}
-
-struct BitmapImageRenderableComponent<ImageEnum: ArkImageEnum>: BitmapImageRenderableComponentProtocol {
+struct BitmapImageRenderableComponent: RenderableComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
@@ -23,14 +10,14 @@ struct BitmapImageRenderableComponent<ImageEnum: ArkImageEnum>: BitmapImageRende
 
     let width: Double
     let height: Double
-    var imageResourcePath: ImageEnum
+    var imageResourcePath: any ArkImageEnum
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: ImageEnum, width: Double, height: Double) {
+    init(imageResourcePath: some ArkImageEnum, width: Double, height: Double) {
         self.imageResourcePath = imageResourcePath
         self.width = width
         self.height = height
@@ -42,7 +29,7 @@ struct BitmapImageRenderableComponent<ImageEnum: ArkImageEnum>: BitmapImageRende
 }
 
 // MARK: Builder pattern helpers
-extension BitmapImageRenderableComponent {
+extension BitmapImageRenderableComponent: AbstractBitmap {
     func clipToBounds() -> Self {
         immutableCopy(isClipToBounds: true)
     }

@@ -115,7 +115,7 @@ enum TankRaceGameEntityCreator {
                                     CGPoint(x: canvasWidth * 5 / 6, y: canvasWidth / 5)]
         let entities = positions.map {
             ecsContext.createEntity(with: [
-                BitmapImageRenderableComponent<TankRaceGameImages>(imageResourcePath: .finish_line,
+                BitmapImageRenderableComponent(imageResourcePath: TankRaceGameImages.finish_line,
                                                                    width: canvasWidth / 3,
                                                                    height: canvasWidth / 5)
                     .center($0)

@@ -51,7 +51,7 @@ enum TankGameEntityCreator {
         let rotation = tankContext.rotation
         let zPosition = tankContext.zPosition
         let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent<TankGameImages>(
+            BitmapImageRenderableComponent(
                 imageResourcePath: tankIndexToImageAsset[tankContext.tankIndex] ?? .tank_1,
                 width: 80,
                 height: 100
@@ -144,8 +144,8 @@ enum TankGameEntityCreator {
                            in ecsContext: ArkECSContext) {
         let radius = ballContext.radius
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent<TankGameImages>(
-                imageResourcePath: .ball, width: radius * 2.2, height: radius * 2.2
+            BitmapImageRenderableComponent(
+                imageResourcePath: TankGameImages.ball, width: radius * 2.2, height: radius * 2.2
             )
                 .center(ballContext.position)
                 .zPosition(ballContext.zPosition)
