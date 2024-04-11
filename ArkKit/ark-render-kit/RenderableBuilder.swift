@@ -15,7 +15,7 @@ protocol RenderableBuilder<Container> {
     func build(_ circle: CircleRenderableComponent) -> any Renderable<Container>
     func build(_ rect: RectRenderableComponent) -> any Renderable<Container>
     func build(_ polygon: PolygonRenderableComponent) -> any Renderable<Container>
-    func build(_ image: BitmapImageRenderableComponent) -> any Renderable<Container>
+    func build(_ image: some BitmapImageRenderableComponentProtocol) -> any Renderable<Container>
     func build(_ button: ButtonRenderableComponent) -> any Renderable<Container>
     func build(_ joystick: JoystickRenderableComponent) -> any Renderable<Container>
     func build(_ container: CameraContainerRenderableComponent) -> any Renderable<Container>

@@ -1,6 +1,19 @@
 import CoreGraphics
 
-struct BitmapImageRenderableComponent: RenderableComponent {
+protocol BitmapImageRenderableComponentProtocol: RenderableComponent, AbstractBitmap {
+    associatedtype ImageEnum: ArkImageEnum
+
+    var width: Double { get }
+    var height: Double { get }
+    var imageResourcePath: ImageEnum { get }
+
+    var isClipToBounds: Bool { get }
+    var isScaleAspectFit: Bool { get }
+    var isScaleToFill: Bool { get }
+    var isScaleAspectFill: Bool { get }
+}
+
+struct BitmapImageRenderableComponent<ImageEnum: ArkImageEnum>: BitmapImageRenderableComponentProtocol {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
@@ -10,14 +23,14 @@ struct BitmapImageRenderableComponent: RenderableComponent {
 
     let width: Double
     let height: Double
-    var imageResourcePath: String
+    var imageResourcePath: ImageEnum
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: String, width: Double, height: Double) {
+    init(imageResourcePath: ImageEnum, width: Double, height: Double) {
         self.imageResourcePath = imageResourcePath
         self.width = width
         self.height = height
@@ -29,7 +42,7 @@ struct BitmapImageRenderableComponent: RenderableComponent {
 }
 
 // MARK: Builder pattern helpers
-extension BitmapImageRenderableComponent: AbstractBitmap {
+extension BitmapImageRenderableComponent {
     func clipToBounds() -> Self {
         immutableCopy(isClipToBounds: true)
     }

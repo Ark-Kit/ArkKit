@@ -62,11 +62,11 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
             return
         }
         // Initialize game with rootView, and passing in contexts (state)
-        let gameCoordinator = ArkGameCoordinator(rootView: rootView,
-                                                 arkState: arkState,
-                                                 displayContext: displayContext,
-                                                 gameLoop: gameLoop,
-                                                 canvasRenderer: canvasRenderableBuilder)
+        let gameCoordinator = ArkGameCoordinator<View, ExternalResources>(rootView: rootView,
+                                                                          arkState: arkState,
+                                                                          displayContext: displayContext,
+                                                                          gameLoop: gameLoop,
+                                                                          canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
     }
 
@@ -157,7 +157,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                                              eventManager: arkState.eventManager,
                                              arkECS: arkState.arkECS)
         let animationSystem = ArkAnimationSystem()
-        let canvasSystem = ArkCanvasSystem()
+        let canvasSystem = ArkCanvasSystem<ExternalResources.ImageEnum>()
         let timeSystem = ArkTimeSystem()
         let cameraSystem = ArkCameraSystem()
         arkState.arkECS.addSystem(timeSystem)

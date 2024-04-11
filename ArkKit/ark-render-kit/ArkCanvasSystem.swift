@@ -1,23 +1,26 @@
 import Foundation
 
-class ArkCanvasSystem: UpdateSystem {
+class ArkCanvasSystem<ImageEnum: ArkImageEnum>: UpdateSystem {
     var active: Bool
-    static let renderableComponentTypes: [any RenderableComponent.Type] = [
-        ButtonRenderableComponent.self,
-        JoystickRenderableComponent.self,
-        CircleRenderableComponent.self,
-        RectRenderableComponent.self,
-        PolygonRenderableComponent.self,
-        BitmapImageRenderableComponent.self,
-        CameraContainerRenderableComponent.self
-    ]
+
+    static func getRenderableComponentTypes() -> [any RenderableComponent.Type] {
+        [
+            ButtonRenderableComponent.self,
+            JoystickRenderableComponent.self,
+            CircleRenderableComponent.self,
+            RectRenderableComponent.self,
+            PolygonRenderableComponent.self,
+            BitmapImageRenderableComponent<ImageEnum>.self,
+            CameraContainerRenderableComponent.self
+        ]
+    }
 
     init(active: Bool = true) {
         self.active = active
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        for canvasCompType in ArkCanvasSystem.renderableComponentTypes {
+        for canvasCompType in ArkCanvasSystem.getRenderableComponentTypes() {
             let entitiesWithCanvasComp = arkECS.getEntities(with: [canvasCompType])
             for entity in entitiesWithCanvasComp {
                 guard let canvasComponent = arkECS.getComponent(ofType: canvasCompType, for: entity),

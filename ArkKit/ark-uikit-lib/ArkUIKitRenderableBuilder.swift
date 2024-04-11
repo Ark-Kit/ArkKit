@@ -27,8 +27,8 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
             .applyModifiers(modifierInfo: polygon, colorGetter: getColor)
     }
 
-    func build(_ image: BitmapImageRenderableComponent) -> any Renderable<UIView> {
-        UIKitImageBitmap(imageResourcePath: image.imageResourcePath,
+    func build(_ image: some BitmapImageRenderableComponentProtocol) -> any Renderable<UIView> {
+        UIKitImageBitmap(imageResourcePath: image.imageResourcePath.rawValue,
                          center: image.center,
                          width: image.width,
                          height: image.height)

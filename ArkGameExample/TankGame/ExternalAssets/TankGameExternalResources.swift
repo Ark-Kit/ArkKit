@@ -1,3 +1,4 @@
 struct TankGameExternalResources: ArkExternalResources {
-    var audioEnum: TankGameSounds
+    let audioEnum: TankGameSounds
+    let imageEnum: TankGameImages
 }

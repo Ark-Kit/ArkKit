@@ -2,6 +2,7 @@ import Foundation
 
 protocol CanvasContext<View> {
     associatedtype View
+    associatedtype ExternalResources: ArkExternalResources
     typealias RenderableComponentType = ObjectIdentifier
 
     var arkView: (any ArkView<View>)? { get }
@@ -11,7 +12,7 @@ protocol CanvasContext<View> {
     func render(_ canvas: any Canvas, using renderer: any RenderableBuilder<View>)
 }
 
-class ArkCanvasContext<View>: CanvasContext {
+class ArkCanvasContext<View, ExternalResources: ArkExternalResources>: CanvasContext {
     private(set) var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] = [:]
     private(set) weak var arkView: (any ArkView<View>)?
     private let ecs: ArkECS
@@ -23,7 +24,7 @@ class ArkCanvasContext<View>: CanvasContext {
 
     func render(_ canvas: any Canvas, using builder: any RenderableBuilder<View>) {
         // unmounting outdated components
-        for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
+        for renderableCompType in ArkCanvasSystem<ExternalResources.ImageEnum>.getRenderableComponentTypes() {
             let componentTypeIdentifier = ObjectIdentifier(renderableCompType)
             let validEntityIds: Set<EntityID> = Set(
                 canvas.canvasElements
@@ -64,7 +65,7 @@ class ArkCanvasContext<View>: CanvasContext {
     /// Outputs a logical canvas with the relevant entities in the canvas and their renderable components only
     func getFlatCanvas() -> ArkFlatCanvas {
         var arkCanvas = ArkFlatCanvas()
-        for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
+        for renderableCompType in ArkCanvasSystem<ExternalResources.ImageEnum>.getRenderableComponentTypes() {
             let renderableEntities = ecs.getEntities(with: [renderableCompType])
             let componentType = ObjectIdentifier(renderableCompType)
 
