@@ -33,7 +33,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
             return 0
         }
     }
-    
+
     var serviceName: String {
         get {
             networkService.serviceName
