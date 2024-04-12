@@ -21,6 +21,18 @@ class SKSimulator: NSObject, AbstractPhysicsArkSimulator {
         view.presentScene(gameScene.basePhysicsScene)
     }
 
+    func pause() {
+        view.isPaused = true
+    }
+
+    func resume() {
+        guard view.scene != nil else {
+            assertionFailure("[SKSimulator.resume] cannot resume without having started")
+            return
+        }
+        view.isPaused = false
+    }
+
     func stop() {
         view.presentScene(nil)
     }
@@ -44,6 +56,14 @@ extension SKSimulator: GameLoop {
 
     func shutDown() {
         self.stop()
+    }
+
+    func pauseLoop() {
+        self.pause()
+    }
+
+    func resumeLoop() {
+        self.resume()
     }
 }
 

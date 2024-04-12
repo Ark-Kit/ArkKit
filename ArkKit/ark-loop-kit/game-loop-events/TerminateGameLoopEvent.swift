@@ -1,8 +1,8 @@
-//
-//  TerminateGameLoopEvent.swift
-//  ArkKit
-//
-//  Created by Didymus Ne on 13/4/24.
-//
-
-import Foundation
+struct TerminateGameLoopEventData: GameLoopEventData {
+    let timeInGame: Double
+    var name: String = "TerminateGame"
+}
+struct TerminateGameLoopEvent: ArkEvent {
+    var eventData: TerminateGameLoopEventData
+    var priority: Int?
+}

@@ -1,8 +1,8 @@
-//
-//  ResumeGameLoopEvent.swift
-//  ArkKit
-//
-//  Created by Didymus Ne on 13/4/24.
-//
-
-import Foundation
+struct ResumeGameLoopEventData: GameLoopEventData {
+    let timeInGame: Double
+    var name: String = "ResumeGame"
+}
+struct ResumeGameLoopEvent: ArkEvent {
+    var eventData: ResumeGameLoopEventData
+    var priority: Int?
+}
