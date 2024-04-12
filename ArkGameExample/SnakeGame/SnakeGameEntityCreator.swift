@@ -46,14 +46,45 @@ struct SnakeGameEntityCreator {
         return snakeEntity
     }
 
-    static func createBodyBlockEntity(at gridPosition: SnakeGridPosition, with grid: SnakeGrid, in ecs: ArkECSContext) -> Entity {
+    static func createBodyBlockEntity(at gridPosition: SnakeGridPosition,
+                                      with grid: SnakeGrid,
+                                      in ecs: ArkECSContext) -> Entity {
         ecs.createEntity(with: [
             SnakeBodyBlock(gridPosition: gridPosition),
             PositionComponent(position: grid.toActualPosition(gridPosition)),
             RectRenderableComponent(width: grid.boxSideLength, height: grid.boxSideLength)
                 .shouldRerender { _, _ in false }
-                .zPosition(2)
+                .zPosition(1)
                 .layer(.canvas)
+        ])
+    }
+
+    @discardableResult
+    static func createJoystick(center: CGPoint,
+                               snakeEntity: Entity,
+                               in ecsContext: ArkECSContext) -> Entity {
+        ecsContext.createEntity(with: [
+            JoystickRenderableComponent(radius: 40)
+                .shouldRerender { old, new in
+                    old.center != new.center
+                }
+                .center(center)
+                .zPosition(999)
+                .layer(.screen)
+                .onPanChange { angle, _ in
+                    guard let snakeComponent = ecsContext.getComponent(
+                        ofType: SnakeComponent.self,
+                        for: snakeEntity
+                    ) else {
+                        assertionFailure("Snake entity does not contain SnakeComponent!")
+                        return
+                    }
+
+                    let direction = SnakeGameDirection.fromRadians(angle)
+                    let updatedSnakeComponent = SnakeComponent(snakeComponent.occupies, direction: direction)
+
+                    ecsContext.upsertComponent(updatedSnakeComponent, to: snakeEntity)
+                }
         ])
     }
 }

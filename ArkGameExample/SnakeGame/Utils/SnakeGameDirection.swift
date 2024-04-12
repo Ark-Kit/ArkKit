@@ -1,5 +1,21 @@
+import Foundation
+
 enum SnakeGameDirection {
     case north, south, east, west
+
+    static func fromRadians(_ radians: CGFloat) -> SnakeGameDirection {
+        let piOverFour = Double.pi / 4
+
+        if piOverFour < radians && radians <= 3 * piOverFour {
+            return .east
+        } else if 3 * piOverFour < radians && radians <= 5 * piOverFour {
+            return .south
+        } else if 5 * piOverFour < radians && radians <= 7 * piOverFour {
+            return .west
+        } else {
+            return .north
+        }
+    }
 }
 
 struct SnakeGameDirectionDelta {
