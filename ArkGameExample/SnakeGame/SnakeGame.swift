@@ -35,14 +35,17 @@ extension SnakeGame {
 
                 let screenWidth = display.screenSize.width
                 let screenHeight = display.screenSize.height
+                let canvasWidth = display.canvasSize.width
+                let canvasHeight = display.canvasSize.height
                 let screenCenter = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
+                let canvasCenter = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
 
                 ecs.createEntity(with: [
                     BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.map,
-                                                   width: screenWidth, height: screenHeight)
-                    .center(screenCenter)
+                                                   width: canvasWidth, height: canvasHeight)
+                    .center(canvasCenter)
                     .zPosition(0)
-                    .layer(.screen)
+                    .layer(.canvas)
                 ])
             }
     }

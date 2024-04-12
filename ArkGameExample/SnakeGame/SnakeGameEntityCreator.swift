@@ -53,6 +53,7 @@ struct SnakeGameEntityCreator {
             RectRenderableComponent(width: grid.boxSideLength, height: grid.boxSideLength)
                 .shouldRerender { _, _ in false }
                 .zPosition(2)
+                .layer(.canvas)
         ])
     }
 }
