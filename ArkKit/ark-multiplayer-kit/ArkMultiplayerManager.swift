@@ -24,7 +24,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
         self.networkService = ArkNetworkService(serviceName: serviceName)
         self.networkService.delegate = self
     }
-    
+
     var playerNumber: Int {
         let sortedPeers = (peers + [networkService.deviceID]).sorted()
         if let deviceIndex = sortedPeers.firstIndex(of: networkService.deviceID) {
@@ -45,10 +45,8 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     }
 
     func gameDataReceived(manager: ArkNetworkService, gameData: Data) {
-        print("data received")
         do {
             let wrappedData = try JSONDecoder().decode(DataWrapper.self, from: gameData)
-
             if wrappedData.type == .event,
                let event = try ArkEventRegistry.shared.decode(from: wrappedData.payload,
                                                               typeName: wrappedData.name) {

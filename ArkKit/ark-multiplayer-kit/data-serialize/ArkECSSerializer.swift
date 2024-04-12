@@ -37,6 +37,7 @@ struct ArkECSSerializer {
         guard let component = component as? any SendableComponent else {
             return nil
         }
+//        print("component is sendable component: \(component)")
         let componentData = try JSONEncoder().encode(component)
         let name = String(describing: type(of: component))
 
@@ -44,7 +45,7 @@ struct ArkECSSerializer {
     }
 
     static func encodeECSFunction(action: String, entity: Entity, component: Component? = nil,
-                           components: [Component]? = nil) throws -> Data? {
+                                  components: [Component]? = nil) throws -> Data? {
 
         var componentData = [ComponentData]()
 
@@ -69,7 +70,7 @@ struct ArkECSSerializer {
         let entity = functionData.entity
         let components = functionData.componentData
             .compactMap { try? ComponentRegistry.shared.decode(from: $0.data,
-                                                        typeName: $0.name)
+                                                               typeName: $0.name)
             }
 
         if let functionType = ECSFunctionType(rawValue: name),

@@ -66,12 +66,13 @@ class Ark<View> {
                                                  canvasRenderer: canvasRenderer)
         gameCoordinator.start()
     }
-    
 
     func multiplayer(serviceName: String) {
         let multiplayerManager = ArkMultiplayerManager(serviceName: "tankGame")
         let eventManager = ArkMultiplayerEventManager()
         let ecsManager = ArkMultiplayerECS()
+        multiplayerManager.multiplayerEventManager = eventManager
+        multiplayerManager.arkMultiplayerECS = ecsManager
         eventManager.delegate = multiplayerManager
         ecsManager.delegate = multiplayerManager
 

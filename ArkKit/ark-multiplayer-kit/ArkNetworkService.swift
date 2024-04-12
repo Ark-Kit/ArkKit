@@ -19,7 +19,7 @@ class ArkNetworkService: ArkNetworkProtocol {
         let config = MultipeerSessionConfig(myPeerInfo: myPeerInfo,
                                             bonjourService: "_ArkMultiplayer._tcp",
                                             presharedKey: "12345",
-                                            identity: serviceName)
+                                            identity: "testing")
         self.session = MultipeerSession(config: config, queue: .main)
         self.serviceName = serviceName
         setUpHandlers()

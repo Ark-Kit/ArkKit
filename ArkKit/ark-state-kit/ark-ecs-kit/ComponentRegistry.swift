@@ -46,6 +46,10 @@ class ComponentRegistry {
             WorldComponent.self,
             StopWatchComponent.self
         ]
+
+        for componentType in componentTypes {
+            register(componentType)
+        }
     }
 
     private func setUpComponentTypes() {
