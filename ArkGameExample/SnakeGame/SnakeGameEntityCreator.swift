@@ -29,12 +29,12 @@ struct SnakeGameEntityCreator {
                 assertionFailure("Snake body does not exist!")
                 break
             }
-            guard let blockComponent = ecsContext.getComponent(ofType: SnakeBodyBlock.self, for: tail) else {
-                assertionFailure("SnakeBodyBlock component does not exist!")
+            guard let gridPositionComponent = ecsContext.getComponent(ofType: SnakeGridPositionComponent.self, for: tail) else {
+                assertionFailure("SnakeGridPositionComponent component does not exist on SnakeBodyBlock!")
                 break
             }
 
-            let nextGridPosition = blockComponent.gridPosition.applyDelta(bodyDirection)
+            let nextGridPosition = gridPositionComponent.gridPosition.applyDelta(bodyDirection)
             let nextBlock = createBodyBlockEntity(at: nextGridPosition, with: grid, in: ecsContext)
             occupiedSquares.append(nextBlock)
         }
@@ -50,9 +50,10 @@ struct SnakeGameEntityCreator {
                                       with grid: SnakeGrid,
                                       in ecs: ArkECSContext) -> Entity {
         ecs.createEntity(with: [
-            SnakeBodyBlock(gridPosition: gridPosition),
+            SnakeBodyBlock(),
+            SnakeGridPositionComponent(gridPosition: gridPosition),
             PositionComponent(position: grid.toActualPosition(gridPosition)),
-            RectRenderableComponent(width: grid.boxSideLength, height: grid.boxSideLength)
+            RectRenderableComponent(width: Double(grid.boxSideLength), height: Double(grid.boxSideLength))
                 .shouldRerender { _, _ in false }
                 .zPosition(1)
                 .layer(.canvas)

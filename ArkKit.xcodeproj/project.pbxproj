@@ -181,6 +181,8 @@
 		9454411D2BC950DB00E90ECE /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 9454411C2BC950DB00E90ECE /* DequeModule */; };
 		9454411F2BC9513900E90ECE /* SnakeBodyBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9454411E2BC9513900E90ECE /* SnakeBodyBlock.swift */; };
 		945441212BC9639E00E90ECE /* SnakeGameTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441202BC9639E00E90ECE /* SnakeGameTick.swift */; };
+		945441232BC98DB100E90ECE /* SnakeGameApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441222BC98DB100E90ECE /* SnakeGameApple.swift */; };
+		945441252BC99D8800E90ECE /* SnakeGridPositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
 		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
@@ -420,6 +422,8 @@
 		945441192BC94CA900E90ECE /* SnakeGridPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGridPosition.swift; sourceTree = "<group>"; };
 		9454411E2BC9513900E90ECE /* SnakeBodyBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyBlock.swift; sourceTree = "<group>"; };
 		945441202BC9639E00E90ECE /* SnakeGameTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameTick.swift; sourceTree = "<group>"; };
+		945441222BC98DB100E90ECE /* SnakeGameApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameApple.swift; sourceTree = "<group>"; };
+		945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGridPositionComponent.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
 		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
@@ -1083,6 +1087,8 @@
 				9454410C2BC91FE500E90ECE /* SnakeComponent.swift */,
 				9454411E2BC9513900E90ECE /* SnakeBodyBlock.swift */,
 				945441202BC9639E00E90ECE /* SnakeGameTick.swift */,
+				945441222BC98DB100E90ECE /* SnakeGameApple.swift */,
+				945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1698,6 +1704,7 @@
 				945441132BC921FC00E90ECE /* SnakeGrid.swift in Sources */,
 				94D0539E2BC7F32E000280C6 /* TankRaceGameExternalResources.swift in Sources */,
 				AD787A532B9C636F003EBBD0 /* SceneDelegate.swift in Sources */,
+				945441232BC98DB100E90ECE /* SnakeGameApple.swift in Sources */,
 				0267BA312BBD40C20010F729 /* CameraContext.swift in Sources */,
 				8FEB218A2BAF3C8E00788E20 /* ImpactExplosionAnimation.swift in Sources */,
 				AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */,
@@ -1749,6 +1756,7 @@
 				ADA848022BBC7DF000B19378 /* ArkSerializableEvent.swift in Sources */,
 				942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */,
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
+				945441252BC99D8800E90ECE /* SnakeGridPositionComponent.swift in Sources */,
 				8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */,
 				280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */,
 				280CD3D62BA7F8CC00372C5D /* SKPhysicsScene.swift in Sources */,

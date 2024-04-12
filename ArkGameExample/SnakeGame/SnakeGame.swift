@@ -8,6 +8,8 @@ class SnakeGame {
     private static let gridWidth: Double = 800
     private var grid = SnakeGrid(boxSideLength: 20, gridHeight: gridHeight, gridWidth: gridWidth)
 
+    private static let numApples: Int = 4
+
     init() {
         self.blueprint = ArkBlueprint(frameWidth: SnakeGame.gridWidth, frameHeight: SnakeGame.gridHeight)
         setup()
@@ -122,13 +124,13 @@ extension SnakeGame {
                         continue
                     }
                     guard let head = snakeComponent.occupies.first,
-                          let headBodyBlockComponent = ecs.getComponent(ofType: SnakeBodyBlock.self, for: head) else {
+                          let headBlockGridComponent = ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: head) else {
                         assertionFailure("Unable to get head body block component of SnakeComponent")
                         continue
                     }
 
                     var copy = snakeComponent
-                    let nextBlockGridPosition = headBodyBlockComponent.gridPosition.applyDelta(snakeComponent.direction)
+                    let nextBlockGridPosition = headBlockGridComponent.gridPosition.applyDelta(snakeComponent.direction)
                     let nextBlock = SnakeGameEntityCreator.createBodyBlockEntity(at: nextBlockGridPosition,
                                                                                  with: self.grid,
                                                                                  in: ecs)
@@ -146,7 +148,29 @@ extension SnakeGame {
 
     private func appleSpawner() {
         blueprint = blueprint
-            .forEachTick { _, _ in
+            .forEachTick { _, context in
+                let ecs = context.ecs
+                let appleEntities = ecs.getEntities(with: [SnakeGameApple.self])
+                var count = appleEntities.count
+
+                while count < SnakeGame.numApples {
+                    let entitiesWithGridPosition = ecs.getEntities(with: [SnakeGridPositionComponent.self])
+                    let gridPositionComponents = entitiesWithGridPosition
+                        .compactMap { ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: $0) }
+                        .map { $0.gridPosition }
+                    let emptyPosition = self.grid.getRandomEmptyBox(gridPositionComponents)
+
+                    ecs.createEntity(with: [
+                        SnakeGameApple(),
+                        SnakeGridPositionComponent(gridPosition: emptyPosition),
+                        PositionComponent(position: self.grid.toActualPosition(emptyPosition)),
+                        BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.apple, width: Double(self.grid.boxSideLength), height: Double(self.grid.boxSideLength))
+                            .layer(.canvas)
+                            .zPosition(2)
+                    ])
+
+                    count += 1
+                }
             }
     }
 

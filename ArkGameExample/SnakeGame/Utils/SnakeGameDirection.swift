@@ -19,8 +19,8 @@ enum SnakeGameDirection {
 }
 
 struct SnakeGameDirectionDelta {
-    let dx: Double
-    let dy: Double
+    let dx: Int
+    let dy: Int
 }
 
 let snakeGameDirectionToDelta: [SnakeGameDirection: SnakeGameDirectionDelta] = [

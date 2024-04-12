@@ -1,3 +1,1 @@
-struct SnakeBodyBlock: Component {
-    let gridPosition: SnakeGridPosition
-}
+struct SnakeBodyBlock: Component {}
