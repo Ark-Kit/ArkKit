@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		022C42792BC9940D003D6924 /* PauseGameLoopEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C42782BC9940D003D6924 /* PauseGameLoopEvent.swift */; };
+		022C427B2BC9941B003D6924 /* GameLoopEventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C427A2BC9941B003D6924 /* GameLoopEventData.swift */; };
+		022C427D2BC9943B003D6924 /* ResumeGameLoopEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C427C2BC9943B003D6924 /* ResumeGameLoopEvent.swift */; };
+		022C427F2BC9944A003D6924 /* TerminateGameLoopEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C427E2BC9944A003D6924 /* TerminateGameLoopEvent.swift */; };
 		0230A4812BB7B452001CFDAF /* AbstractButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4802BB7B452001CFDAF /* AbstractButtonStyle.swift */; };
 		0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A4852BB7F300001CFDAF /* ArkView.swift */; };
 		0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */; };
@@ -231,6 +235,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		022C42782BC9940D003D6924 /* PauseGameLoopEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseGameLoopEvent.swift; sourceTree = "<group>"; };
+		022C427A2BC9941B003D6924 /* GameLoopEventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopEventData.swift; sourceTree = "<group>"; };
+		022C427C2BC9943B003D6924 /* ResumeGameLoopEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeGameLoopEvent.swift; sourceTree = "<group>"; };
+		022C427E2BC9944A003D6924 /* TerminateGameLoopEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminateGameLoopEvent.swift; sourceTree = "<group>"; };
 		0230A4802BB7B452001CFDAF /* AbstractButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractButtonStyle.swift; sourceTree = "<group>"; };
 		0230A4852BB7F300001CFDAF /* ArkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkView.swift; sourceTree = "<group>"; };
 		0230A48B2BB802E0001CFDAF /* ArkViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkViewFactory.swift; sourceTree = "<group>"; };
@@ -465,6 +473,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		022C42772BC993F9003D6924 /* game-loop-events */ = {
+			isa = PBXGroup;
+			children = (
+				022C42782BC9940D003D6924 /* PauseGameLoopEvent.swift */,
+				022C427A2BC9941B003D6924 /* GameLoopEventData.swift */,
+				022C427C2BC9943B003D6924 /* ResumeGameLoopEvent.swift */,
+				022C427E2BC9944A003D6924 /* TerminateGameLoopEvent.swift */,
+			);
+			path = "game-loop-events";
+			sourceTree = "<group>";
+		};
 		0230A47F2BB7B446001CFDAF /* style */ = {
 			isa = PBXGroup;
 			children = (
@@ -798,6 +817,7 @@
 		02D8E94A2BAC99F100BF3A07 /* ark-loop-kit */ = {
 			isa = PBXGroup;
 			children = (
+				022C42772BC993F9003D6924 /* game-loop-events */,
 				02D8E94B2BAC99FC00BF3A07 /* GameLoopable.swift */,
 				02D8E94D2BAC9A0E00BF3A07 /* GameLoop.swift */,
 			);
@@ -1501,10 +1521,12 @@
 				280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */,
 				94D053882BC6C6D2000280C6 /* ArkExternalResources.swift in Sources */,
 				280CD3C42BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift in Sources */,
+				022C42792BC9940D003D6924 /* PauseGameLoopEvent.swift in Sources */,
 				AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */,
 				287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */,
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
 				8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */,
+				022C427D2BC9943B003D6924 /* ResumeGameLoopEvent.swift in Sources */,
 				28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */,
 				0230A4862BB7F300001CFDAF /* ArkView.swift in Sources */,
 				945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */,
@@ -1517,6 +1539,7 @@
 				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
 				0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */,
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
+				022C427F2BC9944A003D6924 /* TerminateGameLoopEvent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
 				287B00592BC17131002F0114 /* TankHPModifyEvent.swift in Sources */,
@@ -1524,6 +1547,7 @@
 				8F5573C12BA42614007030C8 /* Renderable.swift in Sources */,
 				8FEB21882BAE752F00788E20 /* ScreenResizeEvent.swift in Sources */,
 				287B005F2BC19F32002F0114 /* TankReviveEvent.swift in Sources */,
+				022C427B2BC9941B003D6924 /* GameLoopEventData.swift in Sources */,
 				AD787A882B9C6D3A003EBBD0 /* EntityManager.swift in Sources */,
 				02C9CC322BBED5C40098E849 /* UIKitCamera.swift in Sources */,
 				2812FCC32BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift in Sources */,

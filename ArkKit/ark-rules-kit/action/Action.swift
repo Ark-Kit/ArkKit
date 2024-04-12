@@ -21,17 +21,15 @@ struct ArkEventAction<Event: ArkEvent, ExternalResources: ArkExternalResources>:
 }
 
 struct ArkTickAction<ExternalResources: ArkExternalResources>: Action {
-    typealias DeltaTime = Double
-
-    let callback: UpdateActionCallback<ExternalResources>
+    let callback: GameLoopActionCallback<ExternalResources>
     let priority: Int
 
-    init(callback: @escaping UpdateActionCallback<ExternalResources>, priority: Int = 0) {
+    init(callback: @escaping GameLoopActionCallback<ExternalResources>, priority: Int = 0) {
         self.callback = callback
         self.priority = priority
     }
 
-    func execute(_ data: DeltaTime,
+    func execute(_ data: ArkTimeFacade,
                  context: ArkActionContext<ExternalResources>) {
         callback(data, context)
     }
@@ -40,5 +38,5 @@ struct ArkTickAction<ExternalResources: ArkExternalResources>: Action {
 typealias ActionCallback<Event: ArkEvent, ExternalResources: ArkExternalResources> =
 (Event, ArkActionContext<ExternalResources>) -> Void
 
-typealias UpdateActionCallback<ExternalResources: ArkExternalResources> =
-(Double, ArkActionContext<ExternalResources>) -> Void
+typealias GameLoopActionCallback<ExternalResources: ArkExternalResources> =
+(ArkTimeFacade, ArkActionContext<ExternalResources>) -> Void

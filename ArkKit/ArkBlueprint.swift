@@ -68,7 +68,7 @@ struct ArkBlueprint<ExternalResources: ArkExternalResources> {
         return newSelf
     }
 
-    func forEachTick(_ callback: @escaping UpdateActionCallback<ExternalResources>) -> Self {
+    func forEachTick(_ callback: @escaping GameLoopActionCallback<ExternalResources>) -> Self {
         var newSelf = self
         var newRules = rules
 
