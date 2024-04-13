@@ -79,8 +79,13 @@ extension SnakeGame {
                 }
 
                 SnakeGameEntityCreator.createJoystick(
-                    center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
+                    center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
                     snakeEntity: snakeEntity1,
+                    in: context.ecs)
+
+                SnakeGameEntityCreator.createJoystick(
+                    center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
+                    snakeEntity: snakeEntity2,
                     in: context.ecs)
             }
     }
@@ -117,32 +122,7 @@ extension SnakeGame {
                 ecs.upsertComponent(SnakeGameTick(elapsed: stopwatchComponent.currentTime.rounded()),
                                     to: snakeGameTickEntities[0])
 
-                let snakes = ecs.getEntities(with: [SnakeComponent.self])
-                for snake in snakes {
-                    guard let snakeComponent = ecs.getComponent(ofType: SnakeComponent.self, for: snake) else {
-                        assertionFailure("Unable to get SnakeComponent on Snake entity")
-                        continue
-                    }
-                    guard let head = snakeComponent.occupies.first,
-                          let headBlockGridComponent = ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: head) else {
-                        assertionFailure("Unable to get head body block component of SnakeComponent")
-                        continue
-                    }
-
-                    var copy = snakeComponent
-                    let nextBlockGridPosition = headBlockGridComponent.gridPosition.applyDelta(snakeComponent.direction)
-                    let nextBlock = SnakeGameEntityCreator.createBodyBlockEntity(at: nextBlockGridPosition,
-                                                                                 with: self.grid,
-                                                                                 in: ecs)
-                    copy.occupies.prepend(nextBlock)
-
-                    guard let last = copy.occupies.popLast() else {
-                        assertionFailure("Snake tail not found!")
-                        continue
-                    }
-                    ecs.removeEntity(last)
-                    ecs.upsertComponent(copy, to: snake)
-                }
+                self.grid.tick(ecs: ecs)
             }
     }
 
@@ -164,7 +144,9 @@ extension SnakeGame {
                         SnakeGameApple(),
                         SnakeGridPositionComponent(gridPosition: emptyPosition),
                         PositionComponent(position: self.grid.toActualPosition(emptyPosition)),
-                        BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.apple, width: Double(self.grid.boxSideLength), height: Double(self.grid.boxSideLength))
+                        BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.apple,
+                                                       width: Double(self.grid.boxSideLength),
+                                                       height: Double(self.grid.boxSideLength))
                             .layer(.canvas)
                             .zPosition(2)
                     ])

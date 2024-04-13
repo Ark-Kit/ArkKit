@@ -29,8 +29,10 @@ struct SnakeGameEntityCreator {
                 assertionFailure("Snake body does not exist!")
                 break
             }
-            guard let gridPositionComponent = ecsContext.getComponent(ofType: SnakeGridPositionComponent.self, for: tail) else {
-                assertionFailure("SnakeGridPositionComponent component does not exist on SnakeBodyBlock!")
+            guard let gridPositionComponent = ecsContext.getComponent(ofType: SnakeGridPositionComponent.self,
+                                                                      for: tail)
+            else {
+                assertionFailure("SnakeGridPositionComponent component does not exist on tail block entity!")
                 break
             }
 
