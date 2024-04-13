@@ -17,8 +17,7 @@ class CollisionStrategyManager<ActionContext: ArkActionContextProtocol> {
             strategy.handleCollisionBegan(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
                                           in: context)
-        }
-        if let strategy = strategies[bitMaskB]?[bitMaskA] {
+        } else if let strategy = strategies[bitMaskB]?[bitMaskA] {
             strategy.handleCollisionBegan(between: entityB, and: entityA,
                                           bitMaskA: bitMaskB, bitMaskB: bitMaskA,
                                           in: context)
@@ -32,8 +31,7 @@ class CollisionStrategyManager<ActionContext: ArkActionContextProtocol> {
             strategy.handleCollisionEnded(between: entityA, and: entityB,
                                           bitMaskA: bitMaskA, bitMaskB: bitMaskB,
                                           in: context)
-        }
-        if let strategy = strategies[bitMaskB]?[bitMaskA] {
+        } else if let strategy = strategies[bitMaskB]?[bitMaskA] {
             strategy.handleCollisionEnded(between: entityB, and: entityA,
                                           bitMaskA: bitMaskB, bitMaskB: bitMaskA,
                                           in: context)
