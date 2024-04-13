@@ -21,8 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let tankGameManager = TankGameManager()
 //        loadArkBlueprintToScene(tankGameManager.blueprint, window: window)
 
-        let tankRaceGame = TankRaceGame()
-        loadArkBlueprintToScene(tankRaceGame.blueprint, window: window)
+//        let tankRaceGame = TankRaceGame()
+//        loadArkBlueprintToScene(tankRaceGame.blueprint, window: window)
+
+        let snakeGame = SnakeGame()
+        loadArkBlueprintToScene(snakeGame.blueprint, window: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
