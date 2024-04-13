@@ -1,9 +1,5 @@
-protocol GameHostingPageAbstractFactory {
-    static func generateGameViewController(from game: DemoGames) -> AbstractDemoGameHostingPage
-}
-
 class GameHostingPageFactory {
-    // Abstract Factory method
+    // Factory method
     static func generateGameViewController(from game: DemoGames) -> AbstractDemoGameHostingPage {
         switch game {
         case .TankGame:

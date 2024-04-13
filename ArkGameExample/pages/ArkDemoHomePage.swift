@@ -3,14 +3,6 @@ import UIKit
 class ArkDemoHomePage: UIViewController {
     weak var rootViewControllerDelegate: RootViewControllerDelegate?
 
-    let games: [(String, () -> GameViewController)] = [
-        ("Tank Game", {
-            let vc: GameViewController<TankGameExternalResources> = GameViewController()
-            vc.arkBlueprint = TankGameManager().blueprint
-            return vc
-        })
-    ]
-
     let titleView: UIImageView = {
         let image = UIImage(named: "ArkKit-Logo-Transparent")
         let view = UIImageView(image: image)
@@ -78,11 +70,7 @@ class ArkDemoHomePage: UIViewController {
         guard let gameOption = (sender.superview as? UIStackView)?.arrangedSubviews.firstIndex(of: sender) else {
             return
         }
-        let option = DemoGames.allCases[gameOption]
-        let vc = GameViewControllerFactory.generateGameViewController(from: DemoGames.allCases[gameOption])
-        guard let castedVc = vc as? UIViewController else {
-            return
-        }
-        self.rootViewControllerDelegate?.pushViewController(castedVc, animated: false)
+        let vc = GameHostingPageFactory.generateGameViewController(from: DemoGames.allCases[gameOption])
+        self.rootViewControllerDelegate?.pushViewController(vc, animated: false)
     }
 }

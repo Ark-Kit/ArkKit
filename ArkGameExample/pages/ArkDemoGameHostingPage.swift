@@ -1,6 +1,6 @@
 import UIKit
 
-protocol AbstractDemoGameViewController { }
+protocol AbstractDemoGameHostingPage: UIViewController { }
 
 class ArkDemoGameHostingPage<T: ArkExternalResources>: UIViewController {
     // inject blueprint here
@@ -12,6 +12,13 @@ class ArkDemoGameHostingPage<T: ArkExternalResources>: UIViewController {
         guard let blueprint = arkBlueprint else {
             return
         }
+
+        // Example on how to inject views into ark blueprint after win/ termination
+//        arkBlueprint = arkBlueprint?.on(TerminateGameLoopEvent.self) { event, context in
+//            // add pop-up view here
+//            self.present(<#T##viewControllerToPresent: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+//        }
+
         // load blueprint
         ark = Ark(rootView: self, blueprint: blueprint)
         ark?.start()
@@ -38,4 +45,4 @@ extension ArkDemoGameHostingPage: AbstractRootView {
     }
 }
 
-extension ArkDemoGameHostingPage: AbstractDemoGameViewController { }
+extension ArkDemoGameHostingPage: AbstractDemoGameHostingPage { }
