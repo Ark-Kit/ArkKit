@@ -39,6 +39,8 @@
 		02B3C60D2BCAEFB3002331A0 /* GameHostingPageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C60C2BCAEFB3002331A0 /* GameHostingPageFactory.swift */; };
 		02B3C6102BCAF049002331A0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C60F2BCAF049002331A0 /* Theme.swift */; };
 		02B3C6132BCAF33C002331A0 /* MockExternalResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6122BCAF33C002331A0 /* MockExternalResource.swift */; };
+		02B3C6192BCAF69E002331A0 /* CollisionHandlingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6182BCAF69E002331A0 /* CollisionHandlingStrategy.swift */; };
+		02B3C61B2BCAF6B3002331A0 /* CollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C61A2BCAF6B3002331A0 /* CollisionStrategyManager.swift */; };
 		02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DB2BA402060075F1CA /* GameStateRenderer.swift */; };
 		02C394DE2BA4053E0075F1CA /* RenderableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */; };
 		02C394E02BA405C10075F1CA /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DF2BA405C10075F1CA /* Canvas.swift */; };
@@ -291,6 +293,8 @@
 		02B3C60C2BCAEFB3002331A0 /* GameHostingPageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingPageFactory.swift; sourceTree = "<group>"; };
 		02B3C60F2BCAF049002331A0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		02B3C6122BCAF33C002331A0 /* MockExternalResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExternalResource.swift; sourceTree = "<group>"; };
+		02B3C6182BCAF69E002331A0 /* CollisionHandlingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionHandlingStrategy.swift; sourceTree = "<group>"; };
+		02B3C61A2BCAF6B3002331A0 /* CollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionStrategyManager.swift; sourceTree = "<group>"; };
 		02C394DB2BA402060075F1CA /* GameStateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateRenderer.swift; sourceTree = "<group>"; };
 		02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderableBuilder.swift; sourceTree = "<group>"; };
 		02C394DF2BA405C10075F1CA /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
@@ -626,6 +630,7 @@
 		02B3C6092BCAEF8E002331A0 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				02B3C6172BCAF68D002331A0 /* CollisionHandling */,
 				02B3C60A2BCAEF9B002331A0 /* DemoGames.swift */,
 				02B3C60C2BCAEFB3002331A0 /* GameHostingPageFactory.swift */,
 			);
@@ -648,6 +653,15 @@
 				AD36A7522BAC0A59003E938B /* TankGame */,
 			);
 			path = games;
+			sourceTree = "<group>";
+		};
+		02B3C6172BCAF68D002331A0 /* CollisionHandling */ = {
+			isa = PBXGroup;
+			children = (
+				02B3C6182BCAF69E002331A0 /* CollisionHandlingStrategy.swift */,
+				02B3C61A2BCAF6B3002331A0 /* CollisionStrategyManager.swift */,
+			);
+			path = CollisionHandling;
 			sourceTree = "<group>";
 		};
 		02C394DA2BA401F00075F1CA /* ark-render-kit */ = {
@@ -1690,6 +1704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0267BA282BBD0FF00010F729 /* UpdateSystem.swift in Sources */,
+				02B3C61B2BCAF6B3002331A0 /* CollisionStrategyManager.swift in Sources */,
 				280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */,
 				94D053882BC6C6D2000280C6 /* ArkExternalResources.swift in Sources */,
 				945441172BC948DB00E90ECE /* SnakeGameDeque.swift in Sources */,
@@ -1711,6 +1726,7 @@
 				AD787A822B9C6BD9003EBBD0 /* Entity.swift in Sources */,
 				9479A3B42BA95E7E00F99013 /* AbstractColor.swift in Sources */,
 				0267BA2A2BBD10060010F729 /* CleanUpSystem.swift in Sources */,
+				02B3C6192BCAF69E002331A0 /* CollisionHandlingStrategy.swift in Sources */,
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02B3C60B2BCAEF9B002331A0 /* DemoGames.swift in Sources */,
 				022C427F2BC9944A003D6924 /* TerminateGameLoopEvent.swift in Sources */,

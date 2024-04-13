@@ -10,20 +10,11 @@ enum TankGamePhysicsCategory {
     static let healthPack: UInt32 = 0x1 << 5
 }
 
-protocol CollisionHandlingStrategy {
-    func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
-                              bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: TankGameActionContext)
-
-    func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
-                              bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: TankGameActionContext)
-}
-
-class TankGameCollisionStrategyManager {
-    private var strategies: [UInt32: [UInt32: CollisionHandlingStrategy]] = [:]
-
+class TankGameCollisionStrategyManager: CollisionStrategyManager<TankGameActionContext> {
+    override
     init() {
+        super.init()
+
         register(strategy: BallWallCollisionStrategy(),
                  for: (TankGamePhysicsCategory.ball, TankGamePhysicsCategory.wall))
         register(strategy: BallRockCollisionStrategy(),
@@ -34,43 +25,7 @@ class TankGameCollisionStrategyManager {
                  for: (TankGamePhysicsCategory.tank, TankGamePhysicsCategory.ball))
         register(strategy: TankHealthPackCollisionStrategy(),
                  for: (TankGamePhysicsCategory.tank, TankGamePhysicsCategory.healthPack))
-    }
 
-    private func register(strategy: CollisionHandlingStrategy, for categories: (UInt32, UInt32)) {
-        if strategies[categories.0] == nil {
-            strategies[categories.0] = [:]
-        }
-        strategies[categories.0]?[categories.1] = strategy
-    }
-
-    func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
-                              bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: TankGameActionContext) {
-        if let strategy = strategies[bitMaskA]?[bitMaskB] {
-            strategy.handleCollisionBegan(between: entityA, and: entityB,
-                                          bitMaskA: bitMaskA, bitMaskB: bitMaskB,
-                                          in: context)
-        }
-        if let strategy = strategies[bitMaskB]?[bitMaskA] {
-            strategy.handleCollisionBegan(between: entityB, and: entityA,
-                                          bitMaskA: bitMaskB, bitMaskB: bitMaskA,
-                                          in: context)
-        }
-    }
-
-    func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
-                              bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: TankGameActionContext) {
-        if let strategy = strategies[bitMaskA]?[bitMaskB] {
-            strategy.handleCollisionEnded(between: entityA, and: entityB,
-                                          bitMaskA: bitMaskA, bitMaskB: bitMaskB,
-                                          in: context)
-        }
-        if let strategy = strategies[bitMaskB]?[bitMaskA] {
-            strategy.handleCollisionEnded(between: entityB, and: entityA,
-                                          bitMaskA: bitMaskB, bitMaskB: bitMaskA,
-                                          in: context)
-        }
     }
 }
 
