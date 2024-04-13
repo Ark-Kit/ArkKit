@@ -184,6 +184,7 @@
 		945441232BC98DB100E90ECE /* SnakeGameApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441222BC98DB100E90ECE /* SnakeGameApple.swift */; };
 		945441252BC99D8800E90ECE /* SnakeGridPositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */; };
 		945441272BCA81BB00E90ECE /* SnakeGameHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441262BCA81BB00E90ECE /* SnakeGameHelpers.swift */; };
+		9454412A2BCAA40A00E90ECE /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 945441292BCAA40A00E90ECE /* apple.png */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
 		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
@@ -426,6 +427,7 @@
 		945441222BC98DB100E90ECE /* SnakeGameApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameApple.swift; sourceTree = "<group>"; };
 		945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGridPositionComponent.swift; sourceTree = "<group>"; };
 		945441262BCA81BB00E90ECE /* SnakeGameHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameHelpers.swift; sourceTree = "<group>"; };
+		945441292BCAA40A00E90ECE /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
 		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
@@ -829,6 +831,7 @@
 		02D8E91D2BAC419400BF3A07 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				945441282BCAA3FB00E90ECE /* Snake */,
 				02D8E8F62BAC419400BF3A07 /* Explosion */,
 				02D8E9012BAC419400BF3A07 /* Maps */,
 				02D8E9172BAC419400BF3A07 /* Shot */,
@@ -1112,6 +1115,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		945441282BCAA3FB00E90ECE /* Snake */ = {
+			isa = PBXGroup;
+			children = (
+				945441292BCAA40A00E90ECE /* apple.png */,
+			);
+			path = Snake;
 			sourceTree = "<group>";
 		};
 		945F7F7F2BA55E4E00933629 /* input */ = {
@@ -1529,6 +1540,7 @@
 				02D8E9212BAC419400BF3A07 /* Sprite_Effects_Explosion_004.png in Resources */,
 				02D8E9372BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_007.png in Resources */,
 				02D8E9312BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png in Resources */,
+				9454412A2BCAA40A00E90ECE /* apple.png in Resources */,
 				02D8E9262BAC419400BF3A07 /* lake.png in Resources */,
 				02D8E92B2BAC419400BF3A07 /* stones_2.png in Resources */,
 				943D418F2BAEC50E00F9E88F /* shoot.mp3 in Resources */,
