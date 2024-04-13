@@ -78,6 +78,31 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
             }
             self.displayContext.updateScreenSize(resizeEvent.eventData.newSize)
         }
+
+        arkState.eventManager.subscribe(to: PauseGameLoopEvent.self) { [weak self] event in
+            guard let pauseGameLoopEvent = event as? PauseGameLoopEvent,
+                  let self = self else {
+                return
+            }
+            self.gameLoop?.pauseLoop()
+        }
+
+        arkState.eventManager.subscribe(to: ResumeGameLoopEvent.self) { [weak self] event in
+            guard let resumeGameLoopEvent = event as? ResumeGameLoopEvent,
+                  let self = self else {
+                return
+            }
+            self.gameLoop?.resumeLoop()
+
+        }
+
+        arkState.eventManager.subscribe(to: TerminateGameLoopEvent.self) { [weak self] event in
+            guard let terminateGameEvent = event as? TerminateGameLoopEvent,
+                  let self = self else {
+                return
+            }
+            self.gameLoop?.shutDown()
+        }
     }
 
     private func setup(_ rules: [any Rule]) {
@@ -122,7 +147,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         }
 
         for rule in timeRules {
-            guard let action = rule.action as? any Action<TimeInterval, ExternalResources> else {
+            guard let action = rule.action as? any Action<ArkTimeFacade, ExternalResources> else {
                 continue
             }
             let system = ArkUpdateSystem(action: action, context: self.actionContext)

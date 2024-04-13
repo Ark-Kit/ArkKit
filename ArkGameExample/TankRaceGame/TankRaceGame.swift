@@ -122,6 +122,12 @@ class TankRaceGame {
         .on(TankMoveEvent.self) { event, context in
             self.handleTankMoveJoystick(event, in: context)
         }
+//        .forEachTick { timeFacade, context in
+//            print("in tick", timeFacade.clockTimeInSecondsGame, timeFacade.deltaTime)
+//            if timeFacade.clockTimeInSecondsGame >= 3 && timeFacade.clockTimeInSecondsGame <= 4 {
+//                context.events.emit(PauseGameLoopEvent(eventData: PauseGameLoopEventData(timeInGame: timeFacade.clockTimeInSecondsGame)))
+//            }
+//        }
     }
 
     private func setupButtons(screenWidth: CGFloat, screenHeight: CGFloat,
@@ -272,27 +278,6 @@ class TankRaceGame {
                 position: CGPoint(x: screenWidth * 9 / 12, y: screenHeight * 10 / 11))
             ecs.upsertComponent(positionComponent, to: button3Entity)
         }
-
-//        if let fireButton1 = fireButton1,
-//           let button1Entity = ecs.getEntity(id: fireButton1) {
-//            let positionComponent = PositionComponent(
-//                position: CGPoint(x: screenWidth * 1 / 12, y: screenHeight * 8  / 9))
-//            ecs.upsertComponent(positionComponent, to: button1Entity)
-//        }
-//
-//        if let moveButton2 = moveButton2,
-//           let button2Entity = ecs.getEntity(id: moveButton2) {
-//            let positionComponent = PositionComponent(
-//                position: CGPoint(x: screenWidth * 5 / 12, y: screenHeight * 8  / 9))
-//            ecs.upsertComponent(positionComponent, to: button2Entity)
-//        }
-//
-//        if let moveButton3 = moveButton3,
-//           let button3Entity = ecs.getEntity(id: moveButton3) {
-//            let positionComponent = PositionComponent(
-//                position: CGPoint(x: screenWidth * 9 / 12, y: screenHeight * 8  / 9))
-//            ecs.upsertComponent(positionComponent, to: button3Entity)
-//        }
 
         adjustCameraOnResize(camera1, screenSize: screenSize, ecs: ecs, index: 1)
         adjustCameraOnResize(camera2, screenSize: screenSize, ecs: ecs, index: 2)

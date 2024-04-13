@@ -5,6 +5,8 @@ protocol GameLoop {
     func update()
     func getDeltaTime() -> Double
     func shutDown()
+    func pauseLoop()
+    func resumeLoop()
 }
 
 protocol ArkGameWorldUpdateLoopDelegate: AnyObject {
