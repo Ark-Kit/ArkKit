@@ -183,6 +183,7 @@
 		945441212BC9639E00E90ECE /* SnakeGameTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441202BC9639E00E90ECE /* SnakeGameTick.swift */; };
 		945441232BC98DB100E90ECE /* SnakeGameApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441222BC98DB100E90ECE /* SnakeGameApple.swift */; };
 		945441252BC99D8800E90ECE /* SnakeGridPositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */; };
+		945441272BCA81BB00E90ECE /* SnakeGameHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441262BCA81BB00E90ECE /* SnakeGameHelpers.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
 		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
@@ -424,6 +425,7 @@
 		945441202BC9639E00E90ECE /* SnakeGameTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameTick.swift; sourceTree = "<group>"; };
 		945441222BC98DB100E90ECE /* SnakeGameApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameApple.swift; sourceTree = "<group>"; };
 		945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGridPositionComponent.swift; sourceTree = "<group>"; };
+		945441262BCA81BB00E90ECE /* SnakeGameHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameHelpers.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
 		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
@@ -1060,6 +1062,7 @@
 				9454410E2BC9201400E90ECE /* Utils */,
 				945441032BC9178400E90ECE /* SnakeGame.swift */,
 				945441142BC9424F00E90ECE /* SnakeGameEntityCreator.swift */,
+				945441262BCA81BB00E90ECE /* SnakeGameHelpers.swift */,
 			);
 			path = SnakeGame;
 			sourceTree = "<group>";
@@ -1669,6 +1672,7 @@
 				28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */,
 				28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
+				945441272BCA81BB00E90ECE /* SnakeGameHelpers.swift in Sources */,
 				8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */,
 				945441212BC9639E00E90ECE /* SnakeGameTick.swift in Sources */,
 				941BE2202BC104D000707997 /* TankGameSounds.swift in Sources */,

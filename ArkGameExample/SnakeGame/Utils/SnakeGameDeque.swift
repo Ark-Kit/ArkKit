@@ -16,20 +16,24 @@ protocol SnakeGameDequeProtocol {
 
 struct SnakeGameDeque<T: Hashable>: SnakeGameDequeProtocol {
     private var deque = Deque<T>()
-    private var hashMap: [T: Int] = [:]
 
     var first: T? { deque.first }
     var last: T? { deque.last }
-    var elements: [T] { Array(hashMap.keys) }
+    var elements: [T] {
+        var copy = deque
+        var result: [T] = []
+        while let element = copy.popFirst() {
+            result.append(element)
+        }
+        return result
+    }
 
     mutating func append(_ element: T) {
         deque.append(element)
-        incrementHashMap(value: element)
     }
 
     mutating func prepend(_ element: T) {
         deque.prepend(element)
-        incrementHashMap(value: element)
     }
 
     @discardableResult
@@ -37,7 +41,6 @@ struct SnakeGameDeque<T: Hashable>: SnakeGameDequeProtocol {
         guard let element = deque.popLast() else {
             return nil
         }
-        decrementHashMap(value: element)
         return element
     }
 
@@ -46,21 +49,6 @@ struct SnakeGameDeque<T: Hashable>: SnakeGameDequeProtocol {
         guard let element = deque.popFirst() else {
             return nil
         }
-        decrementHashMap(value: element)
         return element
-    }
-}
-
-// MARK: Helpers
-extension SnakeGameDeque {
-    mutating func incrementHashMap(value: T) {
-        hashMap[value] = hashMap[value] ?? 0 + 1
-    }
-
-    mutating func decrementHashMap(value: T) {
-        hashMap[value] = (hashMap[value] ?? 0) - 1
-        if hashMap[value] ?? 0 <= 0 {
-            hashMap[value] = nil
-        }
     }
 }

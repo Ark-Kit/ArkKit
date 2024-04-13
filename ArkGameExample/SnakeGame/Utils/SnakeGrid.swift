@@ -20,6 +20,10 @@ struct SnakeGrid {
         return CGPoint(x: x, y: y)
     }
 
+    func contains(_ gridPosition: SnakeGridPosition) -> Bool {
+        gridPosition.x >= 0 && gridPosition.x < cols && gridPosition.y >= 0 && gridPosition.y < rows
+    }
+
     func getRandomEmptyBox(_ occupiedGridPositions: [SnakeGridPosition]) -> SnakeGridPosition {
         let set = Set(occupiedGridPositions)
         let totalBoxes = rows * cols
@@ -42,11 +46,12 @@ extension SnakeGrid {
     func tick(ecs: ArkECSContext) {
         updatePositions(ecs: ecs)
         handleBodyCutoff(ecs: ecs)
+        handlePlayerSuicide(ecs: ecs)
+        handleOutOfBounds(ecs: ecs)
     }
 
     /// Handles moving of snake body and eating of apples.
     private func updatePositions(ecs: ArkECSContext) {
-        let snakes = ecs.getEntities(with: [SnakeComponent.self])
         let apples = ecs.getEntities(with: [SnakeGameApple.self])
         let applePositionToEntityMapping: [SnakeGridPosition: Entity] = apples.reduce(into: [:]) { result, entity in
             guard let gridPosition = ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: entity) else {
@@ -56,39 +61,31 @@ extension SnakeGrid {
             result[gridPosition.gridPosition] = entity
         }
 
-        for snake in snakes {
-            guard let snakeComponent = ecs.getComponent(ofType: SnakeComponent.self, for: snake) else {
-                assertionFailure("Unable to get SnakeComponent on Snake entity")
-                continue
-            }
-            guard let head = snakeComponent.occupies.first,
-                  let headBlockGridComponent = ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: head)
-            else {
-                assertionFailure("Unable to get head body block's SnakeGridPositionComponent of SnakeComponent")
-                continue
-            }
+        SnakeGameHelpers(ecs: ecs).forEachSnake { context in
+            let snake = context.snake
+            let snakeComponent = context.snakeComponent
+            let headPosition = context.bodyPositions[0]
 
             // Always create the next head block
             var copy = snakeComponent
-            let nextBlockGridPosition = headBlockGridComponent.gridPosition.applyDelta(snakeComponent.direction)
-            let nextBlock = SnakeGameEntityCreator.createBodyBlockEntity(at: nextBlockGridPosition,
+            let nextBlockPosition = headPosition.applyDelta(snakeComponent.direction)
+            let nextBlock = SnakeGameEntityCreator.createBodyBlockEntity(at: nextBlockPosition,
                                                                          with: self,
                                                                          in: ecs)
             copy.occupies.prepend(nextBlock)
 
             // Account for presence of apple
-            if let appleEntity = applePositionToEntityMapping[nextBlockGridPosition] {
-                // If apple is eaten, remove the apple entity
+            if let appleEntity = applePositionToEntityMapping[nextBlockPosition] {
+                // Eat apple -> remove apple entity
                 ecs.removeEntity(appleEntity)
             } else {
                 // Else pop the tail block
                 guard let last = copy.occupies.popLast() else {
                     assertionFailure("Snake tail not found!")
-                    continue
+                    return
                 }
                 ecs.removeEntity(last)
             }
-
             ecs.upsertComponent(copy, to: snake)
         }
     }
@@ -98,13 +95,13 @@ extension SnakeGrid {
     private func handleBodyCutoff(ecs: ArkECSContext) {
         // Gather all updates before applying them together
         var updates: [Entity: (SnakeComponent, [Entity])] = [:]
-
         let snakes = ecs.getEntities(with: [SnakeComponent.self])
-        for snake in snakes {
-            guard let snakeComponent = ecs.getComponent(ofType: SnakeComponent.self, for: snake) else {
-                assertionFailure("Cannot get SnakeComponent on Snake entity!")
-                continue
-            }
+
+        SnakeGameHelpers(ecs: ecs).forEachSnake { context in
+            let snake = context.snake
+            let snakeComponent = context.snakeComponent
+            let ownBodyPositions = context.bodyPositions
+
             var copy = snakeComponent
 
             let otherSnakes = snakes.filter { s in s != snake }
@@ -116,13 +113,9 @@ extension SnakeGrid {
                     ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: otherSnakeHead)?.gridPosition
                 }
 
-            let ownBodyBlockPositions = snakeComponent.occupies.elements.compactMap { blockEntityId in
-                ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: blockEntityId)?.gridPosition
-            }
-
             var toBeRemoved: [Entity] = []
             for otherSnakeHeadPosition in otherSnakeHeadPositions
-            where ownBodyBlockPositions.contains(otherSnakeHeadPosition) {
+            where ownBodyPositions.contains(otherSnakeHeadPosition) {
                 while true {
                     guard let lastBlockId = copy.occupies.last,
                           let lastBlockPosition = ecs.getComponent(ofType: SnakeGridPositionComponent.self,
@@ -149,6 +142,42 @@ extension SnakeGrid {
             for item in toBeRemoved {
                 ecs.removeEntity(item)
             }
+        }
+    }
+
+    private func handlePlayerSuicide(ecs: ArkECSContext) {
+        SnakeGameHelpers(ecs: ecs).forEachSnake { context in
+            let snake = context.snake
+            let snakeComponent = context.snakeComponent
+            var bodyPositions = context.bodyPositions
+
+            let headPosition = bodyPositions[0]
+            bodyPositions.remove(at: 0)
+
+            guard bodyPositions.contains(headPosition) else {
+                return
+            }
+
+            // Handle player suicide
+            snakeComponent.occupies.elements.forEach { blockId in ecs.removeEntity(blockId) }
+            ecs.removeEntity(snake)
+        }
+    }
+
+    private func handleOutOfBounds(ecs: ArkECSContext) {
+        SnakeGameHelpers(ecs: ecs).forEachSnake { context in
+            let snake = context.snake
+            let snakeComponent = context.snakeComponent
+            let bodyPositions = context.bodyPositions
+            let headPosition = bodyPositions[0]
+
+            guard !self.contains(headPosition) else {
+                return
+            }
+
+            // Handle out of bounds
+            snakeComponent.occupies.elements.forEach { blockId in ecs.removeEntity(blockId) }
+            ecs.removeEntity(snake)
         }
     }
 }
