@@ -1,6 +1,9 @@
 @testable import ArkKit
 
 class MockECSContext: ArkECSContext {
+    func removeComponent<T>(ofType type: T.Type, from entity: ArkKit.Entity) where T: ArkKit.Component {
+    }
+
     func createEntity() -> ArkKit.Entity {
         ArkKit.Entity()
     }
