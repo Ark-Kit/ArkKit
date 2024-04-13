@@ -64,7 +64,9 @@ extension SnakeGrid {
         SnakeGameHelpers(ecs: ecs).forEachSnake { context in
             let snake = context.snake
             let snakeComponent = context.snakeComponent
-            let headPosition = context.bodyPositions[0]
+            guard let headPosition = context.bodyPositions.first else {
+                return
+            }
 
             // Always create the next head block
             var copy = snakeComponent
@@ -151,7 +153,9 @@ extension SnakeGrid {
             let snakeComponent = context.snakeComponent
             var bodyPositions = context.bodyPositions
 
-            let headPosition = bodyPositions[0]
+            guard let headPosition = bodyPositions.first else {
+                return
+            }
             bodyPositions.remove(at: 0)
 
             guard bodyPositions.contains(headPosition) else {
@@ -169,7 +173,9 @@ extension SnakeGrid {
             let snake = context.snake
             let snakeComponent = context.snakeComponent
             let bodyPositions = context.bodyPositions
-            let headPosition = bodyPositions[0]
+            guard let headPosition = bodyPositions.first else {
+                return
+            }
 
             guard !self.contains(headPosition) else {
                 return

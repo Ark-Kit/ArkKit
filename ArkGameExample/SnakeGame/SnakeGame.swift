@@ -167,7 +167,14 @@ extension SnakeGame {
 
     private func setupWinLoseConditions() {
         blueprint = blueprint
-            .forEachTick { _, _ in
+            .forEachTick { timeContext, actionContext in
+                let ecs = actionContext.ecs
+                let snakes = ecs.getEntities(with: [SnakeComponent.self])
+
+                if snakes.count <= 1 {
+                    let eventData = TerminateGameLoopEventData(timeInGame: timeContext.clockTimeInSecondsGame)
+                    actionContext.events.emit(TerminateGameLoopEvent(eventData: eventData))
+                }
             }
     }
 }
