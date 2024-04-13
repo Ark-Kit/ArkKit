@@ -185,6 +185,8 @@
 		945441252BC99D8800E90ECE /* SnakeGridPositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */; };
 		945441272BCA81BB00E90ECE /* SnakeGameHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441262BCA81BB00E90ECE /* SnakeGameHelpers.swift */; };
 		9454412A2BCAA40A00E90ECE /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 945441292BCAA40A00E90ECE /* apple.png */; };
+		945441372BCAD62600E90ECE /* CollisionHandlingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441362BCAD62600E90ECE /* CollisionHandlingStrategy.swift */; };
+		945441392BCAD64400E90ECE /* CollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945441382BCAD64400E90ECE /* CollisionStrategyManager.swift */; };
 		945F7F852BA55ECA00933629 /* UIKitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F842BA55ECA00933629 /* UIKitButton.swift */; };
 		945F7F932BA8861300933629 /* AbstractTappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F922BA8861300933629 /* AbstractTappable.swift */; };
 		945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F7F9A2BA8912200933629 /* AbstractPannable.swift */; };
@@ -428,6 +430,8 @@
 		945441242BC99D8800E90ECE /* SnakeGridPositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGridPositionComponent.swift; sourceTree = "<group>"; };
 		945441262BCA81BB00E90ECE /* SnakeGameHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameHelpers.swift; sourceTree = "<group>"; };
 		945441292BCAA40A00E90ECE /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
+		945441362BCAD62600E90ECE /* CollisionHandlingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionHandlingStrategy.swift; sourceTree = "<group>"; };
+		945441382BCAD64400E90ECE /* CollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionStrategyManager.swift; sourceTree = "<group>"; };
 		945F7F842BA55ECA00933629 /* UIKitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitButton.swift; sourceTree = "<group>"; };
 		945F7F922BA8861300933629 /* AbstractTappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractTappable.swift; sourceTree = "<group>"; };
 		945F7F9A2BA8912200933629 /* AbstractPannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPannable.swift; sourceTree = "<group>"; };
@@ -682,6 +686,7 @@
 				945441022BC9176400E90ECE /* SnakeGame */,
 				0266151B2BC1402400B56A85 /* TankRaceGame */,
 				AD36A7522BAC0A59003E938B /* TankGame */,
+				945441342BCAD5ED00E90ECE /* Utils */,
 				AD787A502B9C636F003EBBD0 /* AppDelegate.swift */,
 				AD787A522B9C636F003EBBD0 /* SceneDelegate.swift */,
 				AD787A542B9C636F003EBBD0 /* RootViewController.swift */,
@@ -1123,6 +1128,23 @@
 				945441292BCAA40A00E90ECE /* apple.png */,
 			);
 			path = Snake;
+			sourceTree = "<group>";
+		};
+		945441342BCAD5ED00E90ECE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				945441352BCAD61100E90ECE /* CollisionHandling */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		945441352BCAD61100E90ECE /* CollisionHandling */ = {
+			isa = PBXGroup;
+			children = (
+				945441362BCAD62600E90ECE /* CollisionHandlingStrategy.swift */,
+				945441382BCAD64400E90ECE /* CollisionStrategyManager.swift */,
+			);
+			path = CollisionHandling;
 			sourceTree = "<group>";
 		};
 		945F7F7F2BA55E4E00933629 /* input */ = {
@@ -1786,9 +1808,11 @@
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
 				02C395282BA891AA0075F1CA /* ArkUIKitRenderableBuilder.swift in Sources */,
 				9454410D2BC91FE500E90ECE /* SnakeComponent.swift in Sources */,
+				945441372BCAD62600E90ECE /* CollisionHandlingStrategy.swift in Sources */,
 				941BE2242BC1317900707997 /* SoundPlayer.swift in Sources */,
 				280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,
+				945441392BCAD64400E90ECE /* CollisionStrategyManager.swift in Sources */,
 				AD2B59AC2BB87F2200198E99 /* ArkNetworkService.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
 				02C3950B2BA5F8030075F1CA /* ArkECSContext.swift in Sources */,
