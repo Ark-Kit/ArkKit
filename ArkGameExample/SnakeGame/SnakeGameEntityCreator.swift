@@ -59,37 +59,34 @@ struct SnakeGameEntityCreator {
         ])
     }
 
-    @discardableResult
-    static func createJoystick(center: CGPoint,
-                               snakeEntity: Entity,
-                               in ecsContext: ArkECSContext) -> Entity {
-        ecsContext.createEntity(with: [
-            JoystickRenderableComponent(radius: 40)
-                .shouldRerender { old, new in
-                    old.center != new.center
+    static func addJoystick(center: CGPoint, snakeEntity: Entity, in ecsContext: ArkECSContext) {
+        let joystickComponent = JoystickRenderableComponent(radius: 40)
+            .shouldRerender { old, new in
+                old.center != new.center
+            }
+            .center(center)
+            .zPosition(999)
+            .layer(.screen)
+            .onPanChange { angle, _ in
+                guard let snakeComponent = ecsContext.getComponent(
+                    ofType: SnakeComponent.self,
+                    for: snakeEntity
+                ) else {
+                    assertionFailure("Snake entity does not contain SnakeComponent!")
+                    return
                 }
-                .center(center)
-                .zPosition(999)
-                .layer(.screen)
-                .onPanChange { angle, _ in
-                    guard let snakeComponent = ecsContext.getComponent(
-                        ofType: SnakeComponent.self,
-                        for: snakeEntity
-                    ) else {
-                        assertionFailure("Snake entity does not contain SnakeComponent!")
-                        return
-                    }
 
-                    let direction = SnakeGameDirection.fromRadians(angle)
+                let direction = SnakeGameDirection.fromRadians(angle)
 
-                    // Prevent snake from going back onto itself
-                    if snakeComponent.direction.opposite == direction {
-                        return
-                    }
-
-                    let updatedSnakeComponent = SnakeComponent(snakeComponent.occupies, direction: direction)
-                    ecsContext.upsertComponent(updatedSnakeComponent, to: snakeEntity)
+                // Prevent snake from going back onto itself
+                if snakeComponent.direction.opposite == direction {
+                    return
                 }
-        ])
+
+                let updatedSnakeComponent = SnakeComponent(snakeComponent.occupies, direction: direction)
+                ecsContext.upsertComponent(updatedSnakeComponent, to: snakeEntity)
+            }
+
+        ecsContext.upsertComponent(joystickComponent, to: snakeEntity)
     }
 }

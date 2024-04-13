@@ -85,12 +85,12 @@ extension SnakeGame {
                     return
                 }
 
-                SnakeGameEntityCreator.createJoystick(
+                SnakeGameEntityCreator.addJoystick(
                     center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
                     snakeEntity: snakeEntity1,
                     in: context.ecs)
 
-                SnakeGameEntityCreator.createJoystick(
+                SnakeGameEntityCreator.addJoystick(
                     center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
                     snakeEntity: snakeEntity2,
                     in: context.ecs)
