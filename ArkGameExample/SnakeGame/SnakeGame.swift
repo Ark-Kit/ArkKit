@@ -19,7 +19,14 @@ class SnakeGame {
         setupBackground()
         setupPlayer()
         setupSnakeGameTick()
-        updateSnakePositions()
+        updateSnakePositions(
+            initialTicksPerSecond: 1,
+            getScalingFactor: { currentTime in
+                let speedUpTwiceAfterXSeconds: Double = 15
+                let scalingFactor = (currentTime / speedUpTwiceAfterXSeconds) + 1
+                let maxScalingFactor: Double = 10
+                return min(scalingFactor, maxScalingFactor)
+            })
         appleSpawner()
         setupWinLoseConditions()
     }
@@ -99,7 +106,7 @@ extension SnakeGame {
             }
     }
 
-    private func updateSnakePositions() {
+    private func updateSnakePositions(initialTicksPerSecond: Double, getScalingFactor: @escaping (Double) -> Double) {
         blueprint = blueprint
             .forEachTick { _, context in
                 let ecs = context.ecs
@@ -107,19 +114,26 @@ extension SnakeGame {
                 let stopwatchEntities = ecs.getEntities(with: [StopWatchComponent.self])
                 let snakeGameTickEntities = ecs.getEntities(with: [SnakeGameTick.self])
 
+                let getTickNumber: (Double) -> Double = { currentTime in
+                    let speedScalingFactor = getScalingFactor(currentTime)
+                    let ticksPerSecond: Double = initialTicksPerSecond * speedScalingFactor
+
+                    return (currentTime * ticksPerSecond).rounded()
+                }
+
                 guard !stopwatchEntities.isEmpty,
                       !snakeGameTickEntities.isEmpty,
                       let stopwatchComponent = ecs.getComponent(ofType: StopWatchComponent.self,
                                                                 for: stopwatchEntities[0]),
                       let snakeGameTickComponent = ecs.getComponent(ofType: SnakeGameTick.self,
                                                                     for: snakeGameTickEntities[0]),
-                      stopwatchComponent.currentTime.rounded() != snakeGameTickComponent.elapsed.rounded()
+                      getTickNumber(stopwatchComponent.currentTime) != snakeGameTickComponent.elapsed
                 else {
                     return
                 }
 
-                // Every second
-                ecs.upsertComponent(SnakeGameTick(elapsed: stopwatchComponent.currentTime.rounded()),
+                // Apply tick
+                ecs.upsertComponent(SnakeGameTick(elapsed: getTickNumber(stopwatchComponent.currentTime)),
                                     to: snakeGameTickEntities[0])
 
                 self.grid.tick(ecs: ecs)
