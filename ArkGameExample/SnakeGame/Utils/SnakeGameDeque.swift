@@ -5,15 +5,13 @@ protocol SnakeGameDequeProtocol {
 
     var first: T? { get }
     var last: T? { get }
+    var elements: [T] { get }
 
     // Deque operations
     mutating func append(_ element: T)
     mutating func prepend(_ element: T)
     @discardableResult mutating func popLast() -> T?
     @discardableResult mutating func popFirst() -> T?
-
-    // O(1) set contains operation
-    func contains(_ element: T) -> Bool
 }
 
 struct SnakeGameDeque<T: Hashable>: SnakeGameDequeProtocol {
@@ -22,6 +20,7 @@ struct SnakeGameDeque<T: Hashable>: SnakeGameDequeProtocol {
 
     var first: T? { deque.first }
     var last: T? { deque.last }
+    var elements: [T] { Array(hashMap.keys) }
 
     mutating func append(_ element: T) {
         deque.append(element)
@@ -50,10 +49,6 @@ struct SnakeGameDeque<T: Hashable>: SnakeGameDequeProtocol {
         decrementHashMap(value: element)
         return element
     }
-
-    func contains(_ element: T) -> Bool {
-        hashMap[element] != nil
-    }
 }
 
 // MARK: Helpers
@@ -63,7 +58,7 @@ extension SnakeGameDeque {
     }
 
     mutating func decrementHashMap(value: T) {
-        hashMap[value] = hashMap[value] ?? 0 - 1
+        hashMap[value] = (hashMap[value] ?? 0) - 1
         if hashMap[value] ?? 0 <= 0 {
             hashMap[value] = nil
         }

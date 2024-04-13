@@ -52,13 +52,13 @@ extension SnakeGame {
             // Setup initial snake entity representation
             .setup { context in
                 let snakeEntity1 = SnakeGameEntityCreator.createSnakeEntity(
-                    with: SnakeEntityCreationContext(length: 3,
+                    with: SnakeEntityCreationContext(length: 10,
                                                      head: SnakeGridPosition(x: 10, y: 10),
                                                      facingDirection: .east,
                                                      grid: self.grid),
                     in: context.ecs)
                 let snakeEntity2 = SnakeGameEntityCreator.createSnakeEntity(
-                    with: SnakeEntityCreationContext(length: 1,
+                    with: SnakeEntityCreationContext(length: 10,
                                                      head: SnakeGridPosition(x: 20, y: 20),
                                                      facingDirection: .west,
                                                      grid: self.grid),

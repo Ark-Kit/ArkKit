@@ -96,6 +96,59 @@ extension SnakeGrid {
     /// Handles case where a snake's body is 'eaten'/ 'cutoff' by another snake's head.
     /// The eaten snake's body should be truncated from the overlapping block to its tail.
     private func handleBodyCutoff(ecs: ArkECSContext) {
-        // TODO: Implement
+        // Gather all updates before applying them together
+        var updates: [Entity: (SnakeComponent, [Entity])] = [:]
+
+        let snakes = ecs.getEntities(with: [SnakeComponent.self])
+        for snake in snakes {
+            guard let snakeComponent = ecs.getComponent(ofType: SnakeComponent.self, for: snake) else {
+                assertionFailure("Cannot get SnakeComponent on Snake entity!")
+                continue
+            }
+            var copy = snakeComponent
+
+            let otherSnakes = snakes.filter { s in s != snake }
+            let otherSnakeHeadPositions = otherSnakes
+                .compactMap { otherSnake in
+                    ecs.getComponent(ofType: SnakeComponent.self, for: otherSnake)?.occupies.first
+                }
+                .compactMap { otherSnakeHead in
+                    ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: otherSnakeHead)?.gridPosition
+                }
+
+            let ownBodyBlockPositions = snakeComponent.occupies.elements.compactMap { blockEntityId in
+                ecs.getComponent(ofType: SnakeGridPositionComponent.self, for: blockEntityId)?.gridPosition
+            }
+
+            var toBeRemoved: [Entity] = []
+            for otherSnakeHeadPosition in otherSnakeHeadPositions
+            where ownBodyBlockPositions.contains(otherSnakeHeadPosition) {
+                while true {
+                    guard let lastBlockId = copy.occupies.last,
+                          let lastBlockPosition = ecs.getComponent(ofType: SnakeGridPositionComponent.self,
+                                                                   for: lastBlockId)?.gridPosition
+                    else {
+                        assertionFailure("Cannot get last block position on Snake entity!")
+                        break
+                    }
+
+                    copy.occupies.popLast()
+                    toBeRemoved.append(lastBlockId)
+
+                    if lastBlockPosition == otherSnakeHeadPosition {
+                        break
+                    }
+                }
+            }
+            updates[snake] = (copy, toBeRemoved)
+        }
+
+        // Apply updates
+        for (snake, (snakeComponent, toBeRemoved)) in updates {
+            ecs.upsertComponent(snakeComponent, to: snake)
+            for item in toBeRemoved {
+                ecs.removeEntity(item)
+            }
+        }
     }
 }
