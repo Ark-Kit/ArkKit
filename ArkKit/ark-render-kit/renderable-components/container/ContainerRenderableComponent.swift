@@ -51,4 +51,5 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
         copy.mask = CGRect(origin: origin, size: size)
         return copy
     }
+
 }

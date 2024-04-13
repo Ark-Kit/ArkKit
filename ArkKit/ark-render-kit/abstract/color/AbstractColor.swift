@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum AbstractColor {
+enum AbstractColor: Codable {
     case `default`, blue, red, green, black
 }

@@ -28,11 +28,11 @@ extension ShapeRenderableComponent {
     }
 }
 
-struct ShapeFillInfo {
+struct ShapeFillInfo: Codable {
     let color: AbstractColor
 }
 
-struct ShapeStrokeInfo {
+struct ShapeStrokeInfo: Codable {
     let lineWidth: Double
     let color: AbstractColor
 }

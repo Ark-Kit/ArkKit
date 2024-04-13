@@ -61,3 +61,42 @@ extension BitmapImageRenderableComponent: AbstractBitmap {
         return copy
     }
 }
+
+extension BitmapImageRenderableComponent: SendableComponent {
+    enum CodingKeys: String, CodingKey {
+        case center, rotation, zPosition, renderLayer, isUserInteractionEnabled, width, height,
+             imageResourcePath, isClipToBounds, isScaleAspectFit, isScaleToFill, isScaleAspectFill
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        center = try container.decode(CGPoint.self, forKey: .center)
+        rotation = try container.decode(Double.self, forKey: .rotation)
+        zPosition = try container.decode(Double.self, forKey: .zPosition)
+        renderLayer = try container.decode(RenderLayer.self, forKey: .renderLayer)
+        isUserInteractionEnabled = try container.decode(Bool.self, forKey: .isUserInteractionEnabled)
+        width = try container.decode(Double.self, forKey: .width)
+        height = try container.decode(Double.self, forKey: .height)
+        imageResourcePath = try container.decode(String.self, forKey: .imageResourcePath)
+        isClipToBounds = try container.decode(Bool.self, forKey: .isClipToBounds)
+        isScaleAspectFit = try container.decode(Bool.self, forKey: .isScaleAspectFit)
+        isScaleToFill = try container.decode(Bool.self, forKey: .isScaleToFill)
+        isScaleAspectFill = try container.decode(Bool.self, forKey: .isScaleAspectFill)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(center, forKey: .center)
+        try container.encode(rotation, forKey: .rotation)
+        try container.encode(zPosition, forKey: .zPosition)
+        try container.encode(renderLayer, forKey: .renderLayer)
+        try container.encode(isUserInteractionEnabled, forKey: .isUserInteractionEnabled)
+        try container.encode(width, forKey: .width)
+        try container.encode(height, forKey: .height)
+        try container.encode(imageResourcePath, forKey: .imageResourcePath)
+        try container.encode(isClipToBounds, forKey: .isClipToBounds)
+        try container.encode(isScaleAspectFit, forKey: .isScaleAspectFit)
+        try container.encode(isScaleToFill, forKey: .isScaleToFill)
+        try container.encode(isScaleAspectFill, forKey: .isScaleAspectFill)
+    }
+}
