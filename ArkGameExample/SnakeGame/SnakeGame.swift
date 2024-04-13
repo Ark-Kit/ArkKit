@@ -60,14 +60,14 @@ extension SnakeGame {
             .setup { context in
                 let snakeEntity1 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
-                                                     head: SnakeGridPosition(x: 10, y: 10),
-                                                     facingDirection: .east,
+                                                     head: SnakeGridPosition(x: 15, y: 15),
+                                                     facingDirection: .south,
                                                      grid: self.grid),
                     in: context.ecs)
                 let snakeEntity2 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
-                                                     head: SnakeGridPosition(x: 20, y: 20),
-                                                     facingDirection: .west,
+                                                     head: SnakeGridPosition(x: 25, y: 25),
+                                                     facingDirection: .north,
                                                      grid: self.grid),
                     in: context.ecs)
                 self.playerIdToSnakeEntityMap[1] = snakeEntity1

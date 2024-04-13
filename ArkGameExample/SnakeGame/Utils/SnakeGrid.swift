@@ -71,10 +71,20 @@ extension SnakeGrid {
             // Always create the next head block
             var copy = snakeComponent
             let nextBlockPosition = headPosition.applyDelta(snakeComponent.direction)
-            let nextBlock = SnakeGameEntityCreator.createBodyBlockEntity(at: nextBlockPosition,
+            let nextBlock = SnakeGameEntityCreator.createHeadBlockEntity(at: nextBlockPosition,
                                                                          with: self,
                                                                          in: ecs)
             copy.occupies.prepend(nextBlock)
+
+            // Update previous head renderable
+            guard let currentHeadBlockId = snakeComponent.occupies.first else {
+                return
+            }
+            let rectComponent = RectRenderableComponent(width: Double(boxSideLength), height: Double(boxSideLength))
+                .zPosition(1)
+                .layer(.canvas)
+            ecs.removeComponent(ofType: CircleRenderableComponent.self, from: currentHeadBlockId)
+            ecs.upsertComponent(rectComponent, to: currentHeadBlockId)
 
             // Account for presence of apple
             if let appleEntity = applePositionToEntityMapping[nextBlockPosition] {
