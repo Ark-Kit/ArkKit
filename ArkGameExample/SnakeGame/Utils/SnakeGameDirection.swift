@@ -16,6 +16,14 @@ enum SnakeGameDirection {
             return .north
         }
     }
+
+    var opposite: SnakeGameDirection {
+        guard let result = snakeGameOppositeDirection[self] else {
+            assertionFailure("Missing value in snakeGameOppositeDirection for \(self)")
+            return .north
+        }
+        return result
+    }
 }
 
 struct SnakeGameDirectionDelta {

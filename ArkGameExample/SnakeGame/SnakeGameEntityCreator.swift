@@ -10,10 +10,7 @@ struct SnakeEntityCreationContext {
 struct SnakeGameEntityCreator {
     static func createSnakeEntity(with snakeCreationContext: SnakeEntityCreationContext,
                                   in ecsContext: ArkECSContext) -> Entity {
-        guard let bodyDirection = snakeGameOppositeDirection[snakeCreationContext.facingDirection] else {
-            assertionFailure("Snake opposite direction mapping missing values!")
-            return Entity()
-        }
+        let bodyDirection = snakeCreationContext.facingDirection.opposite
         let head = snakeCreationContext.head
         let grid = snakeCreationContext.grid
         var occupiedSquares = SnakeGameDeque<Entity>()
@@ -84,8 +81,13 @@ struct SnakeGameEntityCreator {
                     }
 
                     let direction = SnakeGameDirection.fromRadians(angle)
-                    let updatedSnakeComponent = SnakeComponent(snakeComponent.occupies, direction: direction)
 
+                    // Prevent snake from going back onto itself
+                    if snakeComponent.direction.opposite == direction {
+                        return
+                    }
+
+                    let updatedSnakeComponent = SnakeComponent(snakeComponent.occupies, direction: direction)
                     ecsContext.upsertComponent(updatedSnakeComponent, to: snakeEntity)
                 }
         ])
