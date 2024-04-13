@@ -108,10 +108,8 @@ extension SnakeGame {
 
     private func updateSnakePositions(initialTicksPerSecond: Double, getScalingFactor: @escaping (Double) -> Double) {
         blueprint = blueprint
-            .forEachTick { _, context in
-                let ecs = context.ecs
-
-                let stopwatchEntities = ecs.getEntities(with: [StopWatchComponent.self])
+            .forEachTick { timeContext, actionContext in
+                let ecs = actionContext.ecs
                 let snakeGameTickEntities = ecs.getEntities(with: [SnakeGameTick.self])
 
                 let getTickNumber: (Double) -> Double = { currentTime in
@@ -121,19 +119,16 @@ extension SnakeGame {
                     return (currentTime * ticksPerSecond).rounded()
                 }
 
-                guard !stopwatchEntities.isEmpty,
-                      !snakeGameTickEntities.isEmpty,
-                      let stopwatchComponent = ecs.getComponent(ofType: StopWatchComponent.self,
-                                                                for: stopwatchEntities[0]),
+                guard !snakeGameTickEntities.isEmpty,
                       let snakeGameTickComponent = ecs.getComponent(ofType: SnakeGameTick.self,
                                                                     for: snakeGameTickEntities[0]),
-                      getTickNumber(stopwatchComponent.currentTime) != snakeGameTickComponent.elapsed
+                      getTickNumber(timeContext.clockTimeInSecondsGame) != snakeGameTickComponent.elapsed
                 else {
                     return
                 }
 
                 // Apply tick
-                ecs.upsertComponent(SnakeGameTick(elapsed: getTickNumber(stopwatchComponent.currentTime)),
+                ecs.upsertComponent(SnakeGameTick(elapsed: getTickNumber(timeContext.clockTimeInSecondsGame)),
                                     to: snakeGameTickEntities[0])
 
                 self.grid.tick(ecs: ecs)
