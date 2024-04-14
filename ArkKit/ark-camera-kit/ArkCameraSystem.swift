@@ -1,3 +1,5 @@
+import Foundation
+
 class ArkCameraSystem: UpdateSystem {
     var active: Bool
 
@@ -6,20 +8,21 @@ class ArkCameraSystem: UpdateSystem {
     }
 
     func update(deltaTime: Double, arkECS: ArkECS) {
-        let entitiesWithCamera = arkECS.getEntities(with: [CameraContainerComponent.self])
+        let entitiesWithCamera = arkECS.getEntities(with: [PlacedCameraComponent.self])
 
         for entityWithCamera in entitiesWithCamera {
             guard let positionOfEntity = arkECS.getComponent(ofType: PositionComponent.self, for: entityWithCamera),
                   let cameraComp = arkECS.getComponent(
-                    ofType: CameraContainerComponent.self, for: entityWithCamera
+                    ofType: PlacedCameraComponent.self, for: entityWithCamera
                   ) else {
                 continue
             }
             // track entity holding the camera based on the entity's position
-            let updatedCameraComp = CameraContainerComponent(
+            let updatedCameraComp = PlacedCameraComponent(
                 camera: Camera(
                     canvasPosition: positionOfEntity.position,
-                    zoom: cameraComp.camera.zoom
+                    zoomWidth: cameraComp.camera.zoom.widthZoom,
+                    zoomHeight: cameraComp.camera.zoom.heightZoom
                 ),
                 screenPosition: cameraComp.screenPosition,
                 size: cameraComp.size

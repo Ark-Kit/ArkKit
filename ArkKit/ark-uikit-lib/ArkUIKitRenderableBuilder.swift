@@ -28,7 +28,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
     }
 
     func build(_ image: BitmapImageRenderableComponent) -> any Renderable<UIView> {
-        UIKitImageBitmap(imageResourcePath: image.imageResourcePath,
+        UIKitImageBitmap(imageResourcePath: image.imageResourcePath.rawValue,
                          center: image.center,
                          width: image.width,
                          height: image.height)
@@ -55,8 +55,8 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
             .applyModifiers(modifierInfo: joystick)
     }
 
-    func build(_ container: ContainerRenderableComponent) -> any Renderable<UIView> {
-        UIKitContainer(frame: container.frame)
+    func build(_ container: CameraContainerRenderableComponent) -> any Renderable<UIView> {
+        UIKitCamera(frame: container.frame)
             .zPosition(container.zPosition)
             .rotate(by: container.rotation)
             .setIsUserInteractionEnabled(container.isUserInteractionEnabled)
@@ -65,9 +65,10 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
                     comp.buildRenderable(using: self)
                 }
             )
-            .scale(byWidth: container.letterboxWidthScaleFactor,
-                   byHeight: container.letterboxHeightScaleFactor)
-            .setMask(container.mask)
+            .scaleFromOrigin(byWidth: container.zoom.widthZoom, byHeight: container.zoom.heightZoom)
+            .scaleFromOrigin(byWidth: container.letterboxWidthScaleFactor,
+                             byHeight: container.letterboxHeightScaleFactor)
+            .setMask(container.mask, on: container.trackPosition)
     }
 
     let defaultColor: UIColor = .black
@@ -76,7 +77,9 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         .blue: .blue,
         .red: .red,
         .green: .green,
-        .black: .black
+        .black: .black,
+        .gray: .gray,
+        .white: .white
     ]
 
     private func letterboxScaleFactor(rootFrame: CGRect, canvasFrame: CGRect) -> CGFloat {

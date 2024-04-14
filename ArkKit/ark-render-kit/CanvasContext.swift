@@ -4,7 +4,7 @@ protocol CanvasContext<View> {
     associatedtype View
     typealias RenderableComponentType = ObjectIdentifier
 
-    var arkView: any ArkView<View> { get }
+    var arkView: (any ArkView<View>)? { get }
     var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] { get }
 
     func getFlatCanvas() -> ArkFlatCanvas
@@ -13,7 +13,7 @@ protocol CanvasContext<View> {
 
 class ArkCanvasContext<View>: CanvasContext {
     private(set) var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] = [:]
-    private(set) var arkView: any ArkView<View>
+    private(set) weak var arkView: (any ArkView<View>)?
     private let ecs: ArkECS
 
     init(ecs: ArkECS, arkView: any ArkView<View>) {
@@ -81,6 +81,9 @@ class ArkCanvasContext<View>: CanvasContext {
     }
 
     private func render(_ renderable: any Renderable<View>) {
+        guard let arkView = arkView else {
+            return
+        }
         renderable.render(into: arkView.abstractView)
     }
 }

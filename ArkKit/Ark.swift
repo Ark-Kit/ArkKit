@@ -11,7 +11,7 @@ import Foundation
  * User of the `Ark` instance should ensure that the `arkInstance` is **binded** (strongly referenced), otherwise events
  * relying on the `arkInstance` will not emit.
  */
-class Ark<View> {
+class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     let rootView: any AbstractRootView<View>
     var arkState: ArkState
     var gameLoop: GameLoop?
@@ -19,51 +19,56 @@ class Ark<View> {
     let blueprint: ArkBlueprint
     let audioContext: AudioContext
     var multiplayerContext: ArkMultiplayerContext?
+    let blueprint: ArkBlueprint<ExternalResources>
+    let audioContext: any AudioContext<ExternalResources.AudioEnum>
+    var displayContext: DisplayContext
 
-    var displayContext: ArkDisplayContext {
-        ArkDisplayContext(
-            canvasSize: CGSize(width: blueprint.frameWidth,
-                               height: blueprint.frameHeight),
-            screenSize: rootView.size)
-    }
-
-    var actionContext: ArkActionContext {
+    var actionContext: ArkActionContext<ExternalResources> {
         ArkActionContext(ecs: arkState.arkECS,
                          events: arkState.eventManager,
                          display: displayContext,
                          audio: audioContext)
     }
 
-    var canvasRenderer: (any RenderableBuilder<View>)?
+    var canvasRenderableBuilder: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractRootView<View>,
-         blueprint: ArkBlueprint,
-         canvasRenderer: (any RenderableBuilder<View>)? = nil) {
+         blueprint: ArkBlueprint<ExternalResources>,
+         canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
         let eventManager = ArkEventManager()
         let ecsManager = ArkECS()
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
-        self.audioContext = ArkAudioPlayer()
-        self.canvasRenderer = canvasRenderer
+        self.audioContext = ArkAudioContext()
+        self.canvasRenderableBuilder = canvasRenderableBuilder
+        self.displayContext = ArkDisplayContext(
+            canvasSize: CGSize(
+                width: blueprint.frameWidth,
+                height: blueprint.frameHeight
+            ),
+            screenSize: rootView.size
+        )
     }
 
     func start() {
         setupDefaultEntities()
+        setupDefaultListeners()
         setupDefaultSystems(blueprint)
         setup(blueprint.setupFunctions)
         setup(blueprint.rules)
+        setup(blueprint.soundMapping)
         alignCamera()
 
         guard let gameLoop = self.gameLoop else {
             return
         }
-        // Initialize game with rootView, and passing in contexts (state)
-        let gameCoordinator = ArkGameCoordinator(rootView: rootView,
-                                                 arkState: arkState,
-                                                 displayContext: displayContext,
-                                                 gameLoop: gameLoop,
-                                                 canvasRenderer: canvasRenderer)
+
+        let gameCoordinator = ArkGameCoordinator<View>(rootView: rootView,
+                                                       arkState: arkState,
+                                                       displayContext: displayContext,
+                                                       gameLoop: gameLoop,
+                                                       canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
     }
 
@@ -78,6 +83,41 @@ class Ark<View> {
 
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.multiplayerContext = multiplayerManager
+    }
+
+    private func setupDefaultListeners() {
+        arkState.eventManager.subscribe(to: ScreenResizeEvent.self) { [weak self] event in
+            guard let resizeEvent = event as? ScreenResizeEvent,
+                  let self = self else {
+                return
+            }
+            self.displayContext.updateScreenSize(resizeEvent.eventData.newSize)
+        }
+
+        arkState.eventManager.subscribe(to: PauseGameLoopEvent.self) { [weak self] event in
+            guard let pauseGameLoopEvent = event as? PauseGameLoopEvent,
+                  let self = self else {
+                return
+            }
+            self.gameLoop?.pauseLoop()
+        }
+
+        arkState.eventManager.subscribe(to: ResumeGameLoopEvent.self) { [weak self] event in
+            guard let resumeGameLoopEvent = event as? ResumeGameLoopEvent,
+                  let self = self else {
+                return
+            }
+            self.gameLoop?.resumeLoop()
+
+        }
+
+        arkState.eventManager.subscribe(to: TerminateGameLoopEvent.self) { [weak self] event in
+            guard let terminateGameEvent = event as? TerminateGameLoopEvent,
+                  let self = self else {
+                return
+            }
+            self.gameLoop?.shutDown()
+        }
     }
 
     private func setup(_ rules: [any Rule]) {
@@ -122,7 +162,7 @@ class Ark<View> {
         }
 
         for rule in timeRules {
-            guard let action = rule.action as? any Action<TimeInterval> else {
+            guard let action = rule.action as? any Action<ArkTimeFacade, ExternalResources> else {
                 continue
             }
             let system = ArkUpdateSystem(action: action, context: self.actionContext)
@@ -136,11 +176,19 @@ class Ark<View> {
         }
     }
 
+    private func setup(_ soundMapping: [ExternalResources.AudioEnum: any Sound]?) {
+        guard let soundMapping = soundMapping else {
+            return
+        }
+
+        audioContext.load(soundMapping)
+    }
+
     private func setupDefaultEntities() {
         arkState.arkECS.createEntity(with: [StopWatchComponent(name: ArkTimeSystem.ARK_WORLD_TIME)])
     }
 
-    private func setupDefaultSystems(_ blueprint: ArkBlueprint) {
+    private func setupDefaultSystems(_ blueprint: ArkBlueprint<ExternalResources>) {
         let (worldWidth, worldHeight) = getWorldSize(blueprint)
 
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
@@ -164,7 +212,7 @@ class Ark<View> {
         self.gameLoop?.updatePhysicsSceneDelegate = physicsSystem
     }
 
-    private func getWorldSize(_ blueprint: ArkBlueprint) -> (width: Double, height: Double) {
+    private func getWorldSize(_ blueprint: ArkBlueprint<ExternalResources>) -> (width: Double, height: Double) {
         guard let worldEntity = arkState.arkECS.getEntities(with: [WorldComponent.self]).first,
               let worldComponent = arkState.arkECS
               .getComponent(ofType: WorldComponent.self, for: worldEntity)
@@ -175,15 +223,18 @@ class Ark<View> {
     }
 
     private func alignCamera() {
-        let cameraEntities = arkState.arkECS.getEntities(with: [CameraContainerComponent.self])
+        let cameraEntities = arkState.arkECS.getEntities(with: [PlacedCameraComponent.self])
         if !cameraEntities.isEmpty {
             return
         }
-        arkState.arkECS.createEntity(with: [CameraContainerComponent(
-            camera: Camera(canvasPosition: CGPoint(
-                x: displayContext.canvasSize.width / 2,
-                y: displayContext.canvasSize.height / 2
-            )),
+        arkState.arkECS.createEntity(with: [PlacedCameraComponent(
+            camera: Camera(
+                canvasPosition: CGPoint(
+                    x: displayContext.canvasSize.width / 2,
+                    y: displayContext.canvasSize.height / 2
+                ),
+                zoom: 1.0
+            ),
             screenPosition: CGPoint(
                 x: displayContext.screenSize.width / 2,
                 y: displayContext.screenSize.height / 2
@@ -196,8 +247,9 @@ class Ark<View> {
 extension ArkEvent {
     /// A workaround to prevent weird behavior when trying to execute
     /// `action.execute(event, context: context)`
-    func executeAction(_ action: some Action, context: ArkActionContext) {
-        guard let castedAction = action as? any Action<Self> else {
+    func executeAction<ExternalResources: ArkExternalResources>(_ action: some Action,
+                                                                context: ArkActionContext<ExternalResources>) {
+        guard let castedAction = action as? any Action<Self, ExternalResources> else {
             return
         }
 

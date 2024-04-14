@@ -2,5 +2,5 @@
 struct ArkSetupContext {
     let ecs: ArkECSContext
     let events: ArkEventContext
-    let display: ArkDisplayContext
+    let display: DisplayContext
 }

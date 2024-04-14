@@ -26,10 +26,13 @@ class ArkGameCoordinator<View> {
         guard var arkView = ArkViewFactory.generateView(rootView) else {
             return
         }
-        let canvasContext = ArkCanvasContext(ecs: arkState.arkECS,
-                                             arkView: arkView)
+        let canvasContext = ArkCanvasContext<View>(ecs: arkState.arkECS,
+                                                   arkView: arkView)
+        let cameraContext = ArkCameraContext(ecs: arkState.arkECS,
+                                             displayContext: displayContext)
         let arkGameModel = ArkGameModel(gameState: arkState,
-                                        canvasContext: canvasContext)
+                                        canvasContext: canvasContext,
+                                        cameraContext: cameraContext)
         let arkViewModel = ArkViewModel(gameModel: arkGameModel)
 
         // inject dependencies between M, V, VM
@@ -40,8 +43,6 @@ class ArkGameCoordinator<View> {
         // inject dependencies between game loop and view
         arkView.gameLoop = gameLoop
         gameLoop.updateGameWorldDelegate = arkView
-        arkView.cameraContext = ArkCameraContext(ecs: arkState.arkECS,
-                                                 displayContext: displayContext)
 
         // push view-controller to rootView
         rootView.pushView(arkView, animated: false)

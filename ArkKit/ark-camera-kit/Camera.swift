@@ -1,6 +1,6 @@
 import Foundation
 
-struct CameraContainerComponent: SendableComponent {
+struct PlacedCameraComponent: Component {
     let camera: Camera
 
     /// Screen position is the center of the camera placed on to the screen coordinate
@@ -19,10 +19,24 @@ struct Camera: Codable {
     /// Defines the anchor position within the `canvas` (game world).
     let canvasPosition: CGPoint
 
-    let zoom: Double
+    let zoom: CameraZoom
 
-    init(canvasPosition: CGPoint, zoom: Double = 1.0) {
+    init(canvasPosition: CGPoint,
+         zoom: Double = 1.0) {
         self.canvasPosition = canvasPosition
-        self.zoom = zoom
+        self.zoom = CameraZoom(widthZoom: zoom, heightZoom: zoom)
     }
+
+    init(canvasPosition: CGPoint,
+         zoomWidth: Double = 1.0,
+         zoomHeight: Double = 1.0) {
+        self.canvasPosition = canvasPosition
+        self.zoom = CameraZoom(widthZoom: zoomWidth,
+                               heightZoom: zoomHeight)
+    }
+}
+
+struct CameraZoom {
+    let widthZoom: Double
+    let heightZoom: Double
 }

@@ -1,11 +1,11 @@
 import Foundation
 
-struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable {
-    var center: CGPoint // canvas position
-    var size: CGSize // canvas position
+struct CameraContainerRenderableComponent: RenderableComponent, AbstractLetterboxable {
+    var center: CGPoint
+    var size: CGSize
     var frame: CGRect {
-        CGRect(x: center.x - size.width / 2,
-               y: center.y - size.height / 2,
+        CGRect(x: 0,
+               y: 0,
                width: size.width,
                height: size.height)
     }
@@ -15,9 +15,12 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
     var shouldRerenderDelegate: ShouldRerenderDelegate?
     var zPosition: Double = 0.0
     var rotation: Double = 0.0
+
     private(set) var letterboxWidthScaleFactor: CGFloat = 1.0
     private(set) var letterboxHeightScaleFactor: CGFloat = 1.0
-    var mask: CGRect?
+    private(set) var mask: CGRect?
+    private(set) var zoom = CameraZoom(widthZoom: 1.0, heightZoom: 1.0)
+    private(set) var trackPosition: CGPoint?
 
     let renderableComponents: [any RenderableComponent]
 
@@ -33,8 +36,13 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
 
     func letterbox(into screenSize: CGSize) -> Self {
         var copy = self
-        let widthScaleFactor = screenSize.width / self.frame.width
-        let heightScaleFactor = screenSize.height / self.frame.height
+
+        let baseWidth = self.frame.width
+        let baseHeight = self.frame.height
+
+        let widthScaleFactor = screenSize.width / baseWidth
+        let heightScaleFactor = screenSize.height / baseHeight
+
         copy.letterboxWidthScaleFactor = widthScaleFactor
         copy.letterboxHeightScaleFactor = heightScaleFactor
         return copy
@@ -52,4 +60,15 @@ struct ContainerRenderableComponent: RenderableComponent, AbstractLetterboxable 
         return copy
     }
 
+    func zoom(by zoom: CameraZoom) -> Self {
+        var copy = self
+        copy.zoom = zoom
+        return copy
+    }
+
+    func track(_ point: CGPoint) -> Self {
+        var copy = self
+        copy.trackPosition = point
+        return copy
+    }
 }

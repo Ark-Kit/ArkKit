@@ -9,6 +9,5 @@ import Foundation
  */
 protocol GameStateRenderer<View>: AnyObject {
     associatedtype View
-    var cameraContext: CameraContext? { get set }
-    func render(flatCanvas: Canvas, with canvasContext: any CanvasContext<View>)
+    func render(_ canvas: Canvas, with canvasContext: any CanvasContext<View>)
 }
