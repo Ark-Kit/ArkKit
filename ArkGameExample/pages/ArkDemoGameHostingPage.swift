@@ -6,11 +6,16 @@ class ArkDemoGameHostingPage<T: ArkExternalResources>: UIViewController {
     // inject blueprint here
     var arkBlueprint: ArkBlueprint<T>?
     var ark: Ark<UIView, T>?
+    var shouldShowMultiplayerOptions = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let blueprint = arkBlueprint else {
             return
+        }
+
+        if shouldShowMultiplayerOptions {
+            presentMultiplayerOptions()
         }
 
         // Example on how to inject views into ark blueprint after win/ termination
@@ -22,6 +27,12 @@ class ArkDemoGameHostingPage<T: ArkExternalResources>: UIViewController {
         // load blueprint
         ark = Ark(rootView: self, blueprint: blueprint)
         ark?.start()
+    }
+
+    private func presentMultiplayerOptions() {
+        let popover = ArkDemoMultiplayerPopover()
+        popover.modalPresentationStyle = .overFullScreen
+        self.present(popover, animated: true)
     }
 }
 
