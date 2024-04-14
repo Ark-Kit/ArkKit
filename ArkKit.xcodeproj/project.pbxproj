@@ -128,7 +128,7 @@
 		286C09C22BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */; };
 		2882ABF92BCB78060042AC52 /* BitmapImageRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882ABF82BCB78060042AC52 /* BitmapImageRenderableComponent+SendableComponent.swift */; };
 		2882ABFB2BCB784C0042AC52 /* RectRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882ABFA2BCB784C0042AC52 /* RectRenderableComponent+SendableComponent.swift */; };
-		2882ABFD2BCB7BA20042AC52 /* CircleRendarableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882ABFC2BCB7BA20042AC52 /* CircleRendarableComponent+SendableComponent.swift */; };
+		2882ABFD2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882ABFC2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift */; };
 		2882ABFF2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882ABFE2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift */; };
 		28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */; };
 		28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */; };
@@ -343,7 +343,7 @@
 		286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
 		2882ABF82BCB78060042AC52 /* BitmapImageRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BitmapImageRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
 		2882ABFA2BCB784C0042AC52 /* RectRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RectRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
-		2882ABFC2BCB7BA20042AC52 /* CircleRendarableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircleRendarableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
+		2882ABFC2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircleRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
 		2882ABFE2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PolygonRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
 		28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPhysicsComponent.swift; sourceTree = "<group>"; };
 		28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchComponent.swift; sourceTree = "<group>"; };
@@ -884,7 +884,7 @@
 			children = (
 				2882ABF82BCB78060042AC52 /* BitmapImageRenderableComponent+SendableComponent.swift */,
 				2882ABFA2BCB784C0042AC52 /* RectRenderableComponent+SendableComponent.swift */,
-				2882ABFC2BCB7BA20042AC52 /* CircleRendarableComponent+SendableComponent.swift */,
+				2882ABFC2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift */,
 				2882ABFE2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift */,
 			);
 			path = SendableRenderableComponents;
@@ -1469,7 +1469,7 @@
 				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,
 				02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */,
 				02C394E92BA41B480075F1CA /* ArkViewModel.swift in Sources */,
-				2882ABFD2BCB7BA20042AC52 /* CircleRendarableComponent+SendableComponent.swift in Sources */,
+				2882ABFD2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift in Sources */,
 				AD36A7562BAC0D36003E938B /* TankGameManager.swift in Sources */,
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
