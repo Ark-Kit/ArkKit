@@ -1,24 +1,17 @@
-//
-//  ArkMultiplayerManager.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 31/3/24.
-//
-
 import MultipeerConnectivity
 
 enum PeerRole {
-    case master
-    case slave
+    case host
+    case participant
 }
 
 class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     private var networkService: ArkNetworkProtocol
     var multiplayerEventManager: ArkMultiplayerEventManager?
     var arkMultiplayerECS: ArkMultiplayerECS?
-    private var peers = [String]()
-    private var masterPeer: String?
-    private var role: PeerRole = .master
+    private var participants = [String]()
+    private var host: String?
+    private var role: PeerRole = .host
 
     init(serviceName: String) {
         self.networkService = ArkNetworkService(serviceName: serviceName)
@@ -26,7 +19,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     }
 
     var playerNumber: Int {
-        let sortedPeers = (peers + [networkService.deviceID]).sorted()
+        let sortedPeers = (participants + [networkService.deviceID]).sorted()
         if let deviceIndex = sortedPeers.firstIndex(of: networkService.deviceID) {
             return deviceIndex + 1
         } else {
@@ -69,22 +62,22 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     }
 
     func connectedDevicesChanged(manager: ArkNetworkService, connectedDevices: [String]) {
-        peers = connectedDevices
+        participants = connectedDevices
         updateRoles()
     }
 
     private func updateRoles() {
-        let sortedPeers = (peers + [networkService.deviceID]).sorted()
-        masterPeer = sortedPeers.first
+        let sortedPeers = (participants + [networkService.deviceID]).sorted()
+        host = sortedPeers.first
 
-        role = masterPeer == networkService.deviceID ? .master : .slave
+        role = host == networkService.deviceID ? .host : .participant
         print("Updated role: \(role)")
     }
 }
 
 extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
     var isBroadcastEvent: Bool {
-        self.role == .slave
+        self.role == .participant
     }
 
     func shouldSendEvent<Event: ArkEvent>(_ event: Event) {
@@ -94,7 +87,7 @@ extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
     private func sendEvent(event: any ArkEvent) {
         do {
             if let encodedEvent = try ArkDataSerializer.encodeEvent(event),
-               let target = masterPeer {
+               let target = host {
                 networkService.sendData(encodedEvent, to: target)
             }
         } catch {
@@ -105,7 +98,7 @@ extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
 
 extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
     var isModificationEnabled: Bool {
-        self.role == .master
+        self.role == .host
     }
 
     private func sendEcsFunction(function: String, entity: Entity, component: Component? = nil,
@@ -123,28 +116,28 @@ extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
     }
 
     func didCreateEntity(_ entity: Entity) {
-        guard self.role == .master else {
+        guard self.role == .host else {
             return
         }
         sendEcsFunction(function: "createEntity", entity: entity)
     }
 
     func didRemoveEntity(_ entity: Entity) {
-        guard self.role == .master else {
+        guard self.role == .host else {
             return
         }
         sendEcsFunction(function: "removeEntity", entity: entity)
     }
 
     func didUpsertComponent<T: Component>(_ component: T, to entity: Entity) {
-        guard self.role == .master else {
+        guard self.role == .host else {
             return
         }
         sendEcsFunction(function: "upsertComponent", entity: entity, component: component)
     }
 
     func didCreateEntity(_ entity: Entity, with components: [Component]) {
-        guard self.role == .master else {
+        guard self.role == .host else {
             return
         }
         sendEcsFunction(function: "createEntity", entity: entity, components: components)
