@@ -121,8 +121,16 @@ class TankRaceGame {
         .on(TankRaceSteeringEvent.self) { event, context in
             self.handlerManager?.handleTankSteer(event, in: context)
         }
-        .on(TankWinEvent.self) { event, _ in
+        .on(TankWinEvent.self) { event, context in
             self.handlerManager?.handleWin(event, view: self.rootView)
+            guard let stopwatchEntity = context.ecs.getEntities(with: [StopWatchComponent.self]).first,
+                  let stopwatchComp = context.ecs
+                .getComponent(ofType: StopWatchComponent.self, for: stopwatchEntity) else {
+                return
+            }
+            context.events.emit(TerminateGameLoopEvent(
+                eventData: TerminateGameLoopEventData(timeInGame: stopwatchComp.currentTime))
+            )
         }
     }
 
