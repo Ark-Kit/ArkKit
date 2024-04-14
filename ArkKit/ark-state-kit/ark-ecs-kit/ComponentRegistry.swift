@@ -37,19 +37,14 @@ class ComponentRegistry {
     private func loadComponentTypes() {
         let componentTypes: [Component.Type] = [
             PositionComponent.self,
-            CameraContainerComponent.self,
-            PhysicsComponent.self,
-            ArkAnimationsComponent.self,
             ButtonRenderableComponent.self,
             JoystickRenderableComponent.self,
             CircleRenderableComponent.self,
             RectRenderableComponent.self,
             PolygonRenderableComponent.self,
             BitmapImageRenderableComponent.self,
-            ContainerRenderableComponent.self,
-            RotationComponent.self,
-            WorldComponent.self,
-            StopWatchComponent.self
+            CameraContainerRenderableComponent.self,
+            RotationComponent.self
         ]
 
         for componentType in componentTypes {

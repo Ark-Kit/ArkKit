@@ -57,7 +57,7 @@ class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: TankGameImages.lake,
+            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImages.lake,
                                                            width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location)
@@ -90,7 +90,7 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: stoneTypeToImageAsset[type] ?? .stones_1,
+            BitmapImageRenderableComponent(arkImageResourcePath: stoneTypeToImageAsset[type] ?? .stones_1,
                                            width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location),
@@ -113,7 +113,7 @@ class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: TankGameImages.healthPack,
+            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImages.healthPack,
                                                            width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location),

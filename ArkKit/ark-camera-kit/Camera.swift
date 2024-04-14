@@ -36,7 +36,7 @@ struct Camera: Codable {
     }
 }
 
-struct CameraZoom {
+struct CameraZoom: Codable {
     let widthZoom: Double
     let heightZoom: Double
 }

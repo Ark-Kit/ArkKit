@@ -16,11 +16,9 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     var arkState: ArkState
     var gameLoop: GameLoop?
 
-    let blueprint: ArkBlueprint
-    let audioContext: AudioContext
-    var multiplayerContext: ArkMultiplayerContext?
     let blueprint: ArkBlueprint<ExternalResources>
     let audioContext: any AudioContext<ExternalResources.AudioEnum>
+    var multiplayerContext: ArkMultiplayerContext?
     var displayContext: DisplayContext
 
     var actionContext: ArkActionContext<ExternalResources> {

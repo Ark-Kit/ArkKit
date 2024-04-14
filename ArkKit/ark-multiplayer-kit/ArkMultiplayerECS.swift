@@ -47,12 +47,12 @@ class ArkMultiplayerECS: ArkECS {
         delegate?.didUpsertComponent(component, to: entity)
     }
 
-    override func removeComponent<T>(_ componentType: T.Type, from entity: Entity) where T: Component {
+    override func removeComponent<T>(ofType componentType: T.Type, from entity: Entity) where T: Component {
         guard delegate?.isModificationEnabled ?? true else {
             return
         }
 
-        arkECS.removeComponent(componentType, from: entity)
+        arkECS.removeComponent(ofType: componentType, from: entity)
     }
 
     @discardableResult
