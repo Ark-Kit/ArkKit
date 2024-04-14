@@ -55,10 +55,6 @@ class ArkMultiplayerECS: ArkECS {
         arkECS.removeComponent(componentType, from: entity)
     }
 
-    override func getComponent<T>(ofType type: T.Type, for entity: Entity) -> T? where T: Component {
-        arkECS.getComponent(ofType: type, for: entity)
-    }
-
     @discardableResult
     override func createEntity(with components: [any Component]) -> Entity {
         guard delegate?.isModificationEnabled ?? true else {
@@ -70,29 +66,9 @@ class ArkMultiplayerECS: ArkECS {
 
         return entity
     }
-
-    override func getEntity(id: EntityID) -> Entity? {
-        arkECS.getEntity(id: id)
-    }
-
-    override func getEntities(with componentTypes: [any Component.Type]) -> [Entity] {
-        arkECS.getEntities(with: componentTypes)
-    }
-
-    override func getComponents(from entity: Entity) -> [any Component] {
-        arkECS.getComponents(from: entity)
-    }
-
-    override func addSystem(_ system: UpdateSystem, schedule: Schedule = .update, isUnique: Bool = true) {
-        guard delegate?.isModificationEnabled ?? true else {
-            return
-        }
-
-        arkECS.addSystem(system, schedule: .update, isUnique: isUnique)
-    }
 }
 
-protocol ArkMultiplayerECSDelegate {
+protocol ArkMultiplayerECSDelegate: AnyObject {
     var isModificationEnabled: Bool { get }
     func didCreateEntity(_ entity: Entity)
     func didRemoveEntity(_ entity: Entity)
