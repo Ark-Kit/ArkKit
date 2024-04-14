@@ -1,10 +1,3 @@
-//
-//  ShapeCanvasComponent.swift
-//  ArkKit
-//
-//  Created by En Rong on 19/3/24.
-//
-
 import Foundation
 
 protocol ShapeRenderableComponent: AbstractShape, RenderableComponent where Color == AbstractColor {
