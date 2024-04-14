@@ -1,14 +1,7 @@
-//
-//  EntityIDGenerator.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 5/4/24.
-//
-
 import Foundation
 
 class EntityIDGenerator {
-    private var currentID = 0
+    private var currentID: UInt32 = 0
     private var recycledIDs = Set<EntityID>()
 
     func generate() -> EntityID {

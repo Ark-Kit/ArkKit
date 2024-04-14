@@ -1,13 +1,6 @@
-//
-//  Entity.swift
-//  LevelKit
-//
-//  Created by Ryan Peh on 9/3/24.
-//
-
 import Foundation
 
-typealias EntityID = Int
+typealias EntityID = UInt32
 
 struct Entity {
     var id = EntityID()
