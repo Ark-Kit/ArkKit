@@ -41,6 +41,9 @@
 		02B3C6132BCAF33C002331A0 /* MockExternalResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6122BCAF33C002331A0 /* MockExternalResource.swift */; };
 		02B3C6192BCAF69E002331A0 /* CollisionHandlingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6182BCAF69E002331A0 /* CollisionHandlingStrategy.swift */; };
 		02B3C61B2BCAF6B3002331A0 /* CollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C61A2BCAF6B3002331A0 /* CollisionStrategyManager.swift */; };
+		02B3C61E2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C61D2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift */; };
+		02B3C6202BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C61F2BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift */; };
+		02B3C6222BCBE226002331A0 /* TankRaceEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6212BCBE226002331A0 /* TankRaceEventHandler.swift */; };
 		02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DB2BA402060075F1CA /* GameStateRenderer.swift */; };
 		02C394DE2BA4053E0075F1CA /* RenderableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */; };
 		02C394E02BA405C10075F1CA /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DF2BA405C10075F1CA /* Canvas.swift */; };
@@ -138,7 +141,7 @@
 		280CD3DC2BA8044D00372C5D /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DB2BA8044D00372C5D /* PositionComponent.swift */; };
 		280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DD2BA8045200372C5D /* RotationComponent.swift */; };
 		280CD3E02BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift */; };
-		2812FCBF2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCBE2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift */; };
+		2812FCBF2BC3DE2F00A0FE24 /* TankRacePedalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCBE2BC3DE2F00A0FE24 /* TankRacePedalEvent.swift */; };
 		2812FCC32BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC22BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift */; };
 		2812FCC52BC4424200A0FE24 /* TankRaceGameEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */; };
 		2812FCC72BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */; };
@@ -295,6 +298,9 @@
 		02B3C6122BCAF33C002331A0 /* MockExternalResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExternalResource.swift; sourceTree = "<group>"; };
 		02B3C6182BCAF69E002331A0 /* CollisionHandlingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionHandlingStrategy.swift; sourceTree = "<group>"; };
 		02B3C61A2BCAF6B3002331A0 /* CollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionStrategyManager.swift; sourceTree = "<group>"; };
+		02B3C61D2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceSteeringEvent.swift; sourceTree = "<group>"; };
+		02B3C61F2BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceEndPedalEvent.swift; sourceTree = "<group>"; };
+		02B3C6212BCBE226002331A0 /* TankRaceEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceEventHandler.swift; sourceTree = "<group>"; };
 		02C394DB2BA402060075F1CA /* GameStateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateRenderer.swift; sourceTree = "<group>"; };
 		02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderableBuilder.swift; sourceTree = "<group>"; };
 		02C394DF2BA405C10075F1CA /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
@@ -392,7 +398,7 @@
 		280CD3DB2BA8044D00372C5D /* PositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
 		280CD3DD2BA8045200372C5D /* RotationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationComponent.swift; sourceTree = "<group>"; };
 		280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSKPhysicsBodyValues.swift; sourceTree = "<group>"; };
-		2812FCBE2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceMoveEvent.swift; sourceTree = "<group>"; };
+		2812FCBE2BC3DE2F00A0FE24 /* TankRacePedalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRacePedalEvent.swift; sourceTree = "<group>"; };
 		2812FCC22BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameEntityCreator.swift; sourceTree = "<group>"; };
 		2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
@@ -556,12 +562,13 @@
 		0266151B2BC1402400B56A85 /* TankRaceGame */ = {
 			isa = PBXGroup;
 			children = (
+				02B3C61C2BCBDFC1002331A0 /* Events */,
 				94D053962BC7E788000280C6 /* ExternalAssets */,
 				0266151C2BC1405C00B56A85 /* TankRaceGame.swift */,
-				2812FCBE2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift */,
 				2812FCC22BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift */,
 				2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */,
 				2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */,
+				02B3C6212BCBE226002331A0 /* TankRaceEventHandler.swift */,
 			);
 			path = TankRaceGame;
 			sourceTree = "<group>";
@@ -662,6 +669,16 @@
 				02B3C61A2BCAF6B3002331A0 /* CollisionStrategyManager.swift */,
 			);
 			path = CollisionHandling;
+			sourceTree = "<group>";
+		};
+		02B3C61C2BCBDFC1002331A0 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				2812FCBE2BC3DE2F00A0FE24 /* TankRacePedalEvent.swift */,
+				02B3C61D2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift */,
+				02B3C61F2BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift */,
+			);
+			path = Events;
 			sourceTree = "<group>";
 		};
 		02C394DA2BA401F00075F1CA /* ark-render-kit */ = {
@@ -1703,6 +1720,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B3C61E2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift in Sources */,
 				0267BA282BBD0FF00010F729 /* UpdateSystem.swift in Sources */,
 				02B3C61B2BCAF6B3002331A0 /* CollisionStrategyManager.swift in Sources */,
 				280CD3CE2BA74E4300372C5D /* BaseSKPhysicsScene.swift in Sources */,
@@ -1792,6 +1810,7 @@
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,
 				ADA847FF2BBC4EA800B19378 /* ArkDataSerializer.swift in Sources */,
+				02B3C6202BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift in Sources */,
 				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
 				0267BA2F2BBD2BD70010F729 /* ArkCameraSystem.swift in Sources */,
 				282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */,
@@ -1813,7 +1832,7 @@
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
 				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
 				026882492BCACAFF00212BD6 /* ArkDemoGameHostingPage.swift in Sources */,
-				2812FCBF2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift in Sources */,
+				2812FCBF2BC3DE2F00A0FE24 /* TankRacePedalEvent.swift in Sources */,
 				8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */,
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,
 				94D053A32BC80E8C000280C6 /* ArkImageEnum.swift in Sources */,
@@ -1883,6 +1902,7 @@
 				280CD3E02BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift in Sources */,
 				0267BA1E2BBB07D80010F729 /* ArkUpdateSystem.swift in Sources */,
 				AD2B59B82BB9672100198E99 /* ArkEventRegistry.swift in Sources */,
+				02B3C6222BCBE226002331A0 /* TankRaceEventHandler.swift in Sources */,
 				AD6E03742BA2DB4100974EBF /* PriorityQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
