@@ -44,6 +44,8 @@
 		02B3C61E2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C61D2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift */; };
 		02B3C6202BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C61F2BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift */; };
 		02B3C6222BCBE226002331A0 /* TankRaceEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6212BCBE226002331A0 /* TankRaceEventHandler.swift */; };
+		02B3C6242BCBF6C1002331A0 /* TankWinEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6232BCBF6C1002331A0 /* TankWinEvent.swift */; };
+		02B3C6272BCBF8F9002331A0 /* TankWinCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6262BCBF8F9002331A0 /* TankWinCustomView.swift */; };
 		02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DB2BA402060075F1CA /* GameStateRenderer.swift */; };
 		02C394DE2BA4053E0075F1CA /* RenderableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */; };
 		02C394E02BA405C10075F1CA /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DF2BA405C10075F1CA /* Canvas.swift */; };
@@ -301,6 +303,8 @@
 		02B3C61D2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceSteeringEvent.swift; sourceTree = "<group>"; };
 		02B3C61F2BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceEndPedalEvent.swift; sourceTree = "<group>"; };
 		02B3C6212BCBE226002331A0 /* TankRaceEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceEventHandler.swift; sourceTree = "<group>"; };
+		02B3C6232BCBF6C1002331A0 /* TankWinEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankWinEvent.swift; sourceTree = "<group>"; };
+		02B3C6262BCBF8F9002331A0 /* TankWinCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankWinCustomView.swift; sourceTree = "<group>"; };
 		02C394DB2BA402060075F1CA /* GameStateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateRenderer.swift; sourceTree = "<group>"; };
 		02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderableBuilder.swift; sourceTree = "<group>"; };
 		02C394DF2BA405C10075F1CA /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
@@ -562,6 +566,7 @@
 		0266151B2BC1402400B56A85 /* TankRaceGame */ = {
 			isa = PBXGroup;
 			children = (
+				02B3C6252BCBF8EF002331A0 /* CustomViews */,
 				02B3C61C2BCBDFC1002331A0 /* Events */,
 				94D053962BC7E788000280C6 /* ExternalAssets */,
 				0266151C2BC1405C00B56A85 /* TankRaceGame.swift */,
@@ -677,8 +682,17 @@
 				2812FCBE2BC3DE2F00A0FE24 /* TankRacePedalEvent.swift */,
 				02B3C61D2BCBDFD2002331A0 /* TankRaceSteeringEvent.swift */,
 				02B3C61F2BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift */,
+				02B3C6232BCBF6C1002331A0 /* TankWinEvent.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		02B3C6252BCBF8EF002331A0 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				02B3C6262BCBF8F9002331A0 /* TankWinCustomView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		02C394DA2BA401F00075F1CA /* ark-render-kit */ = {
@@ -1768,6 +1782,7 @@
 				02C394E92BA41B480075F1CA /* ArkViewModel.swift in Sources */,
 				AD36A7562BAC0D36003E938B /* TankGameManager.swift in Sources */,
 				02B3C60D2BCAEFB3002331A0 /* GameHostingPageFactory.swift in Sources */,
+				02B3C6242BCBF6C1002331A0 /* TankWinEvent.swift in Sources */,
 				AD6E036B2BA1A71800974EBF /* ArkEventData.swift in Sources */,
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */,
@@ -1799,6 +1814,7 @@
 				02C394EC2BA41DF00075F1CA /* ArkUIKitView.swift in Sources */,
 				02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */,
 				AD787A552B9C636F003EBBD0 /* RootViewController.swift in Sources */,
+				02B3C6272BCBF8F9002331A0 /* TankWinCustomView.swift in Sources */,
 				02C394E32BA407420075F1CA /* Ark.swift in Sources */,
 				0267BA2D2BBD2AB90010F729 /* Camera.swift in Sources */,
 				02C9CC382BBF30180098E849 /* AbstractLetterboxable.swift in Sources */,

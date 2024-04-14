@@ -18,10 +18,14 @@ class TankRaceGame {
     var camera2: Entity?
     var camera3: Entity?
 
+    var finishLineEntities: [Entity] = []
+
     private var tankIdEntityMap = [Int: Entity]()
     var handlerManager: TankRaceEventHandler?
+    var rootView: AbstractDemoGameHostingPage
 
-    init() {
+    init(rootView: AbstractDemoGameHostingPage) {
+        self.rootView = rootView
         self.blueprint = ArkBlueprint(frameWidth: 900, frameHeight: 10_000)
         load()
     }
@@ -41,7 +45,7 @@ class TankRaceGame {
                 width: canvasWidth, height: canvasHeight, zPosition: 0,
                 background: [[1, 2, 3], [1, 2, 3], [1, 2, 3]]),
                                                    in: ecs)
-            TankRaceGameEntityCreator.createFinishLine(
+            self.finishLineEntities = TankRaceGameEntityCreator.createFinishLine(
                 canvasWidth: canvasWidth, canvasHeight: canvasHeight, zPosition: 1, in: ecs, eventContext: events)
             TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
             self.createTankTerrainEntities(ecs: ecs, canvasWidth: canvasWidth, canvasHeight: canvasHeight)
@@ -89,7 +93,8 @@ class TankRaceGame {
             self.camera1 = tank1
             self.camera2 = tank2
             self.camera3 = tank3
-            self.handlerManager = TankRaceEventHandler(tankIdEntityMap: self.tankIdEntityMap)
+            self.handlerManager = TankRaceEventHandler(tankIdEntityMap: self.tankIdEntityMap,
+                                                       finishLineEntities: self.finishLineEntities)
         }
         .on(TankRacePedalEvent.self) { event, context in
             self.handlerManager?.handleTankPedal(event, in: context)
@@ -102,6 +107,7 @@ class TankRaceGame {
         }
         .on(ArkCollisionBeganEvent.self) { event, context in
             self.handlerManager?.handleContactBegan(event, in: context)
+
         }
         .on(TankShootEvent.self) { event, context in
             self.handlerManager?.handleTankShoot(event, in: context)
@@ -114,6 +120,9 @@ class TankRaceGame {
         }
         .on(TankRaceSteeringEvent.self) { event, context in
             self.handlerManager?.handleTankSteer(event, in: context)
+        }
+        .on(TankWinEvent.self) { event, _ in
+            self.handlerManager?.handleWin(event, view: self.rootView)
         }
     }
 

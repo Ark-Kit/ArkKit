@@ -13,8 +13,8 @@ class GameHostingPageFactory {
             vc.arkBlueprint = blueprint
             return vc
         case .TankRaceGame:
-            let blueprint: ArkBlueprint<TankRaceGameExternalResources> = TankRaceGame().blueprint
             let vc: ArkDemoGameHostingPage<TankRaceGameExternalResources> = ArkDemoGameHostingPage()
+            let blueprint: ArkBlueprint<TankRaceGameExternalResources> = TankRaceGame(rootView: vc).blueprint
             vc.arkBlueprint = blueprint
             return vc
         }

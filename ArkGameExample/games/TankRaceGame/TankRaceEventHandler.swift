@@ -3,9 +3,11 @@ import Foundation
 class TankRaceEventHandler {
     let tankIdEntityMap: [Int: Entity]
     var collisionStrategyManager = TankRaceGameCollisionStrategyManager()
+    let finishLineEntities: [Entity]
 
-    init(tankIdEntityMap: [Int: Entity]) {
+    init(tankIdEntityMap: [Int: Entity], finishLineEntities: [Entity]) {
         self.tankIdEntityMap = tankIdEntityMap
+        self.finishLineEntities = finishLineEntities
     }
 
     func handleTankSteer(_ event: TankRaceSteeringEvent,
@@ -42,7 +44,7 @@ class TankRaceEventHandler {
             return
         }
 
-        let magnitude = 100.0
+        let magnitude = 1_000.0
 
         let velocityX = magnitude * cos((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
         let velocityY = magnitude * sin((tankRotationComponent.angleInRadians ?? 0.0) - Double.pi / 2)
@@ -73,7 +75,7 @@ class TankRaceEventHandler {
     }
 
     func handleContactBegan(_ event: ArkCollisionBeganEvent,
-                                    in context: TankRaceGameActionContext) {
+                            in context: TankRaceGameActionContext) {
         let eventData = event.eventData
 
         let entityA = eventData.entityA
@@ -84,6 +86,30 @@ class TankRaceEventHandler {
         collisionStrategyManager.handleCollisionBegan(between: entityA, and: entityB,
                                                       bitMaskA: bitMaskA, bitMaskB: bitMaskB,
                                                       in: context)
+
+        let tankEntities = Set(tankIdEntityMap.compactMap { _, value in value })
+        let finishLineSet = Set(finishLineEntities)
+        if (tankEntities.contains(entityA) || tankEntities.contains(entityB)) &&
+            (finishLineSet.contains(entityA) || finishLineSet.contains(entityB)) {
+            // win condition reached
+            // retrieve tank id
+            guard let tankId = tankIdEntityMap.filter { _, entity in
+                entity == entityA || entity == entityB
+            }.map { tankId, _ in tankId }.first else {
+                return
+            }
+            let tankWinEventData = TankWinEventData(name: "TankWon", tankId: tankId)
+            let tankWinEvent = TankWinEvent(eventData: tankWinEventData)
+            context.events.emit(tankWinEvent)
+        }
+    }
+
+    func handleWin(_ event: TankWinEvent, view: AbstractDemoGameHostingPage) {
+        let tankWinEventData = event.eventData
+        let winner = tankWinEventData.tankId
+        let tankWinView = TankWinCustomView()
+        tankWinView.winner = String(winner)
+        view.present(tankWinView, animated: true)
     }
 
     func handleTankShoot(_ event: TankShootEvent, in context: TankRaceGameActionContext) {

@@ -139,7 +139,7 @@ enum TankRaceGameEntityCreator {
                                  canvasHeight: CGFloat,
                                  zPosition: Double,
                                  in ecsContext: ArkECSContext,
-                                 eventContext: ArkEventContext) {
+                                 eventContext: ArkEventContext) -> [Entity] {
         let positions: [CGPoint] = [CGPoint(x: canvasWidth * 1 / 6, y: canvasWidth / 5),
                                     CGPoint(x: canvasWidth * 1 / 2, y: canvasWidth / 5),
                                     CGPoint(x: canvasWidth * 5 / 6, y: canvasWidth / 5)]
@@ -164,6 +164,7 @@ enum TankRaceGameEntityCreator {
                 )
         ])
         }
+        return entities
 
     }
 }
