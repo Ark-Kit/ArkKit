@@ -39,10 +39,14 @@ class ArkEventManager: ArkEventContext {
     }
 
     func processEvents() {
-        while !eventQueue.isEmpty {
-            guard let datedEvent = eventQueue.dequeue() else {
+        // copy eventQueue so that events emited during processing are processed at the next tick
+        var eventsFromQueue = eventQueue
+        while !eventsFromQueue.isEmpty {
+            guard let datedEvent = eventsFromQueue.dequeue() else {
                 fatalError("[ArkEventManager.processEvents()] dequeue failed: Expected event, found nil.")
             }
+            // dequeue from copy and actual eventQueue so that they are in sync
+            _ = eventQueue.dequeue()
             guard let listenersToExecute = listeners[ObjectIdentifier(type(of: datedEvent.event))] else {
                 continue
             }
