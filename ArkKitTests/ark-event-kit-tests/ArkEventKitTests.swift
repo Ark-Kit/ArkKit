@@ -8,7 +8,7 @@ struct MockEventData: ArkEventData {
 
 // Stubs for ArkEvent
 struct EventStub: ArkEvent {
-    static var id: ArkEventID = UUID()
+//    static var id: ArkEventID = UUID()
     var eventData: ArkEventData
     var priority: Int?
 
@@ -19,7 +19,7 @@ struct EventStub: ArkEvent {
 }
 
 struct EventStub1: ArkEvent {
-    static var id: ArkEventID = UUID()
+//    static var id: ArkEventID = UUID()
     var eventData: ArkEventData
     var priority: Int?
 
@@ -30,7 +30,7 @@ struct EventStub1: ArkEvent {
 }
 
 struct EventStub2: ArkEvent {
-    static var id: ArkEventID = UUID()
+//    static var id: ArkEventID = UUID()
     var eventData: ArkEventData
     var priority: Int?
 
@@ -56,9 +56,9 @@ class ArkEventKitTests: XCTestCase {
 
     func testSubscribeAddsListener() {
         let expectation = self.expectation(description: "Listener should be called")
-        let eventID = EventStub.id
+//        let eventID = EventStub.id
 
-        eventManager.subscribe(to: eventID) { _ in
+        eventManager.subscribe(to: EventStub.self) { _ in
             expectation.fulfill()
         }
 
@@ -74,17 +74,17 @@ class ArkEventKitTests: XCTestCase {
     func testMultipleSubscriptionsToSameEventID() {
         let expectation1 = expectation(description: "First listener should be called")
         let expectation2 = expectation(description: "Second listener should be called")
-        let eventID = EventStub.id
+//        let eventID = EventStub.id
 
-        eventManager.subscribe(to: eventID) { _ in
+        eventManager.subscribe(to: EventStub.self) { _ in
             expectation1.fulfill()
         }
 
-        eventManager.subscribe(to: eventID) { _ in
+        eventManager.subscribe(to: EventStub.self) { _ in
             expectation2.fulfill()
         }
 
-        var event = EventStub() // Default event
+        let event = EventStub() // Default event
         eventManager.emit(event)
         eventManager.processEvents()
 
@@ -92,16 +92,16 @@ class ArkEventKitTests: XCTestCase {
     }
 
     func testEventPriorityHandling() {
-        var highPriorityEvent = EventStub1(priority: 3) // High priority event
-        var lowPriorityEvent = EventStub2(priority: 1) // Low priority event
+        let highPriorityEvent = EventStub1(priority: 3) // High priority event
+        let lowPriorityEvent = EventStub2(priority: 1) // Low priority event
 
         var executionOrder: [Int] = []
 
-        eventManager.subscribe(to: EventStub1.id) { event in
+        eventManager.subscribe(to: EventStub1.self) { event in
             executionOrder.append(event.priority ?? 0)
         }
 
-        eventManager.subscribe(to: EventStub2.id) { event in
+        eventManager.subscribe(to: EventStub2.self) { event in
             executionOrder.append(event.priority ?? 0)
         }
 
@@ -116,16 +116,16 @@ class ArkEventKitTests: XCTestCase {
     }
 
     func testEventTimestampOrdering() {
-        var secondEvent = EventStub2(name: "SecondEvent", priority: 1)
-        var firstEvent = EventStub1(name: "FirstEvent", priority: 1)
+        let secondEvent = EventStub2(name: "SecondEvent", priority: 1)
+        let firstEvent = EventStub1(name: "FirstEvent", priority: 1)
 
         var handledEventsNames: [String] = []
 
-        eventManager.subscribe(to: EventStub2.id) { _ in
+        eventManager.subscribe(to: EventStub2.self) { _ in
             handledEventsNames.append("SecondEvent")
         }
 
-        eventManager.subscribe(to: EventStub1.id) { _ in
+        eventManager.subscribe(to: EventStub1.self) { _ in
             handledEventsNames.append("FirstEvent")
         }
 
@@ -138,10 +138,10 @@ class ArkEventKitTests: XCTestCase {
     }
 
     func testEventModificationInListener() {
-        var event = EventStub(name: "OriginalEvent", priority: 1)
+        let event = EventStub(name: "OriginalEvent", priority: 1)
         var modificationFlag = false
 
-        eventManager.subscribe(to: EventStub.id) { event in
+        eventManager.subscribe(to: EventStub.self) { event in
             var modifiableEvent = event
             modifiableEvent.priority = 3 // Attempt to modify event's priority
             modificationFlag = true
@@ -155,16 +155,16 @@ class ArkEventKitTests: XCTestCase {
     }
 
     func testProcessingEventsGeneratesNewEvents() {
-        var initialEvent = EventStub( name: "InitialEvent", priority: 1)
+        let initialEvent = EventStub( name: "InitialEvent", priority: 1)
         let newEventName = "NewEvent"
 
-        eventManager.subscribe(to: EventStub.id) { [weak self] _ in
-            var newEvent = EventStub1(name: newEventName, priority: 2)
+        eventManager.subscribe(to: EventStub.self) { [weak self] _ in
+            let newEvent = EventStub1(name: newEventName, priority: 2)
             self?.eventManager.emit(newEvent)
         }
 
         var newEventTriggered = false
-        eventManager.subscribe(to: EventStub1.id) { _ in
+        eventManager.subscribe(to: EventStub1.self) { _ in
             newEventTriggered = true
         }
 

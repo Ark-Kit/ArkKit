@@ -1,9 +1,11 @@
 @testable import ArkKit
 
 class MockEventContext: ArkEventContext {
-    func emit<Event>(_ event: Event) where Event: ArkKit.ArkEvent {
+    var delegate: (any ArkKit.ArkEventContextDelegate)?
+
+    func emitWithoutDelegate<Event>(_ event: Event) where Event: ArkKit.ArkEvent {
     }
 
-    func subscribe(to eventId: ArkKit.ArkEventID, _ listener: @escaping EventListener) {
+    func emit<Event>(_ event: Event) where Event: ArkKit.ArkEvent {
     }
 }
