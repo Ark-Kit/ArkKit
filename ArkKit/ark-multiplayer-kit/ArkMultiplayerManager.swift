@@ -1,4 +1,4 @@
-import MultipeerConnectivity
+import Foundation
 
 enum PeerRole {
     case host
@@ -9,7 +9,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     private var networkService: ArkNetworkProtocol
     var multiplayerEventManager: ArkMultiplayerEventManager?
     var arkMultiplayerECS: ArkMultiplayerECS?
-    private var participants = [String]()
+    private var peers = [String]()
     private var host: String?
     private var role: PeerRole = .host
 
@@ -19,7 +19,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     }
 
     var playerNumber: Int {
-        let sortedPeers = (participants + [networkService.deviceID]).sorted()
+        let sortedPeers = (peers + [networkService.deviceID]).sorted()
         if let deviceIndex = sortedPeers.firstIndex(of: networkService.deviceID) {
             return deviceIndex + 1
         } else {
@@ -62,12 +62,12 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     }
 
     func connectedDevicesChanged(manager: ArkNetworkService, connectedDevices: [String]) {
-        participants = connectedDevices
+        peers = connectedDevices
         updateRoles()
     }
 
     private func updateRoles() {
-        let sortedPeers = (participants + [networkService.deviceID]).sorted()
+        let sortedPeers = (peers + [networkService.deviceID]).sorted()
         host = sortedPeers.first
 
         role = host == networkService.deviceID ? .host : .participant

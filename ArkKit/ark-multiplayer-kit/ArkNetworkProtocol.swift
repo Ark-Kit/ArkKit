@@ -1,9 +1,3 @@
-//
-//  ArkNetworkProtocol.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 2/4/24.
-//
 import Foundation
 
 protocol ArkNetworkProtocol {

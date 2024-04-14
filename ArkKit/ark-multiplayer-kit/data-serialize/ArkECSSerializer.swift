@@ -83,5 +83,4 @@ struct ArkECSSerializer {
         var entity: Entity
         var componentData: [ComponentData]
     }
-
 }

@@ -1,10 +1,3 @@
-//
-//  ArkMultiplayerEventManager.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 31/3/24.
-//
-
 import Foundation
 
 class ArkMultiplayerEventManager: ArkEventManager {

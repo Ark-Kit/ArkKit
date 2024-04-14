@@ -1,10 +1,3 @@
-//
-//  ArkNetworkService.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 31/3/24.
-//
-
 import UIKit
 import P2PShare
 
