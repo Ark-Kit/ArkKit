@@ -1,10 +1,3 @@
-//
-//  ComponentRegistry.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 6/4/24.
-//
-
 import Foundation
 
 class ComponentRegistry {

@@ -49,6 +49,31 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         )
     }
 
+    init(rootView: any AbstractRootView<View>,
+         blueprint: ArkBlueprint<ExternalResources>,
+         multiplayerContext: ArkMultiplayerContext,
+         canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
+        self.rootView = rootView
+        self.blueprint = blueprint
+        let ecsManager = ArkECS()
+        let eventManager = ArkMultiplayerEventManager()
+        let multiplayerManager = ArkMultiplayerManager(serviceName: multiplayerContext.serviceName,
+                                                       role: multiplayerContext.role,
+                                                       ecs: ecsManager)
+        multiplayerManager.multiplayerEventManager = eventManager
+        eventManager.delegate = multiplayerManager
+        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
+        self.audioContext = ArkAudioContext()
+        self.canvasRenderableBuilder = canvasRenderableBuilder
+        self.displayContext = ArkDisplayContext(
+            canvasSize: CGSize(
+                width: blueprint.frameWidth,
+                height: blueprint.frameHeight
+            ),
+            screenSize: rootView.size
+        )
+    }
+
     func start() {
         setupDefaultEntities()
         setupDefaultListeners()
@@ -68,19 +93,6 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                                                        gameLoop: gameLoop,
                                                        canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
-    }
-
-    func multiplayer(serviceName: String) {
-        let multiplayerManager = ArkMultiplayerManager(serviceName: "tankGame")
-        let eventManager = ArkMultiplayerEventManager()
-        let ecsManager = ArkMultiplayerECS()
-        multiplayerManager.multiplayerEventManager = eventManager
-        multiplayerManager.arkMultiplayerECS = ecsManager
-        eventManager.delegate = multiplayerManager
-        ecsManager.delegate = multiplayerManager
-
-        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
-        self.multiplayerContext = multiplayerManager
     }
 
     private func setupDefaultListeners() {

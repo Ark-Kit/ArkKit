@@ -1,10 +1,3 @@
-//
-//  EntityManager.swift
-//  LevelKit
-//
-//  Created by Ryan Peh on 9/3/24.
-//
-
 import Foundation
 
 class EntityManager {
@@ -89,5 +82,10 @@ class EntityManager {
             }
         })
         return result
+    }
+
+    func removeAllEntities() {
+        entities = []
+        componentsByType = [:]
     }
 }

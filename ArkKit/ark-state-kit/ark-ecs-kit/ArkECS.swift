@@ -9,6 +9,23 @@ class ArkECS: ArkECSContext {
         self.systemManager = SystemManager()
     }
 
+    init(entities: [Entity], components: [EntityID: [any Component]]) {
+        self.entityManager = EntityManager()
+        self.systemManager = SystemManager()
+        for entity in entities {
+            let components = components[entity.id] ?? []
+            _ = entityManager.createEntity(with: components)
+        }
+    }
+
+    func upsertEntityManager(entities: [Entity], components: [EntityID: [any Component]]) {
+        entityManager.removeAllEntities()
+        for entity in entities {
+            let components = components[entity.id] ?? []
+            _ = entityManager.createEntity(with: components)
+        }
+    }
+
     func startUp() {
         self.systemManager.startUp()
     }

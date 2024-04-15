@@ -1,6 +1,6 @@
 import Foundation
 
-enum PeerRole {
+enum ArkPeerRole {
     case host
     case participant
 }
@@ -8,23 +8,19 @@ enum PeerRole {
 class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     private var networkService: ArkNetworkProtocol
     var multiplayerEventManager: ArkMultiplayerEventManager?
-    var arkMultiplayerECS: ArkMultiplayerECS?
+    var ecs: ArkECS
     private var peers = [String]()
     private var host: String?
-    private var role: PeerRole = .host
-
-    init(serviceName: String) {
-        self.networkService = ArkNetworkService(serviceName: serviceName)
-        self.networkService.delegate = self
+    private(set) var role: ArkPeerRole
+    var playerNumber: Int {
+        peers.firstIndex(of: networkService.deviceID) ?? 0
     }
 
-    var playerNumber: Int {
-        let sortedPeers = (peers + [networkService.deviceID]).sorted()
-        if let deviceIndex = sortedPeers.firstIndex(of: networkService.deviceID) {
-            return deviceIndex + 1
-        } else {
-            return 0
-        }
+    init(serviceName: String, role: ArkPeerRole, ecs: ArkECS) {
+        self.networkService = ArkNetworkService(serviceName: serviceName)
+        self.ecs = ecs
+        self.role = role
+        self.networkService.delegate = self
     }
 
     var serviceName: String {
@@ -46,10 +42,9 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
                 processEvent(event: event)
             }
 
-            if wrappedData.type == .ecsFunction, let arkMultiplayerECS = arkMultiplayerECS {
-                try ArkECSSerializer.decodeECSFunction(data: wrappedData.payload,
-                                                       name: wrappedData.name,
-                                                       ecs: arkMultiplayerECS.arkECS)
+            if wrappedData.type == .ecs {
+                let ecsWrapper = try ArkECSDataSerializer.decodeArkECS(from: wrappedData.payload)
+                ecs.upsertEntityManager(entities: ecsWrapper.entities, components: ecsWrapper.decodeComponents())
             }
 
         } catch {
@@ -86,7 +81,7 @@ extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
 
     private func sendEvent(event: any ArkEvent) {
         do {
-            if let encodedEvent = try ArkDataSerializer.encodeEvent(event),
+            if let encodedEvent = try ArkEventDataSerializer.encodeEvent(event),
                let target = host {
                 networkService.sendData(encodedEvent, to: target)
             }
@@ -101,46 +96,13 @@ extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
         self.role == .host
     }
 
-    private func sendEcsFunction(function: String, entity: Entity, component: Component? = nil,
-                                 components: [Component]? = nil) {
+    private func sendEcs(ecs: ArkECS) {
 
         do {
-            if let encodedECSFunction = try ArkECSSerializer.encodeECSFunction(action: function, entity: entity,
-                                                                               component: component,
-                                                                               components: components) {
-                networkService.sendData(data: encodedECSFunction)
-            }
+            let encodedECS = try ArkECSDataSerializer.encodeArkECS(ecs: ecs)
+            networkService.sendData(data: encodedECS)
         } catch {
             print("Error encoding or sending ecs function: \(error)")
         }
     }
-
-    func didCreateEntity(_ entity: Entity) {
-        guard self.role == .host else {
-            return
-        }
-        sendEcsFunction(function: "createEntity", entity: entity)
-    }
-
-    func didRemoveEntity(_ entity: Entity) {
-        guard self.role == .host else {
-            return
-        }
-        sendEcsFunction(function: "removeEntity", entity: entity)
-    }
-
-    func didUpsertComponent<T: Component>(_ component: T, to entity: Entity) {
-        guard self.role == .host else {
-            return
-        }
-        sendEcsFunction(function: "upsertComponent", entity: entity, component: component)
-    }
-
-    func didCreateEntity(_ entity: Entity, with components: [Component]) {
-        guard self.role == .host else {
-            return
-        }
-        sendEcsFunction(function: "createEntity", entity: entity, components: components)
-    }
-
 }

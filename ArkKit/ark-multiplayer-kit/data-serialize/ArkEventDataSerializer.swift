@@ -1,13 +1,6 @@
-//
-//  ArkDataSerializer.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 2/4/24.
-//
-
 import Foundation
 
-class ArkDataSerializer {
+class ArkEventDataSerializer {
 
     // Encode any ArkEvent into Data
     static func encodeEvent<Event: ArkEvent>(_ event: Event) throws -> Data? {
