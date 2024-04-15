@@ -17,7 +17,7 @@ struct SnakeGameEntityCreator {
 
         for i in 0..<snakeCreationContext.length {
             if i == 0 {
-                let headBlock = createBodyBlockEntity(at: head, with: grid, in: ecsContext)
+                let headBlock = createHeadBlockEntity(at: head, with: grid, in: ecsContext)
                 occupiedSquares.append(headBlock)
                 continue
             }
@@ -45,6 +45,19 @@ struct SnakeGameEntityCreator {
         return snakeEntity
     }
 
+    static func createHeadBlockEntity(at gridPosition: SnakeGridPosition,
+                                      with grid: SnakeGrid,
+                                      in ecs: ArkECSContext) -> Entity {
+        ecs.createEntity(with: [
+            SnakeBodyBlock(),
+            SnakeGridPositionComponent(gridPosition: gridPosition),
+            PositionComponent(position: grid.toActualPosition(gridPosition)),
+            CircleRenderableComponent(radius: Double(grid.boxSideLength) / 4 * 3)
+                .zPosition(1)
+                .layer(.canvas)
+        ])
+    }
+
     static func createBodyBlockEntity(at gridPosition: SnakeGridPosition,
                                       with grid: SnakeGrid,
                                       in ecs: ArkECSContext) -> Entity {
@@ -53,7 +66,6 @@ struct SnakeGameEntityCreator {
             SnakeGridPositionComponent(gridPosition: gridPosition),
             PositionComponent(position: grid.toActualPosition(gridPosition)),
             RectRenderableComponent(width: Double(grid.boxSideLength), height: Double(grid.boxSideLength))
-                .shouldRerender { _, _ in false }
                 .zPosition(1)
                 .layer(.canvas)
         ])
