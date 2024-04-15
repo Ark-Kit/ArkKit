@@ -1,5 +1,5 @@
 import Foundation
 
-struct PositionComponent: Component {
+struct PositionComponent: SendableComponent {
     var position: CGPoint
 }

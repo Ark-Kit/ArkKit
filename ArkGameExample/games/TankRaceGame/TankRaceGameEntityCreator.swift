@@ -112,7 +112,7 @@ enum TankRaceGameEntityCreator {
         in ecsContext: ArkECSContext,
         zPosition: Double) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: tankIndexToImageAsset[tankIndex] ?? .tank_1,
+            BitmapImageRenderableComponent(arkImageResourcePath: tankIndexToImageAsset[tankIndex] ?? .tank_1,
                                            width: 80,
                                            height: 100)
             .center(position)
@@ -146,7 +146,7 @@ enum TankRaceGameEntityCreator {
         let entities = positions.map {
             ecsContext.createEntity(with: [
                 BitmapImageRenderableComponent(
-                    imageResourcePath: TankRaceGameImages.finish_line,
+                    arkImageResourcePath: TankRaceGameImages.finish_line,
                     width: canvasWidth / 3,
                     height: canvasWidth / 5
                 )

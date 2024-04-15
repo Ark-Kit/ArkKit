@@ -28,7 +28,7 @@ class ArkCameraContext: CameraContext {
             return canvas
         }
 
-        var transformedCanvas = ArkMegaCanvas(screenElements: filterForScreenComponents(canvas))
+        var transformedCanvas = ArkCompositeCanvas(screenElements: filterForScreenComponents(canvas))
 
         for cameraEntity in cameras {
             guard let cameraContainerComp = ecs.getComponent(

@@ -1,7 +1,7 @@
 import Foundation
 
-struct PhysicsComponent: Component {
-    enum Shape {
+struct PhysicsComponent: SendableComponent {
+    enum Shape: Codable {
         case circle
         case rectangle
     }

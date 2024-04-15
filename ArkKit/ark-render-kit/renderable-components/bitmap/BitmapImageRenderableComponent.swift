@@ -10,17 +10,37 @@ struct BitmapImageRenderableComponent: RenderableComponent {
 
     let width: Double
     let height: Double
-    var imageResourcePath: any ArkImageEnum
+    var imageResourcePath: String
 
     private(set) var isClipToBounds = false
     private(set) var isScaleAspectFit = false
     private(set) var isScaleToFill = false
     private(set) var isScaleAspectFill = false
 
-    init(imageResourcePath: some ArkImageEnum, width: Double, height: Double) {
+    init(arkImageResourcePath: any ArkImageEnum, width: Double, height: Double, center: CGPoint = .zero,
+         isClipToBounds: Bool = false, isScaleAspectFit: Bool = false,
+         isScaleToFill: Bool = false, isScaleAspectFill: Bool = false) {
+        self.imageResourcePath = arkImageResourcePath.rawValue
+        self.width = width
+        self.height = height
+        self.center = center
+        self.isClipToBounds = isClipToBounds
+        self.isScaleAspectFit = isScaleAspectFit
+        self.isScaleToFill = isScaleToFill
+        self.isScaleAspectFill = isScaleAspectFill
+    }
+
+    init(imageResourcePath: String, width: Double, height: Double, center: CGPoint = .zero,
+         isClipToBounds: Bool = false, isScaleAspectFit: Bool = false,
+         isScaleToFill: Bool = false, isScaleAspectFill: Bool = false) {
         self.imageResourcePath = imageResourcePath
         self.width = width
         self.height = height
+        self.center = center
+        self.isClipToBounds = isClipToBounds
+        self.isScaleAspectFit = isScaleAspectFit
+        self.isScaleToFill = isScaleToFill
+        self.isScaleAspectFill = isScaleAspectFill
     }
 
     func buildRenderable<T>(using builder: any RenderableBuilder<T>) -> any Renderable<T> {

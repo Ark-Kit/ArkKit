@@ -45,7 +45,7 @@ extension SnakeGame {
                 let canvasCenter = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
 
                 ecs.createEntity(with: [
-                    BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.map,
+                    BitmapImageRenderableComponent(arkImageResourcePath: SnakeGameImages.map,
                                                    width: canvasWidth, height: canvasHeight)
                     .center(canvasCenter)
                     .zPosition(0)
@@ -153,7 +153,7 @@ extension SnakeGame {
                         SnakeGameApple(),
                         SnakeGridPositionComponent(gridPosition: emptyPosition),
                         PositionComponent(position: self.grid.toActualPosition(emptyPosition)),
-                        BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.apple,
+                        BitmapImageRenderableComponent(arkImageResourcePath: SnakeGameImages.apple,
                                                        width: Double(self.grid.boxSideLength),
                                                        height: Double(self.grid.boxSideLength))
                             .layer(.canvas)

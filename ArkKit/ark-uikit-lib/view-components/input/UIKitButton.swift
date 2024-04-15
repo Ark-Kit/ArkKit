@@ -47,8 +47,8 @@ extension UIKitButton {
         var configuration = self.configuration ?? UIButton.Configuration.filled()
         // Set title for different states if provided
         if let label = styleConfig.labelMapping {
-            self.setTitle(label.0, for: .normal)
-            self.setTitleColor(colorGetter(label.1), for: .normal)
+            self.setTitle(label.label, for: .normal)
+            self.setTitleColor(colorGetter(label.color), for: .normal)
         }
         configuration.baseBackgroundColor = colorGetter(
             styleConfig.backgroundColor ?? .default

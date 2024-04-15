@@ -1,10 +1,3 @@
-//
-//  ShapeCanvasComponent.swift
-//  ArkKit
-//
-//  Created by En Rong on 19/3/24.
-//
-
 import Foundation
 
 protocol ShapeRenderableComponent: AbstractShape, RenderableComponent where Color == AbstractColor {
@@ -28,11 +21,11 @@ extension ShapeRenderableComponent {
     }
 }
 
-struct ShapeFillInfo {
+struct ShapeFillInfo: Codable {
     let color: AbstractColor
 }
 
-struct ShapeStrokeInfo {
+struct ShapeStrokeInfo: Codable {
     let lineWidth: Double
     let color: AbstractColor
 }

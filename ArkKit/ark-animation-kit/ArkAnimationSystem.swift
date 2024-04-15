@@ -14,13 +14,22 @@ class ArkAnimationSystem: UpdateSystem {
         let animationComponents = arkECS.getEntities(with: [ArkAnimationsComponent.self])
 
         for entity in animationComponents {
-            guard let animationsComponent = arkECS.getComponent(ofType: ArkAnimationsComponent.self, for: entity) else {
+            guard var animationsComponent = arkECS.getComponent(ofType: ArkAnimationsComponent.self, for: entity) else {
                 return
             }
 
             for animationInstance in animationsComponent.animations {
+                if !animationInstance.isPlaying {
+                    continue
+                }
+
                 animationInstance.advance(by: deltaTime)
+                if animationInstance.shouldDestroy {
+                    animationsComponent.removeAnimation(animationInstance)
+                }
             }
+
+            arkECS.upsertComponent(animationsComponent, to: entity)
         }
     }
 }
