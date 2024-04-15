@@ -1,14 +1,7 @@
-//
-//  DataWrapper.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 31/3/24.
-//
-
 import Foundation
 
 enum PayloadType: String, Codable {
-    case event, state
+    case event, ecs, playerMapping
 }
 
 struct DataWrapper: Codable {

@@ -60,7 +60,7 @@ class TankGameMapBuilder {
             for (x, value) in row.enumerated() {
                 for strategy in strategies {
                     if let imageResourcePath = strategy.imageResourcePath(forValue: value) {
-                        let component = BitmapImageRenderableComponent(imageResourcePath: imageResourcePath,
+                        let component = BitmapImageRenderableComponent(arkImageResourcePath: imageResourcePath,
                                                                        width: gridSize.width,
                                                                        height: gridSize.height)
                             .shouldRerender { _, _ in false }

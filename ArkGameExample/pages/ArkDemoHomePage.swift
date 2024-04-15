@@ -45,7 +45,8 @@ class ArkDemoHomePage: UIViewController {
             button.setTitleColor(DARK_GRAY, for: .normal)
 
             var buttonConfig = UIButton.Configuration.filled()
-            buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16) // Padding
+            buttonConfig.contentInsets =
+                    NSDirectionalEdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16) // Padding
             buttonConfig.background.cornerRadius = 8
 
             buttonConfig.background.backgroundColor = LIGHT_BLUE
@@ -70,7 +71,11 @@ class ArkDemoHomePage: UIViewController {
         guard let gameOption = (sender.superview as? UIStackView)?.arrangedSubviews.firstIndex(of: sender) else {
             return
         }
-        let vc = GameHostingPageFactory.generateGameViewController(from: DemoGames.allCases[gameOption])
-        self.rootViewControllerDelegate?.pushViewController(vc, animated: false)
+
+        let gameType = DemoGames.allCases[gameOption]
+        if let parentDelegate = self.rootViewControllerDelegate {
+            GameHostingPageFactory.loadGame(from: gameType, with: parentDelegate,
+                                            sourceView: sender, sourceRect: sender.bounds)
+        }
     }
 }

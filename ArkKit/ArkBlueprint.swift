@@ -7,6 +7,10 @@ struct ArkBlueprint<ExternalResources: ArkExternalResources> {
     private(set) var rules: [any Rule] = []
     private(set) var setupFunctions: [ArkStateSetupDelegate] = []
     private(set) var soundMapping: [ExternalResources.AudioEnum: any Sound]?
+    private(set) var networkPlayableInfo: ArkNetworkPlayableInfo?
+
+    // if there is player specific setup
+    private(set) var playerSpecificSetupFunctions: [ArkStateSetupDelegate] = []
 
     // game world size
     private(set) var frameWidth: Double
@@ -80,23 +84,35 @@ struct ArkBlueprint<ExternalResources: ArkExternalResources> {
         return newSelf
     }
 
-    func setupMultiplayer(serviceName: String = "Ark") -> Self {
-        let fn: ArkStateSetupDelegate = { context in
-            var events = context.events
+    func supportNetworkMultiPlayer(roomName: String, numberOfPlayers: Int) -> Self {
+        var newSelf = self
+        newSelf.networkPlayableInfo = ArkNetworkPlayableInfo(
+            roomName: roomName, numberOfPlayers: numberOfPlayers
+        )
+        return newSelf
+    }
 
-            let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
-            let multiplayerEventManager = ArkMultiplayerEventManager(arkEventManager: events,
-                                                                     networkManagerDelegate: multiplayerManager)
-            multiplayerManager.multiplayerEventManager = multiplayerEventManager
-
-            events.delegate = multiplayerEventManager
-        }
-
-        var stateSetupFunctionsCopy = setupFunctions
-        stateSetupFunctionsCopy.insert(fn, at: 0)
+    /// Only supports if Multiplayer is defined
+    /// Note: maybe we can move this into a multiplayerContext so dev defines specific player controls
+    func setupPlayer(_ fn: @escaping ArkStateSetupDelegate) -> Self {
+        var playerStateSetupFunctionsCopy = playerSpecificSetupFunctions
+        playerStateSetupFunctionsCopy.append(fn)
 
         var newSelf = self
-        newSelf.setupFunctions = stateSetupFunctionsCopy
+        newSelf.playerSpecificSetupFunctions = playerStateSetupFunctionsCopy
+        return newSelf
+    }
+
+    func setRole(_ role: ArkPeerRole) -> Self {
+        var newSelf = self
+        guard let originalNetworkInfo = self.networkPlayableInfo else {
+            return newSelf
+        }
+        newSelf.networkPlayableInfo = ArkNetworkPlayableInfo(
+            roomName: originalNetworkInfo.roomName,
+            numberOfPlayers: originalNetworkInfo.numberOfPlayers,
+            role: role
+        )
         return newSelf
     }
 }

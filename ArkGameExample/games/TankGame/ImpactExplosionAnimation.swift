@@ -23,13 +23,13 @@ struct ImpactExplosionAnimation {
     private func makeBitmapComponent(imageResourcePath: TankGameExplosionAnimationKeyframes) ->
     BitmapImageRenderableComponent {
         BitmapImageRenderableComponent(
-            imageResourcePath: imageResourcePath,
+            arkImageResourcePath: imageResourcePath,
             width: width,
             height: height)
         .scaleAspectFill()
         .zPosition(100)
         .shouldRerender { old, new in
-            old.imageResourcePath.rawValue != new.imageResourcePath.rawValue
+            old.imageResourcePath != new.imageResourcePath
         }
     }
 
@@ -47,7 +47,7 @@ struct ImpactExplosionAnimation {
                                                        for: entity) ?? makeBitmapComponent(
                                                         imageResourcePath: imageResourcePath)
 
-                bitmapComponent.imageResourcePath = imageResourcePath
+                bitmapComponent.imageResourcePath = imageResourcePath.rawValue
 
                 ecs.upsertComponent(bitmapComponent, to: entity)
             }
