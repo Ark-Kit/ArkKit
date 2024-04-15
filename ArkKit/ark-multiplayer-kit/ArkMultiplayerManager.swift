@@ -60,7 +60,6 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
 
     func connectedDevicesChanged(manager: ArkNetworkService, connectedDevices: [String]) {
         peers = connectedDevices
-        updateRoles()
     }
 
     private func updateRoles() {

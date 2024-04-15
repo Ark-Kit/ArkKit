@@ -18,8 +18,6 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
 
     let blueprint: ArkBlueprint<ExternalResources>
     let audioContext: any AudioContext<ExternalResources.AudioEnum>
-    var multiplayerContext: ArkMultiplayerContext?
-    var multiplayerManager: ArkMultiplayerManager?
     var displayContext: DisplayContext
 
     var actionContext: ArkActionContext<ExternalResources> {
@@ -29,6 +27,8 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                          audio: audioContext)
     }
 
+    var multiplayerManager: ArkMultiplayerManager?
+
     var canvasRenderableBuilder: (any RenderableBuilder<View>)?
 
     init(rootView: any AbstractRootView<View>,
@@ -36,35 +36,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
          canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
-        let eventManager = ArkEventManager()
-        let ecsManager = ArkECS()
-        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
-        self.audioContext = ArkAudioContext()
-        self.canvasRenderableBuilder = canvasRenderableBuilder
-        self.displayContext = ArkDisplayContext(
-            canvasSize: CGSize(
-                width: blueprint.frameWidth,
-                height: blueprint.frameHeight
-            ),
-            screenSize: rootView.size
-        )
-    }
 
-    init(rootView: any AbstractRootView<View>,
-         blueprint: ArkBlueprint<ExternalResources>,
-         multiplayerContext: ArkMultiplayerContext,
-         canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
-        self.rootView = rootView
-        self.blueprint = blueprint
-        let ecsManager = ArkECS()
-        let eventManager = ArkMultiplayerEventManager()
-        let multiplayerManager = ArkMultiplayerManager(serviceName: multiplayerContext.serviceName,
-                                                       role: multiplayerContext.role,
-                                                       ecs: ecsManager)
-        multiplayerManager.multiplayerEventManager = eventManager
-        self.multiplayerManager = multiplayerManager
-        eventManager.delegate = multiplayerManager
-        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioContext()
         self.canvasRenderableBuilder = canvasRenderableBuilder
         self.displayContext = ArkDisplayContext(
@@ -74,19 +46,32 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
             ),
             screenSize: rootView.size
         )
-        self.multiplayerContext = multiplayerContext
+
+        // inject state management dependencies
+        guard let networkPlayableInfo = blueprint.networkPlayableInfo else {
+            let eventManager = ArkEventManager()
+            let ecsManager = ArkECS()
+            self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
+            return
+        }
+        let eventManager = ArkMultiplayerEventManager()
+        let ecsManager = ArkECS()
+        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
+        self.multiplayerManager = ArkMultiplayerManager(
+            serviceName: networkPlayableInfo.roomName,
+            role: networkPlayableInfo.role ?? .host, // default to host so if unspecified, plays as local
+            ecs: ecsManager
+        )
+        multiplayerManager?.multiplayerEventManager = eventManager
+        eventManager.delegate = multiplayerManager
     }
 
     func start() {
-        if let multiplayerContext = multiplayerContext {
-            if multiplayerContext.role == .host {
-                multiplayerHostStart()
-            } else {
-                multiplayerParticipantStart()
-            }
-        } else {
-            defaultStart()
-        }
+        // TODO: refactor to use strategy design pattern here
+        // use SetUpStrategy.execute() to set up based on status
+        setUpIfNotParticipant()
+        setUpIfParticipant()
+        setUpIfHost()
 
         alignCamera()
 
@@ -102,29 +87,37 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         gameCoordinator.start()
     }
 
-    private func multiplayerHostStart() {
-        defaultStart()
-        guard let multiplayerManager = multiplayerManager else {
+    private func setUpIfNotParticipant() {
+        guard multiplayerManager?.role != .participant else {
             return
         }
-        arkState.arkECS
-            .addSystem(ArkMultiplayerSystem(multiplayerManager: multiplayerManager))
+        setupDefaultEntities()
+        setupDefaultListeners()
+        setupDefaultSystems(blueprint)
+        setup(blueprint.setupFunctions)
+        setup(blueprint.rules)
+        setup(blueprint.soundMapping)
     }
 
-    private func multiplayerParticipantStart() {
+    private func setUpIfParticipant() {
+        guard let multiplayerManager = multiplayerManager,
+              multiplayerManager.role == .participant else {
+            return
+        }
         setupDefaultListeners()
         setupMultiplayerGameLoop()
         setup(blueprint.soundMapping)
     }
 
-    private func defaultStart() {
-        setupDefaultEntities()
-        setupDefaultListeners()
-        setupDefaultSystems(blueprint)
-        setup(blueprint.setupFunctions)
-        setup(blueprint.setupFunctions)
-        setup(blueprint.rules)
-        setup(blueprint.soundMapping)
+    private func setUpIfHost() {
+        guard let multiplayerManager = multiplayerManager,
+              multiplayerManager.role == .host else {
+            return
+        }
+        multiplayerManager.ecs = arkState.arkECS
+        self.arkState
+            .arkECS
+            .addSystem(ArkMultiplayerSystem(multiplayerManager: multiplayerManager))
     }
 
     private func setupDefaultListeners() {
@@ -255,11 +248,11 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     }
 
     func setupMultiplayerGameLoop() {
-        let gameLoop = ArkMultiplayerGameLoop()
-        self.gameLoop = gameLoop
         guard let multiplayerManager = multiplayerManager else {
             return
         }
+        let gameLoop = ArkMultiplayerGameLoop()
+        self.gameLoop = gameLoop
         self.multiplayerManager?.arkMultiplayerECSDelegate = gameLoop
     }
 

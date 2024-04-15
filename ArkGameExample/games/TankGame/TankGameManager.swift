@@ -22,6 +22,9 @@ class TankGameManager {
         setUpEntities()
         setUpSystems()
         setUpRules()
+        self.blueprint = self.blueprint.supportNetworkPlay(
+            roomName: "TankFightGame", numberOfPlayers: 2
+        )
     }
 
     func setUpAudio() {
@@ -121,8 +124,6 @@ class TankGameManager {
     }
 
     func setUpRules() {
-//        blueprint = blueprint.setupMultiplayer(serviceName: "tankGame")
-
         blueprint = blueprint
             .on(ScreenResizeEvent.self) { event, context in
                 self.handleScreenResize(event, in: context)

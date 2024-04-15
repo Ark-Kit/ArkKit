@@ -7,6 +7,7 @@ struct ArkBlueprint<ExternalResources: ArkExternalResources> {
     private(set) var rules: [any Rule] = []
     private(set) var setupFunctions: [ArkStateSetupDelegate] = []
     private(set) var soundMapping: [ExternalResources.AudioEnum: any Sound]?
+    private(set) var networkPlayableInfo: ArkNetworkPlayableInfo?
 
     // game world size
     private(set) var frameWidth: Double
@@ -80,23 +81,36 @@ struct ArkBlueprint<ExternalResources: ArkExternalResources> {
         return newSelf
     }
 
-//    func setupMultiplayer(serviceName: String = "Ark") -> Self {
-//        let fn: ArkStateSetupDelegate = { context in
-//            var events = context.events
-//
-//            let multiplayerManager = ArkMultiplayerManager(serviceName: serviceName)
-//            let multiplayerEventManager = ArkMultiplayerEventManager(arkEventManager: events,
-//                                                                     delegate: multiplayerManager)
-//            multiplayerManager.multiplayerEventManager = multiplayerEventManager
-//
-//            events.delegate = multiplayerEventManager
-//        }
-//
-//        var stateSetupFunctionsCopy = setupFunctions
-//        stateSetupFunctionsCopy.insert(fn, at: 0)
-//
-//        var newSelf = self
-//        newSelf.setupFunctions = stateSetupFunctionsCopy
-//        return newSelf
-//    }
+    func supportNetworkPlay(roomName: String, numberOfPlayers: Int) -> Self {
+        var newSelf = self
+        newSelf.networkPlayableInfo = ArkNetworkPlayableInfo(
+            roomName: roomName, numberOfPlayers: numberOfPlayers
+        )
+        return newSelf
+    }
+
+    func setRole(_ role: ArkPeerRole) -> Self {
+        var newSelf = self
+        guard let originalNetworkInfo = self.networkPlayableInfo else {
+            return newSelf
+        }
+        newSelf.networkPlayableInfo = ArkNetworkPlayableInfo(
+            roomName: originalNetworkInfo.roomName,
+            numberOfPlayers: originalNetworkInfo.numberOfPlayers,
+            role: role
+        )
+        return newSelf
+    }
+}
+
+struct ArkNetworkPlayableInfo {
+    let roomName: String
+    let numberOfPlayers: Int
+    let role: ArkPeerRole?
+
+    init(roomName: String, numberOfPlayers: Int, role: ArkPeerRole? = nil) {
+        self.roomName = roomName
+        self.numberOfPlayers = numberOfPlayers
+        self.role = role
+    }
 }
