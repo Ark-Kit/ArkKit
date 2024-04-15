@@ -172,8 +172,6 @@
 		28EFCB252BCCA7CC0059A908 /* ArkECSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */; };
 		28EFCB272BCCB6130059A908 /* ArkMultiplayerGameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */; };
 		28EFCB292BCCC90B0059A908 /* ArkHostSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB282BCCC90B0059A908 /* ArkHostSystem.swift */; };
-		28EFCB2B2BCD37200059A908 /* ButtonRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB2A2BCD37200059A908 /* ButtonRenderableComponent+SendableComponent.swift */; };
-		28EFCB2D2BCD372A0059A908 /* JoystickRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB2C2BCD372A0059A908 /* JoystickRenderableComponent+SendableComponent.swift */; };
 		8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */; };
 		8F5573C12BA42614007030C8 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C02BA42614007030C8 /* Renderable.swift */; };
 		8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */; };
@@ -445,8 +443,6 @@
 		28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSWrapper.swift; sourceTree = "<group>"; };
 		28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoop.swift; sourceTree = "<group>"; };
 		28EFCB282BCCC90B0059A908 /* ArkHostSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkHostSystem.swift; sourceTree = "<group>"; };
-		28EFCB2A2BCD37200059A908 /* ButtonRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
-		28EFCB2C2BCD372A0059A908 /* JoystickRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JoystickRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
 		8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderable.swift; sourceTree = "<group>"; };
 		8F5573C02BA42614007030C8 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapRenderable.swift; sourceTree = "<group>"; };
@@ -1111,8 +1107,6 @@
 				2882ABFA2BCB784C0042AC52 /* RectRenderableComponent+SendableComponent.swift */,
 				2882ABFC2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift */,
 				2882ABFE2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift */,
-				28EFCB2A2BCD37200059A908 /* ButtonRenderableComponent+SendableComponent.swift */,
-				28EFCB2C2BCD372A0059A908 /* JoystickRenderableComponent+SendableComponent.swift */,
 			);
 			path = SendableRenderableComponents;
 			sourceTree = "<group>";
@@ -1857,7 +1851,6 @@
 				AD6E03722BA2DB2700974EBF /* Heap.swift in Sources */,
 				02D8E94E2BAC9A0E00BF3A07 /* GameLoop.swift in Sources */,
 				945441102BC9202300E90ECE /* SnakeGameDirection.swift in Sources */,
-				28EFCB2D2BCD372A0059A908 /* JoystickRenderableComponent+SendableComponent.swift in Sources */,
 				2812FCC72BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift in Sources */,
 				28EFCB272BCCB6130059A908 /* ArkMultiplayerGameLoop.swift in Sources */,
 				0266151D2BC1405C00B56A85 /* TankRaceGame.swift in Sources */,
@@ -1869,7 +1862,6 @@
 				02D8E94C2BAC99FC00BF3A07 /* GameLoopable.swift in Sources */,
 				280CD3D02BA74E6000372C5D /* AbstractArkPhysicsScene.swift in Sources */,
 				AD260CA82BBFCC7E008B9654 /* EntityIDGenerator.swift in Sources */,
-				28EFCB2B2BCD37200059A908 /* ButtonRenderableComponent+SendableComponent.swift in Sources */,
 				02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */,
 				AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */,
 				28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */,
