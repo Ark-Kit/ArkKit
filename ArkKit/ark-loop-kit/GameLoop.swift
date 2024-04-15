@@ -1,4 +1,4 @@
-protocol GameLoop {
+protocol GameLoop: AnyObject {
     var updatePhysicsSceneDelegate: ArkPhysicsSceneUpdateLoopDelegate? { get set }
     var updateGameWorldDelegate: ArkGameWorldUpdateLoopDelegate? { get set }
     func setUp()

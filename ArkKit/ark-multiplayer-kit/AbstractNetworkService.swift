@@ -1,7 +1,9 @@
 import Foundation
 
-protocol ArkNetworkProtocol {
-    var delegate: ArkNetworkDelegate? { get set }
+protocol AbstractNetworkService {
+    var subscriber: ArkNetworkSubscriberDelegate? { get set }
+    var publisher: ArkNetworkPublisherDelegate? { get set }
+
     var deviceID: String { get }
     var serviceName: String { get }
 

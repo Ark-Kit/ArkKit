@@ -27,15 +27,21 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                          audio: audioContext)
     }
 
-    var multiplayerManager: ArkMultiplayerManager?
-
     var canvasRenderableBuilder: (any RenderableBuilder<View>)?
+
+    // network dependencies
+    var participantSubscriber: ArkParticipantNetworkSubscriber?
+    var hostSubscriber: ArkHostNetworkSubscriber?
 
     init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint<ExternalResources>,
          canvasRenderableBuilder: (any RenderableBuilder<View>)? = nil) {
         self.rootView = rootView
         self.blueprint = blueprint
+
+        let eventManager = ArkEventManager()
+        let ecsManager = ArkECS()
+        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
 
         self.audioContext = ArkAudioContext()
         self.canvasRenderableBuilder = canvasRenderableBuilder
@@ -46,24 +52,6 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
             ),
             screenSize: rootView.size
         )
-
-        // inject state management dependencies
-        guard let networkPlayableInfo = blueprint.networkPlayableInfo else {
-            let eventManager = ArkEventManager()
-            let ecsManager = ArkECS()
-            self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
-            return
-        }
-        let eventManager = ArkMultiplayerEventManager()
-        let ecsManager = ArkECS()
-        self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
-        self.multiplayerManager = ArkMultiplayerManager(
-            serviceName: networkPlayableInfo.roomName,
-            role: networkPlayableInfo.role ?? .host, // default to host so if unspecified, plays as local
-            ecs: ecsManager
-        )
-        multiplayerManager?.multiplayerEventManager = eventManager
-        eventManager.delegate = multiplayerManager
     }
 
     func start() {
@@ -88,7 +76,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     }
 
     private func setUpIfNotParticipant() {
-        guard multiplayerManager?.role != .participant else {
+        guard blueprint.networkPlayableInfo?.role != .participant else {
             return
         }
         setupDefaultEntities()
@@ -100,24 +88,34 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     }
 
     private func setUpIfParticipant() {
-        guard let multiplayerManager = multiplayerManager,
-              multiplayerManager.role == .participant else {
+        guard let networkPlayableInfo = blueprint.networkPlayableInfo,
+              networkPlayableInfo.role == .participant else {
             return
         }
         setupDefaultListeners()
         setupMultiplayerGameLoop()
+
+        let networkService = ArkNetworkService(serviceName: networkPlayableInfo.roomName)
+        self.participantSubscriber = ArkParticipantNetworkSubscriber(subscribeTo: networkService)
+        self.participantSubscriber?.localState = self.arkState
+        self.participantSubscriber?.localGameLoop = self.gameLoop
+
+        let participantPublisher = ArkParticipantNetworkPublisher(publishTo: networkService)
+        self.arkState.eventManager.networkPublisherDelegate = participantPublisher
         setup(blueprint.soundMapping)
     }
 
     private func setUpIfHost() {
-        guard let multiplayerManager = multiplayerManager,
-              multiplayerManager.role == .host else {
+        guard let networkPlayableInfo = blueprint.networkPlayableInfo,
+              networkPlayableInfo.role == .host else {
             return
         }
-        multiplayerManager.ecs = arkState.arkECS
-        self.arkState
-            .arkECS
-            .addSystem(ArkMultiplayerSystem(multiplayerManager: multiplayerManager))
+        let networkService = ArkNetworkService(serviceName: networkPlayableInfo.roomName)
+        let publisher = ArkHostNetworkPublisher(publishTo: networkService)
+        self.arkState.arkECS.addSystem(ArkHostSystem(publisher: publisher))
+
+        self.hostSubscriber = ArkHostNetworkSubscriber(subscribeTo: networkService)
+        self.hostSubscriber?.localState = self.arkState
     }
 
     private func setupDefaultListeners() {
@@ -130,7 +128,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         }
 
         arkState.eventManager.subscribe(to: PauseGameLoopEvent.self) { [weak self] event in
-            guard let pauseGameLoopEvent = event as? PauseGameLoopEvent,
+            guard let _ = event as? PauseGameLoopEvent,
                   let self = self else {
                 return
             }
@@ -138,7 +136,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         }
 
         arkState.eventManager.subscribe(to: ResumeGameLoopEvent.self) { [weak self] event in
-            guard let resumeGameLoopEvent = event as? ResumeGameLoopEvent,
+            guard let _ = event as? ResumeGameLoopEvent,
                   let self = self else {
                 return
             }
@@ -147,7 +145,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         }
 
         arkState.eventManager.subscribe(to: TerminateGameLoopEvent.self) { [weak self] event in
-            guard let terminateGameEvent = event as? TerminateGameLoopEvent,
+            guard let _ = event as? TerminateGameLoopEvent,
                   let self = self else {
                 return
             }
@@ -248,12 +246,12 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     }
 
     func setupMultiplayerGameLoop() {
-        guard let multiplayerManager = multiplayerManager else {
+        guard let networkPlayableInfo = blueprint.networkPlayableInfo,
+              networkPlayableInfo.role == .participant else {
             return
         }
         let gameLoop = ArkMultiplayerGameLoop()
         self.gameLoop = gameLoop
-        self.multiplayerManager?.arkMultiplayerECSDelegate = gameLoop
     }
 
     private func getWorldSize(_ blueprint: ArkBlueprint<ExternalResources>) -> (width: Double, height: Double) {

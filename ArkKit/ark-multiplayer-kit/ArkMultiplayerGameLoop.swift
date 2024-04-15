@@ -24,9 +24,3 @@ class ArkMultiplayerGameLoop: GameLoop {
     func resumeLoop() {
     }
 }
-
-extension ArkMultiplayerGameLoop: ArkMultiplayerECSDelegate {
-    func ecsDidUpdate() {
-        self.update()
-    }
-}
