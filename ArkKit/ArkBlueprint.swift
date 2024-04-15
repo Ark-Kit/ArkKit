@@ -9,6 +9,9 @@ struct ArkBlueprint<ExternalResources: ArkExternalResources> {
     private(set) var soundMapping: [ExternalResources.AudioEnum: any Sound]?
     private(set) var networkPlayableInfo: ArkNetworkPlayableInfo?
 
+    // if there is player specific setup
+    private(set) var playerSpecificSetupFunctions: [ArkStateSetupDelegate] = []
+
     // game world size
     private(set) var frameWidth: Double
     private(set) var frameHeight: Double
@@ -81,11 +84,22 @@ struct ArkBlueprint<ExternalResources: ArkExternalResources> {
         return newSelf
     }
 
-    func supportNetworkPlay(roomName: String, numberOfPlayers: Int) -> Self {
+    func supportNetworkMultiPlayer(roomName: String, numberOfPlayers: Int) -> Self {
         var newSelf = self
         newSelf.networkPlayableInfo = ArkNetworkPlayableInfo(
             roomName: roomName, numberOfPlayers: numberOfPlayers
         )
+        return newSelf
+    }
+
+    /// Only supports if Multiplayer is defined
+    /// Note: maybe we can move this into a multiplayerContext so dev defines specific player controls
+    func setupPlayer(_ fn: @escaping ArkStateSetupDelegate) -> Self {
+        var playerStateSetupFunctionsCopy = playerSpecificSetupFunctions
+        playerStateSetupFunctionsCopy.append(fn)
+
+        var newSelf = self
+        newSelf.playerSpecificSetupFunctions = playerStateSetupFunctionsCopy
         return newSelf
     }
 
