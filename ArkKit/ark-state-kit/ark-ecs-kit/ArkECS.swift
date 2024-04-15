@@ -18,11 +18,12 @@ class ArkECS: ArkECSContext {
         }
     }
 
-    func upsertEntityManager(entities: [Entity], components: [EntityID: [any Component]]) {
-        entityManager.removeAllEntities()
+    func bulkUpsert(entities: [Entity], components: [EntityID: [any Component]]) {
         for entity in entities {
             let components = components[entity.id] ?? []
-            _ = entityManager.createEntity(with: components)
+            for component in components {
+                entityManager.upsertComponent(component, to: entity)
+            }
         }
     }
 
@@ -52,6 +53,17 @@ class ArkECS: ArkECSContext {
         entityManager.removeEntity(entity)
     }
 
+    func removeAllEntities(except entitiesNotToRemove: [Entity] = []) {
+        let entities = getEntities()
+        let entitiesMarkedNotToRemove = Set(entitiesNotToRemove)
+        for entity in entities {
+            if entitiesMarkedNotToRemove.contains(entity) {
+                continue
+            }
+            removeEntity(entity)
+        }
+    }
+
     func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
         entityManager.upsertComponent(component, to: entity)
     }
@@ -78,7 +90,7 @@ class ArkECS: ArkECSContext {
         entityManager.getEntity(id: id)
     }
 
-    func getEntities(with componentTypes: [any Component.Type]) -> [Entity] {
+    func getEntities(with componentTypes: [any Component.Type] = []) -> [Entity] {
         entityManager.getEntities(with: componentTypes)
     }
 
