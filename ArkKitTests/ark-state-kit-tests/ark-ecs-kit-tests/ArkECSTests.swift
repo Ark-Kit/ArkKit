@@ -57,7 +57,7 @@ final class ArkECSTests: XCTestCase {
         XCTAssertNotNil(retrievedEntity, "Should retrieve the entity with the given ID.")
         XCTAssertEqual(retrievedEntity?.id, newEntity.id, "Retrieved entity should have the same ID as the new entity.")
 
-        let nonExistentEntity = arkECS.getEntity(id: UUID())
+        let nonExistentEntity = arkECS.getEntity(id: newEntity.id + 1)
         XCTAssertNil(nonExistentEntity, "Should return nil for a non-existent entity ID.")
     }
 
