@@ -1,22 +1,19 @@
 import Foundation
 
 /**
- *  A system which updates all running animation instances in ArkECS after the given delta.
+ *  A system which updates all running physics instances in ArkECS after the given delta.
  */
-class ArkPhysicsSystem: UpdateSystem {
+class ArkPhysicsUpdateSystem: UpdateSystem {
     var active: Bool
-    var simulator: AbstractPhysicsArkSimulator
     var scene: AbstractArkPhysicsScene?
     var eventManager: ArkEventManager
     var arkECS: ArkECS
-    weak var sceneUpdateDelegate: ArkPhysicsContactUpdateDelegate?
 
     init(simulator: AbstractPhysicsArkSimulator,
          eventManager: ArkEventManager,
          arkECS: ArkECS,
          active: Bool = true) {
         self.active = active
-        self.simulator = simulator
         self.scene = simulator.physicsScene
         self.eventManager = eventManager
         self.arkECS = arkECS
@@ -36,25 +33,13 @@ class ArkPhysicsSystem: UpdateSystem {
         }
     }
 
-    func syncFromPhysicsEngine() {
-        let syncStrategies: [ComponentSyncing] = [PhysicsComponentSync(),
-                                                  PositionComponentSync(),
-                                                  RotationComponentSync()]
-
-        scene?.forEachEntity(perform: { entity, physicsBody in
-            syncStrategies.forEach { strategy in
-                strategy.sync(entity: entity, with: physicsBody, using: self.arkECS)
-            }
-        })
-    }
-
     func syncToPhysicsEngine(_ physicsComponents: [(Entity, PhysicsComponent)], arkECS: ArkECS) {
         for (entity, physics) in physicsComponents {
             handlePhysicsComponentRemovalIfNeeded(for: entity, using: physics, arkECS: arkECS)
 
             if let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity),
                toRemoveComponent.toBeRemoved {
-            return }
+                return }
 
             guard let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for: entity),
                     let rotationComponent = arkECS.getComponent(ofType: RotationComponent.self, for: entity) else {
@@ -73,10 +58,9 @@ class ArkPhysicsSystem: UpdateSystem {
                                                        arkECS: ArkECS) {
         guard let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity),
               toRemoveComponent.toBeRemoved else {
-        return }
+            return }
 
         scene?.removePhysicsBody(for: entity)
-        arkECS.removeEntity(entity)
     }
 
     private func syncPhysicsBody(for entity: Entity, position: PositionComponent,
@@ -168,125 +152,5 @@ class ArkPhysicsSystem: UpdateSystem {
         }
         physicsComponent.angularImpulse = angularImpulse
         arkECS.upsertComponent(physicsComponent, to: entity)
-    }
-
-    // MARK: Handle Collision
-    func handleCollisionBegan(between entityA: Entity, and entityB: Entity) {
-        var arkCollisionEvent = makeCollisionEvent(ArkCollisionBeganEvent.self, entityA, entityB)
-        self.eventManager.emit(arkCollisionEvent)
-    }
-
-    func handleCollisionEnd(between entityA: Entity, and entityB: Entity) {
-        var arkCollisionEvent = makeCollisionEvent(ArkCollisionEndedEvent.self, entityA, entityB)
-        self.eventManager.emit(arkCollisionEvent)
-    }
-
-    private func makeCollisionEvent<T: ArkCollisionEventProtocol> (_ eventType: T.Type,
-                                                                   _ entityA: Entity,
-                                                                   _ entityB: Entity) -> T {
-        let entityACategoryBitMask = scene?.getPhysicsBody(for: entityA)?.categoryBitMask ?? 0
-        let entityBCategoryBitMask = scene?.getPhysicsBody(for: entityB)?.categoryBitMask ?? 0
-        let arkCollisionEvent = T(eventData: ArkCollisionEventData(
-            entityA: entityA,
-            entityACategoryBitMask: entityACategoryBitMask,
-            entityB: entityB,
-            entityBCategoryBitMask: entityBCategoryBitMask),
-                                  priority: 0)
-        return arkCollisionEvent
-    }
-}
-
-extension ArkPhysicsSystem: ArkPhysicsContactUpdateDelegate {
-    func didContactBegin(between entityA: Entity, and entityB: Entity) {
-        handleCollisionBegan(between: entityA, and: entityB)
-    }
-
-    func didContactEnd(between entityA: Entity, and entityB: Entity) {
-        handleCollisionEnd(between: entityA, and: entityB)
-    }
-}
-
-extension ArkPhysicsSystem: ArkPhysicsSceneUpdateLoopDelegate {
-    func update(_ deltaTime: TimeInterval) {
-        syncFromPhysicsEngine()
-    }
-}
-
-protocol ArkCollisionEventProtocol: ArkEvent {
-    init(eventData: ArkCollisionEventData, priority: Int?)
-}
-
-struct ArkCollisionEventData: ArkEventData {
-    var name = ""
-    var entityA: Entity
-    var entityACategoryBitMask: UInt32
-    var entityB: Entity
-    var entityBCategoryBitMask: UInt32
-}
-
-struct ArkCollisionEndedEvent: ArkCollisionEventProtocol {
-    static var id = UUID()
-    var eventData: ArkCollisionEventData
-    var priority: Int?
-
-    init(eventData: ArkCollisionEventData, priority: Int? = 10) {
-        self.eventData = eventData
-    }
-}
-
-struct ArkCollisionBeganEvent: ArkCollisionEventProtocol {
-    static var id = UUID()
-    var eventData: ArkCollisionEventData
-    var priority: Int?
-
-    init(eventData: ArkCollisionEventData, priority: Int? = 10) {
-        self.eventData = eventData
-        self.priority = priority
-    }
-}
-
-protocol ComponentSyncing {
-    func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS)
-}
-
-struct PhysicsComponentSync: ComponentSyncing {
-    func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS) {
-        guard var physicsComponent: PhysicsComponent =
-                arkECS.getComponent(ofType: PhysicsComponent.self, for: entity) else {
-            return }
-        physicsComponent.velocity = physicsBody.velocity
-        physicsComponent.mass = physicsBody.mass
-        physicsComponent.affectedByGravity = physicsBody.affectedByGravity
-        physicsComponent.linearDamping = physicsBody.linearDamping
-        physicsComponent.isDynamic = physicsBody.isDynamic
-        physicsComponent.allowsRotation = physicsBody.allowsRotation
-        physicsComponent.restitution = physicsBody.restitution
-        physicsComponent.friction = physicsBody.friction
-
-        physicsComponent.categoryBitMask = physicsBody.categoryBitMask
-        physicsComponent.contactTestBitMask = physicsBody.contactTestBitMask
-        physicsComponent.collisionBitMask = physicsBody.collisionBitMask
-        arkECS.upsertComponent(physicsComponent, to: entity)
-    }
-}
-
-struct PositionComponentSync: ComponentSyncing {
-    func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS) {
-        guard let positionComponent: PositionComponent =
-                arkECS.getComponent(ofType: PositionComponent.self, for: entity) else {
-            return }
-        var newPositionComp = positionComponent
-        newPositionComp.position = physicsBody.position
-        arkECS.upsertComponent(newPositionComp, to: entity)
-    }
-}
-
-struct RotationComponentSync: ComponentSyncing {
-    func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS) {
-        guard var rotationComponent: RotationComponent =
-                arkECS.getComponent(ofType: RotationComponent.self, for: entity) else {
-            return }
-        rotationComponent.angleInRadians = physicsBody.zRotation
-        arkECS.upsertComponent(rotationComponent, to: entity)
     }
 }
