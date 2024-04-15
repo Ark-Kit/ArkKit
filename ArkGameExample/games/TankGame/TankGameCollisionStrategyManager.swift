@@ -31,11 +31,7 @@ class TankGameCollisionStrategyManager: CollisionStrategyManager<TankGameActionC
 
 func markEntityForRemoval<ExternalResources: ArkExternalResources>(_ entity: Entity,
                                                                    in context: ArkActionContext<ExternalResources>) {
-    guard var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: entity) else {
-        return
-    }
-    physicsComponent.toBeRemoved = true
-    context.ecs.upsertComponent(physicsComponent, to: entity)
+    context.ecs.upsertComponent(ToRemoveComponent(toBeRemoved: true), to: entity)
 }
 
 func markBallForRemoval<ExternalResources: ArkExternalResources>(_ entity: Entity,

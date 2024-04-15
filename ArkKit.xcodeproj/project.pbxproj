@@ -163,6 +163,8 @@
 		2812FCC52BC4424200A0FE24 /* TankRaceGameEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */; };
 		2812FCC72BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */; };
 		282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */; };
+		28548F502BCD9CA700C49404 /* ArkEntityRemovalSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */; };
+		28548F522BCD9CB900C49404 /* ToRemoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */; };
 		286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */; };
 		286C09C22BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */; };
 		287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00542BC16E6C002F0114 /* TankHPComponent.swift */; };
@@ -449,6 +451,8 @@
 		2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameEntityCreator.swift; sourceTree = "<group>"; };
 		2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
 		282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBodyManager.swift; sourceTree = "<group>"; };
+		28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEntityRemovalSystem.swift; sourceTree = "<group>"; };
+		28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToRemoveComponent.swift; sourceTree = "<group>"; };
 		286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameMapBuilder.swift; sourceTree = "<group>"; };
 		286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
 		287B00542BC16E6C002F0114 /* TankHPComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPComponent.swift; sourceTree = "<group>"; };
@@ -1193,6 +1197,7 @@
 				280CD3DD2BA8045200372C5D /* RotationComponent.swift */,
 				02C395332BAAF0EC0075F1CA /* WorldComponent.swift */,
 				28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */,
+				28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */,
 			);
 			path = InternalComponents;
 			sourceTree = "<group>";
@@ -1213,6 +1218,7 @@
 			children = (
 				28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */,
 				0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */,
+				28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */,
 			);
 			path = InternalSystems;
 			sourceTree = "<group>";
@@ -1974,6 +1980,7 @@
 				8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */,
 				945441212BC9639E00E90ECE /* SnakeGameTick.swift in Sources */,
 				941BE2202BC104D000707997 /* TankGameSounds.swift in Sources */,
+				28548F502BCD9CA700C49404 /* ArkEntityRemovalSystem.swift in Sources */,
 				94D053A12BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift in Sources */,
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
 				0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */,
@@ -1996,7 +2003,7 @@
 				02C395182BA83FC40075F1CA /* ButtonRenderableComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,
-				ADA847FF2BBC4EA800B19378 /* ArkDataSerializer.swift in Sources */,
+				ADA847FF2BBC4EA800B19378 /* ArkEventDataSerializer.swift in Sources */,
 				02B3C6202BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift in Sources */,
 				ADA847FF2BBC4EA800B19378 /* ArkEventDataSerializer.swift in Sources */,
 				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
@@ -2058,6 +2065,7 @@
 				AD2B59B62BB958E400198E99 /* DataWrapper.swift in Sources */,
 				02B3C62C2BCD19AC002331A0 /* ArkNetworkPublisherDelegate.swift in Sources */,
 				0230A48E2BB950AF001CFDAF /* OrderedDictionary.swift in Sources */,
+				28548F522BCD9CB900C49404 /* ToRemoveComponent.swift in Sources */,
 				9479A3AC2BA951F300F99013 /* AbstractBitmap.swift in Sources */,
 				945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */,
 				AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */,

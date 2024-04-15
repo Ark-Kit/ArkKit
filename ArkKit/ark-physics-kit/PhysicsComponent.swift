@@ -28,6 +28,4 @@ struct PhysicsComponent: SendableComponent {
     var categoryBitMask: UInt32
     var collisionBitMask: UInt32
     var contactTestBitMask: UInt32
-
-    var toBeRemoved = false
 }
