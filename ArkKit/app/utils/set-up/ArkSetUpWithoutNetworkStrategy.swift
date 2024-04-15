@@ -1,5 +1,9 @@
-struct ArkSetUpWithoutNetwork<View, ExternalResources: ArkExternalResources>: ArkSetUpStrategy {
+class ArkSetUpWithoutNetwork<View, ExternalResources: ArkExternalResources>: ArkSetUpStrategy {
     weak var ark: Ark<View, ExternalResources>?
+
+    init(ark: Ark<View, ExternalResources>? = nil) {
+        self.ark = ark
+    }
 
     func setUp() {
         guard let ark = ark,

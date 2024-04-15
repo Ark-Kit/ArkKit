@@ -1,5 +1,9 @@
-struct ArkSetUpIfParticipantStrategy<View, ExternalResources: ArkExternalResources>: ArkSetUpStrategy {
+class ArkSetUpIfParticipantStrategy<View, ExternalResources: ArkExternalResources>: ArkSetUpStrategy {
     weak var ark: Ark<View, ExternalResources>?
+
+    init(ark: Ark<View, ExternalResources>? = nil) {
+        self.ark = ark
+    }
 
     func setUp() {
         guard let ark = ark,
@@ -9,54 +13,27 @@ struct ArkSetUpIfParticipantStrategy<View, ExternalResources: ArkExternalResourc
         }
         setupDefaultListeners()
         setupMultiplayerGameLoop()
-        setup(ark.blueprint.setupFunctions)
         setup(ark.blueprint.soundMapping)
 
         let networkService = ArkNetworkService(serviceName: networkPlayableInfo.roomName)
         ark.participantSubscriber = ArkParticipantNetworkSubscriber(subscribeTo: networkService)
         ark.participantSubscriber?.localState = ark.arkState
         ark.participantSubscriber?.localGameLoop = ark.gameLoop
+        ark.participantSubscriber?.playerStateSetUpDelegate = self
 
         let participantPublisher = ArkParticipantNetworkPublisher(publishTo: networkService)
         ark.arkState.eventManager.networkPublisherDelegate = participantPublisher
-
-        preserveSelectComponentsIfParticipant()
     }
+}
 
-    private func preserveSelectComponentsIfParticipant() {
-        // Retrieve all entities
-        let allEntities = ark?.arkState.arkECS.getEntities() ?? []
-
-        // Filter and preserve entities with renderable components at the screen layer
-        var preservedEntityToRenderableComponent: [Entity: [any RenderableComponent]] = [:]
-        for entity in allEntities {
-            preserveRenderableComponentsAtScreenLayer(for: entity, in: &preservedEntityToRenderableComponent)
+extension ArkSetUpIfParticipantStrategy: ArkPlayerStateSetupDelegate {
+    func setup(_ playerId: Int) {
+        let playerSetUpCallbacks = ark?.blueprint.playerSpecificSetupFunctions
+        guard playerId < playerSetUpCallbacks?.count ?? 0,
+              let specificPlayerSetUp = playerSetUpCallbacks?[playerId],
+              let displayContext = ark?.displayContext else {
+            return
         }
-
-        // Remove all other entities
-        let preservedEntities = Array(preservedEntityToRenderableComponent.keys)
-        ark?.arkState.arkECS.removeAllEntities(except: preservedEntities)
-
-        // Bulk upsert the preserved entities and their components
-        var preservedComponentMapping: [EntityID: [any Component]] = [:]
-        preservedEntityToRenderableComponent.forEach { entity, componentList in
-            preservedComponentMapping[entity.id] = componentList
-        }
-        ark?.arkState.arkECS.bulkUpsert(entities: preservedEntities, components: preservedComponentMapping)
-    }
-
-    private func preserveRenderableComponentsAtScreenLayer(
-        for entity: Entity,
-        in preservedEntityToRenderableComponent: inout [Entity: [any RenderableComponent]]
-    ) {
-        for renderableComponentType in ArkCanvasSystem.renderableComponentTypes {
-            if let renderableComponent = ark?.arkState.arkECS.getComponent(ofType: renderableComponentType, for: entity),
-               renderableComponent.renderLayer == .screen {
-                if preservedEntityToRenderableComponent[entity] == nil {
-                    preservedEntityToRenderableComponent[entity] = []
-                }
-                preservedEntityToRenderableComponent[entity]?.append(renderableComponent)
-            }
-        }
+        ark?.arkState.setup(specificPlayerSetUp, displayContext: displayContext)
     }
 }
