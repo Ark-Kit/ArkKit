@@ -15,7 +15,7 @@ class GameHostingPageFactory {
                 guard let role = role else {
                     return vc
                 }
-                var updatedBlueprint = blueprint.setRole(role)
+                let updatedBlueprint = blueprint.setRole(role)
                 vc.ark = Ark(rootView: vc, blueprint: updatedBlueprint)
             }
             return vc
@@ -26,8 +26,9 @@ class GameHostingPageFactory {
             vc.ark = ark
             return vc
         case .TankRaceGame:
-            let blueprint: ArkBlueprint<TankRaceGameExternalResources> = TankRaceGame().blueprint
             let vc: ArkDemoGameHostingPage<TankRaceGameExternalResources> = ArkDemoGameHostingPage()
+            let blueprint: ArkBlueprint<TankRaceGameExternalResources> = TankRaceGame(rootView: vc).blueprint
+//            vc.arkBlueprint = blueprint
             let ark = Ark(rootView: vc, blueprint: blueprint)
             vc.ark = ark
             return vc

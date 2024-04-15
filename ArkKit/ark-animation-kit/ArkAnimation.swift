@@ -8,7 +8,7 @@ struct AnimationKeyframe<T: Equatable>: Equatable {
 
 protocol Animation<T> {
     associatedtype T: Equatable
-    
+
     var keyframes: [AnimationKeyframe<T>] { get }
     var duration: TimeInterval { get }
     var isLooping: Bool { get }
@@ -56,7 +56,7 @@ struct ArkAnimation<T>: Animation where T: Equatable {
         newSelf.keyframes.append(AnimationKeyframe(value: value, offset: newOffset, duration: duration))
         return newSelf
     }
-    
+
     /**
      *  Sets the animation to run a given number of times. Should only be called after all keyframes are added.
      */
@@ -66,7 +66,7 @@ struct ArkAnimation<T>: Animation where T: Equatable {
         newSelf.runCount = runCount
         return newSelf
     }
-    
+
     /**
      *  Repeats the animation indefinitely.
      */
@@ -75,7 +75,7 @@ struct ArkAnimation<T>: Animation where T: Equatable {
         newSelf.isLooping = true
         return newSelf
     }
-    
+
     /**
      *  Sets whether the animation should loop indefinitely.
      */
@@ -84,7 +84,7 @@ struct ArkAnimation<T>: Animation where T: Equatable {
         newSelf.isLooping = value
         return newSelf
     }
-    
+
     /**
      *  Returns a new animation with the keyframes in reverse order.
      */

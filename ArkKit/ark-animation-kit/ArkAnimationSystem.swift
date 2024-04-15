@@ -22,13 +22,13 @@ class ArkAnimationSystem: UpdateSystem {
                 if !animationInstance.isPlaying {
                     continue
                 }
-                
+
                 animationInstance.advance(by: deltaTime)
                 if animationInstance.shouldDestroy {
                     animationsComponent.removeAnimation(animationInstance)
                 }
             }
-            
+
             arkECS.upsertComponent(animationsComponent, to: entity)
         }
     }
