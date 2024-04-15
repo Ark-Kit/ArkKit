@@ -181,6 +181,7 @@
 		28EFCB252BCCA7CC0059A908 /* ArkECSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */; };
 		28EFCB272BCCB6130059A908 /* ArkMultiplayerGameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */; };
 		28EFCB292BCCC90B0059A908 /* ArkHostSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB282BCCC90B0059A908 /* ArkHostSystem.swift */; };
+		28EFCB2F2BCD8F5E0059A908 /* ToRemoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB2E2BCD8F5E0059A908 /* ToRemoveComponent.swift */; };
 		8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */; };
 		8F5573C12BA42614007030C8 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C02BA42614007030C8 /* Renderable.swift */; };
 		8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */; };
@@ -461,6 +462,7 @@
 		28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSWrapper.swift; sourceTree = "<group>"; };
 		28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoop.swift; sourceTree = "<group>"; };
 		28EFCB282BCCC90B0059A908 /* ArkHostSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkHostSystem.swift; sourceTree = "<group>"; };
+		28EFCB2E2BCD8F5E0059A908 /* ToRemoveComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToRemoveComponent.swift; sourceTree = "<group>"; };
 		8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderable.swift; sourceTree = "<group>"; };
 		8F5573C02BA42614007030C8 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapRenderable.swift; sourceTree = "<group>"; };
@@ -1162,6 +1164,7 @@
 				280CD3DD2BA8045200372C5D /* RotationComponent.swift */,
 				02C395332BAAF0EC0075F1CA /* WorldComponent.swift */,
 				28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */,
+				28EFCB2E2BCD8F5E0059A908 /* ToRemoveComponent.swift */,
 			);
 			path = InternalComponents;
 			sourceTree = "<group>";
@@ -1993,6 +1996,7 @@
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,
 				ADD74C0C2BC05677008CE36B /* ArkECSDataSerializer.swift in Sources */,
 				026882492BCACAFF00212BD6 /* ArkDemoGameHostingPage.swift in Sources */,
+				28EFCB2F2BCD8F5E0059A908 /* ToRemoveComponent.swift in Sources */,
 				2812FCBF2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift in Sources */,
 				8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */,
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,

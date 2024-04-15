@@ -51,9 +51,10 @@ class ArkPhysicsSystem: UpdateSystem {
     func syncToPhysicsEngine(_ physicsComponents: [(Entity, PhysicsComponent)], arkECS: ArkECS) {
         for (entity, physics) in physicsComponents {
             handlePhysicsComponentRemovalIfNeeded(for: entity, using: physics, arkECS: arkECS)
-
-            guard !physics.toBeRemoved else {
-                continue }
+            
+            guard let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity),
+                  toRemoveComponent.toBeRemoved else {
+                return }
 
             guard let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for: entity),
                     let rotationComponent = arkECS.getComponent(ofType: RotationComponent.self, for: entity) else {
@@ -70,7 +71,8 @@ class ArkPhysicsSystem: UpdateSystem {
     private func handlePhysicsComponentRemovalIfNeeded(for entity: Entity,
                                                        using physics: PhysicsComponent,
                                                        arkECS: ArkECS) {
-        guard physics.toBeRemoved else {
+        guard let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity),
+              toRemoveComponent.toBeRemoved else {
             return }
 
         scene?.removePhysicsBody(for: entity)
