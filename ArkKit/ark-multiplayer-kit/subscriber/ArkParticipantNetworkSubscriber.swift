@@ -3,6 +3,7 @@ import Foundation
 class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
     // network related dependencies
     var networkService: AbstractNetworkService
+    var playerStateSetUpDelegate: ArkPlayerStateSetupDelegate?
 
     // inject dependency
     weak var localState: ArkState?
@@ -18,6 +19,16 @@ class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
         do {
             let wrappedData = try JSONDecoder().decode(DataWrapper.self, from: data)
 
+            if wrappedData.type == .playerMapping {
+                let mappingWrapper = try ArkPeerToPlayerIdSerializer.decodeMapping(from: wrappedData.payload)
+                let myPeerInfo = networkService.deviceID
+                if let myPlayerId = mappingWrapper[myPeerInfo] {
+                    playerStateSetUpDelegate?.setup(myPlayerId)
+                    // unassign so that set up is only done once
+                    playerStateSetUpDelegate = nil
+                }
+            }
+
             if wrappedData.type == .ecs {
                 let ecsWrapper = try ArkECSDataSerializer.decodeArkECS(from: wrappedData.payload)
                 processECSUpdates(ecsWrapper)
@@ -29,7 +40,16 @@ class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
         }
     }
 
-    private func processECSUpdates(_ ecsWrapper: ArkECSWrapper) {
-        localState?.arkECS.upsertEntityManager(entities: ecsWrapper.entities, components: ecsWrapper.decodeComponents())
+    private func processECSUpdates(_ updatedECSStateWrapper: ArkECSWrapper) {
+        guard let ecs = localState?.arkECS else {
+            return
+        }
+        // remove all outdated entities
+        ecs.removeAllEntities(except: updatedECSStateWrapper.entities)
+
+        ecs.bulkUpsert(
+            entities: updatedECSStateWrapper.entities,
+            components: updatedECSStateWrapper.decodeComponents()
+        )
     }
 }

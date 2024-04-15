@@ -2,10 +2,16 @@ class ArkHostNetworkPublisher: ArkNetworkPublisherDelegate {
     // network related dependencies
     var networkService: AbstractNetworkService
     private var peers = [String]()
+    private(set) var peerInfoToPlayerIdMap: [String: Int] = [:]
 
-    init(publishTo networkService: AbstractNetworkService) {
+    init(publishTo networkService: AbstractNetworkService,
+         playerStateSetUpDelegate: ArkPlayerStateSetupDelegate? = nil) {
         self.networkService = networkService
         self.networkService.publisher = self
+
+        // Host will always be player 0
+        self.peerInfoToPlayerIdMap[networkService.deviceID] = 0
+        playerStateSetUpDelegate?.setup(0)
     }
 
     func publish(ecs: ArkECS) {
@@ -25,5 +31,24 @@ class ArkHostNetworkPublisher: ArkNetworkPublisherDelegate {
     func onChangeInObservers(manager: ArkNetworkService, connectedDevices: [String]) {
         // registers listeners to publish to
         peers = connectedDevices
+
+        // if a peer is not in, assign to new playerId
+        guard var maxPlayerId = peerInfoToPlayerIdMap.values.compactMap({ $0 }).max() else {
+            return
+        }
+
+        for peer in peers where peerInfoToPlayerIdMap[peer] == nil {
+            peerInfoToPlayerIdMap[peer] = maxPlayerId + 1
+            maxPlayerId += 1
+        }
+
+        // sendData
+        do {
+            let encodedPeerToPlayerMapping = try ArkPeerToPlayerIdSerializer.encodeMapping(peerInfoToPlayerIdMap)
+            networkService.sendData(data: encodedPeerToPlayerMapping)
+        } catch {
+            print("Error encoding or sending peerToPlayerId mapping: \(error)")
+        }
+
     }
 }
