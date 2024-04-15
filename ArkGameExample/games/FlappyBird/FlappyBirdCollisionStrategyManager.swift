@@ -2,6 +2,7 @@ enum FlappyBirdPhysicsCategory {
     static let none: UInt32 = 0
     static let character: UInt32 = 0x1 << 0
     static let wall: UInt32 = 0x1 << 1
+    static let ceiling: UInt32 = 0x1 << 2
 }
 
 typealias FlappyBirdActionContext = ArkActionContext<FlappyBirdExternalResources>
@@ -11,7 +12,8 @@ class FlappyBirdCollisionStrategyManager: CollisionStrategyManager<FlappyBirdAct
     init() {
         super.init()
 
-        register(strategy: CharacterWallCollisionStrategy(), for: (FlappyBirdPhysicsCategory.character, FlappyBirdPhysicsCategory.wall))
+        register(strategy: CharacterWallCollisionStrategy(),
+                 for: (FlappyBirdPhysicsCategory.character, FlappyBirdPhysicsCategory.wall))
     }
 }
 

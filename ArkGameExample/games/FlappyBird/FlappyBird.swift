@@ -10,9 +10,12 @@ class FlappyBird {
     }
 
     private func setup() {
-        setupPlayer()
+        setupScene()
+        setupTappableArea()
         setupRules()
-
+        setupGameTickTracking()
+        setupWallSpawner()
+        cleanupWalls()
     }
 }
 
@@ -25,6 +28,84 @@ extension FlappyBird {
             }
     }
 
+    private func setupScene() {
+        blueprint = blueprint
+            .setup { context in
+                FlappyBirdEntityCreator.setupGroundAndSkyWalls(context: context)
+
+                let characterEntity = FlappyBirdEntityCreator.createCharacter(context: context)
+                self.characterIdToEntityMap[1] = characterEntity
+            }
+    }
+
+    private func setupTappableArea() {
+        blueprint = blueprint
+            .setup { context in
+                FlappyBirdEntityCreator.setupTappableArea(characterId: 1, context: context)
+            }
+    }
+
+    private func setupGameTickTracking() {
+        blueprint = blueprint
+            .setup { context in
+                context.ecs.createEntity(with: [
+                    FlappyBirdGameTick(elapsed: 0)
+                ])
+            }
+    }
+
+    private func setupWallSpawner() {
+        blueprint = blueprint
+            .forEachTick { timeContext, actionContext in
+                let ecs = actionContext.ecs
+                let gameTickEntities = ecs.getEntities(with: [FlappyBirdGameTick.self])
+
+                guard !gameTickEntities.isEmpty,
+                      var gameTickComponent = ecs.getComponent(ofType: FlappyBirdGameTick.self,
+                                                               for: gameTickEntities[0])
+                else {
+                    assertionFailure("Unable to get game tick component!")
+                    return
+                }
+
+                let ticksPerSecond = 1.0 / 2
+                let elapsed = timeContext.clockTimeInSecondsGame
+                guard gameTickComponent.elapsed != (elapsed * ticksPerSecond).rounded() else {
+                    return
+                }
+
+                // Handle tick
+                FlappyBirdEntityCreator.spawnPairPipes(context: actionContext)
+
+                gameTickComponent.elapsed += 1
+                ecs.upsertComponent(gameTickComponent, to: gameTickEntities[0])
+            }
+    }
+
+    /// Clean up wall entities when they exit the screen.
+    private func cleanupWalls() {
+        blueprint = blueprint.forEachTick { _, actionContext in
+            let ecs = actionContext.ecs
+            let pipeEntities = ecs.getEntities(with: [FlappyBirdPipeTag.self])
+
+            pipeEntities.forEach { pipeEntity in
+                guard let positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: pipeEntity) else {
+                    assertionFailure("Pipe entity does not have position component!")
+                    return
+                }
+
+                guard positionComponent.position.x < -100 else {
+                    return
+                }
+
+                ecs.removeEntity(pipeEntity)
+            }
+        }
+    }
+}
+
+// MARK: Event handlers
+extension FlappyBird {
     private func handleTapEvent(_ event: FlappyBirdTapEvent, in context: FlappyBirdActionContext) {
         let ecs = context.ecs
         let tapEventData = event.eventData
@@ -37,58 +118,8 @@ extension FlappyBird {
             return
         }
 
-        characterPhysicsComponent.isDynamic = true
-        characterPhysicsComponent.impulse = CGVector(dx: 0, dy: -100)
-        characterPhysicsComponent.linearDamping = 10
+        // Handle character 'flying'
+        characterPhysicsComponent.impulse = FlappyBirdEntityCreator.impulseValue
         ecs.upsertComponent(characterPhysicsComponent, to: characterEntity)
-    }
-
-    private func setupPlayer() {
-        blueprint = blueprint
-            .setup { context in
-                let ecs = context.ecs
-                let display = context.display
-
-                let canvasWidth = display.canvasSize.width
-                let canvasHeight = display.canvasSize.height
-                let canvasCenter = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
-
-                let screenWidth = display.screenSize.width
-                let screenHeight = display.screenSize.height
-
-                let radius: Double = 20
-                let character = ecs.createEntity(with: [
-                    CircleRenderableComponent(radius: radius)
-                        .fill(color: .red)
-                        .zPosition(1)
-                        .layer(.canvas),
-                    PositionComponent(position: canvasCenter),
-                    RotationComponent(),
-                    // isDynamic false at the start till the player makes the first tap
-                    PhysicsComponent(shape: .circle, radius: radius,
-                                     isDynamic: false, affectedByGravity: true,
-                                     categoryBitMask: FlappyBirdPhysicsCategory.character,
-                                     collisionBitMask: FlappyBirdPhysicsCategory.wall,
-                                     contactTestBitMask: FlappyBirdPhysicsCategory.none)
-
-                ])
-                self.characterIdToEntityMap[1] = character
-
-                let button = ButtonRenderableComponent(width: 70, height: 70)
-                    .shouldRerender { old, new in old.center != new.center }
-                    .center(CGPoint(x: screenWidth * 3 / 12, y: canvasHeight * 10 / 11))
-                    .zPosition(999)
-                    .onTap {
-                        let flappyBirdTapEventData = FlappyBirdTapEventData(name: "FlappyBirdTapEvent", characterId: 1)
-                        let flappyBirdTapEvent = FlappyBirdTapEvent(eventData: flappyBirdTapEventData)
-                        context.events.emit(flappyBirdTapEvent)
-                    }
-                    .label("Fly!", color: .white)
-                    .background(color: .gray)
-                    .padding(top: 5, bottom: 5, left: 5, right: 5)
-                    .layer(.screen)
-
-                ecs.createEntity(with: [button])
-            }
     }
 }

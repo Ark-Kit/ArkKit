@@ -174,6 +174,9 @@
 		941A45B22BCD4DD600689D15 /* FlappyBird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45B12BCD4DD600689D15 /* FlappyBird.swift */; };
 		941A45B52BCD4EEA00689D15 /* FlappyBirdCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45B42BCD4EEA00689D15 /* FlappyBirdCollisionStrategyManager.swift */; };
 		941A45B82BCD60AB00689D15 /* FlappyBirdTapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45B72BCD60AB00689D15 /* FlappyBirdTapEvent.swift */; };
+		941A45BA2BCD75B100689D15 /* FlappyBirdPipeTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45B92BCD75B100689D15 /* FlappyBirdPipeTag.swift */; };
+		941A45BE2BCD88D800689D15 /* FlappyBirdGameTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */; };
+		941A45C02BCD9F7400689D15 /* FlappyBirdEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45BF2BCD9F7400689D15 /* FlappyBirdEntityCreator.swift */; };
 		941BE21E2BC0EC1900707997 /* ArkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE21D2BC0EC1900707997 /* ArkProtocol.swift */; };
 		941BE2202BC104D000707997 /* TankGameSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE21F2BC104D000707997 /* TankGameSounds.swift */; };
 		941BE2242BC1317900707997 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941BE2232BC1317900707997 /* SoundPlayer.swift */; };
@@ -432,6 +435,9 @@
 		941A45B12BCD4DD600689D15 /* FlappyBird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBird.swift; sourceTree = "<group>"; };
 		941A45B42BCD4EEA00689D15 /* FlappyBirdCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		941A45B72BCD60AB00689D15 /* FlappyBirdTapEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdTapEvent.swift; sourceTree = "<group>"; };
+		941A45B92BCD75B100689D15 /* FlappyBirdPipeTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdPipeTag.swift; sourceTree = "<group>"; };
+		941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdGameTick.swift; sourceTree = "<group>"; };
+		941A45BF2BCD9F7400689D15 /* FlappyBirdEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdEntityCreator.swift; sourceTree = "<group>"; };
 		941BE21D2BC0EC1900707997 /* ArkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkProtocol.swift; sourceTree = "<group>"; };
 		941BE21F2BC104D000707997 /* TankGameSounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameSounds.swift; sourceTree = "<group>"; };
 		941BE2232BC1317900707997 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
@@ -1115,6 +1121,7 @@
 				941A45B02BCD4DC300689D15 /* Components */,
 				941A45B12BCD4DD600689D15 /* FlappyBird.swift */,
 				941A45B42BCD4EEA00689D15 /* FlappyBirdCollisionStrategyManager.swift */,
+				941A45BF2BCD9F7400689D15 /* FlappyBirdEntityCreator.swift */,
 			);
 			path = FlappyBird;
 			sourceTree = "<group>";
@@ -1130,6 +1137,8 @@
 		941A45B02BCD4DC300689D15 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				941A45B92BCD75B100689D15 /* FlappyBirdPipeTag.swift */,
+				941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1830,6 +1839,7 @@
 				AD787A552B9C636F003EBBD0 /* RootViewController.swift in Sources */,
 				02C394E32BA407420075F1CA /* Ark.swift in Sources */,
 				0267BA2D2BBD2AB90010F729 /* Camera.swift in Sources */,
+				941A45BA2BCD75B100689D15 /* FlappyBirdPipeTag.swift in Sources */,
 				02C9CC382BBF30180098E849 /* AbstractLetterboxable.swift in Sources */,
 				AD6E03762BA2F24800974EBF /* ArkStateEventListener.swift in Sources */,
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
@@ -1902,11 +1912,13 @@
 				02C395222BA849700075F1CA /* PolygonRenderableComponent.swift in Sources */,
 				9479A3B12BA953D800F99013 /* ShapeRenderableComponent.swift in Sources */,
 				02C395012BA5A2BE0075F1CA /* Action.swift in Sources */,
+				941A45BE2BCD88D800689D15 /* FlappyBirdGameTick.swift in Sources */,
 				0267BA232BBD0F940010F729 /* SystemRunner.swift in Sources */,
 				02C394E02BA405C10075F1CA /* Canvas.swift in Sources */,
 				ADA848022BBC7DF000B19378 /* ArkSerializableEvent.swift in Sources */,
 				942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */,
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
+				941A45C02BCD9F7400689D15 /* FlappyBirdEntityCreator.swift in Sources */,
 				945441252BC99D8800E90ECE /* SnakeGridPositionComponent.swift in Sources */,
 				8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */,
 				280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */,
