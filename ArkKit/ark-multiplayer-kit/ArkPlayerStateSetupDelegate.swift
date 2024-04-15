@@ -1,8 +1,3 @@
-//
-//  ArkPlayerStateSetupDelegate.swift
-//  ArkKit
-//
-//  Created by Didymus Ne on 15/4/24.
-//
-
-import Foundation
+protocol ArkPlayerStateSetupDelegate: AnyObject {
+    func setup(_ playerId: Int)
+}

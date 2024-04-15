@@ -1,7 +1,7 @@
 import Foundation
 
 enum PayloadType: String, Codable {
-    case event, ecs
+    case event, ecs, playerMapping
 }
 
 struct DataWrapper: Codable {
