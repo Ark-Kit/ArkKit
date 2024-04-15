@@ -53,6 +53,7 @@
 		02B3C63F2BCD6639002331A0 /* ArkSetUpIfParticipantStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C63E2BCD6639002331A0 /* ArkSetUpIfParticipantStrategy.swift */; };
 		02B3C6412BCD6651002331A0 /* ArkSetUpIfHostStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6402BCD6651002331A0 /* ArkSetUpIfHostStrategy.swift */; };
 		02B3C6462BCD6692002331A0 /* ArkNetworkPlayableInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6452BCD6692002331A0 /* ArkNetworkPlayableInfo.swift */; };
+		02B3C64A2BCD692B002331A0 /* ArkCompositeCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3C6492BCD692B002331A0 /* ArkCompositeCanvas.swift */; };
 		02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DB2BA402060075F1CA /* GameStateRenderer.swift */; };
 		02C394DE2BA4053E0075F1CA /* RenderableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */; };
 		02C394E02BA405C10075F1CA /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C394DF2BA405C10075F1CA /* Canvas.swift */; };
@@ -331,6 +332,7 @@
 		02B3C63E2BCD6639002331A0 /* ArkSetUpIfParticipantStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSetUpIfParticipantStrategy.swift; sourceTree = "<group>"; };
 		02B3C6402BCD6651002331A0 /* ArkSetUpIfHostStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSetUpIfHostStrategy.swift; sourceTree = "<group>"; };
 		02B3C6452BCD6692002331A0 /* ArkNetworkPlayableInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkPlayableInfo.swift; sourceTree = "<group>"; };
+		02B3C6492BCD692B002331A0 /* ArkCompositeCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCompositeCanvas.swift; sourceTree = "<group>"; };
 		02C394DB2BA402060075F1CA /* GameStateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateRenderer.swift; sourceTree = "<group>"; };
 		02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderableBuilder.swift; sourceTree = "<group>"; };
 		02C394DF2BA405C10075F1CA /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
@@ -772,18 +774,27 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
+		02B3C6482BCD691B002331A0 /* canvas */ = {
+			isa = PBXGroup;
+			children = (
+				02C394DF2BA405C10075F1CA /* Canvas.swift */,
+				02C3952B2BA897890075F1CA /* ArkFlatCanvas.swift */,
+				02B3C6492BCD692B002331A0 /* ArkCompositeCanvas.swift */,
+			);
+			path = canvas;
+			sourceTree = "<group>";
+		};
 		02C394DA2BA401F00075F1CA /* ark-render-kit */ = {
 			isa = PBXGroup;
 			children = (
+				02B3C6482BCD691B002331A0 /* canvas */,
 				945F7F8A2BA8850200933629 /* abstract */,
 				02C395132BA83F990075F1CA /* renderable-components */,
 				8F5573BD2BA4258F007030C8 /* renderable */,
 				02C394DB2BA402060075F1CA /* GameStateRenderer.swift */,
-				02C394DF2BA405C10075F1CA /* Canvas.swift */,
 				02C394DD2BA4053E0075F1CA /* RenderableBuilder.swift */,
 				02C395252BA890470075F1CA /* ArkCanvasSystem.swift */,
 				02C395292BA8952F0075F1CA /* CanvasContext.swift */,
-				02C3952B2BA897890075F1CA /* ArkFlatCanvas.swift */,
 				8FEB21772BADE30F00788E20 /* RenderLayer.swift */,
 				8FEB21792BADE60300788E20 /* DisplayContext.swift */,
 			);
@@ -1911,6 +1922,7 @@
 				02E0E8F22BA282C20043E2BA /* UIKitCircle.swift in Sources */,
 				02D8E94C2BAC99FC00BF3A07 /* GameLoopable.swift in Sources */,
 				280CD3D02BA74E6000372C5D /* AbstractArkPhysicsScene.swift in Sources */,
+				02B3C64A2BCD692B002331A0 /* ArkCompositeCanvas.swift in Sources */,
 				AD260CA82BBFCC7E008B9654 /* EntityIDGenerator.swift in Sources */,
 				02C394E62BA41AC60075F1CA /* ArkGameModel.swift in Sources */,
 				AD36A75B2BAC331F003E938B /* TankComponent.swift in Sources */,

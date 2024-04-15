@@ -1,18 +1,4 @@
-struct ArkFlatCanvas: Canvas {
-    private(set) var canvasElements: [EntityID: [RenderableComponentType: any RenderableComponent]] = [:]
-
-    mutating func addEntityRenderableToCanvas(entityId: EntityID,
-                                              componentType: RenderableComponentType,
-                                              renderableComponent: any RenderableComponent) {
-        if canvasElements[entityId] != nil {
-            canvasElements[entityId]?[componentType] = renderableComponent
-        } else {
-            canvasElements[entityId] = [componentType: renderableComponent]
-        }
-    }
-}
-
-struct ArkMegaCanvas: Canvas {
+struct ArkCompositeCanvas: Canvas {
     var canvasElements: [EntityID: [RenderableComponentType: any RenderableComponent]] {
         // merge cameraElements and screenElements
         var mergedElements: [EntityID: [RenderableComponentType: any RenderableComponent]] = [:]
