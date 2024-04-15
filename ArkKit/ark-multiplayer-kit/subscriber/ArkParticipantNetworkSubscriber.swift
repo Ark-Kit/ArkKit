@@ -3,6 +3,7 @@ import Foundation
 class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
     // network related dependencies
     var networkService: AbstractNetworkService
+    var playerStateSetUpDelegate: ArkPlayerStateSetupDelegate?
 
     // inject dependency
     weak var localState: ArkState?
@@ -17,6 +18,16 @@ class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
     func onListen(_ data: Data) {
         do {
             let wrappedData = try JSONDecoder().decode(DataWrapper.self, from: data)
+
+            if wrappedData.type == .playerMapping {
+                let mappingWrapper = try ArkPeerToPlayerIdSerializer.decodeMapping(from: wrappedData.payload)
+                let myPeerInfo = networkService.deviceID
+                if let myPlayerId = mappingWrapper[myPeerInfo] {
+                    playerStateSetUpDelegate?.setup(myPlayerId)
+                    // unassign so that set up is only done once
+                    playerStateSetUpDelegate = nil
+                }
+            }
 
             if wrappedData.type == .ecs {
                 let ecsWrapper = try ArkECSDataSerializer.decodeArkECS(from: wrappedData.payload)
