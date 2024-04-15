@@ -21,6 +21,10 @@ class EntityManager {
     }
 
     func upsertComponent<T: Component>(_ component: T, to entity: Entity) {
+        // add entity if entity does not exist
+        if !entities.contains(entity) {
+            entities.insert(entity)
+        }
         let typeID = ObjectIdentifier(T.self)
         componentsByType[typeID, default: [:]][entity] = component
     }
