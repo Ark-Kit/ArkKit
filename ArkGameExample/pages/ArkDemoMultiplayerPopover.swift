@@ -14,13 +14,13 @@ class ArkDemoMultiplayerPopover: UIViewController {
     }
 
     private func setupButtons() {
-        let joinButton = UIButton(type: .system)
-        joinButton.setTitle("Start Multiplayer Game", for: .normal)
-        joinButton.translatesAutoresizingMaskIntoConstraints = false
-
         let startButton = UIButton(type: .system)
-        startButton.setTitle("Join Multiplayer Game", for: .normal)
+        startButton.setTitle("Start Multiplayer Game", for: .normal)
         startButton.translatesAutoresizingMaskIntoConstraints = false
+
+        let joinButton = UIButton(type: .system)
+        joinButton.setTitle("Join Multiplayer Game", for: .normal)
+        joinButton.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(joinButton)
         view.addSubview(startButton)
@@ -29,17 +29,17 @@ class ArkDemoMultiplayerPopover: UIViewController {
         startButton.addTarget(self, action: #selector(startTapped), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            joinButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            joinButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -25),
-            joinButton.widthAnchor.constraint(equalToConstant: 200),
-            joinButton.heightAnchor.constraint(equalToConstant: 40)
+            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -25),
+            startButton.widthAnchor.constraint(equalToConstant: 200),
+            startButton.heightAnchor.constraint(equalToConstant: 40)
         ])
 
         NSLayoutConstraint.activate([
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.topAnchor.constraint(equalTo: joinButton.bottomAnchor, constant: 20),
-            startButton.widthAnchor.constraint(equalToConstant: 200),
-            startButton.heightAnchor.constraint(equalToConstant: 40)
+            joinButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            joinButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 20),
+            joinButton.widthAnchor.constraint(equalToConstant: 200),
+            joinButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 

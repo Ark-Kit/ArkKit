@@ -6,19 +6,30 @@ class GameHostingPageFactory {
         switch game {
         case .TankGame:
             let blueprint: ArkBlueprint<TankGameExternalResources> = TankGameManager().blueprint
-
             let vc: ArkDemoGameHostingPage<TankGameExternalResources> = ArkDemoGameHostingPage()
-            vc.arkBlueprint = blueprint
+
+            // inject ark and blueprint dependencies here
+            if role == nil {
+                vc.ark = Ark(rootView: vc, blueprint: blueprint)
+            } else {
+                guard let role = role else {
+                    return vc
+                }
+                var updatedBlueprint = blueprint.setRole(role)
+                vc.ark = Ark(rootView: vc, blueprint: updatedBlueprint)
+            }
             return vc
         case .SnakeChomp:
             let blueprint: ArkBlueprint<SnakeGameExternalResources> = SnakeGame().blueprint
             let vc: ArkDemoGameHostingPage<SnakeGameExternalResources> = ArkDemoGameHostingPage()
-            vc.arkBlueprint = blueprint
+            let ark = Ark(rootView: vc, blueprint: blueprint)
+            vc.ark = ark
             return vc
         case .TankRaceGame:
             let blueprint: ArkBlueprint<TankRaceGameExternalResources> = TankRaceGame().blueprint
             let vc: ArkDemoGameHostingPage<TankRaceGameExternalResources> = ArkDemoGameHostingPage()
-            vc.arkBlueprint = blueprint
+            let ark = Ark(rootView: vc, blueprint: blueprint)
+            vc.ark = ark
             return vc
         }
     }
@@ -46,9 +57,9 @@ class GameHostingPageFactory {
 
     private static func shouldPresentMultiplayerOptions(for game: DemoGames) -> Bool {
         switch game {
-        case .TankGame, .TankRaceGame:
+        case .TankGame:
             return true
-        case .SnakeChomp:
+        case .SnakeChomp, .TankRaceGame:
             return false
         }
     }
