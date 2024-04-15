@@ -52,12 +52,13 @@ struct ImpactExplosionAnimation {
                 ecs.upsertComponent(bitmapComponent, to: entity)
             }
             .onComplete { instance in
-                instance.markForDestroyal()
-                ecs.removeEntity(entity)
+                if instance.shouldDestroy {
+                    ecs.removeEntity(entity)
+                }
             }
-        let animationsComponent = ArkAnimationsComponent(animations: [
-            animationInstance
-        ])
+        
+        var animationsComponent = ArkAnimationsComponent()
+        animationsComponent.addAnimation(animationInstance)
         ecs.upsertComponent(animationsComponent, to: entity)
 
         let bitmapComponent = makeBitmapComponent(imageResourcePath: .Sprite_Effects_Explosion_001)

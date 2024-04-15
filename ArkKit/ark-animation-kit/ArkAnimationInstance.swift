@@ -21,7 +21,7 @@ protocol AnimationInstance<T>: AnyObject where T: Equatable {
 }
 
 extension AnimationInstance {
-    func markForDestroyal() {
+    func stop() {
         shouldDestroy = true
     }
 
@@ -36,6 +36,9 @@ extension AnimationInstance {
 
         if !wasComplete {
             if status == .complete {
+                if !animation.isLooping {
+                    stop()
+                }
                 completeDelegate?(self)
             }
         }
@@ -58,7 +61,7 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
     var shouldDestroy = false
 
     var status: AnimationStatus {
-        if elapsedDelta > animation.duration {
+        if elapsedDelta > animation.duration * Double(animation.runCount) && !animation.isLooping {
             return .complete
         }
 
@@ -66,8 +69,10 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
     }
 
     var currentFrame: AnimationKeyframe<T> {
-        animation.keyframes.first(where: { keyframe in
-            elapsedDelta >= keyframe.offset && elapsedDelta < keyframe.offset + keyframe.duration
+        let resolvedDelta = elapsedDelta.truncatingRemainder(dividingBy: animation.duration)
+        
+        return animation.keyframes.first(where: { keyframe in
+            resolvedDelta >= keyframe.offset && resolvedDelta < keyframe.offset + keyframe.duration
         }) ?? animation.keyframes.last!
     }
 
