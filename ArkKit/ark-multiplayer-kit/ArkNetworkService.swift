@@ -1,11 +1,17 @@
 import UIKit
 import P2PShare
 
-class ArkNetworkService: ArkNetworkProtocol {
+/**
+ * Service class that is used by each device to send or listen to updates over the network.
+ */
+class ArkNetworkService: AbstractNetworkService {
     private let myPeerInfo = PeerInfo(["name": UIDevice.current.name])
     private var peers: [PeerInfo] = []
     private var session: MultipeerSession!
-    var delegate: ArkNetworkDelegate?
+
+    var subscriber: ArkNetworkSubscriberDelegate?
+    var publisher: ArkNetworkPublisherDelegate?
+
     private(set) var serviceName: String
 
     required init(serviceName: String = "Ark") {
@@ -35,7 +41,7 @@ class ArkNetworkService: ArkNetworkProtocol {
             }
 
             strongSelf.peers = peers
-            strongSelf.delegate?.connectedDevicesChanged(manager: strongSelf, connectedDevices: peers.map { $0.peerID })
+            strongSelf.publisher?.onChangeInObservers(manager: strongSelf, connectedDevices: peers.map { $0.peerID })
             print("Peers changed: \(peers.map { $0.info["name"] ?? $0.peerID })")
         }
 
@@ -44,7 +50,7 @@ class ArkNetworkService: ArkNetworkProtocol {
         }
 
         self.session.messageReceivedHandler = { [weak self] _, data in
-            self?.delegate?.gameDataReceived(manager: self!, gameData: data)
+            self?.subscriber?.onListen(data)
         }
     }
 
@@ -61,11 +67,4 @@ class ArkNetworkService: ArkNetworkProtocol {
 
         session.send(to: peerInfo.peerID, data: data)
     }
-}
-
-// MARK: - ArkNetworkDelegate
-
-protocol ArkNetworkDelegate: AnyObject {
-    func connectedDevicesChanged(manager: ArkNetworkService, connectedDevices: [String])
-    func gameDataReceived(manager: ArkNetworkService, gameData: Data)
 }

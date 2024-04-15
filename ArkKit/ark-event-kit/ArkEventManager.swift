@@ -16,6 +16,8 @@ class ArkEventManager: ArkEventContext {
     private var listeners: [ObjectIdentifier: [(any ArkEvent) -> Void]] = [:]
     private var eventQueue = PriorityQueue<DatedEvent>(sort: ArkEventManager.compareEventPriority)
 
+    var networkPublisherDelegate: ArkNetworkPublisherDelegate?
+
     func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
         let typeID = ObjectIdentifier(eventType)
         if listeners[typeID] == nil {
@@ -29,6 +31,7 @@ class ArkEventManager: ArkEventContext {
     func emit<Event: ArkEvent>(_ event: Event) {
         let datedEvent = DatedEvent(event: event)
         eventQueue.enqueue(datedEvent)
+        networkPublisherDelegate?.publish(event: event)
     }
 
     func emitWithoutDelegate<Event: ArkEvent>(_ event: Event) {
