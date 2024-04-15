@@ -18,9 +18,18 @@ protocol AnimationInstance<T>: AnyObject where T: Equatable {
     var status: AnimationStatus { get }
     var shouldDestroy: Bool { get set }
     var currentFrame: AnimationKeyframe<T> { get }
+    var isPlaying: Bool { get set }
 }
 
 extension AnimationInstance {
+    func play() {
+        isPlaying = true
+    }
+    
+    func pause() {
+        isPlaying = false
+    }
+    
     func stop() {
         shouldDestroy = true
     }
@@ -53,6 +62,7 @@ extension AnimationInstance {
  * Represents a running animation instance as an ArkECS component.
  */
 class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
+    var isPlaying: Bool
     let animation: ArkAnimation<T>
     var elapsedDelta: TimeInterval
     var updateDelegate: UpdateDelegate<T>?
@@ -76,9 +86,10 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
         }) ?? animation.keyframes.last!
     }
 
-    init(animation: ArkAnimation<T>, elapsedDelta: Double = 0) {
+    init(animation: ArkAnimation<T>, elapsedDelta: Double = 0, isPlaying: Bool = true) {
         self.animation = animation
         self.elapsedDelta = elapsedDelta
+        self.isPlaying = isPlaying
         assert(!self.animation.keyframes.isEmpty, "Animation keyframes cannot be empty")
     }
 

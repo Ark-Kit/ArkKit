@@ -19,6 +19,10 @@ class ArkAnimationSystem: UpdateSystem {
             }
 
             for animationInstance in animationsComponent.animations {
+                if !animationInstance.isPlaying {
+                    continue
+                }
+                
                 animationInstance.advance(by: deltaTime)
                 if animationInstance.shouldDestroy {
                     animationsComponent.removeAnimation(animationInstance)
