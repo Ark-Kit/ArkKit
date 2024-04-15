@@ -8,6 +8,7 @@ enum ArkPeerRole {
 class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
     private var networkService: ArkNetworkProtocol
     var multiplayerEventManager: ArkMultiplayerEventManager?
+    var arkMultiplayerECSDelegate: ArkMultiplayerECSDelegate?
     var ecs: ArkECS
     private var peers = [String]()
     private var host: String?
@@ -45,6 +46,7 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
             if wrappedData.type == .ecs {
                 let ecsWrapper = try ArkECSDataSerializer.decodeArkECS(from: wrappedData.payload)
                 ecs.upsertEntityManager(entities: ecsWrapper.entities, components: ecsWrapper.decodeComponents())
+                self.arkMultiplayerECSDelegate?.ecsDidUpdate()
             }
 
         } catch {
@@ -67,6 +69,21 @@ class ArkMultiplayerManager: ArkNetworkDelegate, ArkMultiplayerContext {
 
         role = host == networkService.deviceID ? .host : .participant
         print("Updated role: \(role)")
+    }
+
+    var isModificationEnabled: Bool {
+        self.role == .host
+    }
+
+    func sendECS() {
+        if isModificationEnabled {
+            do {
+                let encodedECS = try ArkECSDataSerializer.encodeArkECS(ecs: ecs)
+                networkService.sendData(data: encodedECS)
+            } catch {
+                print("Error encoding or sending ecs function: \(error)")
+            }
+        }
     }
 }
 
@@ -91,18 +108,6 @@ extension ArkMultiplayerManager: ArkMultiplayerEventManagerDelegate {
     }
 }
 
-extension ArkMultiplayerManager: ArkMultiplayerECSDelegate {
-    var isModificationEnabled: Bool {
-        self.role == .host
-    }
-
-    private func sendEcs(ecs: ArkECS) {
-
-        do {
-            let encodedECS = try ArkECSDataSerializer.encodeArkECS(ecs: ecs)
-            networkService.sendData(data: encodedECS)
-        } catch {
-            print("Error encoding or sending ecs function: \(error)")
-        }
-    }
+protocol ArkMultiplayerECSDelegate: AnyObject {
+    func ecsDidUpdate()
 }

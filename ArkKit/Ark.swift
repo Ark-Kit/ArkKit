@@ -19,6 +19,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     let blueprint: ArkBlueprint<ExternalResources>
     let audioContext: any AudioContext<ExternalResources.AudioEnum>
     var multiplayerContext: ArkMultiplayerContext?
+    var multiplayerManager: ArkMultiplayerManager?
     var displayContext: DisplayContext
 
     var actionContext: ArkActionContext<ExternalResources> {
@@ -61,6 +62,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                                                        role: multiplayerContext.role,
                                                        ecs: ecsManager)
         multiplayerManager.multiplayerEventManager = eventManager
+        self.multiplayerManager = multiplayerManager
         eventManager.delegate = multiplayerManager
         self.arkState = ArkState(eventManager: eventManager, arkECS: ecsManager)
         self.audioContext = ArkAudioContext()
@@ -76,11 +78,16 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     }
 
     func start() {
-        if let multiplayerContext = multiplayerContext, multiplayerContext.role == .participant {
-            multiplayerParticipantStart()
+        if let multiplayerContext = multiplayerContext {
+            if multiplayerContext.role == .host {
+                multiplayerHostStart()
+            } else {
+                multiplayerParticipantStart()
+            }
         } else {
             defaultStart()
         }
+
         alignCamera()
 
         guard let gameLoop = self.gameLoop else {
@@ -94,13 +101,22 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                                                        canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
     }
-    
+
+    private func multiplayerHostStart() {
+        defaultStart()
+        guard let multiplayerManager = multiplayerManager else {
+            return
+        }
+        arkState.arkECS
+            .addSystem(ArkMultiplayerSystem(multiplayerManager: multiplayerManager))
+    }
+
     private func multiplayerParticipantStart() {
         setupDefaultListeners()
         setupMultiplayerGameLoop()
         setup(blueprint.soundMapping)
     }
-    
+
     private func defaultStart() {
         setupDefaultEntities()
         setupDefaultListeners()
@@ -237,9 +253,14 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         simulator.physicsScene?.sceneUpdateLoopDelegate = physicsSystem
         self.gameLoop?.updatePhysicsSceneDelegate = physicsSystem
     }
-    
+
     func setupMultiplayerGameLoop() {
-        gameLoop = ArkMultiplayerGameLoop()
+        let gameLoop = ArkMultiplayerGameLoop()
+        self.gameLoop = gameLoop
+        guard let multiplayerManager = multiplayerManager else {
+            return
+        }
+        self.multiplayerManager?.arkMultiplayerECSDelegate = gameLoop
     }
 
     private func getWorldSize(_ blueprint: ArkBlueprint<ExternalResources>) -> (width: Double, height: Double) {

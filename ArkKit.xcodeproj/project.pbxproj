@@ -165,6 +165,7 @@
 		28EFCB1D2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */; };
 		28EFCB252BCCA7CC0059A908 /* ArkECSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */; };
 		28EFCB272BCCB6130059A908 /* ArkMultiplayerGameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */; };
+		28EFCB292BCCC90B0059A908 /* ArkMultiplayerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB282BCCC90B0059A908 /* ArkMultiplayerSystem.swift */; };
 		8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */; };
 		8F5573C12BA42614007030C8 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C02BA42614007030C8 /* Renderable.swift */; };
 		8F5573C32BA4284D007030C8 /* BitmapRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */; };
@@ -431,6 +432,7 @@
 		28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkDemoMultiplayerPopover.swift; sourceTree = "<group>"; };
 		28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSWrapper.swift; sourceTree = "<group>"; };
 		28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoop.swift; sourceTree = "<group>"; };
+		28EFCB282BCCC90B0059A908 /* ArkMultiplayerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerSystem.swift; sourceTree = "<group>"; };
 		8F5573BE2BA425E4007030C8 /* ShapeRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeRenderable.swift; sourceTree = "<group>"; };
 		8F5573C02BA42614007030C8 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		8F5573C22BA4284D007030C8 /* BitmapRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapRenderable.swift; sourceTree = "<group>"; };
@@ -1388,6 +1390,7 @@
 				AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */,
 				ADA847FC2BBC4B5500B19378 /* ArkNetworkProtocol.swift */,
 				AD4E148F2BC2797000A32C8B /* ArkMultiplayerContext.swift */,
+				28EFCB282BCCC90B0059A908 /* ArkMultiplayerSystem.swift */,
 			);
 			path = "ark-multiplayer-kit";
 			sourceTree = "<group>";
@@ -1776,6 +1779,7 @@
 				AD2B59B22BB94FBE00198E99 /* ArkMultiplayerManager.swift in Sources */,
 				287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */,
 				02C3950F2BA611B80075F1CA /* ArkEventContext.swift in Sources */,
+				28EFCB292BCCC90B0059A908 /* ArkMultiplayerSystem.swift in Sources */,
 				8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */,
 				022C427D2BC9943B003D6924 /* ResumeGameLoopEvent.swift in Sources */,
 				28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */,

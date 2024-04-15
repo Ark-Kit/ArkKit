@@ -1,12 +1,14 @@
 class ArkMultiplayerGameLoop: GameLoop {
     var updatePhysicsSceneDelegate: (any ArkPhysicsSceneUpdateLoopDelegate)?
 
-    var updateGameWorldDelegate: (any ArkGameWorldUpdateLoopDelegate)?
+    weak var updateGameWorldDelegate: ArkGameWorldUpdateLoopDelegate?
 
     func setUp() {
     }
 
     func update() {
+        let deltaTime = self.getDeltaTime()
+        self.updateGameWorldDelegate?.update(for: deltaTime)
     }
 
     func getDeltaTime() -> Double {
@@ -23,6 +25,8 @@ class ArkMultiplayerGameLoop: GameLoop {
     }
 }
 
-protocol ArkMultiplayerECSDelegate {
-
+extension ArkMultiplayerGameLoop: ArkMultiplayerECSDelegate {
+    func ecsDidUpdate() {
+        self.update()
+    }
 }
