@@ -72,15 +72,15 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
             ),
             screenSize: rootView.size
         )
+        self.multiplayerContext = multiplayerContext
     }
 
     func start() {
-        setupDefaultEntities()
-        setupDefaultListeners()
-        setupDefaultSystems(blueprint)
-        setup(blueprint.setupFunctions)
-        setup(blueprint.rules)
-        setup(blueprint.soundMapping)
+        if let multiplayerContext = multiplayerContext, multiplayerContext.role == .participant {
+            multiplayerParticipantStart()
+        } else {
+            defaultStart()
+        }
         alignCamera()
 
         guard let gameLoop = self.gameLoop else {
@@ -93,6 +93,22 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                                                        gameLoop: gameLoop,
                                                        canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
+    }
+    
+    private func multiplayerParticipantStart() {
+        setupDefaultListeners()
+        setupMultiplayerGameLoop()
+        setup(blueprint.soundMapping)
+    }
+    
+    private func defaultStart() {
+        setupDefaultEntities()
+        setupDefaultListeners()
+        setupDefaultSystems(blueprint)
+        setup(blueprint.setupFunctions)
+        setup(blueprint.setupFunctions)
+        setup(blueprint.rules)
+        setup(blueprint.soundMapping)
     }
 
     private func setupDefaultListeners() {
@@ -220,6 +236,10 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         simulator.physicsScene?.sceneContactUpdateDelegate = physicsSystem
         simulator.physicsScene?.sceneUpdateLoopDelegate = physicsSystem
         self.gameLoop?.updatePhysicsSceneDelegate = physicsSystem
+    }
+    
+    func setupMultiplayerGameLoop() {
+        gameLoop = ArkMultiplayerGameLoop()
     }
 
     private func getWorldSize(_ blueprint: ArkBlueprint<ExternalResources>) -> (width: Double, height: Double) {
