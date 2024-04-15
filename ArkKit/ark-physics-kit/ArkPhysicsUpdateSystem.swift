@@ -9,6 +9,12 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
     var eventManager: ArkEventManager
     var arkECS: ArkECS
 
+    var creators: [ArkPhysicsShape: PhysicsBodyCreator] = [
+        .circle: CirclePhysicsBodyCreator(),
+        .rectangle: RectanglePhysicsBodyCreator(),
+        .polygon: PolygonPhysicsBodyCreator()
+    ]
+
     init(simulator: AbstractPhysicsArkSimulator,
          eventManager: ArkEventManager,
          arkECS: ArkECS,
@@ -90,22 +96,12 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
                                    positionComponent: PositionComponent,
                                    rotationComponent: RotationComponent,
                                    physicsComponent: PhysicsComponent) {
-        var physicsBody: AbstractArkPhysicsBody?
-        if physicsComponent.shape == .circle, let radius = physicsComponent.radius {
-            physicsBody = scene?.createCirclePhysicsBody(for: entity,
-                                                         withRadius: radius,
-                                                         at: positionComponent.position)
-        } else if physicsComponent.shape == .rectangle, let size = physicsComponent.size {
-            physicsBody = scene?.createRectanglePhysicsBody(for: entity,
-                                                            withSize: size,
-                                                            at: positionComponent.position)
-        } else if physicsComponent.shape == .polygon, let vertices = physicsComponent.vertices {
-            physicsBody = scene?.createPolygonPhysicsBody(for: entity,
-                                                          withVertices: vertices,
-                                                          at: positionComponent.position)
-        }
-
-        if var physicsBody = physicsBody {
+        guard let creator = creators[physicsComponent.shape] else {
+            return }
+        let position = positionComponent.position
+        if let scene = scene,
+           var physicsBody = creator.createPhysicsBody(for: entity, with: physicsComponent,
+                                                       at: position, scene: scene) {
             updatePhysicsBody(&physicsBody, position: positionComponent,
                               rotation: rotationComponent, physics: physicsComponent)
         }
@@ -152,5 +148,37 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
         }
         physicsComponent.angularImpulse = angularImpulse
         arkECS.upsertComponent(physicsComponent, to: entity)
+    }
+}
+
+protocol PhysicsBodyCreator {
+    func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
+                           at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody?
+}
+
+struct CirclePhysicsBodyCreator: PhysicsBodyCreator {
+    func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
+                           at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody? {
+        guard let radius = component.radius else { 
+            return nil }
+        return scene.createCirclePhysicsBody(for: entity, withRadius: radius, at: position)
+    }
+}
+
+struct RectanglePhysicsBodyCreator: PhysicsBodyCreator {
+    func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
+                           at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody? {
+        guard let size = component.size else { 
+            return nil }
+        return scene.createRectanglePhysicsBody(for: entity, withSize: size, at: position)
+    }
+}
+
+struct PolygonPhysicsBodyCreator: PhysicsBodyCreator {
+    func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
+                           at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody? {
+        guard let vertices = component.vertices else { 
+            return nil }
+        return scene.createPolygonPhysicsBody(for: entity, withVertices: vertices, at: position)
     }
 }
