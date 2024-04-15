@@ -139,11 +139,13 @@ extension ArkSetUpStrategy {
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
         let cameraSystem = ArkCameraSystem()
+        let entityRemovalSystem = ArkEntityRemovalSystem()
         ark.arkState.arkECS.addSystem(timeSystem)
         ark.arkState.arkECS.addSystem(physicsSystem)
         ark.arkState.arkECS.addSystem(animationSystem)
         ark.arkState.arkECS.addSystem(canvasSystem)
         ark.arkState.arkECS.addSystem(cameraSystem)
+        ark.arkState.arkECS.addSystem(entityRemovalSystem)
 
         // inject dependency into game loop
         simulator.physicsScene?.sceneContactUpdateDelegate = physicsSystem

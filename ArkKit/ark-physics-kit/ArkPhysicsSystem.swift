@@ -76,7 +76,6 @@ class ArkPhysicsSystem: UpdateSystem {
             return }
 
         scene?.removePhysicsBody(for: entity)
-        arkECS.removeEntity(entity)
     }
 
     private func syncPhysicsBody(for entity: Entity, position: PositionComponent,
