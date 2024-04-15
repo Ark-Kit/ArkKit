@@ -94,6 +94,8 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
         }
         setupDefaultListeners()
         setupMultiplayerGameLoop()
+        setup(blueprint.setupFunctions)
+        setup(blueprint.soundMapping)
 
         let networkService = ArkNetworkService(serviceName: networkPlayableInfo.roomName)
         self.participantSubscriber = ArkParticipantNetworkSubscriber(subscribeTo: networkService)
@@ -102,7 +104,45 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
 
         let participantPublisher = ArkParticipantNetworkPublisher(publishTo: networkService)
         self.arkState.eventManager.networkPublisherDelegate = participantPublisher
-        setup(blueprint.soundMapping)
+
+        preserveSelectComponentsIfParticipant()
+    }
+
+    private func preserveSelectComponentsIfParticipant() {
+        // Retrieve all entities
+        let allEntities = arkState.arkECS.getEntities()
+
+        // Filter and preserve entities with renderable components at the screen layer
+        var preservedEntityToRenderableComponent: [Entity: [any RenderableComponent]] = [:]
+        for entity in allEntities {
+            preserveRenderableComponentsAtScreenLayer(for: entity, in: &preservedEntityToRenderableComponent)
+        }
+
+        // Remove all other entities
+        let preservedEntities = Array(preservedEntityToRenderableComponent.keys)
+        arkState.arkECS.removeAllEntities(except: preservedEntities)
+
+        // Bulk upsert the preserved entities and their components
+        var preservedComponentMapping: [EntityID: [any Component]] = [:]
+        preservedEntityToRenderableComponent.forEach { entity, componentList in
+            preservedComponentMapping[entity.id] = componentList
+        }
+        arkState.arkECS.bulkUpsert(entities: preservedEntities, components: preservedComponentMapping)
+    }
+
+    private func preserveRenderableComponentsAtScreenLayer(
+        for entity: Entity,
+        in preservedEntityToRenderableComponent: inout [Entity: [any RenderableComponent]]
+    ) {
+        for renderableComponentType in ArkCanvasSystem.renderableComponentTypes {
+            if let renderableComponent = arkState.arkECS.getComponent(ofType: renderableComponentType, for: entity),
+               renderableComponent.renderLayer == .screen {
+                if preservedEntityToRenderableComponent[entity] == nil {
+                    preservedEntityToRenderableComponent[entity] = []
+                }
+                preservedEntityToRenderableComponent[entity]?.append(renderableComponent)
+            }
+        }
     }
 
     private func setUpIfHost() {
