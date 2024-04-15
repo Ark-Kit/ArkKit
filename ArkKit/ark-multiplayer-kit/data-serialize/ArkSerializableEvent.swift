@@ -1,10 +1,3 @@
-//
-//  ArkSerializableEvent.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 3/4/24.
-//
-
 protocol ArkSerializableEventData: ArkEventData, Codable {
 }
 

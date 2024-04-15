@@ -65,6 +65,7 @@ extension SceneDelegate {
             return
         }
         ark = Ark(rootView: rootView, blueprint: blueprint)
+//        ark?.multiplayer(serviceName: "tankGame")
         ark?.start()
     }
 }

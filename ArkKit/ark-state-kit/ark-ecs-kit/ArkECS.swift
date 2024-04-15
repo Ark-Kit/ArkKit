@@ -1,12 +1,30 @@
 import Foundation
 
-class ArkECS {
+class ArkECS: ArkECSContext {
     private let entityManager: EntityManager
     private let systemManager: SystemManager
 
     init() {
         self.entityManager = EntityManager()
         self.systemManager = SystemManager()
+    }
+
+    init(entities: [Entity], components: [EntityID: [any Component]]) {
+        self.entityManager = EntityManager()
+        self.systemManager = SystemManager()
+        for entity in entities {
+            let components = components[entity.id] ?? []
+            _ = entityManager.createEntity(with: components)
+        }
+    }
+
+    func bulkUpsert(entities: [Entity], components: [EntityID: [any Component]]) {
+        for entity in entities {
+            let components = components[entity.id] ?? []
+            for component in components {
+                entityManager.upsertComponent(component, to: entity)
+            }
+        }
     }
 
     func startUp() {
@@ -20,17 +38,30 @@ class ArkECS {
     func cleanUp() {
         self.systemManager.cleanUp()
     }
-}
-
-extension ArkECS: ArkECSContext {
 
     @discardableResult
     func createEntity() -> Entity {
         entityManager.createEntity()
     }
 
+    @discardableResult
+    func createEntity(id: EntityID) -> Entity {
+        entityManager.createEntity(id: id)
+    }
+
     func removeEntity(_ entity: Entity) {
         entityManager.removeEntity(entity)
+    }
+
+    func removeAllEntities(except entitiesNotToRemove: [Entity] = []) {
+        let entities = getEntities()
+        let entitiesMarkedNotToRemove = Set(entitiesNotToRemove)
+        for entity in entities {
+            if entitiesMarkedNotToRemove.contains(entity) {
+                continue
+            }
+            removeEntity(entity)
+        }
     }
 
     func upsertComponent<T>(_ component: T, to entity: Entity) where T: Component {
@@ -50,11 +81,16 @@ extension ArkECS: ArkECSContext {
         entityManager.createEntity(with: components)
     }
 
+    @discardableResult
+    func createEntity(id: EntityID, with components: [any Component]) -> Entity {
+        entityManager.createEntity(with: components, id: id)
+    }
+
     func getEntity(id: EntityID) -> Entity? {
         entityManager.getEntity(id: id)
     }
 
-    func getEntities(with componentTypes: [any Component.Type]) -> [Entity] {
+    func getEntities(with componentTypes: [any Component.Type] = []) -> [Entity] {
         entityManager.getEntities(with: componentTypes)
     }
 

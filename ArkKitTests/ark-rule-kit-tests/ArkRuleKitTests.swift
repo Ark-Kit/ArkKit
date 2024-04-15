@@ -6,31 +6,35 @@ class ArkRuleKitTests: XCTestCase {
     /// UNIT TESTS
     func testActionExecution_shouldExecute() {
         let eventStub = EventStub()
-        let actionContext = ArkActionContext(ecs: MockECSContext(),
-                                             events: MockEventContext(),
-                                             display: MockDisplayContext(),
-                                             audio: MockAudioContext())
-        let mockAction = MockAction<EventStub>()
+        let actionContext = ArkActionContext<MockExternalResource>(
+            ecs: MockECSContext(),
+            events: MockEventContext(),
+            display: MockDisplayContext(),
+            audio: MockAudioContext()
+        )
+        let mockAction = MockAction<EventStub, MockExternalResource>()
         mockAction.execute(eventStub, context: actionContext)
         XCTAssertEqual(mockAction.executedEvents.count, 1)
     }
 
     func testArkRuleInit_shouldInit() {
-        let mockAction = MockAction<EventStub>()
-        let arkRule = ArkRule(trigger: EventStub.id, action: mockAction)
-        XCTAssertEqual(arkRule.trigger, EventStub.id, "event id should match")
-        XCTAssertTrue(arkRule.action is MockAction<EventStub>)
+        let mockAction = MockAction<EventStub, MockExternalResource>()
+        let arkRule = ArkRule(trigger: RuleTrigger.event(EventStub.self), action: mockAction)
+        XCTAssertEqual(arkRule.trigger, RuleTrigger.event(EventStub.self), "event id should match")
+        XCTAssertTrue(arkRule.action is MockAction<EventStub, MockExternalResource>)
     }
 
     func testRuleActionExecution_shouldExecute() {
         let eventStub = EventStub()
-        let actionContext = ArkActionContext(ecs: MockECSContext(),
-                                             events: MockEventContext(),
-                                             display: MockDisplayContext(),
-                                             audio: MockAudioContext())
-        let mockAction = MockAction<EventStub>()
-        let arkRule = ArkRule(trigger: EventStub.id, action: mockAction)
-        guard let action = arkRule.action as? MockAction<EventStub> else {
+        let actionContext = ArkActionContext<MockExternalResource>(
+            ecs: MockECSContext(),
+            events: MockEventContext(),
+            display: MockDisplayContext(),
+            audio: MockAudioContext()
+        )
+        let mockAction = MockAction<EventStub, MockExternalResource>()
+        let arkRule = ArkRule(trigger: RuleTrigger.event(EventStub.self), action: mockAction)
+        guard let action = arkRule.action as? MockAction<EventStub, MockExternalResource> else {
             return
         }
         action.execute(eventStub, context: actionContext)
@@ -46,17 +50,19 @@ class ArkRuleKitTests: XCTestCase {
         let eventManager = ArkEventManager()
         var executedEvents: [EventStub] = []
 
-        let mockCallback: ActionCallback<EventStub> = { event, _ in
+        let mockCallback: ActionCallback<EventStub, MockExternalResource> = { event, _ in
             executedEvents.append(event)
         }
 
         let forever = ArkEventAction(callback: mockCallback)
         let eventStub = EventStub()
-        let actionContext = ArkActionContext(ecs: MockECSContext(),
-                                             events: eventManager,
-                                             display: MockDisplayContext(),
-                                             audio: MockAudioContext())
-        eventManager.subscribe(to: EventStub.id, { event in
+        let actionContext = ArkActionContext<MockExternalResource>(
+            ecs: MockECSContext(),
+            events: eventManager,
+            display: MockDisplayContext(),
+            audio: MockAudioContext()
+        )
+        eventManager.subscribe(to: EventStub.self, { event in
             guard let event = event as? EventStub else {
                 return
             }

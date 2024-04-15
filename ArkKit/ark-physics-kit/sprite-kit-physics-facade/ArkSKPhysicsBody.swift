@@ -18,6 +18,15 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
         node.physicsBody = physicsBody
     }
 
+    init(polygonOf vertices: [CGPoint], at position: CGPoint = .zero) {
+        let cgPath = CGMutablePath()
+        cgPath.addLines(between: vertices)
+        let physicsBody = SKPhysicsBody(polygonFrom: cgPath)
+        node = SKNode()
+        node.position = position
+        node.physicsBody = physicsBody
+    }
+
     private func withPhysicsBody<T>(_ action: (SKPhysicsBody) -> T, default defaultValue: T) -> T {
         guard let physicsBody = node.physicsBody else {
             assertionFailure(nodeNoPhysicsBodyFailureMessage)

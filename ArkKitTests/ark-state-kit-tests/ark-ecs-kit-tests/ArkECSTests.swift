@@ -102,7 +102,7 @@ final class ArkECSTests: XCTestCase {
         arkECS.upsertComponent(component, to: entity)
 
         // Remove component
-        arkECS.removeComponent(MockComponent.self, from: entity)
+        arkECS.removeComponent(ofType: MockComponent.self, from: entity)
 
         let retrievedComponent: MockComponent? = arkECS.getComponent(ofType: MockComponent.self, for: entity)
         XCTAssertNil(retrievedComponent, "Component should be removed from the entity.")

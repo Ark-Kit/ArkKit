@@ -113,6 +113,10 @@ class ArkPhysicsSystem: UpdateSystem {
             physicsBody = scene?.createRectanglePhysicsBody(for: entity,
                                                             withSize: size,
                                                             at: positionComponent.position)
+        } else if physicsComponent.shape == .polygon, let vertices = physicsComponent.vertices {
+            physicsBody = scene?.createPolygonPhysicsBody(for: entity,
+                                                          withVertices: vertices,
+                                                          at: positionComponent.position)
         }
 
         if var physicsBody = physicsBody {

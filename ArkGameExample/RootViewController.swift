@@ -1,21 +1,28 @@
 import UIKit
 
-class RootViewController: UINavigationController {
+class RootViewController: UINavigationController, UIPopoverPresentationControllerDelegate {
+    override func viewDidLoad() {
+        let homePage = ArkDemoHomePage()
+        homePage.rootViewControllerDelegate = self
+        self.pushViewController(homePage, animated: false)
+    }
 }
 
-extension RootViewController: AbstractRootView {
-    var abstractView: UIView {
-        self.view
-    }
+protocol RootViewControllerDelegate: AnyObject {
+    func pushViewController(_ viewController: UIViewController, animated: Bool)
+    func presentPopover(_ popoverViewController: UIViewController, sourceView: UIView,
+                        sourceRect: CGRect, animated: Bool)
+}
 
-    var size: CGSize {
-        view.frame.size
-    }
-
-    func pushView(_ view: any AbstractView<UIView>, animated: Bool) {
-        guard let castedViewController = view as? UIViewController else {
-            return
+extension RootViewController: RootViewControllerDelegate {
+    func presentPopover(_ popoverViewController: UIViewController, sourceView: UIView, sourceRect: CGRect, animated: Bool) {
+        popoverViewController.modalPresentationStyle = .popover
+        if let popoverPresentationController = popoverViewController.popoverPresentationController {
+            popoverPresentationController.sourceView = sourceView
+            popoverPresentationController.sourceRect = sourceRect
+            popoverPresentationController.permittedArrowDirections = .any
+            popoverPresentationController.delegate = self
         }
-        self.pushViewController(castedViewController, animated: animated)
+        present(popoverViewController, animated: animated)
     }
 }
