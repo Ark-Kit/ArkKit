@@ -29,7 +29,16 @@ class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
         }
     }
 
-    private func processECSUpdates(_ ecsWrapper: ArkECSWrapper) {
-        localState?.arkECS.upsertEntityManager(entities: ecsWrapper.entities, components: ecsWrapper.decodeComponents())
+    private func processECSUpdates(_ updatedECSStateWrapper: ArkECSWrapper) {
+        guard let ecs = localState?.arkECS else {
+            return
+        }
+        // remove all outdated entities
+        ecs.removeAllEntities(except: updatedECSStateWrapper.entities)
+
+        ecs.bulkUpsert(
+            entities: updatedECSStateWrapper.entities,
+            components: updatedECSStateWrapper.decodeComponents()
+        )
     }
 }
