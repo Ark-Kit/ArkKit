@@ -17,6 +17,11 @@ class GameHostingPageFactory {
             let vc: ArkDemoGameHostingPage<TankRaceGameExternalResources> = ArkDemoGameHostingPage()
             vc.arkBlueprint = blueprint
             return vc
+        case .FlappyBird:
+            let blueprint: ArkBlueprint<FlappyBirdExternalResources> = FlappyBird().blueprint
+            let vc: ArkDemoGameHostingPage<FlappyBirdExternalResources> = ArkDemoGameHostingPage()
+            vc.arkBlueprint = blueprint
+            return vc
         }
     }
 }
