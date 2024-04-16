@@ -23,11 +23,11 @@ extension ShapeRenderableComponent {
     func stroke(lineWidth: Double, color: Color) -> Self {
         upsert(strokeInfo: ShapeStrokeInfo(lineWidth: lineWidth, color: color))
     }
-    
+
     func label(_ text: String, color: Color? = nil, size: Double? = nil) -> Self {
         let newColor = color ?? labelInfo?.color ?? .black
         let newSize = size ?? labelInfo?.size ?? 14
-        
+
         return upsert(labelInfo: ShapeLabelInfo(text: text, color: newColor, size: newSize))
     }
 

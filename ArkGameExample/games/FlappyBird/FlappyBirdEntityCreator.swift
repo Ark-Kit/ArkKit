@@ -37,13 +37,13 @@ enum FlappyBirdEntityCreator {
             FlappyBirdCharacterTag(characterId: characterId)
         ])
     }
-    
+
     static func initializeScore(context: ArkSetupContext, characterIds: [Int]) {
         let screenHeight = context.display.screenSize.height
         let screenWidth = context.display.screenSize.width
-        
+
         var scoreComponent = FlappyBirdScore(scores: [:])
-        
+
         for characterId in characterIds {
             scoreComponent.setScore(0, forId: characterId)
             context.ecs.createEntity(with: [
@@ -56,9 +56,9 @@ enum FlappyBirdEntityCreator {
                 FlappyBirdScoreLabelTag(characterId: characterId)
             ])
         }
-        
+
         context.ecs.createEntity(with: [scoreComponent])
-        
+
     }
 
     @discardableResult
@@ -186,12 +186,6 @@ extension FlappyBirdEntityCreator {
         let size: CGSize
         let xCoordinate: Double
         let position: FlappyBirdWallPosition
-
-        init(size: CGSize, xCoordinate: Double, position: FlappyBirdWallPosition) {
-            self.size = size
-            self.xCoordinate = xCoordinate
-            self.position = position
-        }
     }
 
     private struct CreateScoringAreaContext {

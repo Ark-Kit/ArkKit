@@ -14,7 +14,7 @@ final class UIKitPolygon: UIView, UIKitShape {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = polygonPath.cgPath
         self.layer.addSublayer(shapeLayer)
-        
+
         let textLayer = CATextLayer()
         textLayer.frame = frame
         self.layer.addSublayer(textLayer)

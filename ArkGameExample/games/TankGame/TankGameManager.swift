@@ -231,32 +231,28 @@ extension TankGameManager {
         let screenHeight = screenSize.height
 
         if let joystick1 = joystick1,
-           let joystick1Entity = ecs.getEntity(id: joystick1)
-        {
+           let joystick1Entity = ecs.getEntity(id: joystick1) {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8))
             ecs.upsertComponent(positionComponent, to: joystick1Entity)
         }
 
         if let joystick2 = joystick2,
-           let joystick2Entity = ecs.getEntity(id: joystick2)
-        {
+           let joystick2Entity = ecs.getEntity(id: joystick2) {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8))
             ecs.upsertComponent(positionComponent, to: joystick2Entity)
         }
 
         if let shootButton1 = shootButton1,
-           let shootButton1Entity = ecs.getEntity(id: shootButton1)
-        {
+           let shootButton1Entity = ecs.getEntity(id: shootButton1) {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8))
             ecs.upsertComponent(positionComponent, to: shootButton1Entity)
         }
 
         if let shootButton2 = shootButton2,
-           let shootButton2Entity = ecs.getEntity(id: shootButton2)
-        {
+           let shootButton2Entity = ecs.getEntity(id: shootButton2) {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8))
             ecs.upsertComponent(positionComponent, to: shootButton2Entity)

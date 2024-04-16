@@ -14,7 +14,7 @@ final class UIKitRect: UIView, UIKitShape {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = rectPath.cgPath
         self.layer.addSublayer(shapeLayer)
-        
+
         let textLayer = CATextLayer()
         textLayer.frame = rectFrame
         self.layer.addSublayer(textLayer)

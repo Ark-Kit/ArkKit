@@ -25,11 +25,11 @@ extension AnimationInstance {
     func play() {
         isPlaying = true
     }
-    
+
     func pause() {
         isPlaying = false
     }
-    
+
     func stop() {
         shouldDestroy = true
     }
@@ -80,7 +80,7 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
 
     var currentFrame: AnimationKeyframe<T> {
         let resolvedDelta = elapsedDelta.truncatingRemainder(dividingBy: animation.duration)
-        
+
         return animation.keyframes.first(where: { keyframe in
             resolvedDelta >= keyframe.offset && resolvedDelta < keyframe.offset + keyframe.duration
         }) ?? animation.keyframes.last!

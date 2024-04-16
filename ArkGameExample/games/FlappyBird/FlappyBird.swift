@@ -43,40 +43,40 @@ extension FlappyBird {
                 self.handlePipePass(event, in: context)
             }
     }
-    
+
     private func handlePipePass(_ event: FlappyBirdPipePassEvent, in context: FlappyBirdActionContext) {
         let characterId = event.eventData.characterId
         let scoreEntity = context.ecs.getEntities(with: [FlappyBirdScore.self]).first
-        
+
         guard let scoreEntity else {
             assertionFailure("Unable to get score-tracking entity")
             return
         }
-        
+
         guard var scoreComponent = context.ecs.getComponent(ofType: FlappyBirdScore.self, for: scoreEntity) else {
             assertionFailure("Unable to get score component for score entity")
             return
         }
-        
+
         let oldScore = scoreComponent.scores[characterId] ?? 0
         let newScore = oldScore + 1
         scoreComponent.setScore(newScore, forId: characterId)
         context.ecs.upsertComponent(scoreComponent, to: scoreEntity)
-        
+
         guard let scoreTextEntity = context.ecs.getEntities(with: [FlappyBirdScoreLabelTag.self]).first(where: {
             let cId = context.ecs.getComponent(ofType: FlappyBirdScoreLabelTag.self, for: $0)?.characterId
-            
+
             return cId == characterId
         }) else {
             assertionFailure("Unable to get score text entity")
             return
         }
-        
+
         guard var scoreLabelComponent = context.ecs.getComponent(ofType: RectRenderableComponent.self, for: scoreTextEntity)?.label(String(newScore)) else {
             assertionFailure("Unable to get score label component")
             return
         }
-        
+
         context.ecs.upsertComponent(scoreLabelComponent, to: scoreTextEntity)
     }
 
@@ -132,41 +132,41 @@ extension FlappyBird {
             }
             .forEachTick { _, context in
                 let characters = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
-                
+
                 for character in characters {
                     guard var rotationComponent = context.ecs.getComponent(ofType: RotationComponent.self, for: character) else {
                         continue
                     }
-                    
+
                     guard let physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: character) else {
                         continue
                     }
-                    
+
                     guard var bitmapImageComponent = context.ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: character) else {
                         continue
                     }
-                    
+
                     let downwardSpeed = physicsComponent.velocity.dy
                     let rotationRadians = max(min(downwardSpeed / 300, 1.0), -1.0) * .pi / 8
                     bitmapImageComponent.rotation = rotationRadians
-                    
+
                     let midflapThresholdSpeed = 100.0
-                    
+
                     var imageResource: FlappyBirdImage {
                         if abs(downwardSpeed) <= midflapThresholdSpeed {
                             return FlappyBirdImage.characterMidflap
                         }
-                        
+
                         if downwardSpeed > 0 {
                             return FlappyBirdImage.characterUpflap
                         }
-                        
+
                         return FlappyBirdImage.characterDownflap
-                        
+
                     }
-                    
+
                     bitmapImageComponent.imageResourcePath = imageResource
-                    
+
                     context.ecs.upsertComponent(bitmapImageComponent, to: character)
                 }
             }

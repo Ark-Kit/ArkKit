@@ -35,4 +35,3 @@ struct RectRenderableComponent: ShapeRenderableComponent {
         builder.build(self)
     }
 }
-

@@ -45,13 +45,13 @@ extension UIKitShape {
         }
         return self
     }
-    
+
     func label(text: String, fontSize: Double, color: UIColor) -> Self {
         self.layer.sublayers?.forEach { subLayer in
             guard let textLayer = subLayer as? CATextLayer else {
                 return
             }
-            
+
             textLayer.string = text
             textLayer.fontSize = fontSize
             textLayer.foregroundColor = color.cgColor
