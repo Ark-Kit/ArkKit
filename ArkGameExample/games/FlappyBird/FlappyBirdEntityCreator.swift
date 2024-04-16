@@ -29,8 +29,8 @@ enum FlappyBirdEntityCreator {
                              linearDamping: 10,
                              impulse: impulseValue,
                              categoryBitMask: FlappyBirdPhysicsCategory.character,
-                             collisionBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.ceiling,
-                             contactTestBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.ceiling),
+                             collisionBitMask: FlappyBirdPhysicsCategory.none,
+                             contactTestBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.ceiling | FlappyBirdPhysicsCategory.scoringArea),
             FlappyBirdCharacterTag(characterId: characterId)
         ])
     }
@@ -88,6 +88,7 @@ enum FlappyBirdEntityCreator {
         let placeableYRange = minPlaceableY ... maxPlaceableY
 
         let topOfGapY = Double.random(in: placeableYRange)
+        let centerOfGapY = topOfGapY + pipeGap / 2
         let xCoordinate = canvasWidth + pipeWidth / 2
 
         let topWallContext = CreateWallContext(size: CGSize(width: pipeWidth, height: topOfGapY),
@@ -99,15 +100,19 @@ enum FlappyBirdEntityCreator {
                                                   xCoordinate: xCoordinate,
                                                   position: .bottom,
                                                   isPipe: true)
+        let scoringAreaContext = CreateScoringAreaContext(size: CGSize(width: pipeWidth, height: pipeGap), xCoordinate: xCoordinate, yCoordinate: centerOfGapY)
 
         spawnWall(with: topWallContext, in: ecs, and: display)
         spawnWall(with: bottomWallContext, in: ecs, and: display)
+        spawnScoringArea(with: scoringAreaContext, in: ecs, and: display)
     }
 }
 
 // MARK: Helpers
 
 extension FlappyBirdEntityCreator {
+    private static let pipeVelocity = CGVector(dx: -100, dy: 0)
+
     private enum FlappyBirdWallPosition {
         case top, bottom
     }
@@ -133,6 +138,12 @@ extension FlappyBirdEntityCreator {
         }
     }
 
+    private struct CreateScoringAreaContext {
+        let size: CGSize
+        let xCoordinate: Double
+        let yCoordinate: Double
+    }
+
     private static func spawnWall(with createWallContext: CreateWallContext,
                                   in ecs: ArkECSContext,
                                   and display: DisplayContext)
@@ -154,15 +165,38 @@ extension FlappyBirdEntityCreator {
             PositionComponent(position: positionPoint),
             RotationComponent(),
             PhysicsComponent(shape: .rectangle, size: size,
-                             velocity: isPipe ? CGVector(dx: -100, dy: 0) : .zero,
+                             velocity: isPipe ? pipeVelocity : .zero,
                              isDynamic: isDynamic,
                              categoryBitMask: physicsType,
-                             collisionBitMask: FlappyBirdPhysicsCategory.character,
+                             collisionBitMask: FlappyBirdPhysicsCategory.none,
                              contactTestBitMask: FlappyBirdPhysicsCategory.character)
         ])
 
         if isPipe {
             ecs.upsertComponent(FlappyBirdPipeTag(), to: wall)
         }
+    }
+
+    private static func spawnScoringArea(with createScoringAreaContext: CreateScoringAreaContext,
+                                         in ecs: ArkECSContext,
+                                         and display: DisplayContext)
+    {
+        let size = createScoringAreaContext.size
+        let xCoordinate = createScoringAreaContext.xCoordinate
+        let yCoordinate = createScoringAreaContext.yCoordinate
+        let positionPoint = CGPoint(x: xCoordinate, y: yCoordinate)
+
+        ecs.createEntity(with: [
+            RectRenderableComponent(width: size.width, height: size.height)
+                .fill(color: .red),
+            PositionComponent(position: positionPoint),
+            RotationComponent(),
+            PhysicsComponent(shape: .rectangle, size: size,
+                             velocity: pipeVelocity,
+                             isDynamic: true,
+                             categoryBitMask: FlappyBirdPhysicsCategory.scoringArea,
+                             collisionBitMask: FlappyBirdPhysicsCategory.none,
+                             contactTestBitMask: FlappyBirdPhysicsCategory.character)
+        ])
     }
 }

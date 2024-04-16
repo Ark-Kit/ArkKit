@@ -163,6 +163,7 @@
 		8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C72BA69D61007030C8 /* ArkAnimation.swift */; };
 		8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */; };
 		8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */; };
+		8FA902332BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA902322BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift */; };
 		8FDE57632BCE0E300066B906 /* FlappyBirdWallHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */; };
 		8FDE57652BCE112C0066B906 /* FlappyBirdCharacterTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */; };
 		8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21772BADE30F00788E20 /* RenderLayer.swift */; };
@@ -426,6 +427,7 @@
 		8F5573C72BA69D61007030C8 /* ArkAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimation.swift; sourceTree = "<group>"; };
 		8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationSystem.swift; sourceTree = "<group>"; };
 		8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationInstance.swift; sourceTree = "<group>"; };
+		8FA902322BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlappyBirdPipePassEvent.swift; sourceTree = "<group>"; };
 		8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdWallHitEvent.swift; sourceTree = "<group>"; };
 		8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdCharacterTag.swift; sourceTree = "<group>"; };
 		8FEB21772BADE30F00788E20 /* RenderLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderLayer.swift; sourceTree = "<group>"; };
@@ -1153,6 +1155,7 @@
 			children = (
 				941A45B72BCD60AB00689D15 /* FlappyBirdTapEvent.swift */,
 				8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */,
+				8FA902322BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -1934,6 +1937,7 @@
 				941BE21E2BC0EC1900707997 /* ArkProtocol.swift in Sources */,
 				AD787A8C2B9C70FC003EBBD0 /* SystemManager.swift in Sources */,
 				942A16852BAEA43B00F0186B /* Sound.swift in Sources */,
+				8FA902332BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift in Sources */,
 				0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */,
 				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,

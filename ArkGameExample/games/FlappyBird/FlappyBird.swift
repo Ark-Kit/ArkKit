@@ -5,7 +5,7 @@ class FlappyBird {
     var collisionStrategyManager = FlappyBirdCollisionStrategyManager()
 
     init() {
-        self.blueprint = ArkBlueprint(frameWidth: 800, frameHeight: 1_180)
+        self.blueprint = ArkBlueprint<FlappyBirdExternalResources>(frameWidth: 800, frameHeight: 1_180)
         setup()
     }
 
