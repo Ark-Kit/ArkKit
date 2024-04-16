@@ -1,11 +1,14 @@
 import Foundation
+import UIKit
 
 class FlappyBird {
     private(set) var blueprint: ArkBlueprint<FlappyBirdExternalResources>
     var collisionStrategyManager = FlappyBirdCollisionStrategyManager()
+    var rootView: AbstractDemoGameHostingPage
 
-    init() {
+    init(rootView: AbstractDemoGameHostingPage) {
         self.blueprint = ArkBlueprint<FlappyBirdExternalResources>(frameWidth: 800, frameHeight: 1_180)
+        self.rootView = rootView
         setup()
     }
 
@@ -36,6 +39,45 @@ extension FlappyBird {
             .on(FlappyBirdWallHitEvent.self) { event, context in
                 self.handleWallHit(event, in: context)
             }
+            .on(FlappyBirdPipePassEvent.self) { event, context in
+                self.handlePipePass(event, in: context)
+            }
+    }
+    
+    private func handlePipePass(_ event: FlappyBirdPipePassEvent, in context: FlappyBirdActionContext) {
+        let characterId = event.eventData.characterId
+        let scoreEntity = context.ecs.getEntities(with: [FlappyBirdScore.self]).first
+        
+        guard let scoreEntity else {
+            assertionFailure("Unable to get score-tracking entity")
+            return
+        }
+        
+        guard var scoreComponent = context.ecs.getComponent(ofType: FlappyBirdScore.self, for: scoreEntity) else {
+            assertionFailure("Unable to get score component for score entity")
+            return
+        }
+        
+        let oldScore = scoreComponent.scores[characterId] ?? 0
+        let newScore = oldScore + 1
+        scoreComponent.setScore(newScore, forId: characterId)
+        context.ecs.upsertComponent(scoreComponent, to: scoreEntity)
+        
+        guard let scoreTextEntity = context.ecs.getEntities(with: [FlappyBirdScoreLabelTag.self]).first(where: {
+            let cId = context.ecs.getComponent(ofType: FlappyBirdScoreLabelTag.self, for: $0)?.characterId
+            
+            return cId == characterId
+        }) else {
+            assertionFailure("Unable to get score text entity")
+            return
+        }
+        
+        guard var scoreLabelComponent = context.ecs.getComponent(ofType: RectRenderableComponent.self, for: scoreTextEntity)?.label(String(newScore)) else {
+            assertionFailure("Unable to get score label component")
+            return
+        }
+        
+        context.ecs.upsertComponent(scoreLabelComponent, to: scoreTextEntity)
     }
 
     private func handleWallHit(_ event: FlappyBirdWallHitEvent, in context: FlappyBirdActionContext) {
@@ -86,6 +128,7 @@ extension FlappyBird {
                 FlappyBirdEntityCreator.spawnBase(context: context)
                 FlappyBirdEntityCreator.spawnCeiling(context: context)
                 FlappyBirdEntityCreator.createCharacter(context: context, characterId: 1)
+                FlappyBirdEntityCreator.initializeScore(context: context, characterIds: [1])
             }
     }
 

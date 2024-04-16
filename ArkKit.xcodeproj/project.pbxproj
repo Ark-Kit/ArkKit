@@ -164,6 +164,8 @@
 		8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */; };
 		8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */; };
 		8FA902332BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA902322BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift */; };
+		8FA902352BCE457000FA13C8 /* FlappyBirdScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA902342BCE457000FA13C8 /* FlappyBirdScore.swift */; };
+		8FA9023B2BCE639600FA13C8 /* FlappyBirdScoreLabelTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9023A2BCE639600FA13C8 /* FlappyBirdScoreLabelTag.swift */; };
 		8FDE57632BCE0E300066B906 /* FlappyBirdWallHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */; };
 		8FDE57652BCE112C0066B906 /* FlappyBirdCharacterTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */; };
 		8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21772BADE30F00788E20 /* RenderLayer.swift */; };
@@ -435,6 +437,8 @@
 		8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationSystem.swift; sourceTree = "<group>"; };
 		8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationInstance.swift; sourceTree = "<group>"; };
 		8FA902322BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlappyBirdPipePassEvent.swift; sourceTree = "<group>"; };
+		8FA902342BCE457000FA13C8 /* FlappyBirdScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlappyBirdScore.swift; sourceTree = "<group>"; };
+		8FA9023A2BCE639600FA13C8 /* FlappyBirdScoreLabelTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdScoreLabelTag.swift; sourceTree = "<group>"; };
 		8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdWallHitEvent.swift; sourceTree = "<group>"; };
 		8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdCharacterTag.swift; sourceTree = "<group>"; };
 		8FEB21772BADE30F00788E20 /* RenderLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderLayer.swift; sourceTree = "<group>"; };
@@ -1160,8 +1164,10 @@
 			isa = PBXGroup;
 			children = (
 				941A45B92BCD75B100689D15 /* FlappyBirdPipeTag.swift */,
+				8FA902342BCE457000FA13C8 /* FlappyBirdScore.swift */,
 				941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */,
 				8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */,
+				8FA9023A2BCE639600FA13C8 /* FlappyBirdScoreLabelTag.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1889,6 +1895,7 @@
 				AD787A512B9C636F003EBBD0 /* AppDelegate.swift in Sources */,
 				02C3951C2BA8492B0075F1CA /* BitmapImageRenderableComponent.swift in Sources */,
 				02C9CC2F2BBED04E0098E849 /* CameraContainerRenderableComponent.swift in Sources */,
+				8FA902352BCE457000FA13C8 /* FlappyBirdScore.swift in Sources */,
 				02C395182BA83FC40075F1CA /* ButtonRenderableComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,
@@ -1938,6 +1945,7 @@
 				8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */,
 				286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */,
 				9454411A2BC94CA900E90ECE /* SnakeGridPosition.swift in Sources */,
+				8FA9023B2BCE639600FA13C8 /* FlappyBirdScoreLabelTag.swift in Sources */,
 				0230A4812BB7B452001CFDAF /* AbstractButtonStyle.swift in Sources */,
 				02C394DE2BA4053E0075F1CA /* RenderableBuilder.swift in Sources */,
 				8FDE57652BCE112C0066B906 /* FlappyBirdCharacterTag.swift in Sources */,

@@ -33,6 +33,29 @@ enum FlappyBirdEntityCreator {
             FlappyBirdCharacterTag(characterId: characterId)
         ])
     }
+    
+    static func initializeScore(context: ArkSetupContext, characterIds: [Int]) {
+        let screenHeight = context.display.screenSize.height
+        let screenWidth = context.display.screenSize.width
+        
+        var scoreComponent = FlappyBirdScore(scores: [:])
+        
+        for characterId in characterIds {
+            scoreComponent.setScore(0, forId: characterId)
+            context.ecs.createEntity(with: [
+                RectRenderableComponent(width: 100, height: 56)
+                    .center(CGPoint(x: screenWidth * 3 / 12, y: screenHeight * 1 / 11))
+                    .label("0", color: .white, size: 56)
+                    .fill(color: .transparent)
+                    .zPosition(999)
+                    .layer(.screen),
+                FlappyBirdScoreLabelTag(characterId: characterId)
+            ])
+        }
+        
+        context.ecs.createEntity(with: [scoreComponent])
+        
+    }
 
     @discardableResult
     static func createBackground(context: ArkSetupContext) -> Entity {

@@ -33,7 +33,7 @@ struct TankBackgroundCreationContext {
 enum TankGameEntityCreator {
     static func createHpBarComponent(hp: Double, zPosition: Double) -> any RenderableComponent {
         RectRenderableComponent(width: hp, height: 10)
-            .modify(fillInfo: ShapeFillInfo(color: .red), strokeInfo: ShapeStrokeInfo(lineWidth: 3, color: .black))
+            .upsert(fillInfo: ShapeFillInfo(color: .red), strokeInfo: ShapeStrokeInfo(lineWidth: 3, color: .black))
             .zPosition(zPosition + 1)
             .layer(.canvas)
     }
