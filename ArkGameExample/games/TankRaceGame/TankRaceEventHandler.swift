@@ -169,12 +169,10 @@ class TankRaceEventHandler {
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
         guard let tankHpComponent = context.ecs.getComponent(ofType: TankHpComponent.self, for: tankEntity),
-              tankHpComponent.hp <= 0,
-              var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity) else {
+              tankHpComponent.hp <= 0 else {
             return
         }
-        physicsComponent.toBeRemoved = true
-        context.ecs.upsertComponent(physicsComponent, to: tankEntity)
+        context.ecs.upsertComponent(ToRemoveComponent(), to: tankEntity)
         if let positionComponent = context.ecs.getComponent(ofType: PositionComponent.self, for: tankEntity) {
             ImpactExplosionAnimation(perFrameDuration: 0.1,
                                      width: 256.0,

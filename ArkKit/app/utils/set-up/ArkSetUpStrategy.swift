@@ -132,23 +132,29 @@ extension ArkSetUpStrategy {
 
         let simulator = SKSimulator(size: CGSize(width: worldWidth, height: worldHeight))
         ark.gameLoop = simulator
-        let physicsSystem = ArkPhysicsSystem(simulator: simulator,
-                                             eventManager: ark.arkState.eventManager,
-                                             arkECS: ark.arkState.arkECS)
+        let physicsUpdateSystem = ArkPhysicsUpdateSystem(simulator: simulator,
+                                                         eventManager: ark.arkState.eventManager,
+                                                         arkECS: ark.arkState.arkECS)
         let animationSystem = ArkAnimationSystem()
         let canvasSystem = ArkCanvasSystem()
         let timeSystem = ArkTimeSystem()
         let cameraSystem = ArkCameraSystem()
+        let entityRemovalSystem = ArkEntityRemovalSystem()
         ark.arkState.arkECS.addSystem(timeSystem)
-        ark.arkState.arkECS.addSystem(physicsSystem)
+        ark.arkState.arkECS.addSystem(physicsUpdateSystem)
         ark.arkState.arkECS.addSystem(animationSystem)
         ark.arkState.arkECS.addSystem(canvasSystem)
         ark.arkState.arkECS.addSystem(cameraSystem)
+        ark.arkState.arkECS.addSystem(entityRemovalSystem)
 
         // inject dependency into game loop
-        simulator.physicsScene?.sceneContactUpdateDelegate = physicsSystem
-        simulator.physicsScene?.sceneUpdateLoopDelegate = physicsSystem
-        ark.gameLoop?.updatePhysicsSceneDelegate = physicsSystem
+        let physicsSyncSystem = ArkPhysicsSyncSystem(simulator: simulator,
+                                                     eventManager: ark.arkState.eventManager,
+                                                     arkECS: ark.arkState.arkECS)
+        ark.arkState.arkECS.addSystem(physicsSyncSystem)
+        simulator.physicsScene?.sceneContactUpdateDelegate = physicsSyncSystem
+        simulator.physicsScene?.sceneUpdateLoopDelegate = physicsSyncSystem
+        ark.gameLoop?.updatePhysicsSceneDelegate = physicsSyncSystem
     }
 
     func setupMultiplayerGameLoop() {

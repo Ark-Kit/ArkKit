@@ -146,7 +146,7 @@
 		02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F32BA283180043E2BA /* UIKitRect.swift */; };
 		02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F52BA283940043E2BA /* UIKitPolygon.swift */; };
 		02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F72BA284540043E2BA /* UIKitBitmap.swift */; };
-		280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B62BA7391100372C5D /* ArkPhysicsSystem.swift */; };
+		280CD3B72BA7391100372C5D /* ArkPhysicsUpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */; };
 		280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B82BA7391700372C5D /* PhysicsComponent.swift */; };
 		280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */; };
 		280CD3C42BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3C32BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift */; };
@@ -163,6 +163,9 @@
 		2812FCC52BC4424200A0FE24 /* TankRaceGameEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */; };
 		2812FCC72BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */; };
 		282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */; };
+		28548F502BCD9CA700C49404 /* ArkEntityRemovalSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */; };
+		28548F522BCD9CB900C49404 /* ToRemoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */; };
+		28548F542BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F532BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift */; };
 		286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */; };
 		286C09C22BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */; };
 		287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00542BC16E6C002F0114 /* TankHPComponent.swift */; };
@@ -432,7 +435,7 @@
 		02E0E8F32BA283180043E2BA /* UIKitRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRect.swift; sourceTree = "<group>"; };
 		02E0E8F52BA283940043E2BA /* UIKitPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitPolygon.swift; sourceTree = "<group>"; };
 		02E0E8F72BA284540043E2BA /* UIKitBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitBitmap.swift; sourceTree = "<group>"; };
-		280CD3B62BA7391100372C5D /* ArkPhysicsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsSystem.swift; sourceTree = "<group>"; };
+		280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsUpdateSystem.swift; sourceTree = "<group>"; };
 		280CD3B82BA7391700372C5D /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSKPhysicsBody.swift; sourceTree = "<group>"; };
 		280CD3C32BA7419400372C5D /* ArkPhysicsContactUpdateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsContactUpdateDelegate.swift; sourceTree = "<group>"; };
@@ -449,6 +452,9 @@
 		2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameEntityCreator.swift; sourceTree = "<group>"; };
 		2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
 		282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBodyManager.swift; sourceTree = "<group>"; };
+		28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEntityRemovalSystem.swift; sourceTree = "<group>"; };
+		28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToRemoveComponent.swift; sourceTree = "<group>"; };
+		28548F532BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsSyncSystem.swift; sourceTree = "<group>"; };
 		286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameMapBuilder.swift; sourceTree = "<group>"; };
 		286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
 		287B00542BC16E6C002F0114 /* TankHPComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPComponent.swift; sourceTree = "<group>"; };
@@ -1147,7 +1153,8 @@
 			children = (
 				280CD3D72BA7FA9A00372C5D /* ark-physics-facade */,
 				280CD3CC2BA74E3100372C5D /* sprite-kit-physics-facade */,
-				280CD3B62BA7391100372C5D /* ArkPhysicsSystem.swift */,
+				280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */,
+				28548F532BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift */,
 				280CD3B82BA7391700372C5D /* PhysicsComponent.swift */,
 				28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */,
 			);
@@ -1193,6 +1200,7 @@
 				280CD3DD2BA8045200372C5D /* RotationComponent.swift */,
 				02C395332BAAF0EC0075F1CA /* WorldComponent.swift */,
 				28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */,
+				28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */,
 			);
 			path = InternalComponents;
 			sourceTree = "<group>";
@@ -1213,6 +1221,7 @@
 			children = (
 				28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */,
 				0267BA1D2BBB07D80010F729 /* ArkUpdateSystem.swift */,
+				28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */,
 			);
 			path = InternalSystems;
 			sourceTree = "<group>";
@@ -1940,6 +1949,7 @@
 				02B3C64E2BCD8507002331A0 /* ArkPlayerStateSetupDelegate.swift in Sources */,
 				945441042BC9178400E90ECE /* SnakeGame.swift in Sources */,
 				ADA847FD2BBC4B5500B19378 /* AbstractNetworkService.swift in Sources */,
+				28548F542BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleRenderableComponent.swift in Sources */,
 				9479A3AF2BA952E300F99013 /* AbstractShape.swift in Sources */,
 				02E0E8EE2BA280BD0043E2BA /* UIKitShape.swift in Sources */,
@@ -1974,6 +1984,7 @@
 				8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */,
 				945441212BC9639E00E90ECE /* SnakeGameTick.swift in Sources */,
 				941BE2202BC104D000707997 /* TankGameSounds.swift in Sources */,
+				28548F502BCD9CA700C49404 /* ArkEntityRemovalSystem.swift in Sources */,
 				94D053A12BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift in Sources */,
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
 				0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */,
@@ -1996,7 +2007,7 @@
 				02C395182BA83FC40075F1CA /* ButtonRenderableComponent.swift in Sources */,
 				AD6E03652BA1949000974EBF /* ArkEvent.swift in Sources */,
 				943D418C2BAEBF2E00F9E88F /* ArkSetupContext.swift in Sources */,
-				ADA847FF2BBC4EA800B19378 /* ArkDataSerializer.swift in Sources */,
+				ADA847FF2BBC4EA800B19378 /* ArkEventDataSerializer.swift in Sources */,
 				02B3C6202BCBDFEC002331A0 /* TankRaceEndPedalEvent.swift in Sources */,
 				ADA847FF2BBC4EA800B19378 /* ArkEventDataSerializer.swift in Sources */,
 				AD36A7582BAC3223003E938B /* TankGameEntityCreator.swift in Sources */,
@@ -2058,6 +2069,7 @@
 				AD2B59B62BB958E400198E99 /* DataWrapper.swift in Sources */,
 				02B3C62C2BCD19AC002331A0 /* ArkNetworkPublisherDelegate.swift in Sources */,
 				0230A48E2BB950AF001CFDAF /* OrderedDictionary.swift in Sources */,
+				28548F522BCD9CB900C49404 /* ToRemoveComponent.swift in Sources */,
 				9479A3AC2BA951F300F99013 /* AbstractBitmap.swift in Sources */,
 				945F7F9B2BA8912200933629 /* AbstractPannable.swift in Sources */,
 				AD6E03682BA1A61200974EBF /* ArkEventManager.swift in Sources */,
@@ -2083,7 +2095,7 @@
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
 				945441252BC99D8800E90ECE /* SnakeGridPositionComponent.swift in Sources */,
 				8F5573BF2BA425E4007030C8 /* ShapeRenderable.swift in Sources */,
-				280CD3B72BA7391100372C5D /* ArkPhysicsSystem.swift in Sources */,
+				280CD3B72BA7391100372C5D /* ArkPhysicsUpdateSystem.swift in Sources */,
 				28EFCB252BCCA7CC0059A908 /* ArkECSWrapper.swift in Sources */,
 				280CD3D62BA7F8CC00372C5D /* SKPhysicsScene.swift in Sources */,
 				941BE21E2BC0EC1900707997 /* ArkProtocol.swift in Sources */,
