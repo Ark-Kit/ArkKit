@@ -1,4 +1,4 @@
-enum TankGameImages: String {
+enum TankGameImage: String {
     // Background map
     case map_1
     case map_2
@@ -27,6 +27,8 @@ enum TankGameImages: String {
     case tank_2
     case tank_3
     case tank_4
+    case tire_track_1
+    case tire_track_2
 
     // Powerups
     case healthPack = "health-red"

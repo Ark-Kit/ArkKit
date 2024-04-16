@@ -6,6 +6,7 @@ protocol RenderableComponent: Component, Memoizable {
     var center: CGPoint { get set }
     var rotation: Double { get set }
     var zPosition: Double { get set }
+    var opacity: Double { get set }
     var renderLayer: RenderLayer { get set }
     var isUserInteractionEnabled: Bool { get set }
     var shouldRerenderDelegate: ShouldRerenderDelegate? { get set }
@@ -43,6 +44,12 @@ extension RenderableComponent {
     func zPosition(_ zPos: Double) -> Self {
         var newSelf = self
         newSelf.zPosition = zPos
+        return newSelf
+    }
+
+    func opacity(_ opacity: Double) -> Self {
+        var newSelf = self
+        newSelf.opacity = opacity
         return newSelf
     }
 

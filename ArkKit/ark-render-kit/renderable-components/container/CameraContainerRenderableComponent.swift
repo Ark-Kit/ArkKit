@@ -14,6 +14,7 @@ struct CameraContainerRenderableComponent: RenderableComponent, AbstractLetterbo
     var isUserInteractionEnabled = true
     var shouldRerenderDelegate: ShouldRerenderDelegate?
     var zPosition: Double = 0.0
+    var opacity: Double = 1.0
     var rotation: Double = 0.0
 
     private(set) var letterboxWidthScaleFactor: CGFloat = 1.0
