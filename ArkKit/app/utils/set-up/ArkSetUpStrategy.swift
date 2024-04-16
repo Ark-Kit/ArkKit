@@ -140,6 +140,7 @@ extension ArkSetUpStrategy {
         let timeSystem = ArkTimeSystem()
         let cameraSystem = ArkCameraSystem()
         let entityRemovalSystem = ArkEntityRemovalSystem()
+        entityRemovalSystem.arkPhysicsRemovalDelegate = physicsUpdateSystem
         ark.arkState.arkECS.addSystem(timeSystem)
         ark.arkState.arkECS.addSystem(physicsUpdateSystem)
         ark.arkState.arkECS.addSystem(animationSystem)
