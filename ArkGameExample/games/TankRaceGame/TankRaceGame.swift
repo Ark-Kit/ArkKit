@@ -271,10 +271,10 @@ class TankRaceGame {
         TankRaceGameEntityCreator.createTerrainObjects(in: ecs, objectsSpecs: tankTerrainSpecs)
     }
 
-    private func createTerrainForPlayer(_ id: Int, canvasWidth: Double, canvasHeight: Double) -> [TankSpecification] {
+    private func createTerrainForPlayer(_ id: Int, canvasWidth: Double, canvasHeight: Double) -> [TankPropSpecification] {
         let fractions: [(Double, Int)] = [(3.0 / 10, 1), (5.0 / 10, 3), (6.0 / 10, 2), (9.0 / 10, 5)]
         return fractions.map {
-            TankSpecification(
+            TankPropSpecification(
                 type: $1,
                 location: CGPoint(x: canvasWidth * (Double(id) / 3 - 1 / 6), y: canvasHeight * $0),
                 size: CGSize(width: canvasWidth * 1 / 6, height: canvasWidth * 1 / 6),

@@ -1,26 +1,23 @@
 import Foundation
 
-struct ImpactExplosionAnimation {
-    let animation: ArkAnimation<TankGameExplosionAnimationKeyframes>
+struct FiringAnimation {
+    let animation: ArkAnimation<TankGameFiringAnimationKeyframes>
 
-    var width = 128.0
-    var height = 128.0
+    var width: Double
+    var height: Double
 
-    init(perFrameDuration: Double, width: Double = 128.0, height: Double = 128.0) {
+    init(perFrameDuration: Double, width: Double = 64.0, height: Double = 64.0) {
         animation = ArkAnimation()
-            .keyframe(.Sprite_Effects_Explosion_001, duration: perFrameDuration)
-            .keyframe(.Sprite_Effects_Explosion_002, duration: perFrameDuration)
-            .keyframe(.Sprite_Effects_Explosion_003, duration: perFrameDuration)
-            .keyframe(.Sprite_Effects_Explosion_004, duration: perFrameDuration)
-            .keyframe(.Sprite_Effects_Explosion_005, duration: perFrameDuration)
-            .keyframe(.Sprite_Effects_Explosion_006, duration: perFrameDuration)
-            .keyframe(.Sprite_Effects_Explosion_007, duration: perFrameDuration)
-            .keyframe(.Sprite_Effects_Explosion_008, duration: perFrameDuration)
+            .keyframe(.Flash_A_01, duration: perFrameDuration)
+            .keyframe(.Flash_A_02, duration: perFrameDuration)
+            .keyframe(.Flash_A_03, duration: perFrameDuration)
+            .keyframe(.Flash_A_04, duration: perFrameDuration)
+            .keyframe(.Flash_A_05, duration: perFrameDuration)
         self.width = width
         self.height = height
     }
 
-    private func makeBitmapComponent(imageResourcePath: TankGameExplosionAnimationKeyframes, position: CGPoint) ->
+    private func makeBitmapComponent(imageResourcePath: TankGameFiringAnimationKeyframes, position: CGPoint) ->
     BitmapImageRenderableComponent {
         BitmapImageRenderableComponent(
             arkImageResourcePath: imageResourcePath,
@@ -63,7 +60,7 @@ struct ImpactExplosionAnimation {
         animationsComponent.addAnimation(animationInstance)
         ecs.upsertComponent(animationsComponent, to: entity)
 
-        let bitmapComponent = makeBitmapComponent(imageResourcePath: .Sprite_Effects_Explosion_001, position: position)
+        let bitmapComponent = makeBitmapComponent(imageResourcePath: .Flash_A_01, position: position)
         ecs.upsertComponent(bitmapComponent, to: entity)
     }
 }

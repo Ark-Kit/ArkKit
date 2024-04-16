@@ -22,64 +22,7 @@ class TankGameManager {
         setUpEntities()
         setUpSystems()
         setUpRules()
-        self.blueprint = self.blueprint
-            .supportNetworkMultiPlayer(
-                roomName: "TankFightGame", numberOfPlayers: 2
-            )
-            .setupPlayer { context in
-                let ecs = context.ecs
-                let events = context.events
-                let screenWidth = context.display.screenSize.width
-                let screenHeight = context.display.screenSize.height
-
-                let joystick1Entity = TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
-                    tankId: 1,
-                    in: ecs,
-                    eventContext: events,
-                    zPosition: 999)
-
-                let shootButton1Entity = TankGameEntityCreator.createShootButton(
-                    with: TankShootButtonCreationContext(
-                        position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
-                        tankId: 1,
-                        zPosition: 999,
-                        rotate: false
-                    ),
-                    in: ecs,
-                    eventContext: events
-                )
-
-                self.joystick1 = joystick1Entity.id
-                self.shootButton1 = shootButton1Entity.id
-            }
-            .setupPlayer { context in
-                let ecs = context.ecs
-                let events = context.events
-                let screenWidth = context.display.screenSize.width
-                let screenHeight = context.display.screenSize.height
-
-                let joystick2Entity = TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
-                    tankId: 2,
-                    in: ecs,
-                    eventContext: events,
-                    zPosition: 999)
-
-                let shootButton2Entity = TankGameEntityCreator.createShootButton(
-                    with: TankShootButtonCreationContext(
-                        position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
-                        tankId: 2,
-                        zPosition: 999,
-                        rotate: true
-                    ),
-                    in: ecs,
-                    eventContext: events
-                )
-
-                self.joystick2 = joystick2Entity.id
-                self.shootButton2 = shootButton2Entity.id
-            }
+        setUpPlayers()
     }
 
     func setUpAudio() {
@@ -91,11 +34,8 @@ class TankGameManager {
         blueprint = blueprint
             .setup { context in
                 let ecs = context.ecs
-                let events = context.events
                 let display = context.display
 
-                let screenWidth = display.screenSize.width
-                let screenHeight = display.screenSize.height
                 let canvasWidth = display.canvasSize.width
                 let canvasHeight = display.canvasSize.height
                 TankGameEntityCreator.createBackground(with: TankBackgroundCreationContext(width: canvasWidth,
@@ -172,71 +112,131 @@ class TankGameManager {
             }
     }
 
+    func setUpPlayers() {
+        blueprint = blueprint.supportNetworkMultiPlayer(
+            roomName: "TankFightGame", numberOfPlayers: 2
+        )
+        .setupPlayer { context in
+            let ecs = context.ecs
+            let events = context.events
+            let screenWidth = context.display.screenSize.width
+            let screenHeight = context.display.screenSize.height
+
+            let joystick1Entity = TankGameEntityCreator.createJoyStick(
+                center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
+                tankId: 1,
+                in: ecs,
+                eventContext: events,
+                zPosition: 999)
+
+            let shootButton1Entity = TankGameEntityCreator.createShootButton(
+                with: TankShootButtonCreationContext(
+                    position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
+                    tankId: 1,
+                    zPosition: 999,
+                    rotate: false
+                ),
+                in: ecs,
+                eventContext: events
+            )
+
+            self.joystick1 = joystick1Entity.id
+            self.shootButton1 = shootButton1Entity.id
+        }
+        .setupPlayer { context in
+            let ecs = context.ecs
+            let events = context.events
+            let screenWidth = context.display.screenSize.width
+            let screenHeight = context.display.screenSize.height
+
+            let joystick2Entity = TankGameEntityCreator.createJoyStick(
+                center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
+                tankId: 2,
+                in: ecs,
+                eventContext: events,
+                zPosition: 999)
+
+            let shootButton2Entity = TankGameEntityCreator.createShootButton(
+                with: TankShootButtonCreationContext(
+                    position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
+                    tankId: 2,
+                    zPosition: 999,
+                    rotate: true
+                ),
+                in: ecs,
+                eventContext: events
+            )
+
+            self.joystick2 = joystick2Entity.id
+            self.shootButton2 = shootButton2Entity.id
+        }
+    }
+
     private func createTankTerrainEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {
         TankGameEntityCreator
             .createTerrainObjects(in: ecs,
                                   objectsSpecs: [
-                                      TankSpecification(type: 0,
-                                                        location: CGPoint(x: canvasWidth / 2,
-                                                                          y: canvasHeight / 2),
-                                                        size: CGSize(width: canvasWidth,
-                                                                     height: canvasHeight / 5),
-                                                        zPos: 1),
-                                      TankSpecification(type: 1,
-                                                        location: CGPoint(x: canvasWidth * 3 / 4,
-                                                                          y: canvasHeight * 3 / 4),
-                                                        size: CGSize(width: 100, height: 100),
-                                                        zPos: 2),
-                                      TankSpecification(type: 3,
-                                                        location: CGPoint(x: canvasWidth * 1 / 4,
-                                                                          y: canvasHeight * 1 / 4),
-                                                        size: CGSize(width: 120, height: 120),
-                                                        zPos: 2),
-                                      TankSpecification(type: 2,
-                                                        location: CGPoint(x: canvasWidth * 2 / 5,
-                                                                          y: canvasHeight * 2 / 3),
-                                                        size: CGSize(width: 70, height: 70),
-                                                        zPos: 2),
-                                      TankSpecification(type: 4,
-                                                        location: CGPoint(x: canvasWidth * 3 / 5,
-                                                                          y: canvasHeight * 1 / 3),
-                                                        size: CGSize(width: 80, height: 80),
-                                                        zPos: 2),
-                                      TankSpecification(type: 1,
-                                                        location: CGPoint(x: canvasWidth * 1 / 6,
-                                                                          y: canvasHeight * 3 / 7),
-                                                        size: CGSize(width: 80, height: 80),
-                                                        zPos: 2),
-                                      TankSpecification(type: 1,
-                                                        location: CGPoint(x: canvasWidth * 5 / 6,
-                                                                          y: canvasHeight * 4 / 7),
-                                                        size: CGSize(width: 80, height: 80),
-                                                        zPos: 2),
-                                      TankSpecification(type: 3,
-                                                        location: CGPoint(x: canvasWidth * 1 / 2,
-                                                                          y: canvasHeight * 1 / 2),
-                                                        size: CGSize(width: 85, height: 85),
-                                                        zPos: 2),
-                                      TankSpecification(type: 4,
-                                                        location: CGPoint(x: canvasWidth * 7 / 8,
-                                                                          y: canvasHeight * 1 / 3),
-                                                        size: CGSize(width: 95, height: 95),
-                                                        zPos: 2),
-                                      TankSpecification(type: 5,
-                                                        location: CGPoint(x: canvasWidth * 1 / 6,
-                                                                          y: canvasHeight * 3 / 4),
-                                                        size: CGSize(width: 90, height: 90),
-                                                        zPos: 2),
-                                      TankSpecification(type: 7,
-                                                        location: CGPoint(x: canvasWidth * 1 / 3,
-                                                                          y: canvasHeight * 1 / 2),
-                                                        size: CGSize(width: 45, height: 45),
-                                                        zPos: 2),
-                                      TankSpecification(type: 7,
-                                                        location: CGPoint(x: canvasWidth * 2 / 3,
-                                                                          y: canvasHeight * 1 / 2),
-                                                        size: CGSize(width: 45, height: 45),
-                                                        zPos: 2)
+                                      TankPropSpecification(type: 0,
+                                                            location: CGPoint(x: canvasWidth / 2,
+                                                                              y: canvasHeight / 2),
+                                                            size: CGSize(width: canvasWidth,
+                                                                         height: canvasHeight / 5),
+                                                            zPos: 1),
+                                      TankPropSpecification(type: 1,
+                                                            location: CGPoint(x: canvasWidth * 3 / 4,
+                                                                              y: canvasHeight * 3 / 4),
+                                                            size: CGSize(width: 100, height: 100),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 3,
+                                                            location: CGPoint(x: canvasWidth * 1 / 4,
+                                                                              y: canvasHeight * 1 / 4),
+                                                            size: CGSize(width: 120, height: 120),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 2,
+                                                            location: CGPoint(x: canvasWidth * 2 / 5,
+                                                                              y: canvasHeight * 2 / 3),
+                                                            size: CGSize(width: 70, height: 70),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 4,
+                                                            location: CGPoint(x: canvasWidth * 3 / 5,
+                                                                              y: canvasHeight * 1 / 3),
+                                                            size: CGSize(width: 80, height: 80),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 1,
+                                                            location: CGPoint(x: canvasWidth * 1 / 6,
+                                                                              y: canvasHeight * 3 / 7),
+                                                            size: CGSize(width: 80, height: 80),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 1,
+                                                            location: CGPoint(x: canvasWidth * 5 / 6,
+                                                                              y: canvasHeight * 4 / 7),
+                                                            size: CGSize(width: 80, height: 80),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 6,
+                                                            location: CGPoint(x: canvasWidth * 1 / 2,
+                                                                              y: canvasHeight * 1 / 2),
+                                                            size: CGSize(width: 100, height: 100),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 3,
+                                                            location: CGPoint(x: canvasWidth * 7 / 8,
+                                                                              y: canvasHeight * 1 / 3),
+                                                            size: CGSize(width: 95, height: 95),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 5,
+                                                            location: CGPoint(x: canvasWidth * 1 / 6,
+                                                                              y: canvasHeight * 3 / 4),
+                                                            size: CGSize(width: 90, height: 90),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 7,
+                                                            location: CGPoint(x: canvasWidth * 1 / 3,
+                                                                              y: canvasHeight * 1 / 2),
+                                                            size: CGSize(width: 45, height: 45),
+                                                            zPos: 2),
+                                      TankPropSpecification(type: 7,
+                                                            location: CGPoint(x: canvasWidth * 2 / 3,
+                                                                              y: canvasHeight * 1 / 2),
+                                                            size: CGSize(width: 45, height: 45),
+                                                            zPos: 2)
                                   ])
     }
 }
@@ -303,7 +303,7 @@ extension TankGameManager {
             return
         }
 
-        let velocityScale = 1.5
+        let velocityScale = 2.5
 
         if tankMoveEventData.magnitude == 0 {
             tankPhysicsComponent.velocity = .zero
@@ -338,16 +338,19 @@ extension TankGameManager {
         let ballRadius = 15.0
         let ballVelocity = 300.0
 
+        let firingPosition = CGPoint(x: tankPositionComponent.position.x + dx * (tankLength + ballRadius * 1.05),
+                                     y: tankPositionComponent.position.y + dy * (tankLength + ballRadius * 1.05))
+
         TankGameEntityCreator
             .createBall(with: TankBallCreationContext(
-                position: CGPoint(x: tankPositionComponent.position.x + dx * (tankLength + ballRadius * 1.1),
-                                  y: tankPositionComponent.position.y + dy * (tankLength + ballRadius * 1.1)),
+                position: firingPosition,
                 radius: ballRadius,
                 velocity: CGVector(dx: ballVelocity * dx,
                                    dy: ballVelocity * dy),
                 angle: tankRotationComponent.angleInRadians ?? 0,
                 zPosition: 5),
                 in: ecs)
+        FiringAnimation(perFrameDuration: 0.1).create(in: ecs, at: firingPosition)
         context.audio.play(.shoot)
     }
 

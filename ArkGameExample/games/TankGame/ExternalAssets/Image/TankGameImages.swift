@@ -15,14 +15,14 @@ enum TankGameImages: String {
     // Interactable environment objects
     case lake
     case stones_1
-    case stones_2
+    case stones_2 = "barell_01"
     case stones_3
-    case stones_4
+    case stones_4 = "barell_02"
     case stones_5
-    case stones_6
+    case stones_6 = "well"
 
     // Tank
-    case ball
+    case ball = "medium_shell"
     case tank_1
     case tank_2
     case tank_3

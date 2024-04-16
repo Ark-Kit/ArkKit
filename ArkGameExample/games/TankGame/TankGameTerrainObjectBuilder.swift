@@ -1,6 +1,6 @@
 import Foundation
 
-struct TankSpecification {
+struct TankPropSpecification {
     var type: Int
     var location: CGPoint
     var size: CGSize
@@ -27,7 +27,7 @@ class TankGameTerrainObjectBuilder {
         strategies.append(strategy)
     }
 
-    func buildObjects(from specifications: [TankSpecification]) {
+    func buildObjects(from specifications: [TankPropSpecification]) {
         for spec in specifications {
             for strategy in strategies where strategy.canHandleType(spec.type) {
                 strategy.createObject(type: spec.type,
@@ -114,9 +114,10 @@ class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(arkImageResourcePath: TankGameImages.healthPack,
-                                                           width: size.width, height: size.height)
+                                           width: size.width, height: size.height)
             .zPosition(zPos)
-            .center(location),
+            .center(location)
+            .scaleAspectFill(),
             PositionComponent(position: location),
             RotationComponent(angleInRadians: 0),
             PhysicsComponent(shape: .circle, radius: size.width / 2, mass: 1, isDynamic: false, allowsRotation: false,

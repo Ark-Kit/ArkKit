@@ -206,7 +206,7 @@ enum TankGameEntityCreator {
         mapBuilder.buildMap(from: backgroundContext.background)
     }
 
-    static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [TankSpecification]) {
+    static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [TankPropSpecification]) {
         let terrainObjectBuilder = TankGameTerrainObjectBuilder(ecsContext: ecsContext)
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)

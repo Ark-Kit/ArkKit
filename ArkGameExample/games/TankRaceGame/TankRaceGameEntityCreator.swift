@@ -92,7 +92,7 @@ enum TankRaceGameEntityCreator {
         ])
     }
 
-    static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [TankSpecification]) {
+    static func createTerrainObjects(in ecsContext: ArkECSContext, objectsSpecs: [TankPropSpecification]) {
         let terrainObjectBuilder = TankRaceGameTerrainObjectBuilder(ecsContext: ecsContext)
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)

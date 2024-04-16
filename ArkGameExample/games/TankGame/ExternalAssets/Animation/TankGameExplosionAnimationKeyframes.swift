@@ -8,3 +8,11 @@ enum TankGameExplosionAnimationKeyframes: String {
     case Sprite_Effects_Explosion_007
     case Sprite_Effects_Explosion_008
 }
+
+enum TankGameFiringAnimationKeyframes: String {
+    case Flash_A_01
+    case Flash_A_02
+    case Flash_A_03
+    case Flash_A_04
+    case Flash_A_05
+}
