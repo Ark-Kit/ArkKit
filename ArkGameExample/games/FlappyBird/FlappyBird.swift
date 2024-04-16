@@ -126,6 +126,7 @@ extension FlappyBird {
         blueprint = blueprint
             .setup { context in
                 FlappyBirdEntityCreator.createBackground(context: context)
+                FlappyBirdEntityCreator.setGravity(context: context)
                 FlappyBirdEntityCreator.spawnBase(context: context)
                 FlappyBirdEntityCreator.spawnCeiling(context: context)
                 FlappyBirdEntityCreator.createCharacter(context: context, characterId: 1)

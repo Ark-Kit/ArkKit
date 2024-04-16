@@ -144,6 +144,11 @@ enum FlappyBirdEntityCreator {
         ])
     }
 
+    @discardableResult
+    static func setGravity(context: ArkSetupContext) -> Entity {
+        context.ecs.createEntity(with: [GravityComponent(gravityVector: CGVector(dx: 0, dy: 20))])
+    }
+
     static func spawnPairPipes(context: FlappyBirdActionContext) {
         let ecs = context.ecs
         let display = context.display

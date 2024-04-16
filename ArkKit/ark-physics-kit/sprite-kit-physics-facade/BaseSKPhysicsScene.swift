@@ -19,7 +19,7 @@ class BaseSKPhysicsScene: SKScene {
     }
 
     override func sceneDidLoad() {
-        physicsWorld.gravity = CGVector(dx: 0, dy: 20)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -9.81)
         physicsWorld.contactDelegate = self
     }
 
