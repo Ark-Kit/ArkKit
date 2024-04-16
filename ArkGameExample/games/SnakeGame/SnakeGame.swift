@@ -5,6 +5,7 @@ typealias SnakeGameActionContext = ArkActionContext<SnakeGameExternalResources>
 class SnakeGame {
     private(set) var blueprint: ArkBlueprint<SnakeGameExternalResources>
     private var playerIdToSnakeEntityMap = [Int: Entity]()
+    private var snakeEntityToPlayerIdMap = [Entity: Int]()
 
     private static let gridHeight: Double = 800
     private static let gridWidth: Double = 800
@@ -63,18 +64,23 @@ extension SnakeGame {
             .setup { context in
                 let snakeEntity1 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
+                                                     snakeId: 1,
                                                      head: SnakeGridPosition(x: 25, y: 25),
                                                      facingDirection: .north,
                                                      grid: self.grid),
                     in: context.ecs)
                 let snakeEntity2 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
+                                                     snakeId: 2,
                                                      head: SnakeGridPosition(x: 15, y: 15),
                                                      facingDirection: .south,
                                                      grid: self.grid),
                     in: context.ecs)
                 self.playerIdToSnakeEntityMap[1] = snakeEntity1
                 self.playerIdToSnakeEntityMap[2] = snakeEntity2
+                self.snakeEntityToPlayerIdMap[snakeEntity1] = 1
+                self.snakeEntityToPlayerIdMap[snakeEntity2] = 2
+                self.grid.snakeEntityToPlayerIdMap = self.snakeEntityToPlayerIdMap
             }
             // Setup player controls
             .setup { context in

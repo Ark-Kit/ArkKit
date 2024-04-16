@@ -4,6 +4,7 @@ struct SnakeGrid {
     let boxSideLength: Int
     let gridHeight: Double
     let gridWidth: Double
+    var snakeEntityToPlayerIdMap: [Entity: Int]?
 
     var rows: Int {
         Int((gridHeight / Double(boxSideLength)).rounded(.down))
@@ -71,7 +72,13 @@ extension SnakeGrid {
             // Always create the next head block
             var copy = snakeComponent
             let nextBlockPosition = headPosition.applyDelta(snakeComponent.direction)
-            let nextBlock = SnakeGameEntityCreator.createHeadBlockEntity(at: nextBlockPosition,
+            guard let snakeEntityToPlayerIdMap = snakeEntityToPlayerIdMap,
+                  let snakeId = snakeEntityToPlayerIdMap[snake] else {
+                print("i've got issues")
+                return
+            }
+            let nextBlock = SnakeGameEntityCreator.createHeadBlockEntity(snakeId,
+                                                                         at: nextBlockPosition,
                                                                          with: self,
                                                                          in: ecs)
             copy.occupies.prepend(nextBlock)
@@ -80,11 +87,18 @@ extension SnakeGrid {
             guard let currentHeadBlockId = snakeComponent.occupies.first else {
                 return
             }
-            let rectComponent = RectRenderableComponent(width: Double(boxSideLength), height: Double(boxSideLength))
-                .zPosition(1)
-                .layer(.canvas)
-            ecs.removeComponent(ofType: CircleRenderableComponent.self, from: currentHeadBlockId)
-            ecs.upsertComponent(rectComponent, to: currentHeadBlockId)
+
+            guard let positionComponent = ecs.getComponent(ofType: PositionComponent.self, for: currentHeadBlockId) else {
+                assertionFailure("PositionComponent does not exist for snake head!")
+                return
+            }
+
+            let bodyBitMapComponent =
+                    SnakeGameEntityCreator.makeSnakeBodyRenderableComponent(snakeId, at: positionComponent.position,
+                                                                   width: Double(boxSideLength),
+                                                                   height: Double(boxSideLength))
+            ecs.removeComponent(ofType: BitmapImageRenderableComponent.self, from: currentHeadBlockId)
+            ecs.upsertComponent(bodyBitMapComponent, to: currentHeadBlockId)
 
             // Account for presence of apple
             if let appleEntity = applePositionToEntityMapping[nextBlockPosition] {

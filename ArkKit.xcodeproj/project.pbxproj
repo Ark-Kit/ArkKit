@@ -198,6 +198,13 @@
 		28E65B032BCE672700AF69B4 /* medium_shell.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B022BCE672700AF69B4 /* medium_shell.png */; };
 		28E65B052BCE995800AF69B4 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65B042BCE995800AF69B4 /* CGPoint+Extension.swift */; };
 		28E65B082BCED48100AF69B4 /* SnakeMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65B072BCED48100AF69B4 /* SnakeMoveEvent.swift */; };
+		28E65B0C2BCEDF5900AF69B4 /* snake_yellow_xx.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B092BCEDF5900AF69B4 /* snake_yellow_xx.png */; };
+		28E65B0D2BCEDF5900AF69B4 /* snake_yellow_blob.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B0A2BCEDF5900AF69B4 /* snake_yellow_blob.png */; };
+		28E65B0E2BCEDF5900AF69B4 /* snake_yellow_head.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B0B2BCEDF5900AF69B4 /* snake_yellow_head.png */; };
+		28E65B122BCEDF7F00AF69B4 /* snake_green_xx.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B0F2BCEDF7F00AF69B4 /* snake_green_xx.png */; };
+		28E65B132BCEDF7F00AF69B4 /* snake_green_blob.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B102BCEDF7F00AF69B4 /* snake_green_blob.png */; };
+		28E65B142BCEDF7F00AF69B4 /* snake_green_head.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B112BCEDF7F00AF69B4 /* snake_green_head.png */; };
+		28E65B162BCEDF9700AF69B4 /* apple_alt.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B152BCEDF9700AF69B4 /* apple_alt.png */; };
 		28EFCB1B2BCC36EB0059A908 /* P2PShare in Frameworks */ = {isa = PBXBuildFile; productRef = ADA847F32BBC11F400B19378 /* P2PShare */; };
 		28EFCB1D2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */; };
 		28EFCB252BCCA7CC0059A908 /* ArkECSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */; };
@@ -530,6 +537,13 @@
 		28E65B022BCE672700AF69B4 /* medium_shell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medium_shell.png; sourceTree = "<group>"; };
 		28E65B042BCE995800AF69B4 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
 		28E65B072BCED48100AF69B4 /* SnakeMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeMoveEvent.swift; sourceTree = "<group>"; };
+		28E65B092BCEDF5900AF69B4 /* snake_yellow_xx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake_yellow_xx.png; sourceTree = "<group>"; };
+		28E65B0A2BCEDF5900AF69B4 /* snake_yellow_blob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake_yellow_blob.png; sourceTree = "<group>"; };
+		28E65B0B2BCEDF5900AF69B4 /* snake_yellow_head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake_yellow_head.png; sourceTree = "<group>"; };
+		28E65B0F2BCEDF7F00AF69B4 /* snake_green_xx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake_green_xx.png; sourceTree = "<group>"; };
+		28E65B102BCEDF7F00AF69B4 /* snake_green_blob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake_green_blob.png; sourceTree = "<group>"; };
+		28E65B112BCEDF7F00AF69B4 /* snake_green_head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake_green_head.png; sourceTree = "<group>"; };
+		28E65B152BCEDF9700AF69B4 /* apple_alt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple_alt.png; sourceTree = "<group>"; };
 		28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkDemoMultiplayerPopover.swift; sourceTree = "<group>"; };
 		28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSWrapper.swift; sourceTree = "<group>"; };
 		28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoop.swift; sourceTree = "<group>"; };
@@ -1554,7 +1568,14 @@
 		945441282BCAA3FB00E90ECE /* Snake */ = {
 			isa = PBXGroup;
 			children = (
+				28E65B152BCEDF9700AF69B4 /* apple_alt.png */,
+				28E65B102BCEDF7F00AF69B4 /* snake_green_blob.png */,
+				28E65B112BCEDF7F00AF69B4 /* snake_green_head.png */,
+				28E65B0F2BCEDF7F00AF69B4 /* snake_green_xx.png */,
 				945441292BCAA40A00E90ECE /* apple.png */,
+				28E65B0A2BCEDF5900AF69B4 /* snake_yellow_blob.png */,
+				28E65B0B2BCEDF5900AF69B4 /* snake_yellow_head.png */,
+				28E65B092BCEDF5900AF69B4 /* snake_yellow_xx.png */,
 			);
 			path = Snake;
 			sourceTree = "<group>";
@@ -2011,6 +2032,8 @@
 				9454412A2BCAA40A00E90ECE /* apple.png in Resources */,
 				8F3813072BCE755A0058E107 /* Ground_Tile_02_C.png in Resources */,
 				02D8E9262BAC419400BF3A07 /* lake.png in Resources */,
+				28E65B162BCEDF9700AF69B4 /* apple_alt.png in Resources */,
+				28E65B0C2BCEDF5900AF69B4 /* snake_yellow_xx.png in Resources */,
 				02D8E92B2BAC419400BF3A07 /* stones_2.png in Resources */,
 				02B3C6032BCADA3F002331A0 /* ArkKit-Logo.png in Resources */,
 				943D418F2BAEC50E00F9E88F /* shoot.mp3 in Resources */,
@@ -2018,6 +2041,7 @@
 				02D8E9412BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_007.png in Resources */,
 				941A45D42BCE551300689D15 /* background-day.png in Resources */,
 				AD787A5D2B9C6373003EBBD0 /* LaunchScreen.storyboard in Resources */,
+				28E65B0E2BCEDF5900AF69B4 /* snake_yellow_head.png in Resources */,
 				02D8E9402BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_006.png in Resources */,
 				02D8E93E2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_004.png in Resources */,
 				02D8E9232BAC419400BF3A07 /* Sprite_Effects_Explosion_006.png in Resources */,
@@ -2045,9 +2069,11 @@
 				02D8E9272BAC419400BF3A07 /* map_1.png in Resources */,
 				02D8E93C2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_002.png in Resources */,
 				02D8E9382BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_008.png in Resources */,
+				28E65B0D2BCEDF5900AF69B4 /* snake_yellow_blob.png in Resources */,
 				02D8E9472BAC419400BF3A07 /* tank_3.png in Resources */,
 				941A45CE2BCE54FC00689D15 /* bluebird-upflap.png in Resources */,
 				02D8E92A2BAC419400BF3A07 /* stones_1.png in Resources */,
+				28E65B122BCEDF7F00AF69B4 /* snake_green_xx.png in Resources */,
 				02D8E91F2BAC419400BF3A07 /* Sprite_Effects_Explosion_002.png in Resources */,
 				8F3813092BCE755A0058E107 /* Ground_Tile_02_B.png in Resources */,
 				02D8E92F2BAC419400BF3A07 /* stones_6.png in Resources */,
@@ -2068,8 +2094,10 @@
 				28E65AF12BCE629500AF69B4 /* Flash_A_05.png in Resources */,
 				28E65AF72BCE65A000AF69B4 /* well.png in Resources */,
 				02D8E9202BAC419400BF3A07 /* Sprite_Effects_Explosion_003.png in Resources */,
+				28E65B132BCEDF7F00AF69B4 /* snake_green_blob.png in Resources */,
 				941A45D62BCE570900689D15 /* base.png in Resources */,
 				02D8E9352BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_005.png in Resources */,
+				28E65B142BCEDF7F00AF69B4 /* snake_green_head.png in Resources */,
 				02D8E9362BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_006.png in Resources */,
 				02D8E9482BAC419400BF3A07 /* tank_4.png in Resources */,
 				AD787A582B9C636F003EBBD0 /* Main.storyboard in Resources */,

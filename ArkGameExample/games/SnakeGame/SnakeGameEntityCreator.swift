@@ -2,6 +2,7 @@ import Foundation
 
 struct SnakeEntityCreationContext {
     let length: Int
+    let snakeId: Int
     let head: SnakeGridPosition
     let facingDirection: SnakeGameDirection
     let grid: SnakeGrid
@@ -19,11 +20,12 @@ struct SnakeGameEntityCreator {
         let bodyDirection = snakeCreationContext.facingDirection.opposite
         let head = snakeCreationContext.head
         let grid = snakeCreationContext.grid
+        let snakeId = snakeCreationContext.snakeId
         var occupiedSquares = SnakeGameDeque<Entity>()
 
         for i in 0..<snakeCreationContext.length {
             if i == 0 {
-                let headBlock = createHeadBlockEntity(at: head, with: grid, in: ecsContext)
+                let headBlock = createHeadBlockEntity(snakeId, at: head, with: grid, in: ecsContext)
                 occupiedSquares.append(headBlock)
                 continue
             }
@@ -40,7 +42,7 @@ struct SnakeGameEntityCreator {
             }
 
             let nextGridPosition = gridPositionComponent.gridPosition.applyDelta(bodyDirection)
-            let nextBlock = createBodyBlockEntity(at: nextGridPosition, with: grid, in: ecsContext)
+            let nextBlock = createBodyBlockEntity(snakeId, at: nextGridPosition, with: grid, in: ecsContext)
             occupiedSquares.append(nextBlock)
         }
 
@@ -51,30 +53,52 @@ struct SnakeGameEntityCreator {
         return snakeEntity
     }
 
-    static func createHeadBlockEntity(at gridPosition: SnakeGridPosition,
+    static func createHeadBlockEntity(_ snakeId: Int,
+                                      at gridPosition: SnakeGridPosition,
                                       with grid: SnakeGrid,
                                       in ecs: ArkECSContext) -> Entity {
-        ecs.createEntity(with: [
-            SnakeBodyBlock(),
-            SnakeGridPositionComponent(gridPosition: gridPosition),
-            PositionComponent(position: grid.toActualPosition(gridPosition)),
-            CircleRenderableComponent(radius: Double(grid.boxSideLength) / 4 * 3)
-                .zPosition(1)
-                .layer(.canvas)
-        ])
+        let headSize = Double(grid.boxSideLength) / 2 * 3
+        let position = grid.toActualPosition(gridPosition)
+        return ecs.createEntity(with: [
+                    SnakeBodyBlock(),
+                    SnakeGridPositionComponent(gridPosition: gridPosition),
+                    PositionComponent(position: position),
+                    BitmapImageRenderableComponent(arkImageResourcePath: SnakeGameImages.snakeHead(snakeId),
+                                                   width: headSize, height: headSize)
+                        .zPosition(1)
+                        .layer(.canvas)
+                        .center(position)
+                        .userInteractionsEnabled(false)
+                        .scaleAspectFill()
+                ])
     }
 
-    static func createBodyBlockEntity(at gridPosition: SnakeGridPosition,
+    static func createBodyBlockEntity(_ snakeId: Int,
+                                      at gridPosition: SnakeGridPosition,
                                       with grid: SnakeGrid,
                                       in ecs: ArkECSContext) -> Entity {
-        ecs.createEntity(with: [
-            SnakeBodyBlock(),
-            SnakeGridPositionComponent(gridPosition: gridPosition),
-            PositionComponent(position: grid.toActualPosition(gridPosition)),
-            RectRenderableComponent(width: Double(grid.boxSideLength), height: Double(grid.boxSideLength))
-                .zPosition(1)
-                .layer(.canvas)
-        ])
+        let position = grid.toActualPosition(gridPosition)
+        let bodySize = Double(grid.boxSideLength)
+
+        return ecs.createEntity(with: [
+                    SnakeBodyBlock(),
+                    SnakeGridPositionComponent(gridPosition: gridPosition),
+                    PositionComponent(position: position),
+                    makeSnakeBodyRenderableComponent(snakeId, at: position, width: bodySize, height: bodySize)
+                ])
+    }
+
+    static func makeSnakeBodyRenderableComponent(_ snakeId: Int,
+                                                 at position: CGPoint,
+                                                 width: Double,
+                                                 height: Double) -> BitmapImageRenderableComponent {
+        BitmapImageRenderableComponent(arkImageResourcePath: SnakeGameImages.snakeBody(snakeId),
+                                       width: width, height: height)
+                    .zPosition(1)
+                    .layer(.canvas)
+                    .center(position)
+                    .userInteractionsEnabled(false)
+                    .scaleAspectFill()
     }
 
     static func addDPad(center: CGPoint,
