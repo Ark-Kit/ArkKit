@@ -132,6 +132,10 @@ extension SnakeGame {
     private func updateSnakePositions(initialTicksPerSecond: Double, getScalingFactor: @escaping (Double) -> Double) {
         blueprint = blueprint
             .forEachTick { timeContext, actionContext in
+                // This time is for waiting before the game starts
+                guard timeContext.clockTimeInSecondsGame > 5 else {
+                    return
+                }
                 let ecs = actionContext.ecs
                 let snakeGameTickEntities = ecs.getEntities(with: [SnakeGameTick.self])
 
