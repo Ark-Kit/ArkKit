@@ -12,21 +12,27 @@ struct PolygonRenderableComponent: ShapeRenderableComponent {
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
+    private(set) var labelInfo: ShapeLabelInfo?
 
     init(points: [CGPoint], frame: CGRect,
-         fillInfo: ShapeFillInfo? = nil, strokeInfo: ShapeStrokeInfo? = nil) {
+         fillInfo: ShapeFillInfo? = nil,
+         strokeInfo: ShapeStrokeInfo? = nil,
+         labelInfo: ShapeLabelInfo? = nil) {
         self.points = points
         self.frame = frame
         self.center = CGPoint(x: frame.midX, y: frame.midY)
         self.fillInfo = fillInfo
         self.strokeInfo = strokeInfo
+        self.labelInfo = labelInfo
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> PolygonRenderableComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
+                labelInfo: ShapeLabelInfo?) -> PolygonRenderableComponent {
         var copy = self
 
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
+        copy.labelInfo = labelInfo
 
         return copy
     }

@@ -19,6 +19,12 @@ class ArkDemoGameHostingPage<T: ArkExternalResources>: UIViewController {
         ark?.start()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ark?.finish()
+        ark = nil
+    }
+
     private func presentMultiplayerOptions() {
         let popover = ArkDemoMultiplayerPopover()
         popover.modalPresentationStyle = .overFullScreen

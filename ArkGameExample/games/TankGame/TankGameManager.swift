@@ -38,13 +38,14 @@ class TankGameManager {
 
                 let canvasWidth = display.canvasSize.width
                 let canvasHeight = display.canvasSize.height
-                TankGameEntityCreator.createBackground(with: TankBackgroundCreationContext(width: canvasWidth,
-                                                                                           height: canvasHeight,
-                                                                                           zPosition: 0,
-                                                                                           background: [[1, 2, 3],
-                                                                                                        [1, 2, 3],
-                                                                                                        [1, 2, 3]]),
-                                                       in: ecs)
+                TankGameEntityCreator.createBackground(
+                    with: TankBackgroundCreationContext(width: canvasWidth,
+                                                        height: canvasHeight,
+                                                        zPosition: 0,
+                                                        background: [[1, 2, 3],
+                                                                     [1, 2, 3],
+                                                                     [1, 2, 3]]),
+                    in: ecs)
 
                 TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
 
@@ -90,8 +91,8 @@ class TankGameManager {
             .on(TankMoveEvent.self,
                 executeIf: { _ in false }, { _ in true },
                 then: { _, _ in
-                print("will not execute")
-            })
+                    print("will not execute")
+                })
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
             }
@@ -283,8 +284,7 @@ extension TankGameManager {
                 let updatedPlacedCameraComponent = PlacedCameraComponent(
                     camera: placedCameraComponent.camera,
                     screenPosition: CGPoint(x: screenWidth / 2, y: screenHeight / 2),
-                    size: screenSize
-                )
+                    size: screenSize)
                 ecs.upsertComponent(updatedPlacedCameraComponent, to: camEntity)
             }
         }
@@ -294,12 +294,13 @@ extension TankGameManager {
         let ecs = context.ecs
         let tankMoveEventData = event.eventData
         guard let tankEntity = tankIdEntityMap[tankMoveEventData.tankId],
-            var tankPhysicsComponent = ecs.getComponent(
-            ofType: PhysicsComponent.self,
-            for: tankEntity),
-                    var tankRotationComponent = ecs.getComponent(
-                ofType: RotationComponent.self,
-                for: tankEntity) else {
+              var tankPhysicsComponent = ecs.getComponent(
+                  ofType: PhysicsComponent.self,
+                  for: tankEntity),
+              var tankRotationComponent = ecs.getComponent(
+                  ofType: RotationComponent.self,
+                  for: tankEntity)
+        else {
             return
         }
 
@@ -328,7 +329,8 @@ extension TankGameManager {
         guard let tankEntity = tankIdEntityMap[eventData.tankId],
               let tankPositionComponent = ecs.getComponent(ofType: PositionComponent.self, for: tankEntity),
               let tankRotationComponent = ecs.getComponent(ofType: RotationComponent.self, for: tankEntity),
-              let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity) else {
+              let tankPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity)
+        else {
             return
         }
         let tankLength = (tankPhysicsComponent.size?.height ?? 0.0) / 2 + 20
@@ -385,7 +387,8 @@ extension TankGameManager {
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
         guard var tankHpComponent = ecs.getComponent(ofType: TankHpComponent.self, for: tankEntity),
-              let hpBarComponent = ecs.getComponent(ofType: RectRenderableComponent.self, for: tankEntity) else {
+              let hpBarComponent = ecs.getComponent(ofType: RectRenderableComponent.self, for: tankEntity)
+        else {
             return
         }
         let hpChange = eventData.hpChange
@@ -393,15 +396,15 @@ extension TankGameManager {
         tankHpComponent.hp = newHp
         ecs.upsertComponent(tankHpComponent, to: tankEntity)
         let newHpBarComponent =
-                    TankGameEntityCreator.createHpBarComponent(hp: newHp, zPosition: hpBarComponent.zPosition)
+            TankGameEntityCreator.createHpBarComponent(hp: newHp, zPosition: hpBarComponent.zPosition)
         ecs.upsertComponent(newHpBarComponent, to: tankEntity)
 
         if newHp <= 0 {
             let tankReviveEvent = TankReviveEvent(eventData: TankReviveEventData(name: "", tankEntity: tankEntity))
             context.events.emit(tankReviveEvent)
             let tankDestroyedEvent =
-                    TankDestroyedEvent(eventData: TankDestroyedEventData(name: "Tank \(tankEntity) destroyed",
-                                                                         tankEntity: tankEntity))
+                TankDestroyedEvent(eventData: TankDestroyedEventData(name: "Tank \(tankEntity) destroyed",
+                                                                     tankEntity: tankEntity))
             context.events.emit(tankDestroyedEvent)
         }
     }
@@ -420,8 +423,8 @@ extension TankGameManager {
         tankHpComponent.isRevived = true
         ecs.upsertComponent(tankHpComponent, to: tankEntity)
         let newHpBarComponent =
-                    TankGameEntityCreator.createHpBarComponent(hp: tankHpComponent.maxHp,
-                                                               zPosition: hpBarComponent.zPosition)
+            TankGameEntityCreator.createHpBarComponent(hp: tankHpComponent.maxHp,
+                                                       zPosition: hpBarComponent.zPosition)
         ecs.upsertComponent(newHpBarComponent, to: tankEntity)
     }
 

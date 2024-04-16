@@ -12,21 +12,26 @@ struct RectRenderableComponent: ShapeRenderableComponent {
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
+    private(set) var labelInfo: ShapeLabelInfo?
 
     init(width: Double, height: Double,
          fillInfo: ShapeFillInfo? = nil,
-         strokeInfo: ShapeStrokeInfo? = nil) {
+         strokeInfo: ShapeStrokeInfo? = nil,
+         labelInfo: ShapeLabelInfo? = nil) {
         self.width = width
         self.height = height
         self.fillInfo = fillInfo
         self.strokeInfo = strokeInfo
+        self.labelInfo = labelInfo
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> RectRenderableComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
+                labelInfo: ShapeLabelInfo?) -> RectRenderableComponent {
         var copy = self
 
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
+        copy.labelInfo = labelInfo
 
         return copy
     }

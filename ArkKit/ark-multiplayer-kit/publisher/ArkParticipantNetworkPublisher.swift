@@ -1,11 +1,11 @@
 class ArkParticipantNetworkPublisher: ArkNetworkPublisherDelegate {
     // network related dependencies
-    var networkService: AbstractNetworkService
+    weak var networkService: AbstractNetworkService?
     private var peers = [String]()
 
     init(publishTo networkService: AbstractNetworkService) {
         self.networkService = networkService
-        self.networkService.publisher = self
+        self.networkService?.publisher = self
     }
 
     func publish(ecs: ArkECS) {
@@ -15,7 +15,7 @@ class ArkParticipantNetworkPublisher: ArkNetworkPublisherDelegate {
     func publish(event: any ArkEvent) {
         do {
             if let encodedEvent = try ArkEventDataSerializer.encodeEvent(event) {
-                networkService.sendData(data: encodedEvent)
+                networkService?.sendData(data: encodedEvent)
             }
         } catch {
             print("Error encoding or sending event: \(error)")

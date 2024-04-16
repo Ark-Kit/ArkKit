@@ -14,7 +14,12 @@ final class UIKitCircle: UIView, UIKitShape {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = circlePath.cgPath
         self.layer.addSublayer(shapeLayer)
+
+        let textLayer = CATextLayer()
+        textLayer.frame = circleFrame
+        self.layer.addSublayer(textLayer)
     }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

@@ -39,6 +39,7 @@ class ArkSetUpIfParticipantStrategy<View, ExternalResources: ArkExternalResource
         setup(ark.blueprint.soundMapping)
 
         let networkService = ArkNetworkService(serviceName: networkPlayableInfo.roomName)
+        ark.networkService = networkService
         ark.participantSubscriber = ArkParticipantNetworkSubscriber(subscribeTo: networkService)
         ark.participantSubscriber?.localState = ark.arkState
         ark.participantSubscriber?.localGameLoop = ark.gameLoop
