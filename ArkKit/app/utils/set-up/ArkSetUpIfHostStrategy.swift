@@ -14,6 +14,7 @@ class ArkSetUpIfHostStrategy<View, ExternalResources: ArkExternalResources>: Ark
             return
         }
         let networkService = ArkNetworkService(serviceName: networkPlayableInfo.roomName)
+        ark.networkService = networkService
         let publisher = ArkHostNetworkPublisher(publishTo: networkService, playerStateSetUpDelegate: self)
         ark.arkState.arkECS.addSystem(ArkHostSystem(publisher: publisher))
         ark.hostSubscriber = ArkHostNetworkSubscriber(subscribeTo: networkService)

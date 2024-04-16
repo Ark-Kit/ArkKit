@@ -5,6 +5,10 @@ class SKPhysicsScene: AbstractArkPhysicsScene {
         basePhysicsScene.currentTime
     }
 
+    func setGravity(_ gravity: CGVector) {
+        basePhysicsScene.physicsWorld.gravity = gravity
+    }
+
     private(set) var basePhysicsScene: BaseSKPhysicsScene
     private var physicsBodyManager: SKPhysicsBodyManager
 

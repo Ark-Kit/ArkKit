@@ -184,6 +184,7 @@
 		28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */; };
 		28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */; };
 		28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */; };
+		28E65ADC2BCE549C00AF69B4 /* GravityComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65ADB2BCE549C00AF69B4 /* GravityComponent.swift */; };
 		28EFCB1B2BCC36EB0059A908 /* P2PShare in Frameworks */ = {isa = PBXBuildFile; productRef = ADA847F32BBC11F400B19378 /* P2PShare */; };
 		28EFCB1D2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */; };
 		28EFCB252BCCA7CC0059A908 /* ArkECSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */; };
@@ -492,6 +493,7 @@
 		28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManagerTests.swift; sourceTree = "<group>"; };
 		28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsKitTests.swift; sourceTree = "<group>"; };
+		28E65ADB2BCE549C00AF69B4 /* GravityComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityComponent.swift; sourceTree = "<group>"; };
 		28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkDemoMultiplayerPopover.swift; sourceTree = "<group>"; };
 		28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSWrapper.swift; sourceTree = "<group>"; };
 		28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoop.swift; sourceTree = "<group>"; };
@@ -1194,6 +1196,7 @@
 				280CD3D72BA7FA9A00372C5D /* ark-physics-facade */,
 				280CD3CC2BA74E3100372C5D /* sprite-kit-physics-facade */,
 				280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */,
+				28E65ADB2BCE549C00AF69B4 /* GravityComponent.swift */,
 				28548F532BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift */,
 				280CD3B82BA7391700372C5D /* PhysicsComponent.swift */,
 				28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */,
@@ -2051,6 +2054,7 @@
 				2812FCC52BC4424200A0FE24 /* TankRaceGameEntityCreator.swift in Sources */,
 				02B3C64E2BCD8507002331A0 /* ArkPlayerStateSetupDelegate.swift in Sources */,
 				945441042BC9178400E90ECE /* SnakeGame.swift in Sources */,
+				28E65ADC2BCE549C00AF69B4 /* GravityComponent.swift in Sources */,
 				ADA847FD2BBC4B5500B19378 /* AbstractNetworkService.swift in Sources */,
 				28548F542BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift in Sources */,
 				02C3951E2BA849490075F1CA /* CircleRenderableComponent.swift in Sources */,
@@ -2427,6 +2431,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2460,6 +2465,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

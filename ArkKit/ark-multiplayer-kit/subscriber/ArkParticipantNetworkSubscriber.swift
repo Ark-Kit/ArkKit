@@ -2,7 +2,7 @@ import Foundation
 
 class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
     // network related dependencies
-    var networkService: AbstractNetworkService
+    weak var networkService: AbstractNetworkService?
     var playerStateSetUpDelegate: ArkPlayerStateSetupDelegate?
 
     // inject dependency
@@ -11,7 +11,7 @@ class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
 
     init(subscribeTo networkService: AbstractNetworkService) {
         self.networkService = networkService
-        self.networkService.subscriber = self
+        self.networkService?.subscriber = self
     }
 
     /// Participants only listen to ecs updates from host
@@ -21,8 +21,8 @@ class ArkParticipantNetworkSubscriber: ArkNetworkSubscriberDelegate {
 
             if wrappedData.type == .playerMapping {
                 let mappingWrapper = try ArkPeerToPlayerIdSerializer.decodeMapping(from: wrappedData.payload)
-                let myPeerInfo = networkService.deviceID
-                if let myPlayerId = mappingWrapper[myPeerInfo] {
+                if let myPeerInfo = networkService?.deviceID,
+                   let myPlayerId = mappingWrapper[myPeerInfo] {
                     playerStateSetUpDelegate?.setup(myPlayerId)
                     // unassign so that set up is only done once
                     playerStateSetUpDelegate = nil
