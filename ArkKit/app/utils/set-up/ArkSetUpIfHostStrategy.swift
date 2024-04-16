@@ -25,9 +25,9 @@ extension ArkSetUpIfHostStrategy: ArkPlayerStateSetupDelegate {
     func setup(_ playerId: Int) {
         let playerSetUpCallbacks = ark?.blueprint.playerSpecificSetupFunctions
         guard let specificPlayerSetUp = playerSetUpCallbacks?[playerId],
-              let displayContext = ark?.displayContext else {
+              let ark = ark else {
             return
         }
-        ark?.arkState.setup(specificPlayerSetUp, displayContext: displayContext)
+        ark.arkState.setup(specificPlayerSetUp, with: ark.setupContext)
     }
 }
