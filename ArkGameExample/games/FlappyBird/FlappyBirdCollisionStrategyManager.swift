@@ -31,7 +31,8 @@ class CharacterWallCollisionStrategy: CollisionHandlingStrategy {
             return
         }
 
-        context.events.emit(FlappyBirdWallHitEvent(eventData: FlappyBirdWallHitEventData(name: "FlappyBirdWallHit", characterId: characterId)))
+        context.events.emit(FlappyBirdWallHitEvent(eventData: FlappyBirdWallHitEventData(name: "FlappyBirdWallHit",
+                                                                                         characterId: characterId)))
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
@@ -50,7 +51,8 @@ class CharacterScoringAreaCollisionStrategy: CollisionHandlingStrategy {
             return
         }
 
-        context.events.emit(FlappyBirdPipePassEvent(eventData: FlappyBirdPipePassEventData(name: "FlappyBirdPipePass", characterId: characterId)))
+        context.events.emit(FlappyBirdPipePassEvent(eventData: FlappyBirdPipePassEventData(name: "FlappyBirdPipePass",
+                                                                                           characterId: characterId)))
     }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,

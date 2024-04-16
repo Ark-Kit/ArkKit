@@ -31,7 +31,8 @@ extension ShapeRenderableComponent {
         return upsert(labelInfo: ShapeLabelInfo(text: text, color: newColor, size: newSize))
     }
 
-    func upsert(fillInfo: ShapeFillInfo? = nil, strokeInfo: ShapeStrokeInfo? = nil, labelInfo: ShapeLabelInfo? = nil) -> Self {
+    func upsert(fillInfo: ShapeFillInfo? = nil, strokeInfo: ShapeStrokeInfo? = nil,
+                labelInfo: ShapeLabelInfo? = nil) -> Self {
         modify(
             fillInfo: fillInfo ?? self.fillInfo,
             strokeInfo: strokeInfo ?? self.strokeInfo,

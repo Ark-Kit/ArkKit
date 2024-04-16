@@ -21,7 +21,8 @@ struct PolygonRenderableComponent: ShapeRenderableComponent {
         self.rotation = rotation
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?, labelInfo: ShapeLabelInfo?) -> PolygonRenderableComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
+                labelInfo: ShapeLabelInfo?) -> PolygonRenderableComponent {
         var copy = self
 
         copy.fillInfo = fillInfo

@@ -19,7 +19,8 @@ extension UIKitShape {
             })
             .if(modifierInfo.labelInfo != nil, transform: { view in
                 if let labelInfo = modifierInfo.labelInfo {
-                    return view.label(text: labelInfo.text, fontSize: labelInfo.size, color: colorGetter(labelInfo.color))
+                    return view.label(text: labelInfo.text, fontSize: labelInfo.size, 
+                                      color: colorGetter(labelInfo.color))
                 }
                 return view
             })

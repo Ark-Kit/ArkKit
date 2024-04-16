@@ -21,7 +21,8 @@ struct RectRenderableComponent: ShapeRenderableComponent {
         self.rotation = rotation
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?, labelInfo: ShapeLabelInfo?) -> RectRenderableComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
+                labelInfo: ShapeLabelInfo?) -> RectRenderableComponent {
         var copy = self
 
         copy.fillInfo = fillInfo

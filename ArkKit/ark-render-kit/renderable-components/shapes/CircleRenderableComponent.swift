@@ -17,7 +17,8 @@ struct CircleRenderableComponent: ShapeRenderableComponent {
         self.radius = radius
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?, labelInfo: ShapeLabelInfo?) -> CircleRenderableComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
+                labelInfo: ShapeLabelInfo?) -> CircleRenderableComponent {
         var copy = self
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo

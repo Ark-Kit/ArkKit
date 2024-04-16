@@ -135,15 +135,12 @@ extension FlappyBird {
                 let characters = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
 
                 for character in characters {
-                    guard var rotationComponent = context.ecs.getComponent(ofType: RotationComponent.self, for: character) else {
-                        continue
-                    }
-
-                    guard let physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: character) else {
-                        continue
-                    }
-
-                    guard var bitmapImageComponent = context.ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: character) else {
+                    guard context.ecs.getComponent(ofType: RotationComponent.self, for: character) != nil,
+                          let physicsComponent
+                            = context.ecs.getComponent(ofType: PhysicsComponent.self, for: character),
+                          var bitmapImageComponent
+                            = context.ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: character)
+                    else {
                         continue
                     }
 
@@ -277,9 +274,8 @@ extension FlappyBird {
             return
         }
 
-        var characterPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self, for: movedCharacter)
-
-        guard var characterPhysicsComponent else {
+        guard var characterPhysicsComponent
+                = ecs.getComponent(ofType: PhysicsComponent.self, for: movedCharacter) else {
             assertionFailure("Unable to get PhysicsComponent for character id: \(tapEventData.characterId)")
             return
         }

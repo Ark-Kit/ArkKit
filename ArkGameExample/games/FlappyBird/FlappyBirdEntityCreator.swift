@@ -18,7 +18,8 @@ enum FlappyBirdEntityCreator {
         let radius: Double = 20
 
         return ecs.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.characterMidflap, width: radius * 2, height: radius * 2)
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.characterMidflap,
+                                           width: radius * 2, height: radius * 2)
                 .zPosition(1)
                 .layer(.canvas)
                 .shouldRerender { old, new in
@@ -33,7 +34,8 @@ enum FlappyBirdEntityCreator {
                              impulse: impulseValue,
                              categoryBitMask: FlappyBirdPhysicsCategory.character,
                              collisionBitMask: FlappyBirdPhysicsCategory.ceiling,
-                             contactTestBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.scoringArea),
+                             contactTestBitMask: FlappyBirdPhysicsCategory.wall |
+                                                 FlappyBirdPhysicsCategory.scoringArea),
             FlappyBirdCharacterTag(characterId: characterId)
         ])
     }
@@ -110,7 +112,8 @@ enum FlappyBirdEntityCreator {
         let position = CGPoint(x: xCoordinate, y: canvasHeight - size.height / 2)
 
         return context.ecs.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.base, width: size.width, height: size.height)
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.base,
+                                           width: size.width, height: size.height)
                 .zPosition(3),
             PositionComponent(position: position),
             RotationComponent(),
@@ -241,7 +244,7 @@ extension FlappyBirdEntityCreator {
             RotationComponent(),
             PhysicsComponent(shape: .rectangle, size: size,
                              velocity: pipeVelocity,
-                             isDynamic: true,
+                             isDynamic: false,
                              categoryBitMask: FlappyBirdPhysicsCategory.scoringArea,
                              collisionBitMask: FlappyBirdPhysicsCategory.none,
                              contactTestBitMask: FlappyBirdPhysicsCategory.character)
