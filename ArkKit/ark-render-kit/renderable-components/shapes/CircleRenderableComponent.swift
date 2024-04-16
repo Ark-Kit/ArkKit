@@ -11,21 +11,23 @@ struct CircleRenderableComponent: ShapeRenderableComponent {
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
+    private(set) var labelInfo: ShapeLabelInfo?
 
-    init(radius: Double) {
-        self.radius = radius
-    }
-
-    init(radius: Double, fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) {
+    init(radius: Double, fillInfo: ShapeFillInfo? = nil,
+         strokeInfo: ShapeStrokeInfo? = nil,
+         labelInfo: ShapeLabelInfo? = nil) {
         self.radius = radius
         self.fillInfo = fillInfo
         self.strokeInfo = strokeInfo
+        self.labelInfo = labelInfo
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> CircleRenderableComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
+                labelInfo: ShapeLabelInfo?) -> CircleRenderableComponent {
         var copy = self
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
+        copy.labelInfo = labelInfo
         return copy
     }
 

@@ -2,7 +2,8 @@ import Foundation
 
 extension CircleRenderableComponent: SendableComponent {
     enum CodingKeys: String, CodingKey {
-        case radius, center, rotation, zPosition, renderLayer, isUserInteractionEnabled, fillInfo, strokeInfo
+        case radius, center, rotation, zPosition, renderLayer, isUserInteractionEnabled,
+             fillInfo, strokeInfo, labelInfo
     }
 
     init(from decoder: Decoder) throws {
@@ -10,7 +11,8 @@ extension CircleRenderableComponent: SendableComponent {
         let radius = try container.decode(Double.self, forKey: .radius)
         let fillInfo = try container.decodeIfPresent(ShapeFillInfo.self, forKey: .fillInfo)
         let strokeInfo = try container.decodeIfPresent(ShapeStrokeInfo.self, forKey: .strokeInfo)
-        self.init(radius: radius, fillInfo: fillInfo, strokeInfo: strokeInfo)
+        let labelInfo = try container.decodeIfPresent(ShapeLabelInfo.self, forKey: .labelInfo)
+        self.init(radius: radius, fillInfo: fillInfo, strokeInfo: strokeInfo, labelInfo: labelInfo)
         center = try container.decode(CGPoint.self, forKey: .center)
         rotation = try container.decode(Double.self, forKey: .rotation)
         zPosition = try container.decode(Double.self, forKey: .zPosition)
@@ -28,5 +30,6 @@ extension CircleRenderableComponent: SendableComponent {
         try container.encode(isUserInteractionEnabled, forKey: .isUserInteractionEnabled)
         try container.encodeIfPresent(fillInfo, forKey: .fillInfo)
         try container.encodeIfPresent(strokeInfo, forKey: .strokeInfo)
+        try container.encodeIfPresent(labelInfo, forKey: .labelInfo)
     }
 }

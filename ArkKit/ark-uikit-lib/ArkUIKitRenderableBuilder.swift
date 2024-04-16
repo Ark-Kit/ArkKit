@@ -79,7 +79,8 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         .green: .green,
         .black: .black,
         .gray: .gray,
-        .white: .white
+        .white: .white,
+        .transparent: .clear
     ]
 
     private func letterboxScaleFactor(rootFrame: CGRect, canvasFrame: CGRect) -> CGFloat {

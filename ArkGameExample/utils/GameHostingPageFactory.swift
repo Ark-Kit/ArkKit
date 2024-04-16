@@ -32,6 +32,13 @@ class GameHostingPageFactory {
             let ark = Ark(rootView: vc, blueprint: blueprint)
             vc.ark = ark
             return vc
+        case .FlappyBird:
+            let vc: ArkDemoGameHostingPage<FlappyBirdExternalResources> = ArkDemoGameHostingPage()
+            let blueprint: ArkBlueprint<FlappyBirdExternalResources> = FlappyBird(rootView: vc).blueprint
+
+            let ark = Ark(rootView: vc, blueprint: blueprint)
+            vc.ark = ark
+            return vc
         }
     }
 
@@ -60,7 +67,7 @@ class GameHostingPageFactory {
         switch game {
         case .TankGame:
             return true
-        case .SnakeChomp, .TankRaceGame:
+        case .SnakeChomp, .TankRaceGame, .FlappyBird:
             return false
         }
     }
