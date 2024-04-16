@@ -1,11 +1,11 @@
 import UIKit
 
 class ArkDemoMultiplayerPopover: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    var onJoin: ((String) -> Void)?
-    var onStart: ((String) -> Void)?
+    var onJoin: ((String?) -> Void)?
+    var onStart: ((String?) -> Void)?
     let options = ["Multiplayer Local", "Multiplayer Distributed"]
     let roomNames = ["CuteDolphin", "SmartKite", "FlatRock", "OddPony", "SillyKoala"]
-    var selectedOption: String?
+    var selectedOption: String? = "Multiplayer Local"
     var isShowingOptions = true
 
     private let pickerView = UIPickerView()
@@ -82,6 +82,13 @@ class ArkDemoMultiplayerPopover: UIViewController, UIPickerViewDelegate, UIPicke
     }
 
     @objc func buttonClick() {
+        if selectedOption == options[0] {
+            dismiss(animated: true) {
+                self.onStart?(nil)
+            }
+            return
+        }
+
         isShowingOptions.toggle()
         pickerView.reloadAllComponents()
         joinButton.isHidden = false
@@ -89,7 +96,7 @@ class ArkDemoMultiplayerPopover: UIViewController, UIPickerViewDelegate, UIPicke
         arrowButton.isHidden = true
 
         if Set(roomNames).contains(selectedOption) {
-            guard let roomName = selectedOption else {
+            guard let _ = selectedOption else {
                 return
             }
         }

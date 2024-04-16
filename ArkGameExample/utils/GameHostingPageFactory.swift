@@ -18,7 +18,6 @@ class GameHostingPageFactory {
                       let roomName = roomName else {
                     return vc
                 }
-                print(roomName)
                 let updatedBlueprint = blueprint
                     .supportNetworkMultiPlayer(
                         roomName: "TankGame\(roomName)", numberOfPlayers: 2
@@ -36,7 +35,6 @@ class GameHostingPageFactory {
         case .TankRaceGame:
             let vc: ArkDemoGameHostingPage<TankRaceGameExternalResources> = ArkDemoGameHostingPage()
             let blueprint: ArkBlueprint<TankRaceGameExternalResources> = TankRaceGame(rootView: vc).blueprint
-//            vc.arkBlueprint = blueprint
             let ark = Ark(rootView: vc, blueprint: blueprint)
             vc.ark = ark
             return vc
@@ -48,20 +46,32 @@ class GameHostingPageFactory {
         if shouldPresentMultiplayerOptions(for: game) {
             let popover = ArkDemoMultiplayerPopover()
             popover.onJoin = { roomName in
+                if roomName == nil {
+                    loadGameLocally(game, with: parentDelegate)
+                }
                 let gameVC = self.generateGameViewController(from: game, as: .participant, in: roomName)
                 parentDelegate.pushViewController(gameVC, animated: true)
             }
 
             popover.onStart = { roomName in
+                if roomName == nil {
+                    loadGameLocally(game, with: parentDelegate)
+                    return
+                }
                 let gameVC = generateGameViewController(from: game, as: .host, in: roomName)
                 parentDelegate.pushViewController(gameVC, animated: true)
             }
 
             parentDelegate.presentPopover(popover, sourceView: sourceView, sourceRect: sourceRect, animated: true)
         } else {
-            let gameVC = generateGameViewController(from: game)
-            parentDelegate.pushViewController(gameVC, animated: true)
+            loadGameLocally(game, with: parentDelegate)
         }
+    }
+
+    private static func loadGameLocally(_ game: DemoGames,
+                                        with parentDelegate: RootViewControllerDelegate) {
+        let gameVC = generateGameViewController(from: game)
+        parentDelegate.pushViewController(gameVC, animated: true)
     }
 
     private static func shouldPresentMultiplayerOptions(for game: DemoGames) -> Bool {
