@@ -27,6 +27,10 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                          audio: audioContext)
     }
 
+    var setupContext: ArkSetupContext {
+        ArkSetupContext(ecs: arkState.arkECS, events: arkState.eventManager, display: displayContext)
+    }
+
     var canvasRenderableBuilder: (any RenderableBuilder<View>)?
 
     // network dependencies

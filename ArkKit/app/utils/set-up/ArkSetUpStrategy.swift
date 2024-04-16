@@ -46,7 +46,7 @@ extension ArkSetUpStrategy {
         }
     }
 
-    func setup(_ rules: [any Rule]) {
+    func setup(_ rules: [any Rule], with actionContext: ArkActionContext<ExternalResources>? = nil) {
         guard let ark = ark else {
             return
         }
@@ -73,7 +73,7 @@ extension ArkSetUpStrategy {
                 let areConditionsSatisfied = rule.conditions
                     .allSatisfy { $0(ark.actionContext.ecs) }
                 if areConditionsSatisfied {
-                    event.executeAction(rule.action, context: ark.actionContext)
+                    event.executeAction(rule.action, context: actionContext ?? ark.actionContext)
                 }
             }
         }
@@ -100,13 +100,13 @@ extension ArkSetUpStrategy {
         }
     }
 
-    func setup(_ stateSetupFunctions: [ArkStateSetupDelegate]) {
+    func setup(_ stateSetupFunctions: [ArkStateSetupDelegate], with setUpContext: ArkSetupContext? = nil) {
         guard let ark = ark else {
             return
         }
 
         for stateSetupFunction in stateSetupFunctions {
-            ark.arkState.setup(stateSetupFunction, displayContext: ark.displayContext)
+            ark.arkState.setup(stateSetupFunction, with: setUpContext ?? ark.setupContext)
         }
     }
 

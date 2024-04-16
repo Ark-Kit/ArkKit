@@ -13,6 +13,29 @@ class ArkSetUpIfParticipantStrategy<View, ExternalResources: ArkExternalResource
         }
         setupDefaultListeners()
         setupMultiplayerGameLoop()
+        let dummyECS = ArkECS()
+        setup(ark.blueprint.setupFunctions, with: ArkSetupContext(
+            ecs: dummyECS,
+            events: ark.arkState.eventManager,
+            display: ark.displayContext)
+        )
+        setup(ark.blueprint.rules, with: ArkActionContext(
+            ecs: dummyECS,
+            events: ark.arkState.eventManager,
+            display: ark.displayContext,
+            audio: ark.audioContext
+        ))
+        // filter for screen resize rules
+        let screenResizeRules = ark.blueprint.rules.filter { rule in
+            guard let castedRule = rule as? any Rule<RuleEventType>,
+                  let _ = castedRule.trigger.eventType as? ScreenResizeEvent.Type
+            else {
+                return false
+            }
+
+            return true
+        }
+        setup(screenResizeRules)
         setup(ark.blueprint.soundMapping)
 
         let networkService = ArkNetworkService(serviceName: networkPlayableInfo.roomName)
@@ -31,9 +54,9 @@ extension ArkSetUpIfParticipantStrategy: ArkPlayerStateSetupDelegate {
         let playerSetUpCallbacks = ark?.blueprint.playerSpecificSetupFunctions
         guard playerId < playerSetUpCallbacks?.count ?? 0,
               let specificPlayerSetUp = playerSetUpCallbacks?[playerId],
-              let displayContext = ark?.displayContext else {
+              let ark = ark else {
             return
         }
-        ark?.arkState.setup(specificPlayerSetUp, displayContext: displayContext)
+        ark.arkState.setup(specificPlayerSetUp, with: ark.setupContext)
     }
 }
