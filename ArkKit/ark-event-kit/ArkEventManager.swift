@@ -15,7 +15,8 @@ struct DatedEvent {
 class ArkEventManager: ArkEventContext {
     private var listeners: [ObjectIdentifier: [(any ArkEvent) -> Void]] = [:]
     private var eventQueue = PriorityQueue<DatedEvent>(sort: ArkEventManager.compareEventPriority)
-    var delegate: ArkEventContextDelegate?
+
+    var networkPublisherDelegate: ArkNetworkPublisherDelegate?
 
     func subscribe<Event: ArkEvent>(to eventType: Event.Type, _ listener: @escaping (any ArkEvent) -> Void) {
         let typeID = ObjectIdentifier(eventType)
@@ -30,7 +31,7 @@ class ArkEventManager: ArkEventContext {
     func emit<Event: ArkEvent>(_ event: Event) {
         let datedEvent = DatedEvent(event: event)
         eventQueue.enqueue(datedEvent)
-        delegate?.didEmitEvent(event)
+        networkPublisherDelegate?.publish(event: event)
     }
 
     func emitWithoutDelegate<Event: ArkEvent>(_ event: Event) {
@@ -39,10 +40,14 @@ class ArkEventManager: ArkEventContext {
     }
 
     func processEvents() {
-        while !eventQueue.isEmpty {
-            guard let datedEvent = eventQueue.dequeue() else {
+        // copy eventQueue so that events emited during processing are processed at the next tick
+        var eventsFromQueue = eventQueue
+        while !eventsFromQueue.isEmpty {
+            guard let datedEvent = eventsFromQueue.dequeue() else {
                 fatalError("[ArkEventManager.processEvents()] dequeue failed: Expected event, found nil.")
             }
+            // dequeue from copy and actual eventQueue so that they are in sync
+            _ = eventQueue.dequeue()
             guard let listenersToExecute = listeners[ObjectIdentifier(type(of: datedEvent.event))] else {
                 continue
             }
@@ -62,8 +67,4 @@ class ArkEventManager: ArkEventContext {
 
         return datedEvent1.timestamp < datedEvent2.timestamp
     }
-}
-
-protocol ArkEventManagerDelegate: ArkEventContextDelegate {
-    func didEmitEvent<Event: ArkEvent>(_ event: Event)
 }

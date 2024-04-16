@@ -27,7 +27,7 @@ struct DemoPhysicsCategory {
     static let coin: UInt32 = 0x1 << 2   // Binary 100
 }
 
-let demoDummyShape = PhysicsComponent.Shape.circle
+let demoDummyShape = ArkPhysicsShape.circle
 let demoDummyRadius = CGFloat(10)
 
 /// If I want to create an enemy that passes through a player and a coin but has a contact emitted with a player

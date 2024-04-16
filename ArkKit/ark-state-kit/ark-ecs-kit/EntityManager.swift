@@ -1,18 +1,14 @@
-//
-//  EntityManager.swift
-//  LevelKit
-//
-//  Created by Ryan Peh on 9/3/24.
-//
-
 import Foundation
 
 class EntityManager {
     private var entities = Set<Entity>()
     private var componentsByType = [ObjectIdentifier: [Entity: Component]]()
+    private var idGenerator = EntityIDGenerator()
 
-    func createEntity() -> Entity {
-        let entity = Entity()
+    func createEntity(id: EntityID? = nil) -> Entity {
+        let entityId = id ?? idGenerator.generate()
+        let entity = Entity(id: entityId)
+
         entities.insert(entity)
         return entity
     }
@@ -25,6 +21,10 @@ class EntityManager {
     }
 
     func upsertComponent<T: Component>(_ component: T, to entity: Entity) {
+        // add entity if entity does not exist
+        if !entities.contains(entity) {
+            entities.insert(entity)
+        }
         let typeID = ObjectIdentifier(T.self)
         componentsByType[typeID, default: [:]][entity] = component
     }
@@ -39,8 +39,9 @@ class EntityManager {
         return componentsByType[typeID]?[entity] as? T
     }
 
-    func createEntity(with components: [Component]) -> Entity {
-        let entity = Entity()
+    func createEntity(with components: [Component], id: EntityID? = nil) -> Entity {
+        let entityId = id ?? idGenerator.generate()
+        let entity = Entity(id: entityId)
         entities.insert(entity)
         for comp in components {
             upsertComponent(comp, to: entity)
@@ -85,5 +86,10 @@ class EntityManager {
             }
         })
         return result
+    }
+
+    func removeAllEntities() {
+        entities = []
+        componentsByType = [:]
     }
 }

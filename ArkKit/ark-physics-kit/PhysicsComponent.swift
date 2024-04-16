@@ -1,15 +1,18 @@
 import Foundation
 
-struct PhysicsComponent: Component {
-    enum Shape {
-        case circle
-        case rectangle
-    }
+enum ArkPhysicsShape: Codable {
+    case circle
+    case rectangle
+    case polygon
+}
+
+struct PhysicsComponent: SendableComponent {
 
     // A physics component can either have a size or a radius depending on the shape
-    let shape: Shape
+    let shape: ArkPhysicsShape
     var size: CGSize?
     var radius: CGFloat?
+    var vertices: [CGPoint]?
 
     var mass: CGFloat?
     var velocity: CGVector = .zero
@@ -26,6 +29,4 @@ struct PhysicsComponent: Component {
     var categoryBitMask: UInt32
     var collisionBitMask: UInt32
     var contactTestBitMask: UInt32
-
-    var toBeRemoved = false
 }

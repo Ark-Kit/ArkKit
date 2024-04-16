@@ -34,7 +34,7 @@ struct ButtonRenderableComponent: AbstractTappable, RenderableComponent {
 extension ButtonRenderableComponent: AbstractButtonStyle {
     func label(_ label: String, color: AbstractColor) -> ButtonRenderableComponent {
         var newSelf = self
-        newSelf.buttonStyleConfig.labelMapping = (label, color)
+        newSelf.buttonStyleConfig.labelMapping = LabelMapping(label: label, color: color)
         return newSelf
     }
 
@@ -98,6 +98,11 @@ extension ButtonRenderableComponent: AbstractButtonStyle {
     }
 }
 
+struct LabelMapping: Codable {
+    var label: String
+    var color: AbstractColor
+}
+
 struct ButtonStyleConfiguration {
     enum BorderSides: CaseIterable {
         case topLeft
@@ -105,13 +110,15 @@ struct ButtonStyleConfiguration {
         case bottomLeft
         case bottomRight
     }
-    enum PaddingSides: CaseIterable {
+
+    enum PaddingSides: String, Codable, CaseIterable {
         case top
         case bottom
         case left
         case right
     }
-    var labelMapping: (String, AbstractColor)?
+
+    var labelMapping: LabelMapping?
     var backgroundColor: AbstractColor?
     var borderRadius: Double?
     var borderWidth: Double?

@@ -52,6 +52,14 @@ class SKPhysicsScene: AbstractArkPhysicsScene {
         return newPhysicsBody
     }
 
+    func createPolygonPhysicsBody(for entity: Entity,
+                                  withVertices vertices: [CGPoint],
+                                  at position: CGPoint) -> any AbstractArkPhysicsBody {
+        let newPhysicsBody = ArkSKPhysicsBody(polygonOf: vertices, at: position)
+        addBody(for: entity, bodyToAdd: newPhysicsBody)
+        return newPhysicsBody
+    }
+
     func getPhysicsBody(for entity: Entity) -> (any AbstractArkPhysicsBody)? {
         physicsBodyManager.getBody(for: entity)
     }

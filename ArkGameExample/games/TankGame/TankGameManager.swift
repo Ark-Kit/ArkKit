@@ -22,6 +22,64 @@ class TankGameManager {
         setUpEntities()
         setUpSystems()
         setUpRules()
+        self.blueprint = self.blueprint
+            .supportNetworkMultiPlayer(
+                roomName: "TankFightGame", numberOfPlayers: 2
+            )
+            .setupPlayer { context in
+                let ecs = context.ecs
+                let events = context.events
+                let screenWidth = context.display.screenSize.width
+                let screenHeight = context.display.screenSize.height
+
+                let joystick1Entity = TankGameEntityCreator.createJoyStick(
+                    center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
+                    tankId: 1,
+                    in: ecs,
+                    eventContext: events,
+                    zPosition: 999)
+
+                let shootButton1Entity = TankGameEntityCreator.createShootButton(
+                    with: TankShootButtonCreationContext(
+                        position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
+                        tankId: 1,
+                        zPosition: 999,
+                        rotate: false
+                    ),
+                    in: ecs,
+                    eventContext: events
+                )
+
+                self.joystick1 = joystick1Entity.id
+                self.shootButton1 = shootButton1Entity.id
+            }
+            .setupPlayer { context in
+                let ecs = context.ecs
+                let events = context.events
+                let screenWidth = context.display.screenSize.width
+                let screenHeight = context.display.screenSize.height
+
+                let joystick2Entity = TankGameEntityCreator.createJoyStick(
+                    center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
+                    tankId: 2,
+                    in: ecs,
+                    eventContext: events,
+                    zPosition: 999)
+
+                let shootButton2Entity = TankGameEntityCreator.createShootButton(
+                    with: TankShootButtonCreationContext(
+                        position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
+                        tankId: 2,
+                        zPosition: 999,
+                        rotate: true
+                    ),
+                    in: ecs,
+                    eventContext: events
+                )
+
+                self.joystick2 = joystick2Entity.id
+                self.shootButton2 = shootButton2Entity.id
+            }
     }
 
     func setUpAudio() {
@@ -69,41 +127,6 @@ class TankGameManager {
                                               hp: 50),
                     in: ecs)
                 self.tankIdEntityMap[2] = tankEntity2
-
-                let joystick1Entity = TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
-                    tankId: 1,
-                    in: ecs,
-                    eventContext: events,
-                    zPosition: 999)
-                let joystick2Entity = TankGameEntityCreator.createJoyStick(
-                    center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
-                    tankId: 2,
-                    in: ecs,
-                    eventContext: events,
-                    zPosition: 999)
-
-                let shootButton1Entity = TankGameEntityCreator.createShootButton(
-                    with: TankShootButtonCreationContext(
-                        position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
-                        tankId: 1,
-                        zPosition: 999,
-                        rotate: false),
-                    in: ecs,
-                    eventContext: events)
-                let shootButton2Entity = TankGameEntityCreator.createShootButton(
-                    with: TankShootButtonCreationContext(
-                        position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
-                        tankId: 2,
-                        zPosition: 999,
-                        rotate: true),
-                    in: ecs,
-                    eventContext: events)
-
-                self.joystick1 = joystick1Entity.id
-                self.joystick2 = joystick2Entity.id
-                self.shootButton1 = shootButton1Entity.id
-                self.shootButton2 = shootButton2Entity.id
             }
     }
 
@@ -118,8 +141,6 @@ class TankGameManager {
     }
 
     func setUpRules() {
-        blueprint = blueprint.setupMultiplayer(serviceName: "tankGame")
-
         blueprint = blueprint
             .on(ScreenResizeEvent.self) { event, context in
                 self.handleScreenResize(event, in: context)
@@ -409,13 +430,10 @@ extension TankGameManager {
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
         guard let tankHpComponent = context.ecs.getComponent(ofType: TankHpComponent.self, for: tankEntity),
-              tankHpComponent.hp <= 0,
-              var physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: tankEntity)
-        else {
+              tankHpComponent.hp <= 0 else {
             return
         }
-        physicsComponent.toBeRemoved = true
-        context.ecs.upsertComponent(physicsComponent, to: tankEntity)
+        tankHpComponent.markForRemoval(entity: tankEntity, ecs: context.ecs)
         if let positionComponent = context.ecs.getComponent(ofType: PositionComponent.self, for: tankEntity) {
             ImpactExplosionAnimation(perFrameDuration: 0.1).create(in: ecs, at: positionComponent.position)
         }

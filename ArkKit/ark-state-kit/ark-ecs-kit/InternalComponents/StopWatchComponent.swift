@@ -1,6 +1,6 @@
 import Foundation
 
-struct StopWatchComponent: Component {
+struct StopWatchComponent: SendableComponent {
     var currentTime: TimeInterval
     var name: String
 

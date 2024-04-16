@@ -15,7 +15,7 @@ struct PlacedCameraComponent: Component {
  * Defines the visible portion of the canvas based off the `canvasPosition`.
  * The camera takes a slice of renderable components at the canvas layer based off the size.
  */
-struct Camera {
+struct Camera: Codable {
     /// Defines the anchor position within the `canvas` (game world).
     let canvasPosition: CGPoint
 
@@ -36,7 +36,7 @@ struct Camera {
     }
 }
 
-struct CameraZoom {
+struct CameraZoom: Codable {
     let widthZoom: Double
     let heightZoom: Double
 }

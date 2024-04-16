@@ -3,8 +3,8 @@ import CoreGraphics
 struct RectRenderableComponent: ShapeRenderableComponent {
     let width: Double
     let height: Double
-    var center: CGPoint
-    var rotation: Double
+    var center: CGPoint = .zero
+    var rotation: Double = 0.0
     var zPosition: Double = 0.0
     var isUserInteractionEnabled = false
     var renderLayer: RenderLayer = .canvas
@@ -14,11 +14,13 @@ struct RectRenderableComponent: ShapeRenderableComponent {
     private(set) var strokeInfo: ShapeStrokeInfo?
     private(set) var labelInfo: ShapeLabelInfo?
 
-    init(width: Double, height: Double, center: CGPoint = .zero, rotation: Double = 0.0) {
+    init(width: Double, height: Double,
+         fillInfo: ShapeFillInfo? = nil,
+         strokeInfo: ShapeStrokeInfo? = nil) {
         self.width = width
         self.height = height
-        self.center = center
-        self.rotation = rotation
+        self.fillInfo = fillInfo
+        self.strokeInfo = strokeInfo
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,

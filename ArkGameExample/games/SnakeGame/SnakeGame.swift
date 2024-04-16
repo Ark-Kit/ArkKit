@@ -45,7 +45,7 @@ extension SnakeGame {
                 let canvasCenter = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
 
                 ecs.createEntity(with: [
-                    BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.map,
+                    BitmapImageRenderableComponent(arkImageResourcePath: SnakeGameImages.map,
                                                    width: canvasWidth, height: canvasHeight)
                     .center(canvasCenter)
                     .zPosition(0)
@@ -60,14 +60,14 @@ extension SnakeGame {
             .setup { context in
                 let snakeEntity1 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
-                                                     head: SnakeGridPosition(x: 10, y: 10),
-                                                     facingDirection: .east,
+                                                     head: SnakeGridPosition(x: 15, y: 15),
+                                                     facingDirection: .south,
                                                      grid: self.grid),
                     in: context.ecs)
                 let snakeEntity2 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
-                                                     head: SnakeGridPosition(x: 20, y: 20),
-                                                     facingDirection: .west,
+                                                     head: SnakeGridPosition(x: 25, y: 25),
+                                                     facingDirection: .north,
                                                      grid: self.grid),
                     in: context.ecs)
                 self.playerIdToSnakeEntityMap[1] = snakeEntity1
@@ -153,7 +153,7 @@ extension SnakeGame {
                         SnakeGameApple(),
                         SnakeGridPositionComponent(gridPosition: emptyPosition),
                         PositionComponent(position: self.grid.toActualPosition(emptyPosition)),
-                        BitmapImageRenderableComponent(imageResourcePath: SnakeGameImages.apple,
+                        BitmapImageRenderableComponent(arkImageResourcePath: SnakeGameImages.apple,
                                                        width: Double(self.grid.boxSideLength),
                                                        height: Double(self.grid.boxSideLength))
                             .layer(.canvas)

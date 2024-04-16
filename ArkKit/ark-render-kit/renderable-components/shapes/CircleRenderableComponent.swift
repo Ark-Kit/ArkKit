@@ -1,7 +1,7 @@
 import CoreGraphics
 
 struct CircleRenderableComponent: ShapeRenderableComponent {
-    private(set) var radius: Double
+    let radius: Double
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
@@ -13,8 +13,13 @@ struct CircleRenderableComponent: ShapeRenderableComponent {
     private(set) var strokeInfo: ShapeStrokeInfo?
     private(set) var labelInfo: ShapeLabelInfo?
 
-    init(radius: Double) {
+    init(radius: Double, fillInfo: ShapeFillInfo?, 
+         strokeInfo: ShapeStrokeInfo?,
+         labelInfo: ShapeLabelInfo?) {
         self.radius = radius
+        self.fillInfo = fillInfo
+        self.strokeInfo = strokeInfo
+        self.labelInfo = labelInfo
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,

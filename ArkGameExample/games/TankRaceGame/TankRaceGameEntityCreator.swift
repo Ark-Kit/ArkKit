@@ -8,6 +8,36 @@ enum TankRaceGameEntityCreator {
             .layer(.canvas)
     }
 
+    static func createJoyStick(center: CGPoint,
+                               tankId: Int,
+                               in ecsContext: ArkECSContext,
+                               eventContext: ArkEventContext,
+                               zPosition: Double) -> Entity {
+        ecsContext.createEntity(with: [
+            JoystickRenderableComponent(radius: 40)
+                .shouldRerender { old, new in
+                    old.center != new.center
+                }
+                .center(center)
+                .zPosition(zPosition)
+                .layer(.screen)
+                .onPanStart { angle, _ in
+                    let tankSteeringDirectionEventData = TankRaceSteeringEventData(
+                        name: "TankRaceSteeringEvent", tankId: tankId, angleInRadians: angle
+                    )
+                    let tankSteeringEvent = TankRaceSteeringEvent(eventData: tankSteeringDirectionEventData)
+                    eventContext.emit(tankSteeringEvent)
+                }
+                .onPanChange { angle, _ in
+                    let tankSteeringDirectionEventData = TankRaceSteeringEventData(
+                        name: "TankRaceSteeringEvent", tankId: tankId, angleInRadians: angle
+                    )
+                    let tankSteeringEvent = TankRaceSteeringEvent(eventData: tankSteeringDirectionEventData)
+                    eventContext.emit(tankSteeringEvent)
+                }
+        ])
+    }
+
     static func createMoveButton(position: CGPoint,
                                  tankId: Int,
                                  zPosition: Double,
@@ -22,8 +52,8 @@ enum TankRaceGameEntityCreator {
                 .layer(.screen)
                 .zPosition(zPosition)
                 .onTap {
-                    let tankRaceMoveEventData = TankRaceMoveEventData(name: "TankMoveEvent", tankId: tankId)
-                    let tankRaceMoveEvent: any ArkEvent = TankRaceMoveEvent(eventData: tankRaceMoveEventData)
+                    let tankRaceMoveEventData = TankRacePedalEventData(name: "TankMoveEvent", tankId: tankId)
+                    let tankRaceMoveEvent: any ArkEvent = TankRacePedalEvent(eventData: tankRaceMoveEventData)
                     eventContext.emit(tankRaceMoveEvent)
                 }
                 .label("Move", color: .black)
@@ -82,7 +112,7 @@ enum TankRaceGameEntityCreator {
         in ecsContext: ArkECSContext,
         zPosition: Double) -> Entity {
         let tankEntity = ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: tankIndexToImageAsset[tankIndex] ?? .tank_1,
+            BitmapImageRenderableComponent(arkImageResourcePath: tankIndexToImageAsset[tankIndex] ?? .tank_1,
                                            width: 80,
                                            height: 100)
             .center(position)
@@ -109,27 +139,32 @@ enum TankRaceGameEntityCreator {
                                  canvasHeight: CGFloat,
                                  zPosition: Double,
                                  in ecsContext: ArkECSContext,
-                                 eventContext: ArkEventContext) {
+                                 eventContext: ArkEventContext) -> [Entity] {
         let positions: [CGPoint] = [CGPoint(x: canvasWidth * 1 / 6, y: canvasWidth / 5),
                                     CGPoint(x: canvasWidth * 1 / 2, y: canvasWidth / 5),
                                     CGPoint(x: canvasWidth * 5 / 6, y: canvasWidth / 5)]
         let entities = positions.map {
             ecsContext.createEntity(with: [
-                BitmapImageRenderableComponent(imageResourcePath: TankRaceGameImages.finish_line,
-                                                                   width: canvasWidth / 3,
-                                                                   height: canvasWidth / 5)
-                    .center($0)
-                    .zPosition(zPosition)
-                    .scaleAspectFill(),
+                BitmapImageRenderableComponent(
+                    arkImageResourcePath: TankRaceGameImages.finish_line,
+                    width: canvasWidth / 3,
+                    height: canvasWidth / 5
+                )
+                .center($0)
+                .zPosition(zPosition)
+                .scaleAspectFill(),
                 PositionComponent(position: $0),
                 RotationComponent(),
-                PhysicsComponent(shape: .rectangle, size: CGSize(width: 80, height: 100),
-                                 isDynamic: false, allowsRotation: false, restitution: 0,
-                                 categoryBitMask: TankGamePhysicsCategory.water,
-                                 collisionBitMask: TankGamePhysicsCategory.none,
-                                 contactTestBitMask: TankGamePhysicsCategory.tank)
+                PhysicsComponent(
+                    shape: .rectangle, size: CGSize(width: 80, height: 100),
+                    isDynamic: false, allowsRotation: false, restitution: 0,
+                    categoryBitMask: TankGamePhysicsCategory.water,
+                    collisionBitMask: TankGamePhysicsCategory.none,
+                    contactTestBitMask: TankGamePhysicsCategory.tank
+                )
         ])
         }
+        return entities
 
     }
 }
