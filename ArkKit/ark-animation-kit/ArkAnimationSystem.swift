@@ -26,7 +26,7 @@ class ArkAnimationSystem: UpdateSystem {
                 animationInstance.advance(by: deltaTime)
                 if animationInstance.shouldDestroy {
                     animationsComponent.removeAnimation(animationInstance)
-                    arkECS.upsertComponent(ToRemoveComponent(toBeRemoved: true), to: entity)
+                    animationsComponent.markForRemoval(entity: entity, ecs: arkECS)
                 }
             }
 

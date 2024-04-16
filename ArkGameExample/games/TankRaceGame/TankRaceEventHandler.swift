@@ -172,7 +172,7 @@ class TankRaceEventHandler {
               tankHpComponent.hp <= 0 else {
             return
         }
-        context.ecs.upsertComponent(ToRemoveComponent(toBeRemoved: true), to: tankEntity)
+        context.ecs.upsertComponent(ToRemoveComponent(), to: tankEntity)
         if let positionComponent = context.ecs.getComponent(ofType: PositionComponent.self, for: tankEntity) {
             ImpactExplosionAnimation(perFrameDuration: 0.1,
                                      width: 256.0,

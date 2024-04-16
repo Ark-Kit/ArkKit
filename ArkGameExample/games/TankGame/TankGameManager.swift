@@ -430,7 +430,7 @@ extension TankGameManager {
               tankHpComponent.hp <= 0 else {
             return
         }
-        context.ecs.upsertComponent(ToRemoveComponent(toBeRemoved: true), to: tankEntity)
+        tankHpComponent.markForRemoval(entity: tankEntity, ecs: context.ecs)
         if let positionComponent = context.ecs.getComponent(ofType: PositionComponent.self, for: tankEntity) {
             ImpactExplosionAnimation(perFrameDuration: 0.1).create(in: ecs, at: positionComponent.position)
         }

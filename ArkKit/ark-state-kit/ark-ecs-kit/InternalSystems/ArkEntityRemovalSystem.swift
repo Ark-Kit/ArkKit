@@ -8,11 +8,9 @@ class ArkEntityRemovalSystem: UpdateSystem {
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        let toRemoveEntities = arkECS.getEntities(with: [ToRemoveComponent.self])
-        for entity in toRemoveEntities {
-            guard let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self,
-                                                              for: entity),
-                    toRemoveComponent.toBeRemoved else {
+        let toBeRemovedEntities = arkECS.getEntities(with: [ToRemoveComponent.self])
+        for entity in toBeRemovedEntities {
+            guard let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity) else {
                 continue
             }
             arkECS.removeEntity(entity)

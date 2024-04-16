@@ -31,7 +31,7 @@ class TankGameCollisionStrategyManager: CollisionStrategyManager<TankGameActionC
 
 func markEntityForRemoval<ExternalResources: ArkExternalResources>(_ entity: Entity,
                                                                    in context: ArkActionContext<ExternalResources>) {
-    context.ecs.upsertComponent(ToRemoveComponent(toBeRemoved: true), to: entity)
+    context.ecs.upsertComponent(ToRemoveComponent(), to: entity)
 }
 
 func markBallForRemoval<ExternalResources: ArkExternalResources>(_ entity: Entity,

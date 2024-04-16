@@ -43,8 +43,7 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
         for (entity, physics) in physicsComponents {
             handlePhysicsComponentRemovalIfNeeded(for: entity, using: physics, arkECS: arkECS)
 
-            if let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity),
-               toRemoveComponent.toBeRemoved {
+            if arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity) != nil {
                 return }
 
             guard let positionComponent = arkECS.getComponent(ofType: PositionComponent.self, for: entity),
@@ -62,8 +61,7 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
     private func handlePhysicsComponentRemovalIfNeeded(for entity: Entity,
                                                        using physics: PhysicsComponent,
                                                        arkECS: ArkECS) {
-        guard let toRemoveComponent = arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity),
-              toRemoveComponent.toBeRemoved else {
+        guard arkECS.getComponent(ofType: ToRemoveComponent.self, for: entity) != nil else {
             return }
 
         scene?.removePhysicsBody(for: entity)
@@ -159,7 +157,7 @@ protocol PhysicsBodyCreator {
 struct CirclePhysicsBodyCreator: PhysicsBodyCreator {
     func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
                            at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody? {
-        guard let radius = component.radius else { 
+        guard let radius = component.radius else {
             return nil }
         return scene.createCirclePhysicsBody(for: entity, withRadius: radius, at: position)
     }
@@ -168,7 +166,7 @@ struct CirclePhysicsBodyCreator: PhysicsBodyCreator {
 struct RectanglePhysicsBodyCreator: PhysicsBodyCreator {
     func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
                            at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody? {
-        guard let size = component.size else { 
+        guard let size = component.size else {
             return nil }
         return scene.createRectanglePhysicsBody(for: entity, withSize: size, at: position)
     }
@@ -177,7 +175,7 @@ struct RectanglePhysicsBodyCreator: PhysicsBodyCreator {
 struct PolygonPhysicsBodyCreator: PhysicsBodyCreator {
     func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
                            at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody? {
-        guard let vertices = component.vertices else { 
+        guard let vertices = component.vertices else {
             return nil }
         return scene.createPolygonPhysicsBody(for: entity, withVertices: vertices, at: position)
     }
