@@ -23,9 +23,6 @@ class TankGameManager {
         setUpSystems()
         setUpRules()
         self.blueprint = self.blueprint
-            .supportNetworkMultiPlayer(
-                roomName: "TankFightGame", numberOfPlayers: 2
-            )
             .setupPlayer { context in
                 let ecs = context.ecs
                 let events = context.events
