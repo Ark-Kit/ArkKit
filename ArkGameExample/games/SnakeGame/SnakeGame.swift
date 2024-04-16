@@ -1,5 +1,7 @@
 import Foundation
 
+typealias SnakeGameActionContext = ArkActionContext<SnakeGameExternalResources>
+
 class SnakeGame {
     private(set) var blueprint: ArkBlueprint<SnakeGameExternalResources>
     private var playerIdToSnakeEntityMap = [Int: Entity]()
@@ -28,6 +30,7 @@ class SnakeGame {
                 return min(scalingFactor, maxScalingFactor)
             })
         appleSpawner()
+        setupRules()
         setupWinLoseConditions()
     }
 }
@@ -60,14 +63,14 @@ extension SnakeGame {
             .setup { context in
                 let snakeEntity1 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
-                                                     head: SnakeGridPosition(x: 15, y: 15),
-                                                     facingDirection: .south,
+                                                     head: SnakeGridPosition(x: 25, y: 25),
+                                                     facingDirection: .north,
                                                      grid: self.grid),
                     in: context.ecs)
                 let snakeEntity2 = SnakeGameEntityCreator.createSnakeEntity(
                     with: SnakeEntityCreationContext(length: 10,
-                                                     head: SnakeGridPosition(x: 25, y: 25),
-                                                     facingDirection: .north,
+                                                     head: SnakeGridPosition(x: 15, y: 15),
+                                                     facingDirection: .south,
                                                      grid: self.grid),
                     in: context.ecs)
                 self.playerIdToSnakeEntityMap[1] = snakeEntity1
@@ -85,15 +88,19 @@ extension SnakeGame {
                     return
                 }
 
-                SnakeGameEntityCreator.addJoystick(
+                SnakeGameEntityCreator.addDPad(
                     center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
-                    snakeEntity: snakeEntity1,
-                    in: context.ecs)
+                    snakeId: 1,
+                    ecs: context.ecs,
+                    events: context.events
+                )
 
-                SnakeGameEntityCreator.addJoystick(
+                SnakeGameEntityCreator.addDPad(
                     center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
-                    snakeEntity: snakeEntity2,
-                    in: context.ecs)
+                    snakeId: 2,
+                    ecs: context.ecs,
+                    events: context.events
+                )
             }
     }
 
@@ -176,5 +183,29 @@ extension SnakeGame {
                     actionContext.events.emit(TerminateGameLoopEvent(eventData: eventData))
                 }
             }
+    }
+
+    private func setupRules() {
+        blueprint = blueprint.on(SnakeChangeDirectionEvent.self) { event, context in
+            self.handleChangeDirectionEvent(event, in: context)
+        }
+    }
+
+    private func handleChangeDirectionEvent(_ event: SnakeChangeDirectionEvent, in context: SnakeGameActionContext) {
+        let ecs = context.ecs
+        let eventData = event.eventData
+        guard let snakeEntity = self.playerIdToSnakeEntityMap[eventData.snakeId],
+              let snakeComponent = ecs.getComponent(ofType: SnakeComponent.self, for: snakeEntity) else {
+            return
+        }
+
+        let direction = eventData.direction
+
+        if direction == snakeComponent.direction.opposite {
+            return
+        }
+
+        let updatedSnakeComponent = SnakeComponent(snakeComponent.occupies, direction: direction)
+        ecs.upsertComponent(updatedSnakeComponent, to: snakeEntity)
     }
 }

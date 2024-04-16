@@ -7,6 +7,12 @@ struct SnakeEntityCreationContext {
     let grid: SnakeGrid
 }
 
+struct SnakeDPadCreationContext {
+    let position: CGPoint
+    let snakeId: Int
+    let direction: SnakeGameDirection
+}
+
 struct SnakeGameEntityCreator {
     static func createSnakeEntity(with snakeCreationContext: SnakeEntityCreationContext,
                                   in ecsContext: ArkECSContext) -> Entity {
@@ -69,6 +75,70 @@ struct SnakeGameEntityCreator {
                 .zPosition(1)
                 .layer(.canvas)
         ])
+    }
+
+    static func addDPad(center: CGPoint,
+                        snakeId: Int,
+                        ecs: ArkECSContext,
+                        events: ArkEventContext) {
+            let upButtonCreationContext
+                    = SnakeDPadCreationContext(position: center.applying(CGAffineTransform(translationX: 0, y: -50)),
+                                               snakeId: snakeId,
+                                               direction: .north)
+            let downButtonCreationContext
+                    = SnakeDPadCreationContext(position: center.applying(CGAffineTransform(translationX: 0, y: 50)),
+                                               snakeId: snakeId,
+                                               direction: .south)
+            let leftButtonCreationContext
+                    = SnakeDPadCreationContext(position: center.applying(CGAffineTransform(translationX: -50, y: 0)),
+                                               snakeId: snakeId,
+                                               direction: .west)
+            let rightButtonCreationContext
+                    = SnakeDPadCreationContext(position: center.applying(CGAffineTransform(translationX: 50, y: 0)),
+                                               snakeId: snakeId,
+                                               direction: .east)
+            addDPadButton(creationContext: upButtonCreationContext,
+                          ecs: ecs,
+                          events: events)
+            addDPadButton(creationContext: downButtonCreationContext,
+                          ecs: ecs,
+                          events: events)
+            addDPadButton(creationContext: leftButtonCreationContext,
+                          ecs: ecs,
+                          events: events)
+            addDPadButton(creationContext: rightButtonCreationContext,
+                          ecs: ecs,
+                          events: events)
+        }
+
+    private static func addDPadButton(creationContext: SnakeDPadCreationContext,
+                                      ecs: ArkECSContext,
+                                      events: ArkEventContext) {
+        let dPadEntity = ecs.createEntity()
+        let direction = creationContext.direction
+        let position = creationContext.position
+        let snakeId = creationContext.snakeId
+        let buttonComponent = ButtonRenderableComponent(width: 40, height: 40).label("<", color: .black)
+            .shouldRerender {_, _ in
+            false
+            }
+            .center(position)
+            .rotation(direction.radians + CGFloat.pi / 2)
+            .zPosition(999)
+            .layer(.screen)
+            .borderRadius(20)
+            .borderColor(.white)
+            .borderWidth(0.5)
+            .background(color: .gray)
+            .padding(top: 4, bottom: 4, left: 2, right: 2)
+            .onTap {
+                let changeDirectionEvent
+                        = SnakeChangeDirectionEvent(eventData: SnakeChangeDirectionEventData(name: "",
+                                                                                             snakeId: snakeId,
+                                                                                             direction: direction))
+                events.emit(changeDirectionEvent)
+            }
+        ecs.upsertComponent(buttonComponent, to: dPadEntity)
     }
 
     static func addJoystick(center: CGPoint, snakeEntity: Entity, in ecsContext: ArkECSContext) {

@@ -197,6 +197,7 @@
 		28E65AF72BCE65A000AF69B4 /* well.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65AF62BCE65A000AF69B4 /* well.png */; };
 		28E65B032BCE672700AF69B4 /* medium_shell.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B022BCE672700AF69B4 /* medium_shell.png */; };
 		28E65B052BCE995800AF69B4 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65B042BCE995800AF69B4 /* CGPoint+Extension.swift */; };
+		28E65B082BCED48100AF69B4 /* SnakeMoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65B072BCED48100AF69B4 /* SnakeMoveEvent.swift */; };
 		28EFCB1B2BCC36EB0059A908 /* P2PShare in Frameworks */ = {isa = PBXBuildFile; productRef = ADA847F32BBC11F400B19378 /* P2PShare */; };
 		28EFCB1D2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */; };
 		28EFCB252BCCA7CC0059A908 /* ArkECSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */; };
@@ -528,6 +529,7 @@
 		28E65AF62BCE65A000AF69B4 /* well.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = well.png; sourceTree = "<group>"; };
 		28E65B022BCE672700AF69B4 /* medium_shell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medium_shell.png; sourceTree = "<group>"; };
 		28E65B042BCE995800AF69B4 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
+		28E65B072BCED48100AF69B4 /* SnakeMoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeMoveEvent.swift; sourceTree = "<group>"; };
 		28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkDemoMultiplayerPopover.swift; sourceTree = "<group>"; };
 		28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSWrapper.swift; sourceTree = "<group>"; };
 		28EFCB262BCCB6130059A908 /* ArkMultiplayerGameLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoop.swift; sourceTree = "<group>"; };
@@ -1356,6 +1358,14 @@
 			path = "Tank Props";
 			sourceTree = "<group>";
 		};
+		28E65B062BCED41B00AF69B4 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				28E65B072BCED48100AF69B4 /* SnakeMoveEvent.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		8F5573BD2BA4258F007030C8 /* renderable */ = {
 			isa = PBXGroup;
 			children = (
@@ -1484,6 +1494,7 @@
 			isa = PBXGroup;
 			children = (
 				945441052BC917B400E90ECE /* ExternalAssets */,
+				28E65B062BCED41B00AF69B4 /* Events */,
 				9454410B2BC91FCB00E90ECE /* Components */,
 				9454410E2BC9201400E90ECE /* Utils */,
 				945441032BC9178400E90ECE /* SnakeGame.swift */,
@@ -2272,6 +2283,7 @@
 				8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */,
 				286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */,
 				9454411A2BC94CA900E90ECE /* SnakeGridPosition.swift in Sources */,
+				28E65B082BCED48100AF69B4 /* SnakeMoveEvent.swift in Sources */,
 				8FA9023B2BCE639600FA13C8 /* FlappyBirdScoreLabelTag.swift in Sources */,
 				0230A4812BB7B452001CFDAF /* AbstractButtonStyle.swift in Sources */,
 				02C394DE2BA4053E0075F1CA /* RenderableBuilder.swift in Sources */,
