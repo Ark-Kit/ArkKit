@@ -208,7 +208,6 @@
 		8F3813082BCE755A0058E107 /* Ground_Tile_02_A.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3813022BCE755A0058E107 /* Ground_Tile_02_A.png */; };
 		8F3813092BCE755A0058E107 /* Ground_Tile_02_B.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3813032BCE755A0058E107 /* Ground_Tile_02_B.png */; };
 		8F38130A2BCE755A0058E107 /* Ground_Tile_01_C.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3813042BCE755A0058E107 /* Ground_Tile_01_C.png */; };
-		8F38130C2BCE7AA10058E107 /* TankTrackPrintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F38130B2BCE7AA10058E107 /* TankTrackPrintComponent.swift */; };
 		8F38130F2BCE7B930058E107 /* tire_track_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F38130D2BCE7B930058E107 /* tire_track_1.png */; };
 		8F3813102BCE7B930058E107 /* tire_track_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F38130E2BCE7B930058E107 /* tire_track_2.png */; };
 		8F3813122BCE80DB0058E107 /* TankTrackPrintGeneratorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3813112BCE80DB0058E107 /* TankTrackPrintGeneratorComponent.swift */; };
@@ -538,7 +537,6 @@
 		8F3813022BCE755A0058E107 /* Ground_Tile_02_A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ground_Tile_02_A.png; sourceTree = "<group>"; };
 		8F3813032BCE755A0058E107 /* Ground_Tile_02_B.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ground_Tile_02_B.png; sourceTree = "<group>"; };
 		8F3813042BCE755A0058E107 /* Ground_Tile_01_C.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ground_Tile_01_C.png; sourceTree = "<group>"; };
-		8F38130B2BCE7AA10058E107 /* TankTrackPrintComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankTrackPrintComponent.swift; sourceTree = "<group>"; };
 		8F38130D2BCE7B930058E107 /* tire_track_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tire_track_1.png; sourceTree = "<group>"; };
 		8F38130E2BCE7B930058E107 /* tire_track_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tire_track_2.png; sourceTree = "<group>"; };
 		8F3813112BCE80DB0058E107 /* TankTrackPrintGeneratorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankTrackPrintGeneratorComponent.swift; sourceTree = "<group>"; };
@@ -1723,7 +1721,6 @@
 			children = (
 				AD36A75A2BAC331F003E938B /* TankComponent.swift */,
 				287B00542BC16E6C002F0114 /* TankHPComponent.swift */,
-				8F38130B2BCE7AA10058E107 /* TankTrackPrintComponent.swift */,
 				8F3813112BCE80DB0058E107 /* TankTrackPrintGeneratorComponent.swift */,
 			);
 			path = Components;
@@ -2238,7 +2235,6 @@
 				02C3952C2BA897890075F1CA /* ArkFlatCanvas.swift in Sources */,
 				8FDE57632BCE0E300066B906 /* FlappyBirdWallHitEvent.swift in Sources */,
 				02B3C6332BCD1EA4002331A0 /* ArkHostNetworkSubscriber.swift in Sources */,
-				8F38130C2BCE7AA10058E107 /* TankTrackPrintComponent.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
 				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
 				2882ABFB2BCB784C0042AC52 /* RectRenderableComponent+SendableComponent.swift in Sources */,

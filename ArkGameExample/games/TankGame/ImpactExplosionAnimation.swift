@@ -40,7 +40,7 @@ struct ImpactExplosionAnimation {
 
         let animationInstance = animation
             .toInstance()
-            .onUpdate { instance in
+            .onKeyframeUpdate { instance in
                 let keyframe = instance.currentFrame
                 let imageResourcePath = keyframe.value
 
