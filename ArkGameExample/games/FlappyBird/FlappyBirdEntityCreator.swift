@@ -190,7 +190,8 @@ extension FlappyBirdEntityCreator {
             FlappyBirdPipeTag(),
             BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImages.pipe, width: size.width, height: size.height)
                 .zPosition(2)
-                .rotation(rotation),
+                .rotation(rotation)
+                .center(positionPoint),
             PositionComponent(position: positionPoint),
             RotationComponent(angleInRadians: rotation),
             PhysicsComponent(shape: .rectangle, size: size,
@@ -212,7 +213,8 @@ extension FlappyBirdEntityCreator {
         ecs.createEntity(with: [
             RectRenderableComponent(width: size.width, height: size.height)
                 .fill(color: .red)
-                .zPosition(3),
+                .zPosition(3)
+                .center(positionPoint),
             PositionComponent(position: positionPoint),
             RotationComponent(),
             PhysicsComponent(shape: .rectangle, size: size,
