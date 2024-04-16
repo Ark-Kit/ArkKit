@@ -119,7 +119,6 @@ enum FlappyBirdEntityCreator {
                              categoryBitMask: FlappyBirdPhysicsCategory.wall,
                              collisionBitMask: FlappyBirdPhysicsCategory.none,
                              contactTestBitMask: FlappyBirdPhysicsCategory.character)
-
         ])
     }
 
@@ -210,7 +209,8 @@ extension FlappyBirdEntityCreator {
 
         ecs.createEntity(with: [
             FlappyBirdPipeTag(),
-            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.pipe, width: size.width, height: size.height)
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.pipe,
+                                           width: size.width, height: size.height)
                 .zPosition(2)
                 .rotation(rotation)
                 .center(positionPoint),
