@@ -7,7 +7,7 @@ enum FlappyBirdEntityCreator {
     private static let pipeWidth = 40.0
 
     @discardableResult
-    static func createCharacter(context: ArkSetupContext) -> Entity {
+    static func createCharacter(context: ArkSetupContext, characterId: Int) -> Entity {
         let ecs = context.ecs
         let display = context.display
 
@@ -30,7 +30,8 @@ enum FlappyBirdEntityCreator {
                              impulse: impulseValue,
                              categoryBitMask: FlappyBirdPhysicsCategory.character,
                              collisionBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.ceiling,
-                             contactTestBitMask: FlappyBirdPhysicsCategory.none)
+                             contactTestBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.ceiling),
+            FlappyBirdCharacterTag(characterId: characterId)
         ])
     }
 
@@ -84,7 +85,7 @@ enum FlappyBirdEntityCreator {
         // Calculate range for top of 'gap'
         let minPlaceableY = groundAndSkyWallHeight + additionalPadding
         let maxPlaceableY = canvasHeight - groundAndSkyWallHeight - pipeGap - additionalPadding
-        let placeableYRange = minPlaceableY...maxPlaceableY
+        let placeableYRange = minPlaceableY ... maxPlaceableY
 
         let topOfGapY = Double.random(in: placeableYRange)
         let xCoordinate = canvasWidth + pipeWidth / 2
@@ -105,6 +106,7 @@ enum FlappyBirdEntityCreator {
 }
 
 // MARK: Helpers
+
 extension FlappyBirdEntityCreator {
     private enum FlappyBirdWallPosition {
         case top, bottom
@@ -117,13 +119,12 @@ extension FlappyBirdEntityCreator {
         let physicsType: UInt32
         let isPipe: Bool
 
-        init(
-            size: CGSize,
-            xCoordinate: Double,
-            position: FlappyBirdWallPosition,
-            physicsType: UInt32 = FlappyBirdPhysicsCategory.wall,
-            isPipe: Bool = false
-        ) {
+        init(size: CGSize,
+             xCoordinate: Double,
+             position: FlappyBirdWallPosition,
+             physicsType: UInt32 = FlappyBirdPhysicsCategory.wall,
+             isPipe: Bool = false)
+        {
             self.size = size
             self.xCoordinate = xCoordinate
             self.position = position
@@ -134,7 +135,8 @@ extension FlappyBirdEntityCreator {
 
     private static func spawnWall(with createWallContext: CreateWallContext,
                                   in ecs: ArkECSContext,
-                                  and display: DisplayContext) {
+                                  and display: DisplayContext)
+    {
         let size = createWallContext.size
         let xCoordinate = createWallContext.xCoordinate
         let position = createWallContext.position
@@ -143,8 +145,8 @@ extension FlappyBirdEntityCreator {
         let isDynamic = createWallContext.isPipe
 
         let positionPoint = position == .top
-        ? CGPoint(x: xCoordinate, y: size.height / 2)
-        : CGPoint(x: xCoordinate, y: display.canvasSize.height - size.height / 2)
+            ? CGPoint(x: xCoordinate, y: size.height / 2)
+            : CGPoint(x: xCoordinate, y: display.canvasSize.height - size.height / 2)
 
         let wall = ecs.createEntity(with: [
             RectRenderableComponent(width: size.width, height: size.height)
@@ -156,7 +158,7 @@ extension FlappyBirdEntityCreator {
                              isDynamic: isDynamic,
                              categoryBitMask: physicsType,
                              collisionBitMask: FlappyBirdPhysicsCategory.character,
-                             contactTestBitMask: FlappyBirdPhysicsCategory.none)
+                             contactTestBitMask: FlappyBirdPhysicsCategory.character)
         ])
 
         if isPipe {

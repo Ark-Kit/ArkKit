@@ -163,6 +163,8 @@
 		8F5573C82BA69D61007030C8 /* ArkAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C72BA69D61007030C8 /* ArkAnimation.swift */; };
 		8F5573CA2BA6A633007030C8 /* ArkAnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */; };
 		8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */; };
+		8FDE57632BCE0E300066B906 /* FlappyBirdWallHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */; };
+		8FDE57652BCE112C0066B906 /* FlappyBirdCharacterTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */; };
 		8FEB21782BADE30F00788E20 /* RenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21772BADE30F00788E20 /* RenderLayer.swift */; };
 		8FEB217A2BADE60300788E20 /* DisplayContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB21792BADE60300788E20 /* DisplayContext.swift */; };
 		8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB217B2BADE8A500788E20 /* AbstractRootView.swift */; };
@@ -424,6 +426,8 @@
 		8F5573C72BA69D61007030C8 /* ArkAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimation.swift; sourceTree = "<group>"; };
 		8F5573C92BA6A633007030C8 /* ArkAnimationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationSystem.swift; sourceTree = "<group>"; };
 		8F5573CE2BA6A731007030C8 /* ArkAnimationInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationInstance.swift; sourceTree = "<group>"; };
+		8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdWallHitEvent.swift; sourceTree = "<group>"; };
+		8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdCharacterTag.swift; sourceTree = "<group>"; };
 		8FEB21772BADE30F00788E20 /* RenderLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderLayer.swift; sourceTree = "<group>"; };
 		8FEB21792BADE60300788E20 /* DisplayContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayContext.swift; sourceTree = "<group>"; };
 		8FEB217B2BADE8A500788E20 /* AbstractRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRootView.swift; sourceTree = "<group>"; };
@@ -1139,6 +1143,7 @@
 			children = (
 				941A45B92BCD75B100689D15 /* FlappyBirdPipeTag.swift */,
 				941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */,
+				8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1147,6 +1152,7 @@
 			isa = PBXGroup;
 			children = (
 				941A45B72BCD60AB00689D15 /* FlappyBirdTapEvent.swift */,
+				8FDE57622BCE0E300066B906 /* FlappyBirdWallHitEvent.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -1867,6 +1873,7 @@
 				AD5F69752BAC879400A5518D /* TankShootEvent.swift in Sources */,
 				945441082BC917D600E90ECE /* SnakeGameImages.swift in Sources */,
 				02C3952C2BA897890075F1CA /* ArkFlatCanvas.swift in Sources */,
+				8FDE57632BCE0E300066B906 /* FlappyBirdWallHitEvent.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
 				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
 				026882492BCACAFF00212BD6 /* ArkDemoGameHostingPage.swift in Sources */,
@@ -1894,6 +1901,7 @@
 				9454411A2BC94CA900E90ECE /* SnakeGridPosition.swift in Sources */,
 				0230A4812BB7B452001CFDAF /* AbstractButtonStyle.swift in Sources */,
 				02C394DE2BA4053E0075F1CA /* RenderableBuilder.swift in Sources */,
+				8FDE57652BCE112C0066B906 /* FlappyBirdCharacterTag.swift in Sources */,
 				AD6E036F2BA21A5B00974EBF /* Queue.swift in Sources */,
 				AD2B59B62BB958E400198E99 /* DataWrapper.swift in Sources */,
 				0230A48E2BB950AF001CFDAF /* OrderedDictionary.swift in Sources */,

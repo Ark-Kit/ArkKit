@@ -20,7 +20,22 @@ class FlappyBirdCollisionStrategyManager: CollisionStrategyManager<FlappyBirdAct
 class CharacterWallCollisionStrategy: CollisionHandlingStrategy {
     func handleCollisionBegan(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
-                              in context: FlappyBirdActionContext) {}
+                              in context: FlappyBirdActionContext) {
+        var characterId: Int? {
+            if bitMaskA == FlappyBirdPhysicsCategory.character {
+                return context.ecs.getComponent(ofType: FlappyBirdCharacterTag.self, for: entityA)?.characterId
+            } else {
+                return context.ecs.getComponent(ofType: FlappyBirdCharacterTag.self, for: entityB)?.characterId
+            }
+        }
+        
+        guard let characterId else {
+            assertionFailure("CharacterWallCollisionStrategy: characterId is nil")
+            return
+        }
+    
+        context.events.emit(FlappyBirdWallHitEvent(eventData: FlappyBirdWallHitEventData(name: "FlappyBirdWallHit", characterId: characterId)))
+    }
 
     func handleCollisionEnded(between entityA: Entity, and entityB: Entity,
                               bitMaskA: UInt32, bitMaskB: UInt32,
