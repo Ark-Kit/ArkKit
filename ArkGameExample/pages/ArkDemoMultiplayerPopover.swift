@@ -1,57 +1,128 @@
 import UIKit
 
-class ArkDemoMultiplayerPopover: UIViewController {
-    var onJoin: (() -> Void)?
-    var onStart: (() -> Void)?
+class ArkDemoMultiplayerPopover: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    var onJoin: ((String?) -> Void)?
+    var onStart: ((String?) -> Void)?
+    let options = ["Multiplayer Local", "Multiplayer Distributed"]
+    let roomNames = ["CuteDolphin", "SmartKite", "FlatRock", "OddPony", "SillyKoala"]
+    var selectedOption: String? = "Multiplayer Local"
+    var isShowingOptions = true
+
+    private let pickerView = UIPickerView()
+    private let arrowButton = UIButton(type: .system)
+    private let joinButton = UIButton(type: .system)
+    private let hostButton = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 12
-        preferredContentSize = CGSize(width: 300, height: 200)
-
-        setupButtons()
+        setupUI()
+        setupConstraints()
+        setupButtonAction()
+        joinButton.isHidden = true
+        hostButton.isHidden = true
     }
 
-    private func setupButtons() {
-        let startButton = UIButton(type: .system)
-        startButton.setTitle("Start Multiplayer Game", for: .normal)
-        startButton.translatesAutoresizingMaskIntoConstraints = false
+    private func setupUI() {
+        view.addSubview(pickerView)
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
 
-        let joinButton = UIButton(type: .system)
-        joinButton.setTitle("Join Multiplayer Game", for: .normal)
+        arrowButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        arrowButton.translatesAutoresizingMaskIntoConstraints = false
         joinButton.translatesAutoresizingMaskIntoConstraints = false
-
+        hostButton.translatesAutoresizingMaskIntoConstraints = false
+        joinButton.setTitle("Join Session", for: .normal)
+        hostButton.setTitle("Start Session", for: .normal)
+        view.addSubview(arrowButton)
         view.addSubview(joinButton)
-        view.addSubview(startButton)
+        view.addSubview(hostButton)
+    }
 
-        joinButton.addTarget(self, action: #selector(joinTapped), for: .touchUpInside)
-        startButton.addTarget(self, action: #selector(startTapped), for: .touchUpInside)
-
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -25),
-            startButton.widthAnchor.constraint(equalToConstant: 200),
-            startButton.heightAnchor.constraint(equalToConstant: 40)
+            pickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            joinButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            joinButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 20),
-            joinButton.widthAnchor.constraint(equalToConstant: 200),
-            joinButton.heightAnchor.constraint(equalToConstant: 40)
+            arrowButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            arrowButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+        ])
+
+        NSLayoutConstraint.activate([
+            joinButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
+            joinButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+
+            hostButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            hostButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
     }
 
-    @objc func joinTapped() {
-        dismiss(animated: true) {
-            self.onJoin?()
+    private func setupButtonAction() {
+        arrowButton.addTarget(self, action: #selector(buttonClick), for: .touchUpInside)
+        hostButton.addTarget(self, action: #selector(startSession), for: .touchUpInside)
+        joinButton.addTarget(self, action: #selector(joinSession), for: .touchUpInside)
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        isShowingOptions ? options.count : roomNames.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        isShowingOptions ? options[row] : roomNames[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedOption = isShowingOptions ? options[row] : roomNames[row]
+    }
+
+    @objc func buttonClick() {
+        if selectedOption == options[0] {
+            dismiss(animated: true) {
+                self.onStart?(nil)
+            }
+            return
+        }
+
+        isShowingOptions.toggle()
+        pickerView.reloadAllComponents()
+        joinButton.isHidden = false
+        hostButton.isHidden = false
+        arrowButton.isHidden = true
+
+        if Set(roomNames).contains(selectedOption) {
+            guard let _ = selectedOption else {
+                return
+            }
+        }
+        guard let indexSelected = options.firstIndex(where: { val in val == selectedOption }) else {
+            return
+        }
+        if indexSelected < roomNames.count {
+            selectedOption = roomNames[indexSelected]
         }
     }
-
-    @objc func startTapped() {
+    @objc func startSession() {
+        guard let roomName = selectedOption else {
+            return
+        }
+        print("start room", roomName)
         dismiss(animated: true) {
-            self.onStart?()
+            self.onStart?(roomName)
+        }
+    }
+    @objc func joinSession() {
+        guard let roomName = selectedOption else {
+            return
+        }
+        print("join room", roomName)
+        dismiss(animated: true) {
+            self.onJoin?(roomName)
         }
     }
 }

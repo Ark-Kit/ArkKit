@@ -16,5 +16,10 @@ class ArkSetUpWithoutNetwork<View, ExternalResources: ArkExternalResources>: Ark
         setup(ark.blueprint.setupFunctions)
         setup(ark.blueprint.rules)
         setup(ark.blueprint.soundMapping)
+
+        // add playersetup functions if no network
+        if ark.blueprint.networkPlayableInfo == nil {
+            setup(ark.blueprint.playerSpecificSetupFunctions)
+        }
     }
 }
