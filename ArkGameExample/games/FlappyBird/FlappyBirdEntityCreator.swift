@@ -166,7 +166,8 @@ enum FlappyBirdEntityCreator {
                                                                height: canvasHeight - topOfGapY - pipeGap),
                                                   xCoordinate: xCoordinate,
                                                   position: .bottom)
-        let scoringAreaContext = CreateScoringAreaContext(size: CGSize(width: pipeWidth, height: pipeGap), xCoordinate: xCoordinate, yCoordinate: centerOfGapY)
+        let scoringAreaContext = CreateScoringAreaContext(size: CGSize(width: pipeWidth, height: pipeGap),
+                                                          xCoordinate: xCoordinate, yCoordinate: centerOfGapY)
 
         spawnWall(with: topPipeContext, in: ecs, and: display)
         spawnWall(with: bottomPipeContext, in: ecs, and: display)

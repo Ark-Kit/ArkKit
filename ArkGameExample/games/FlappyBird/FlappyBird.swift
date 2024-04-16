@@ -72,7 +72,8 @@ extension FlappyBird {
             return
         }
 
-        guard var scoreLabelComponent = context.ecs.getComponent(ofType: RectRenderableComponent.self, for: scoreTextEntity)?.label(String(newScore)) else {
+        guard var scoreLabelComponent = context.ecs.getComponent(ofType: RectRenderableComponent.self,
+                                                                 for: scoreTextEntity)?.label(String(newScore)) else {
             assertionFailure("Unable to get score label component")
             return
         }
