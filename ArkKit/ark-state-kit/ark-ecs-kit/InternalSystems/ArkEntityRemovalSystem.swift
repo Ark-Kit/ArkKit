@@ -3,6 +3,8 @@ import Foundation
 class ArkEntityRemovalSystem: UpdateSystem {
     var active: Bool
 
+    var arkPhysicsRemovalDelegate: ArkPhysicsRemovalDelegate?
+
     init(active: Bool = true) {
         self.active = active
     }
@@ -14,6 +16,10 @@ class ArkEntityRemovalSystem: UpdateSystem {
                 continue
             }
             arkECS.removeEntity(entity)
+            guard let arkPhysicsRemovalDelegate = arkPhysicsRemovalDelegate else {
+                continue
+            }
+            arkPhysicsRemovalDelegate.removePhysicsBody(for: entity)
         }
     }
 }

@@ -160,6 +160,16 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
     }
 }
 
+extension ArkPhysicsUpdateSystem: ArkPhysicsRemovalDelegate {
+    func removePhysicsBody(for entity: Entity) {
+        scene?.removePhysicsBody(for: entity)
+    }
+}
+
+protocol ArkPhysicsRemovalDelegate {
+    func removePhysicsBody(for entity: Entity)
+}
+
 protocol PhysicsBodyCreator {
     func createPhysicsBody(for entity: Entity, with component: PhysicsComponent,
                            at position: CGPoint, scene: AbstractArkPhysicsScene) -> AbstractArkPhysicsBody?
