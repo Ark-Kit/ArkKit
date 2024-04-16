@@ -26,8 +26,7 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
     }
 
     func update(deltaTime: TimeInterval, arkECS: ArkECS) {
-        let physicsComponents = getPhysicsComponents(arkECS)
-        syncToPhysicsEngine(physicsComponents, arkECS: arkECS)
+        syncToPhysicsEngine(arkECS: arkECS)
     }
 
     private func getPhysicsComponents(_ arkECS: ArkECS) -> [(Entity, PhysicsComponent)] {
@@ -39,7 +38,8 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
         }
     }
 
-    func syncToPhysicsEngine(_ physicsComponents: [(Entity, PhysicsComponent)], arkECS: ArkECS) {
+    func syncToPhysicsEngine(arkECS: ArkECS) {
+        let physicsComponents = getPhysicsComponents(arkECS)
         for (entity, physics) in physicsComponents {
             handlePhysicsComponentRemovalIfNeeded(for: entity, using: physics, arkECS: arkECS)
 
@@ -56,6 +56,17 @@ class ArkPhysicsUpdateSystem: UpdateSystem {
                             physics: physics,
                             arkECS: arkECS)
         }
+        let gravityEntities = arkECS.getEntities(with: [GravityComponent.self])
+        for entity in gravityEntities {
+            guard let gravity = arkECS.getComponent(ofType: GravityComponent.self, for: entity) else {
+                continue }
+            updateGravity(gravity.gravityVector)
+            gravity.markForRemoval(entity: entity, ecs: arkECS)
+        }
+    }
+
+    func updateGravity(_ gravity: CGVector) {
+        scene?.setGravity(gravity)
     }
 
     private func handlePhysicsComponentRemovalIfNeeded(for entity: Entity,
