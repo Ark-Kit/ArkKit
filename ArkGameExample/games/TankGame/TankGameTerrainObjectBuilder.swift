@@ -57,7 +57,7 @@ class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImages.lake,
+            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImage.lake,
                                                            width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location)
@@ -77,7 +77,7 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
         type >= 1 && type <= 6
     }
 
-    private let stoneTypeToImageAsset: [Int: TankGameImages] = [
+    private let stoneTypeToImageAsset: [Int: TankGameImage] = [
         1: .stones_1,
         2: .stones_2,
         3: .stones_3,
@@ -113,7 +113,7 @@ class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImages.healthPack,
+            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImage.healthPack,
                                            width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location)

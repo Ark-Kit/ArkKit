@@ -38,13 +38,22 @@ class TankGameManager {
 
                 let canvasWidth = display.canvasSize.width
                 let canvasHeight = display.canvasSize.height
+
                 TankGameEntityCreator.createBackground(
-                    with: TankBackgroundCreationContext(width: canvasWidth,
-                                                        height: canvasHeight,
-                                                        zPosition: 0,
-                                                        background: [[1, 2, 3],
-                                                                     [1, 2, 3],
-                                                                     [1, 2, 3]]),
+                    with: TankBackgroundCreationContext(
+                        width: canvasWidth,
+                        height: canvasHeight,
+                        zPosition: 0,
+                        background: [
+                            [4, 7, 4, 7, 5, 8, 5, 8],
+                            [7, 4, 7, 4, 7, 4, 8, 5],
+                            [6, 9, 6, 7, 4, 7, 4, 7],
+                            [9, 6, 9, 6, 9, 6, 9, 6],
+                            [6, 9, 6, 9, 6, 9, 6, 9],
+                            [7, 4, 7, 4, 9, 6, 9, 6],
+                            [8, 5, 8, 7, 4, 7, 6, 7],
+                            [5, 8, 5, 8, 5, 4, 7, 4],
+                        ]),
                     in: ecs)
 
                 TankGameEntityCreator.createBoundaries(width: canvasWidth, height: canvasHeight, in: ecs)
@@ -88,11 +97,6 @@ class TankGameManager {
             .on(TankMoveEvent.self) { event, context in
                 self.handleTankMove(event, in: context)
             }
-            .on(TankMoveEvent.self,
-                executeIf: { _ in false }, { _ in true },
-                then: { _, _ in
-                    print("will not execute")
-                })
             .on(TankShootEvent.self) { event, context in
                 self.handleTankShoot(event, in: context)
             }
@@ -133,11 +137,9 @@ class TankGameManager {
                         position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
                         tankId: 1,
                         zPosition: 999,
-                        rotate: false
-                    ),
+                        rotate: false),
                     in: ecs,
-                    eventContext: events
-                )
+                    eventContext: events)
 
                 self.joystick1 = joystick1Entity.id
                 self.shootButton1 = shootButton1Entity.id
@@ -160,11 +162,9 @@ class TankGameManager {
                         position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
                         tankId: 2,
                         zPosition: 999,
-                        rotate: true
-                    ),
+                        rotate: true),
                     in: ecs,
-                    eventContext: events
-                )
+                    eventContext: events)
 
                 self.joystick2 = joystick2Entity.id
                 self.shootButton2 = shootButton2Entity.id
@@ -235,7 +235,7 @@ class TankGameManager {
                                                             location: CGPoint(x: canvasWidth * 2 / 3,
                                                                               y: canvasHeight * 1 / 2),
                                                             size: CGSize(width: 45, height: 45),
-                                                            zPos: 2)
+                                                            zPos: 2),
                                   ])
     }
 }
@@ -250,28 +250,32 @@ extension TankGameManager {
         let screenHeight = screenSize.height
 
         if let joystick1 = joystick1,
-           let joystick1Entity = ecs.getEntity(id: joystick1) {
+           let joystick1Entity = ecs.getEntity(id: joystick1)
+        {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8))
             ecs.upsertComponent(positionComponent, to: joystick1Entity)
         }
 
         if let joystick2 = joystick2,
-           let joystick2Entity = ecs.getEntity(id: joystick2) {
+           let joystick2Entity = ecs.getEntity(id: joystick2)
+        {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8))
             ecs.upsertComponent(positionComponent, to: joystick2Entity)
         }
 
         if let shootButton1 = shootButton1,
-           let shootButton1Entity = ecs.getEntity(id: shootButton1) {
+           let shootButton1Entity = ecs.getEntity(id: shootButton1)
+        {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8))
             ecs.upsertComponent(positionComponent, to: shootButton1Entity)
         }
 
         if let shootButton2 = shootButton2,
-           let shootButton2Entity = ecs.getEntity(id: shootButton2) {
+           let shootButton2Entity = ecs.getEntity(id: shootButton2)
+        {
             let positionComponent = PositionComponent(
                 position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8))
             ecs.upsertComponent(positionComponent, to: shootButton2Entity)
@@ -297,7 +301,13 @@ extension TankGameManager {
                   for: tankEntity),
               var tankRotationComponent = ecs.getComponent(
                   ofType: RotationComponent.self,
-                  for: tankEntity)
+                  for: tankEntity),
+            var tankPositionComponent = ecs.getComponent(
+                ofType: PositionComponent.self,
+                for: tankEntity),
+            var tankTrackPrintGeneratorComponent = ecs.getComponent(
+                ofType: TankTrackPrintGeneratorComponent.self,
+                for: tankEntity)
         else {
             return
         }
@@ -318,6 +328,44 @@ extension TankGameManager {
             tankPhysicsComponent.isDynamic = true
             tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
             ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
+            
+            // Query all track prints and decrease their lifetime
+            let trackPrintEntities = ecs.getEntities(with: [TankTrackPrintComponent.self])
+            
+            for trackPrintEntity in trackPrintEntities {
+                guard let trackPrintComponent = ecs.getComponent(ofType: TankTrackPrintComponent.self, for: trackPrintEntity) else {
+                    continue;
+                }
+                
+                guard var bitmapComponent = ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: trackPrintEntity) else {
+                    continue;
+                }
+                
+                // update opacity
+                bitmapComponent.opacity = max(0, trackPrintComponent.remainingLifetime) / 500
+                
+                let updatedTrackPrintComponent = TankTrackPrintComponent(
+                    remainingLifetime: trackPrintComponent.remainingLifetime - tankMoveEventData.magnitude)
+                
+                if updatedTrackPrintComponent.remainingLifetime <= 0 {
+                    ecs.removeEntity(trackPrintEntity)
+                } else {
+                    ecs.upsertComponent(updatedTrackPrintComponent, to: trackPrintEntity)
+                }
+            }
+            
+            // Update track print generator
+            tankTrackPrintGeneratorComponent.distanceToNextPrint -= tankMoveEventData.magnitude
+            
+            if tankTrackPrintGeneratorComponent.distanceToNextPrint <= 0 {
+                // Create track print
+                TankGameEntityCreator.createTrackPrints(with: TrackPrintCreationContext(position: tankPositionComponent.position, rotation: tankRotationComponent.angleInRadians ?? 0, remainingLifetime: 5000), in: context.ecs)
+                
+                // Reset generator
+                tankTrackPrintGeneratorComponent.reset()
+            }
+            
+            ecs.upsertComponent(tankTrackPrintGeneratorComponent, to: tankEntity)
         }
     }
 
@@ -349,7 +397,7 @@ extension TankGameManager {
                                    dy: ballVelocity * dy),
                 angle: tankRotationComponent.angleInRadians ?? 0,
                 zPosition: 5),
-                in: ecs)
+            in: ecs)
         FiringAnimation(perFrameDuration: 0.1).create(in: ecs, at: firingPosition)
         context.audio.play(.shoot)
     }
@@ -431,7 +479,8 @@ extension TankGameManager {
         let eventData = event.eventData
         let tankEntity = eventData.tankEntity
         guard let tankHpComponent = context.ecs.getComponent(ofType: TankHpComponent.self, for: tankEntity),
-              tankHpComponent.hp <= 0 else {
+              tankHpComponent.hp <= 0
+        else {
             return
         }
         tankHpComponent.markForRemoval(entity: tankEntity, ecs: context.ecs)

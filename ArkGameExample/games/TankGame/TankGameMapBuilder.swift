@@ -39,13 +39,14 @@ class TankGameMapBuilder {
         return (0..<rows).map { row in
             (0..<cols).map { col in
                 let patternIndex = (col / (cols / patterns.count)) % patterns.count
-                return patterns[patternIndex][row % patterns[patternIndex].count]
+                return patterns[0][0]
             }
         }
     }
 
     func buildMap(rows: Int, cols: Int) {
         let array = createTileGrid(rows: rows, cols: cols)
+        print("array:\n\(array))")
         buildMap(from: array)
     }
 
@@ -79,59 +80,59 @@ class TankGameMapBuilder {
 }
 
 protocol TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages?
+    func imageResourcePath(forValue value: Int) -> TankGameImage?
 }
 
 class TankGameMap1Strategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 1 ? .map_1 : nil
     }
 }
 
 class TankGameMap2Strategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 2 ? .map_2 : nil
     }
 }
 
 class TankGameMap3Strategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 3 ? .map_3 : nil
     }
 }
 
 class TankGameTile1AStrategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 4 ? .Ground_Tile_01_A : nil
     }
 }
 
 class TankGameTile1BStrategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 5 ? .Ground_Tile_01_B : nil
     }
 }
 
 class TankGameTile1CStrategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 6 ? .Ground_Tile_01_C : nil
     }
 }
 
 class TankGameTile2AStrategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 7 ? .Ground_Tile_02_A : nil
     }
 }
 
 class TankGameTile2BStrategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 8 ? .Ground_Tile_02_B : nil
     }
 }
 
 class TankGameTile2CStrategy: TankGameTerrainStrategy {
-    func imageResourcePath(forValue value: Int) -> TankGameImages? {
+    func imageResourcePath(forValue value: Int) -> TankGameImage? {
         value == 9 ? .Ground_Tile_02_C : nil
     }
 }

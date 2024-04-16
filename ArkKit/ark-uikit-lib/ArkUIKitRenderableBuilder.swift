@@ -7,6 +7,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         UIKitCircle(radius: circle.radius, center: circle.center)
             .rotate(by: circle.rotation)
             .zPosition(circle.zPosition)
+            .opacity(circle.opacity)
             .setIsUserInteractionEnabled(circle.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: circle, colorGetter: getColor)
     }
@@ -15,6 +16,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         UIKitRect(width: rect.width, height: rect.height, center: rect.center)
             .rotate(by: rect.rotation)
             .zPosition(rect.zPosition)
+            .opacity(rect.opacity)
             .setIsUserInteractionEnabled(rect.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: rect, colorGetter: getColor)
     }
@@ -23,6 +25,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         UIKitPolygon(points: polygon.points, frame: polygon.frame)
             .rotate(by: polygon.rotation)
             .zPosition(polygon.zPosition)
+            .opacity(polygon.opacity)
             .setIsUserInteractionEnabled(polygon.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: polygon, colorGetter: getColor)
     }
@@ -34,6 +37,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
                          height: image.height)
         .rotate(by: image.rotation)
         .zPosition(image.zPosition)
+        .opacity(image.opacity)
         .setIsUserInteractionEnabled(image.isUserInteractionEnabled)
         .applyModifiers(modifierInfo: image)
     }
@@ -42,6 +46,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         UIKitButton(width: button.width, height: button.height, center: button.center)
             .rotate(by: button.rotation)
             .zPosition(button.zPosition)
+            .opacity(button.opacity)
             .setIsUserInteractionEnabled(button.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: button)
             .style(button.buttonStyleConfig, colorGetter: getColor)
@@ -51,6 +56,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         UIKitJoystick(center: joystick.center, radius: joystick.radius)
             .rotate(by: joystick.rotation)
             .zPosition(joystick.zPosition)
+            .opacity(joystick.opacity)
             .setIsUserInteractionEnabled(joystick.isUserInteractionEnabled)
             .applyModifiers(modifierInfo: joystick)
     }
@@ -59,6 +65,7 @@ class ArkUIKitRenderableBuilder: RenderableBuilder {
         UIKitCamera(frame: container.frame)
             .zPosition(container.zPosition)
             .rotate(by: container.rotation)
+            .opacity(container.opacity)
             .setIsUserInteractionEnabled(container.isUserInteractionEnabled)
             .addToContainer(
                 container.renderableComponents.map { comp in
