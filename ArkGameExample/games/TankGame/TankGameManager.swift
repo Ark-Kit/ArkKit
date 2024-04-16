@@ -114,63 +114,61 @@ class TankGameManager {
     }
 
     func setUpPlayers() {
-        blueprint = blueprint.supportNetworkMultiPlayer(
-            roomName: "TankFightGame", numberOfPlayers: 2
-        )
-        .setupPlayer { context in
-            let ecs = context.ecs
-            let events = context.events
-            let screenWidth = context.display.screenSize.width
-            let screenHeight = context.display.screenSize.height
+        blueprint = blueprint
+            .setupPlayer { context in
+                let ecs = context.ecs
+                let events = context.events
+                let screenWidth = context.display.screenSize.width
+                let screenHeight = context.display.screenSize.height
 
-            let joystick1Entity = TankGameEntityCreator.createJoyStick(
-                center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
-                tankId: 1,
-                in: ecs,
-                eventContext: events,
-                zPosition: 999)
-
-            let shootButton1Entity = TankGameEntityCreator.createShootButton(
-                with: TankShootButtonCreationContext(
-                    position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
+                let joystick1Entity = TankGameEntityCreator.createJoyStick(
+                    center: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 7 / 8),
                     tankId: 1,
-                    zPosition: 999,
-                    rotate: false
-                ),
-                in: ecs,
-                eventContext: events
-            )
+                    in: ecs,
+                    eventContext: events,
+                    zPosition: 999)
 
-            self.joystick1 = joystick1Entity.id
-            self.shootButton1 = shootButton1Entity.id
-        }
-        .setupPlayer { context in
-            let ecs = context.ecs
-            let events = context.events
-            let screenWidth = context.display.screenSize.width
-            let screenHeight = context.display.screenSize.height
+                let shootButton1Entity = TankGameEntityCreator.createShootButton(
+                    with: TankShootButtonCreationContext(
+                        position: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 7 / 8),
+                        tankId: 1,
+                        zPosition: 999,
+                        rotate: false
+                    ),
+                    in: ecs,
+                    eventContext: events
+                )
 
-            let joystick2Entity = TankGameEntityCreator.createJoyStick(
-                center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
-                tankId: 2,
-                in: ecs,
-                eventContext: events,
-                zPosition: 999)
+                self.joystick1 = joystick1Entity.id
+                self.shootButton1 = shootButton1Entity.id
+            }
+            .setupPlayer { context in
+                let ecs = context.ecs
+                let events = context.events
+                let screenWidth = context.display.screenSize.width
+                let screenHeight = context.display.screenSize.height
 
-            let shootButton2Entity = TankGameEntityCreator.createShootButton(
-                with: TankShootButtonCreationContext(
-                    position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
+                let joystick2Entity = TankGameEntityCreator.createJoyStick(
+                    center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
                     tankId: 2,
-                    zPosition: 999,
-                    rotate: true
-                ),
-                in: ecs,
-                eventContext: events
-            )
+                    in: ecs,
+                    eventContext: events,
+                    zPosition: 999)
 
-            self.joystick2 = joystick2Entity.id
-            self.shootButton2 = shootButton2Entity.id
-        }
+                let shootButton2Entity = TankGameEntityCreator.createShootButton(
+                    with: TankShootButtonCreationContext(
+                        position: CGPoint(x: screenWidth * 1 / 6, y: screenHeight * 1 / 8),
+                        tankId: 2,
+                        zPosition: 999,
+                        rotate: true
+                    ),
+                    in: ecs,
+                    eventContext: events
+                )
+
+                self.joystick2 = joystick2Entity.id
+                self.shootButton2 = shootButton2Entity.id
+            }
     }
 
     private func createTankTerrainEntities(ecs: ArkECSContext, canvasWidth: Double, canvasHeight: Double) {
