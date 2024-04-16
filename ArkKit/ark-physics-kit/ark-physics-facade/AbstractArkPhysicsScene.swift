@@ -20,4 +20,5 @@ protocol AbstractArkPhysicsScene {
     func removePhysicsBody(for entity: Entity)
     func apply(impulse: CGVector, to entity: Entity)
     func apply(angularImpulse: CGFloat, to entity: Entity)
+    func setGravity(_ gravity: CGVector)
 }
