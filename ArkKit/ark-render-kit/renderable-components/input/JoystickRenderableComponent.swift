@@ -4,6 +4,7 @@ struct JoystickRenderableComponent: AbstractPannable, RenderableComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var opacity: Double = 1.0
     var isUserInteractionEnabled = true
     var renderLayer: RenderLayer = .canvas
     var shouldRerenderDelegate: ShouldRerenderDelegate?

@@ -1,6 +1,6 @@
 import Foundation
 
-struct TankSpecification {
+struct TankPropSpecification {
     var type: Int
     var location: CGPoint
     var size: CGSize
@@ -27,7 +27,7 @@ class TankGameTerrainObjectBuilder {
         strategies.append(strategy)
     }
 
-    func buildObjects(from specifications: [TankSpecification]) {
+    func buildObjects(from specifications: [TankPropSpecification]) {
         for spec in specifications {
             for strategy in strategies where strategy.canHandleType(spec.type) {
                 strategy.createObject(type: spec.type,
@@ -57,7 +57,7 @@ class TankGameLakeStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImages.lake,
+            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImage.lake,
                                                            width: size.width, height: size.height)
             .zPosition(zPos)
             .center(location)
@@ -77,7 +77,7 @@ class TankGameStoneStrategy: TankGameTerrainObjectStrategy {
         type >= 1 && type <= 6
     }
 
-    private let stoneTypeToImageAsset: [Int: TankGameImages] = [
+    private let stoneTypeToImageAsset: [Int: TankGameImage] = [
         1: .stones_1,
         2: .stones_2,
         3: .stones_3,
@@ -113,10 +113,11 @@ class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImages.healthPack,
-                                                           width: size.width, height: size.height)
+            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImage.healthPack,
+                                           width: size.width, height: size.height)
             .zPosition(zPos)
-            .center(location),
+            .center(location)
+            .scaleAspectFill(),
             PositionComponent(position: location),
             RotationComponent(angleInRadians: 0),
             PhysicsComponent(shape: .circle, radius: size.width / 2, mass: 1, isDynamic: false, allowsRotation: false,

@@ -1,4 +1,4 @@
-enum TankGameImages: String {
+enum TankGameImage: String {
     // Background map
     case map_1
     case map_2
@@ -15,18 +15,20 @@ enum TankGameImages: String {
     // Interactable environment objects
     case lake
     case stones_1
-    case stones_2
+    case stones_2 = "barrel_01"
     case stones_3
-    case stones_4
+    case stones_4 = "barrel_02"
     case stones_5
-    case stones_6
+    case stones_6 = "well"
 
     // Tank
-    case ball
+    case ball = "medium_shell"
     case tank_1
     case tank_2
     case tank_3
     case tank_4
+    case tire_track_1
+    case tire_track_2
 
     // Powerups
     case healthPack = "health-red"

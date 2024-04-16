@@ -1,5 +1,5 @@
 class TankRaceGameTerrainObjectBuilder: TankGameTerrainObjectBuilder {
-    override func buildObjects(from specifications: [TankSpecification]) {
+    override func buildObjects(from specifications: [TankPropSpecification]) {
         for spec in specifications {
             for strategy in strategies where strategy.canHandleType(spec.type) {
                 let entity = strategy.createObject(type: spec.type,

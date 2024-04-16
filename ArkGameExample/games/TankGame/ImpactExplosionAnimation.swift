@@ -20,12 +20,13 @@ struct ImpactExplosionAnimation {
         self.height = height
     }
 
-    private func makeBitmapComponent(imageResourcePath: TankGameExplosionAnimationKeyframes) ->
+    private func makeBitmapComponent(imageResourcePath: TankGameExplosionAnimationKeyframes, position: CGPoint) ->
     BitmapImageRenderableComponent {
         BitmapImageRenderableComponent(
             arkImageResourcePath: imageResourcePath,
             width: width,
             height: height)
+        .center(position)
         .scaleAspectFill()
         .zPosition(100)
         .shouldRerender { old, new in
@@ -45,7 +46,8 @@ struct ImpactExplosionAnimation {
 
                 var bitmapComponent = ecs.getComponent(ofType: BitmapImageRenderableComponent.self,
                                                        for: entity) ?? makeBitmapComponent(
-                                                        imageResourcePath: imageResourcePath)
+                                                        imageResourcePath: imageResourcePath,
+                                                        position: position)
 
                 bitmapComponent.imageResourcePath = imageResourcePath.rawValue
 
@@ -61,7 +63,7 @@ struct ImpactExplosionAnimation {
         animationsComponent.addAnimation(animationInstance)
         ecs.upsertComponent(animationsComponent, to: entity)
 
-        let bitmapComponent = makeBitmapComponent(imageResourcePath: .Sprite_Effects_Explosion_001)
+        let bitmapComponent = makeBitmapComponent(imageResourcePath: .Sprite_Effects_Explosion_001, position: position)
         ecs.upsertComponent(bitmapComponent, to: entity)
     }
 }

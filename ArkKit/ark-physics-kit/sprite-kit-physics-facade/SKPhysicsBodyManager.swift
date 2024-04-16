@@ -16,7 +16,6 @@ class SKPhysicsBodyManager {
 
     func removeBody(for entity: Entity) {
         guard let body = entityToPhysicsBodyMap.removeValue(forKey: entity) else {
-            assertionFailure("Entity does not exist.")
             return
         }
         nodeToEntityMap.removeValue(forKey: body.node)

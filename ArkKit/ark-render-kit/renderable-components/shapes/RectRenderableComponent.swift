@@ -6,6 +6,7 @@ struct RectRenderableComponent: ShapeRenderableComponent {
     var center: CGPoint = .zero
     var rotation: Double = 0.0
     var zPosition: Double = 0.0
+    var opacity: Double = 1.0
     var isUserInteractionEnabled = false
     var renderLayer: RenderLayer = .canvas
     var shouldRerenderDelegate: ShouldRerenderDelegate?
