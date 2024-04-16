@@ -1,6 +1,6 @@
 import Foundation
 
-protocol AbstractNetworkService {
+protocol AbstractNetworkService: AnyObject {
     var subscriber: ArkNetworkSubscriberDelegate? { get set }
     var publisher: ArkNetworkPublisherDelegate? { get set }
 
@@ -10,4 +10,5 @@ protocol AbstractNetworkService {
     init(serviceName: String)
     func sendData(data: Data)
     func sendData(_ data: Data, to peerName: String)
+    func disconnect()
 }

@@ -16,7 +16,7 @@ class ArkNetworkService: AbstractNetworkService {
 
     required init(serviceName: String = "Ark") {
         let config = MultipeerSessionConfig(myPeerInfo: myPeerInfo,
-                                            bonjourService: "_ArkMultiplayer._tcp",
+                                            bonjourService: "_\(serviceName)_ArkMultiplayer._tcp",
                                             presharedKey: "12345",
                                             identity: "testing")
         self.session = MultipeerSession(config: config, queue: .main)
@@ -66,5 +66,9 @@ class ArkNetworkService: AbstractNetworkService {
         }
 
         session.send(to: peerInfo.peerID, data: data)
+    }
+
+    func disconnect() {
+        session.stopSharing()
     }
 }

@@ -2,14 +2,14 @@ import Foundation
 
 class ArkHostNetworkSubscriber: ArkNetworkSubscriberDelegate {
     // network related dependencies
-    var networkService: AbstractNetworkService
+    weak var networkService: AbstractNetworkService?
 
     // inject dependency
     weak var localState: ArkState?
 
     init(subscribeTo networkService: AbstractNetworkService) {
         self.networkService = networkService
-        self.networkService.subscriber = self
+        self.networkService?.subscriber = self
     }
 
     func onListen(_ data: Data) {
@@ -29,7 +29,6 @@ class ArkHostNetworkSubscriber: ArkNetworkSubscriberDelegate {
     }
 
     private func processEvent(event: any ArkEvent) {
-        print("host listening to event from participant")
         localState?.eventManager.emit(event)
     }
 }

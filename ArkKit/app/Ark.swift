@@ -36,6 +36,7 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
     // network dependencies
     var participantSubscriber: ArkParticipantNetworkSubscriber?
     var hostSubscriber: ArkHostNetworkSubscriber?
+    var networkService: ArkNetworkService?
 
     init(rootView: any AbstractRootView<View>,
          blueprint: ArkBlueprint<ExternalResources>,
@@ -72,6 +73,11 @@ class Ark<View, ExternalResources: ArkExternalResources>: ArkProtocol {
                                                        gameLoop: gameLoop,
                                                        canvasRenderer: canvasRenderableBuilder)
         gameCoordinator.start()
+    }
+
+    func finish() {
+        networkService?.disconnect()
+        gameLoop?.shutDown()
     }
 
     private func alignCamera() {
