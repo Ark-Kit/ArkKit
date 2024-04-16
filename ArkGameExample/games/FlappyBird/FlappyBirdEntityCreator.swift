@@ -18,8 +18,7 @@ enum FlappyBirdEntityCreator {
         let radius: Double = 20
 
         return ecs.createEntity(with: [
-            CircleRenderableComponent(radius: radius)
-                .fill(color: .red)
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImages.character, width: radius * 2, height: radius * 2)
                 .zPosition(1)
                 .layer(.canvas),
             PositionComponent(position: characterStartingPosition),
@@ -29,9 +28,27 @@ enum FlappyBirdEntityCreator {
                              linearDamping: 10,
                              impulse: impulseValue,
                              categoryBitMask: FlappyBirdPhysicsCategory.character,
-                             collisionBitMask: FlappyBirdPhysicsCategory.none,
-                             contactTestBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.ceiling | FlappyBirdPhysicsCategory.scoringArea),
+                             collisionBitMask: FlappyBirdPhysicsCategory.ceiling,
+                             contactTestBitMask: FlappyBirdPhysicsCategory.wall | FlappyBirdPhysicsCategory.scoringArea),
             FlappyBirdCharacterTag(characterId: characterId)
+        ])
+    }
+
+    @discardableResult
+    static func createBackground(context: ArkSetupContext) -> Entity {
+        let ecs = context.ecs
+        let display = context.display
+
+        let canvasWidth = display.canvasSize.width
+        let canvasHeight = display.canvasSize.height
+        let canvasCenter = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
+
+        return ecs.createEntity(with: [
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImages.background,
+                                           width: canvasWidth, height: canvasHeight)
+            .center(canvasCenter)
+            .zPosition(0)
+            .layer(.canvas)
         ])
     }
 
@@ -57,21 +74,45 @@ enum FlappyBirdEntityCreator {
         ])
     }
 
-    static func setupGroundAndSkyWalls(context: ArkSetupContext) {
+    @discardableResult
+    static func spawnBase(context: ArkSetupContext) -> Entity {
+        let canvasWidth = context.display.canvasSize.width
+        let canvasHeight = context.display.canvasSize.height
+        let size = CGSize(width: canvasWidth, height: groundAndSkyWallHeight)
+        let xCoordinate = canvasWidth / 2
+        let position = CGPoint(x: xCoordinate, y: canvasHeight - size.height / 2)
+
+        return context.ecs.createEntity(with: [
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImages.base, width: size.width, height: size.height)
+                .zPosition(3),
+            PositionComponent(position: position),
+            RotationComponent(),
+            PhysicsComponent(shape: .rectangle, size: size,
+                             isDynamic: false,
+                             categoryBitMask: FlappyBirdPhysicsCategory.wall,
+                             collisionBitMask: FlappyBirdPhysicsCategory.none,
+                             contactTestBitMask: FlappyBirdPhysicsCategory.character)
+
+        ])
+    }
+
+    @discardableResult
+    static func spawnCeiling(context: ArkSetupContext) -> Entity {
         let canvasWidth = context.display.canvasSize.width
         let size = CGSize(width: canvasWidth, height: groundAndSkyWallHeight)
         let xCoordinate = canvasWidth / 2
+        let position = CGPoint(x: xCoordinate, y: size.height / 2)
 
-        let topWallContext = CreateWallContext(size: size,
-                                               xCoordinate: xCoordinate,
-                                               position: .top,
-                                               physicsType: FlappyBirdPhysicsCategory.ceiling)
-        let bottomWallContext = CreateWallContext(size: size,
-                                                  xCoordinate: xCoordinate,
-                                                  position: .bottom)
+        return context.ecs.createEntity(with: [
+            PositionComponent(position: position),
+            RotationComponent(),
+            PhysicsComponent(shape: .rectangle, size: size,
+                             isDynamic: false,
+                             categoryBitMask: FlappyBirdPhysicsCategory.ceiling,
+                             collisionBitMask: FlappyBirdPhysicsCategory.character,
+                             contactTestBitMask: FlappyBirdPhysicsCategory.character)
 
-        spawnWall(with: topWallContext, in: context.ecs, and: context.display)
-        spawnWall(with: bottomWallContext, in: context.ecs, and: context.display)
+        ])
     }
 
     static func spawnPairPipes(context: FlappyBirdActionContext) {
@@ -91,25 +132,22 @@ enum FlappyBirdEntityCreator {
         let centerOfGapY = topOfGapY + pipeGap / 2
         let xCoordinate = canvasWidth + pipeWidth / 2
 
-        let topWallContext = CreateWallContext(size: CGSize(width: pipeWidth, height: topOfGapY),
+        let topPipeContext = CreatePipeContext(size: CGSize(width: pipeWidth, height: topOfGapY),
                                                xCoordinate: xCoordinate,
-                                               position: .top,
-                                               isPipe: true)
-        let bottomWallContext = CreateWallContext(size: CGSize(width: pipeWidth,
+                                               position: .top)
+        let bottomPipeContext = CreatePipeContext(size: CGSize(width: pipeWidth,
                                                                height: canvasHeight - topOfGapY - pipeGap),
                                                   xCoordinate: xCoordinate,
-                                                  position: .bottom,
-                                                  isPipe: true)
+                                                  position: .bottom)
         let scoringAreaContext = CreateScoringAreaContext(size: CGSize(width: pipeWidth, height: pipeGap), xCoordinate: xCoordinate, yCoordinate: centerOfGapY)
 
-        spawnWall(with: topWallContext, in: ecs, and: display)
-        spawnWall(with: bottomWallContext, in: ecs, and: display)
+        spawnWall(with: topPipeContext, in: ecs, and: display)
+        spawnWall(with: bottomPipeContext, in: ecs, and: display)
         spawnScoringArea(with: scoringAreaContext, in: ecs, and: display)
     }
 }
 
 // MARK: Helpers
-
 extension FlappyBirdEntityCreator {
     private static let pipeVelocity = CGVector(dx: -100, dy: 0)
 
@@ -117,24 +155,15 @@ extension FlappyBirdEntityCreator {
         case top, bottom
     }
 
-    private struct CreateWallContext {
+    private struct CreatePipeContext {
         let size: CGSize
         let xCoordinate: Double
         let position: FlappyBirdWallPosition
-        let physicsType: UInt32
-        let isPipe: Bool
 
-        init(size: CGSize,
-             xCoordinate: Double,
-             position: FlappyBirdWallPosition,
-             physicsType: UInt32 = FlappyBirdPhysicsCategory.wall,
-             isPipe: Bool = false)
-        {
+        init(size: CGSize, xCoordinate: Double, position: FlappyBirdWallPosition) {
             self.size = size
             self.xCoordinate = xCoordinate
             self.position = position
-            self.physicsType = physicsType
-            self.isPipe = isPipe
         }
     }
 
@@ -144,43 +173,37 @@ extension FlappyBirdEntityCreator {
         let yCoordinate: Double
     }
 
-    private static func spawnWall(with createWallContext: CreateWallContext,
+    private static func spawnWall(with createPipeContext: CreatePipeContext,
                                   in ecs: ArkECSContext,
-                                  and display: DisplayContext)
-    {
-        let size = createWallContext.size
-        let xCoordinate = createWallContext.xCoordinate
-        let position = createWallContext.position
-        let physicsType = createWallContext.physicsType
-        let isPipe = createWallContext.isPipe
-        let isDynamic = createWallContext.isPipe
+                                  and display: DisplayContext) {
+        let size = createPipeContext.size
+        let xCoordinate = createPipeContext.xCoordinate
+        let position = createPipeContext.position
 
         let positionPoint = position == .top
             ? CGPoint(x: xCoordinate, y: size.height / 2)
             : CGPoint(x: xCoordinate, y: display.canvasSize.height - size.height / 2)
 
-        let wall = ecs.createEntity(with: [
-            RectRenderableComponent(width: size.width, height: size.height)
-                .fill(color: .white),
+        let rotation = position == .top ? Double.pi : 0
+
+        ecs.createEntity(with: [
+            FlappyBirdPipeTag(),
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImages.pipe, width: size.width, height: size.height)
+                .zPosition(2)
+                .rotation(rotation),
             PositionComponent(position: positionPoint),
-            RotationComponent(),
+            RotationComponent(angleInRadians: rotation),
             PhysicsComponent(shape: .rectangle, size: size,
-                             velocity: isPipe ? pipeVelocity : .zero,
-                             isDynamic: isDynamic,
-                             categoryBitMask: physicsType,
+                             velocity: pipeVelocity,
+                             categoryBitMask: FlappyBirdPhysicsCategory.wall,
                              collisionBitMask: FlappyBirdPhysicsCategory.none,
                              contactTestBitMask: FlappyBirdPhysicsCategory.character)
         ])
-
-        if isPipe {
-            ecs.upsertComponent(FlappyBirdPipeTag(), to: wall)
-        }
     }
 
     private static func spawnScoringArea(with createScoringAreaContext: CreateScoringAreaContext,
                                          in ecs: ArkECSContext,
-                                         and display: DisplayContext)
-    {
+                                         and display: DisplayContext) {
         let size = createScoringAreaContext.size
         let xCoordinate = createScoringAreaContext.xCoordinate
         let yCoordinate = createScoringAreaContext.yCoordinate
@@ -188,7 +211,8 @@ extension FlappyBirdEntityCreator {
 
         ecs.createEntity(with: [
             RectRenderableComponent(width: size.width, height: size.height)
-                .fill(color: .red),
+                .fill(color: .red)
+                .zPosition(3),
             PositionComponent(position: positionPoint),
             RotationComponent(),
             PhysicsComponent(shape: .rectangle, size: size,

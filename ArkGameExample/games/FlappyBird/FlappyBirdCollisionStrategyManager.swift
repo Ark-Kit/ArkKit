@@ -25,12 +25,12 @@ class CharacterWallCollisionStrategy: CollisionHandlingStrategy {
                               bitMaskA: UInt32, bitMaskB: UInt32,
                               in context: FlappyBirdActionContext) {
         let characterId = context.ecs.getComponent(ofType: FlappyBirdCharacterTag.self, for: entityA)?.characterId
-        
+
         guard let characterId else {
             assertionFailure("CharacterWallCollisionStrategy: characterId is nil")
             return
         }
-    
+
         context.events.emit(FlappyBirdWallHitEvent(eventData: FlappyBirdWallHitEventData(name: "FlappyBirdWallHit", characterId: characterId)))
     }
 

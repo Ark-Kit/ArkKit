@@ -37,23 +37,22 @@ extension FlappyBird {
                 self.handleWallHit(event, in: context)
             }
     }
-    
+
     private func handleWallHit(_ event: FlappyBirdWallHitEvent, in context: FlappyBirdActionContext) {
         let characterId = event.eventData.characterId
         let characterEntity = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
             .first {
                 context.ecs.getComponent(ofType: FlappyBirdCharacterTag.self, for: $0)?.characterId == characterId
-                
             }
-        
+
         guard let characterEntity else {
             assertionFailure("Unable to get character entity for characterId: \(characterId)")
             return
         }
-        
+
         context.ecs.removeEntity(characterEntity)
     }
-   
+
     private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: FlappyBirdActionContext) {
         let eventData = event.eventData
 
@@ -83,8 +82,9 @@ extension FlappyBird {
     private func setupScene() {
         blueprint = blueprint
             .setup { context in
-                FlappyBirdEntityCreator.setupGroundAndSkyWalls(context: context)
-
+                FlappyBirdEntityCreator.createBackground(context: context)
+                FlappyBirdEntityCreator.spawnBase(context: context)
+                FlappyBirdEntityCreator.spawnCeiling(context: context)
                 FlappyBirdEntityCreator.createCharacter(context: context, characterId: 1)
             }
     }
@@ -132,14 +132,14 @@ extension FlappyBird {
                 ecs.upsertComponent(gameTickComponent, to: gameTickEntities[0])
             }
     }
-    
+
     private func setupWinLoseConditions() {
         blueprint = blueprint
             .forEachTick { timeContext, actionContext in
                 let ecs = actionContext.ecs
                 let characters = ecs.getEntities(with: [FlappyBirdCharacterTag.self])
 
-                if characters.count <= 0 {
+                if characters.isEmpty {
                     let eventData = TerminateGameLoopEventData(timeInGame: timeContext.clockTimeInSecondsGame)
                     actionContext.events.emit(TerminateGameLoopEvent(eventData: eventData))
                 }
@@ -173,29 +173,28 @@ extension FlappyBird {
     private func handleTapEvent(_ event: FlappyBirdTapEvent, in context: FlappyBirdActionContext) {
         let ecs = context.ecs
         let tapEventData = event.eventData
-        
-        
+
         let characters = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
-        
+
         var movedCharacter: Entity? {
             for character in characters {
                 let characterTag = context.ecs.getComponent(ofType: FlappyBirdCharacterTag.self, for: character)
-                
+
                 if characterTag?.characterId == tapEventData.characterId {
                     return character
                 }
             }
-            
+
             return nil
         }
-        
+
         guard let movedCharacter else {
             assertionFailure("Unable to get character entity for id: \(tapEventData.characterId)")
             return
         }
 
         var characterPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self, for: movedCharacter)
-        
+
         guard var characterPhysicsComponent else {
             assertionFailure("Unable to get PhysicsComponent for character id: \(tapEventData.characterId)")
             return
