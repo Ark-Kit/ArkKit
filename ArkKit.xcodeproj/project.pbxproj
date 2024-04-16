@@ -184,9 +184,10 @@
 		28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */; };
 		28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */; };
 		28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */; };
-		28E65AE12BCE5DE300AF69B4 /* barell_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65ADE2BCE5DE300AF69B4 /* barell_03.png */; };
-		28E65AE22BCE5DE300AF69B4 /* barell_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65ADF2BCE5DE300AF69B4 /* barell_02.png */; };
-		28E65AE32BCE5DE300AF69B4 /* barell_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65AE02BCE5DE300AF69B4 /* barell_01.png */; };
+		28E65ADC2BCE549C00AF69B4 /* GravityComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65ADB2BCE549C00AF69B4 /* GravityComponent.swift */; };
+		28E65AE12BCE5DE300AF69B4 /* barrel_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65ADE2BCE5DE300AF69B4 /* barrel_03.png */; };
+		28E65AE22BCE5DE300AF69B4 /* barrel_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65ADF2BCE5DE300AF69B4 /* barrel_02.png */; };
+		28E65AE32BCE5DE300AF69B4 /* barrel_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65AE02BCE5DE300AF69B4 /* barrel_01.png */; };
 		28E65AEF2BCE629500AF69B4 /* Flash_A_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65AEA2BCE629400AF69B4 /* Flash_A_02.png */; };
 		28E65AF02BCE629500AF69B4 /* Flash_A_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65AEB2BCE629400AF69B4 /* Flash_A_01.png */; };
 		28E65AF12BCE629500AF69B4 /* Flash_A_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65AEC2BCE629400AF69B4 /* Flash_A_05.png */; };
@@ -195,7 +196,6 @@
 		28E65AF52BCE631C00AF69B4 /* FiringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65AF42BCE631C00AF69B4 /* FiringAnimation.swift */; };
 		28E65AF72BCE65A000AF69B4 /* well.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65AF62BCE65A000AF69B4 /* well.png */; };
 		28E65B032BCE672700AF69B4 /* medium_shell.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B022BCE672700AF69B4 /* medium_shell.png */; };
-		28E65ADC2BCE549C00AF69B4 /* GravityComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65ADB2BCE549C00AF69B4 /* GravityComponent.swift */; };
 		28E65B052BCE995800AF69B4 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65B042BCE995800AF69B4 /* CGPoint+Extension.swift */; };
 		28EFCB1B2BCC36EB0059A908 /* P2PShare in Frameworks */ = {isa = PBXBuildFile; productRef = ADA847F32BBC11F400B19378 /* P2PShare */; };
 		28EFCB1D2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */; };
@@ -515,9 +515,10 @@
 		28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManagerTests.swift; sourceTree = "<group>"; };
 		28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsKitTests.swift; sourceTree = "<group>"; };
-		28E65ADE2BCE5DE300AF69B4 /* barell_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barell_03.png; sourceTree = "<group>"; };
-		28E65ADF2BCE5DE300AF69B4 /* barell_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barell_02.png; sourceTree = "<group>"; };
-		28E65AE02BCE5DE300AF69B4 /* barell_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barell_01.png; sourceTree = "<group>"; };
+		28E65ADB2BCE549C00AF69B4 /* GravityComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityComponent.swift; sourceTree = "<group>"; };
+		28E65ADE2BCE5DE300AF69B4 /* barrel_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrel_03.png; sourceTree = "<group>"; };
+		28E65ADF2BCE5DE300AF69B4 /* barrel_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrel_02.png; sourceTree = "<group>"; };
+		28E65AE02BCE5DE300AF69B4 /* barrel_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrel_01.png; sourceTree = "<group>"; };
 		28E65AEA2BCE629400AF69B4 /* Flash_A_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flash_A_02.png; sourceTree = "<group>"; };
 		28E65AEB2BCE629400AF69B4 /* Flash_A_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flash_A_01.png; sourceTree = "<group>"; };
 		28E65AEC2BCE629400AF69B4 /* Flash_A_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flash_A_05.png; sourceTree = "<group>"; };
@@ -526,7 +527,6 @@
 		28E65AF42BCE631C00AF69B4 /* FiringAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiringAnimation.swift; sourceTree = "<group>"; };
 		28E65AF62BCE65A000AF69B4 /* well.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = well.png; sourceTree = "<group>"; };
 		28E65B022BCE672700AF69B4 /* medium_shell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medium_shell.png; sourceTree = "<group>"; };
-		28E65ADB2BCE549C00AF69B4 /* GravityComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityComponent.swift; sourceTree = "<group>"; };
 		28E65B042BCE995800AF69B4 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
 		28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkDemoMultiplayerPopover.swift; sourceTree = "<group>"; };
 		28EFCB242BCCA7CC0059A908 /* ArkECSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkECSWrapper.swift; sourceTree = "<group>"; };
@@ -1349,9 +1349,9 @@
 		28E65ADD2BCE5DAE00AF69B4 /* Tank Props */ = {
 			isa = PBXGroup;
 			children = (
-				28E65AE02BCE5DE300AF69B4 /* barell_01.png */,
-				28E65ADF2BCE5DE300AF69B4 /* barell_02.png */,
-				28E65ADE2BCE5DE300AF69B4 /* barell_03.png */,
+				28E65AE02BCE5DE300AF69B4 /* barrel_01.png */,
+				28E65ADF2BCE5DE300AF69B4 /* barrel_02.png */,
+				28E65ADE2BCE5DE300AF69B4 /* barrel_03.png */,
 			);
 			path = "Tank Props";
 			sourceTree = "<group>";
@@ -1993,7 +1993,7 @@
 				8F3813082BCE755A0058E107 /* Ground_Tile_02_A.png in Resources */,
 				02D8E9212BAC419400BF3A07 /* Sprite_Effects_Explosion_004.png in Resources */,
 				28E65B032BCE672700AF69B4 /* medium_shell.png in Resources */,
-				28E65AE22BCE5DE300AF69B4 /* barell_02.png in Resources */,
+				28E65AE22BCE5DE300AF69B4 /* barrel_02.png in Resources */,
 				02D8E9372BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_007.png in Resources */,
 				02D8E9312BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_001.png in Resources */,
 				8F38130A2BCE755A0058E107 /* Ground_Tile_01_C.png in Resources */,
@@ -2017,7 +2017,7 @@
 				28E65AF22BCE629500AF69B4 /* Flash_A_04.png in Resources */,
 				02D8E92E2BAC419400BF3A07 /* stones_5.png in Resources */,
 				02D8E92C2BAC419400BF3A07 /* stones_3.png in Resources */,
-				28E65AE32BCE5DE300AF69B4 /* barell_01.png in Resources */,
+				28E65AE32BCE5DE300AF69B4 /* barrel_01.png in Resources */,
 				28E65AF02BCE629500AF69B4 /* Flash_A_01.png in Resources */,
 				8F3813062BCE755A0058E107 /* Ground_Tile_01_B.png in Resources */,
 				02D8E9432BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_009.png in Resources */,
@@ -2047,7 +2047,7 @@
 				02D8E93A2BAC419400BF3A07 /* Sprite_Effects_Exhaust_02_000.png in Resources */,
 				02D8E9442BAC419400BF3A07 /* Sprite_Effects_Explosion_000.png in Resources */,
 				02C395322BA9ED230075F1CA /* README.md in Resources */,
-				28E65AE12BCE5DE300AF69B4 /* barell_03.png in Resources */,
+				28E65AE12BCE5DE300AF69B4 /* barrel_03.png in Resources */,
 				02D8E92D2BAC419400BF3A07 /* stones_4.png in Resources */,
 				02D8E9252BAC419400BF3A07 /* Sprite_Effects_Explosion_008.png in Resources */,
 				02D8E9332BAC419400BF3A07 /* Sprite_Effects_Exhaust_01_003.png in Resources */,
