@@ -244,7 +244,6 @@ extension FlappyBirdEntityCreator {
             RotationComponent(),
             PhysicsComponent(shape: .rectangle, size: size,
                              velocity: pipeVelocity,
-                             isDynamic: false,
                              categoryBitMask: FlappyBirdPhysicsCategory.scoringArea,
                              collisionBitMask: FlappyBirdPhysicsCategory.none,
                              contactTestBitMask: FlappyBirdPhysicsCategory.character)
