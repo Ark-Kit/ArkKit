@@ -57,7 +57,7 @@ extension AnimationInstance {
         if hasAdvancedKeyframe {
             keyframeUpdateDelegate?(self)
         }
-        
+
         updateDelegate?(self)
     }
 }
@@ -68,7 +68,7 @@ extension AnimationInstance where T: BinaryFloatingPoint {
         let currentFrameValue = currentFrame.value
         let nextFrameIndex = min(currentFrameIndex + 1, animation.keyframes.count - 1)
         let nextFrameValue = animation.keyframes[nextFrameIndex].value
-        
+
         return currentFrameValue + (nextFrameValue - currentFrameValue) * T(elapsedDelta / animation.duration)
     }
 }
@@ -93,11 +93,11 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
 
         return .playing
     }
-    
+
     var currentFrame: AnimationKeyframe<T> {
         animation.keyframes[currentFrameIndex]
     }
-    
+
     var currentFrameIndex: Int {
         let resolvedDelta = elapsedDelta.truncatingRemainder(dividingBy: animation.duration)
         return animation.keyframes.firstIndex(where: { keyframe in
@@ -116,7 +116,7 @@ class ArkAnimationInstance<T>: AnimationInstance where T: Equatable {
         self.updateDelegate = delegate
         return self
     }
-    
+
     func onKeyframeUpdate(_ delegate: @escaping UpdateDelegate<T>) -> Self {
         self.keyframeUpdateDelegate = delegate
         return self

@@ -119,7 +119,9 @@ enum TankGameEntityCreator {
                 .toInstance()
                 .onUpdate { instance in
                     let opacity = instance.value
-                    guard var bitmapImageRenderableComponent = ecsContext.getComponent(ofType: BitmapImageRenderableComponent.self, for: trackEntity) else {
+                    guard var bitmapImageRenderableComponent
+                            = ecsContext.getComponent(ofType: BitmapImageRenderableComponent.self,
+                                                      for: trackEntity) else {
                         return
                     }
 
@@ -144,8 +146,7 @@ enum TankGameEntityCreator {
                                tankId: Int,
                                in ecsContext: ArkECSContext,
                                eventContext: ArkEventContext,
-                               zPosition: Double) -> Entity
-    {
+                               zPosition: Double) -> Entity {
         ecsContext.createEntity(with: [
             JoystickRenderableComponent(radius: 40)
                 .shouldRerender { old, new in
@@ -177,8 +178,7 @@ enum TankGameEntityCreator {
 
     static func createShootButton(with buttonContext: TankShootButtonCreationContext,
                                   in ecsContext: ArkECSContext,
-                                  eventContext: ArkEventContext) -> Entity
-    {
+                                  eventContext: ArkEventContext) -> Entity {
         ecsContext.createEntity(with: [
             ButtonRenderableComponent(width: 50, height: 50)
                 .shouldRerender { old, new in
@@ -203,8 +203,7 @@ enum TankGameEntityCreator {
     }
 
     static func createBall(with ballContext: TankBallCreationContext,
-                           in ecsContext: ArkECSContext)
-    {
+                           in ecsContext: ArkECSContext) {
         let radius = ballContext.radius
         ecsContext.createEntity(with: [
             BitmapImageRenderableComponent(
@@ -261,8 +260,7 @@ enum TankGameEntityCreator {
     }
 
     static func createBackground(with backgroundContext: TankBackgroundCreationContext,
-                                 in ecsContext: ArkECSContext)
-    {
+                                 in ecsContext: ArkECSContext) {
         let mapBuilder = TankGameMapBuilder(width: backgroundContext.width,
                                             height: backgroundContext.height,
                                             ecsContext: ecsContext,
