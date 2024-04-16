@@ -18,7 +18,7 @@ enum FlappyBirdEntityCreator {
         let radius: Double = 20
 
         return ecs.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.characterMidflap,
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.characterMidflap.rawValue,
                                            width: radius * 2, height: radius * 2)
                 .zPosition(1)
                 .layer(.canvas)
@@ -73,7 +73,7 @@ enum FlappyBirdEntityCreator {
         let canvasCenter = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
 
         return ecs.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.background,
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.background.rawValue,
                                            width: canvasWidth, height: canvasHeight)
             .center(canvasCenter)
             .zPosition(0)
@@ -112,7 +112,7 @@ enum FlappyBirdEntityCreator {
         let position = CGPoint(x: xCoordinate, y: canvasHeight - size.height / 2)
 
         return context.ecs.createEntity(with: [
-            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.base,
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.base.rawValue,
                                            width: size.width, height: size.height)
                 .zPosition(3),
             PositionComponent(position: position),
@@ -212,7 +212,7 @@ extension FlappyBirdEntityCreator {
 
         ecs.createEntity(with: [
             FlappyBirdPipeTag(),
-            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.pipe,
+            BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.pipe.rawValue,
                                            width: size.width, height: size.height)
                 .zPosition(2)
                 .rotation(rotation)

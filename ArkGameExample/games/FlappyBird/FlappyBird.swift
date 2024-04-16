@@ -163,7 +163,7 @@ extension FlappyBird {
 
                     }
 
-                    bitmapImageComponent.imageResourcePath = imageResource
+                    bitmapImageComponent.imageResourcePath = imageResource.rawValue
 
                     context.ecs.upsertComponent(bitmapImageComponent, to: character)
                 }
