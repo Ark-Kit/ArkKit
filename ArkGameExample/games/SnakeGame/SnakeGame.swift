@@ -83,14 +83,14 @@ extension SnakeGame {
                 self.grid.snakeEntityToPlayerIdMap = self.snakeEntityToPlayerIdMap
             }
             // Setup player controls
-            .setup { context in
+            .setupPlayer { context in
                 let display = context.display
                 let screenWidth = display.screenSize.width
                 let screenHeight = display.screenSize.height
 
                 guard let snakeEntity1 = self.playerIdToSnakeEntityMap[1],
                       let snakeEntity2 = self.playerIdToSnakeEntityMap[2] else {
-                    assertionFailure("Snake entity IDs do not yet exist when setting up joystick!")
+                    assertionFailure("Snake entity IDs do not yet exist when setting up DPad!")
                     return
                 }
 
@@ -100,7 +100,17 @@ extension SnakeGame {
                     ecs: context.ecs,
                     events: context.events
                 )
+            }
+            .setupPlayer { context in
+                let display = context.display
+                let screenWidth = display.screenSize.width
+                let screenHeight = display.screenSize.height
 
+                guard let snakeEntity1 = self.playerIdToSnakeEntityMap[1],
+                      let snakeEntity2 = self.playerIdToSnakeEntityMap[2] else {
+                    assertionFailure("Snake entity IDs do not yet exist when setting up DPad!")
+                    return
+                }
                 SnakeGameEntityCreator.addDPad(
                     center: CGPoint(x: screenWidth * 5 / 6, y: screenHeight * 1 / 8),
                     snakeId: 2,
