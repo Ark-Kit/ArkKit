@@ -130,6 +130,29 @@ extension FlappyBird {
                 FlappyBirdEntityCreator.createCharacter(context: context, characterId: 1)
                 FlappyBirdEntityCreator.initializeScore(context: context, characterIds: [1])
             }
+            .forEachTick { _, context in
+                let characters = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
+                
+                for character in characters {
+                    guard var rotationComponent = context.ecs.getComponent(ofType: RotationComponent.self, for: character) else {
+                        continue
+                    }
+                    
+                    guard let physicsComponent = context.ecs.getComponent(ofType: PhysicsComponent.self, for: character) else {
+                        continue
+                    }
+                    
+                    guard var bitmapImageComponent = context.ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: character) else {
+                        continue
+                    }
+                    
+                    let downwardSpeed = physicsComponent.velocity.dy
+                    let rotationRadians = max(min(downwardSpeed / 300, 1.0), -1.0) * .pi / 4
+                    bitmapImageComponent.rotation = rotationRadians
+                    
+                    context.ecs.upsertComponent(bitmapImageComponent, to: character)
+                }
+            }
     }
 
     private func setupTappableArea() {

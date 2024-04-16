@@ -20,7 +20,11 @@ enum FlappyBirdEntityCreator {
         return ecs.createEntity(with: [
             BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImages.character, width: radius * 2, height: radius * 2)
                 .zPosition(1)
-                .layer(.canvas),
+                .layer(.canvas)
+                .shouldRerender { old, new in
+                    old.rotation != new.rotation
+                }
+            ,
             PositionComponent(position: characterStartingPosition),
             RotationComponent(),
             PhysicsComponent(shape: .circle, radius: radius,
