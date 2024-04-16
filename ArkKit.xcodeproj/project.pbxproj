@@ -182,7 +182,7 @@
 		941A45BA2BCD75B100689D15 /* FlappyBirdPipeTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45B92BCD75B100689D15 /* FlappyBirdPipeTag.swift */; };
 		941A45BE2BCD88D800689D15 /* FlappyBirdGameTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */; };
 		941A45C02BCD9F7400689D15 /* FlappyBirdEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45BF2BCD9F7400689D15 /* FlappyBirdEntityCreator.swift */; };
-		941A45C82BCE52B100689D15 /* FlappyBirdImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45C72BCE52B100689D15 /* FlappyBirdImages.swift */; };
+		941A45C82BCE52B100689D15 /* FlappyBirdImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A45C72BCE52B100689D15 /* FlappyBirdImage.swift */; };
 		941A45CE2BCE54FC00689D15 /* bluebird-upflap.png in Resources */ = {isa = PBXBuildFile; fileRef = 941A45CB2BCE54FC00689D15 /* bluebird-upflap.png */; };
 		941A45CF2BCE54FC00689D15 /* bluebird-downflap.png in Resources */ = {isa = PBXBuildFile; fileRef = 941A45CC2BCE54FC00689D15 /* bluebird-downflap.png */; };
 		941A45D02BCE54FC00689D15 /* bluebird-midflap.png in Resources */ = {isa = PBXBuildFile; fileRef = 941A45CD2BCE54FC00689D15 /* bluebird-midflap.png */; };
@@ -455,7 +455,7 @@
 		941A45B92BCD75B100689D15 /* FlappyBirdPipeTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdPipeTag.swift; sourceTree = "<group>"; };
 		941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdGameTick.swift; sourceTree = "<group>"; };
 		941A45BF2BCD9F7400689D15 /* FlappyBirdEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdEntityCreator.swift; sourceTree = "<group>"; };
-		941A45C72BCE52B100689D15 /* FlappyBirdImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdImages.swift; sourceTree = "<group>"; };
+		941A45C72BCE52B100689D15 /* FlappyBirdImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdImage.swift; sourceTree = "<group>"; };
 		941A45CB2BCE54FC00689D15 /* bluebird-upflap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bluebird-upflap.png"; sourceTree = "<group>"; };
 		941A45CC2BCE54FC00689D15 /* bluebird-downflap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bluebird-downflap.png"; sourceTree = "<group>"; };
 		941A45CD2BCE54FC00689D15 /* bluebird-midflap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bluebird-midflap.png"; sourceTree = "<group>"; };
@@ -1155,7 +1155,7 @@
 			isa = PBXGroup;
 			children = (
 				941A45AE2BCD4DAA00689D15 /* FlappyBirdExternalResources.swift */,
-				941A45C72BCE52B100689D15 /* FlappyBirdImages.swift */,
+				941A45C72BCE52B100689D15 /* FlappyBirdImage.swift */,
 			);
 			path = ExternalAssets;
 			sourceTree = "<group>";
@@ -1923,7 +1923,7 @@
 				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
 				026882492BCACAFF00212BD6 /* ArkDemoGameHostingPage.swift in Sources */,
 				2812FCBF2BC3DE2F00A0FE24 /* TankRaceMoveEvent.swift in Sources */,
-				941A45C82BCE52B100689D15 /* FlappyBirdImages.swift in Sources */,
+				941A45C82BCE52B100689D15 /* FlappyBirdImage.swift in Sources */,
 				8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */,
 				02C394F92BA443830075F1CA /* TapRenderable.swift in Sources */,
 				94D053A32BC80E8C000280C6 /* ArkImageEnum.swift in Sources */,

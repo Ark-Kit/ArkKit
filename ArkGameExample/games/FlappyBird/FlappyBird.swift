@@ -147,8 +147,25 @@ extension FlappyBird {
                     }
                     
                     let downwardSpeed = physicsComponent.velocity.dy
-                    let rotationRadians = max(min(downwardSpeed / 300, 1.0), -1.0) * .pi / 4
+                    let rotationRadians = max(min(downwardSpeed / 300, 1.0), -1.0) * .pi / 8
                     bitmapImageComponent.rotation = rotationRadians
+                    
+                    let midflapThresholdSpeed = 100.0
+                    
+                    var imageResource: FlappyBirdImage {
+                        if abs(downwardSpeed) <= midflapThresholdSpeed {
+                            return FlappyBirdImage.characterMidflap
+                        }
+                        
+                        if downwardSpeed > 0 {
+                            return FlappyBirdImage.characterUpflap
+                        }
+                        
+                        return FlappyBirdImage.characterDownflap
+                        
+                    }
+                    
+                    bitmapImageComponent.imageResourcePath = imageResource
                     
                     context.ecs.upsertComponent(bitmapImageComponent, to: character)
                 }
