@@ -3,7 +3,6 @@ import Foundation
 struct TrackPrintCreationContext {
     let position: CGPoint
     let rotation: CGFloat
-    let remainingLifetime: Double
 }
 
 struct TankCreationContext {
@@ -72,12 +71,12 @@ enum TankGameEntityCreator {
                              isDynamic: false, allowsRotation: false, restitution: 0,
                              categoryBitMask: TankGamePhysicsCategory.tank,
                              collisionBitMask: TankGamePhysicsCategory.rock |
-                             TankGamePhysicsCategory.wall |
-                             TankGamePhysicsCategory.tank,
+                                 TankGamePhysicsCategory.wall |
+                                 TankGamePhysicsCategory.tank,
                              contactTestBitMask: TankGamePhysicsCategory.ball |
-                             TankGamePhysicsCategory.tank |
-                             TankGamePhysicsCategory.wall |
-                             TankGamePhysicsCategory.water),
+                                 TankGamePhysicsCategory.tank |
+                                 TankGamePhysicsCategory.wall |
+                                 TankGamePhysicsCategory.water),
             createHpBarComponent(hp: tankContext.hp, zPosition: zPosition + 1),
             TankHpComponent(hp: tankContext.hp, maxHp: tankContext.hp),
             TankTrackPrintGeneratorComponent()
@@ -89,19 +88,18 @@ enum TankGameEntityCreator {
     static func createTrackPrints(with trackPrintContext: TrackPrintCreationContext, in ecsContext: ArkECSContext) {
         let position = trackPrintContext.position
         let rotation = trackPrintContext.rotation
-        let remainingLifetime = trackPrintContext.remainingLifetime
 
         let tankWidth = 80.0
         let trackPrintOffset = CGVector(dx: tankWidth / 4 * cos(rotation), dy: tankWidth / 4 * sin(rotation))
 
-        var positions = [
+        let positions = [
             // offset position by half width of tank, rotated by the tank's rotation
             position + trackPrintOffset,
             position - trackPrintOffset
         ]
 
         for position in positions {
-            ecsContext.createEntity(with: [
+            let trackEntity = ecsContext.createEntity(with: [
                 BitmapImageRenderableComponent(
                     arkImageResourcePath: TankGameImage.tire_track_1,
                     width: 80,
@@ -112,9 +110,34 @@ enum TankGameEntityCreator {
                 .zPosition(4)
                 .scaleAspectFill(),
                 PositionComponent(position: position),
-                RotationComponent(angleInRadians: rotation),
-                TankTrackPrintComponent(remainingLifetime: remainingLifetime)
+                RotationComponent(angleInRadians: rotation)
             ])
+            let animationInstance = ArkAnimation<Double>()
+                .keyframe(1, duration: 5)
+                .keyframe(1, duration: 7)
+                .keyframe(0, duration: 0.01)
+                .toInstance()
+                .onUpdate { instance in
+                    let opacity = instance.value
+                    guard var bitmapImageRenderableComponent
+                            = ecsContext.getComponent(ofType: BitmapImageRenderableComponent.self,
+                                                      for: trackEntity) else {
+                        return
+                    }
+
+                    bitmapImageRenderableComponent.opacity = opacity
+                    ecsContext.upsertComponent(bitmapImageRenderableComponent, to: trackEntity)
+                }
+                .onComplete { instance in
+                    if instance.shouldDestroy {
+                        ecsContext.removeEntity(trackEntity)
+                    }
+                }
+            var animationsComponent = ArkAnimationsComponent()
+            animationsComponent.addAnimation(animationInstance)
+            ecsContext.upsertComponent(
+                animationsComponent, to: trackEntity
+            )
         }
     }
 
@@ -186,9 +209,9 @@ enum TankGameEntityCreator {
             BitmapImageRenderableComponent(
                 arkImageResourcePath: TankGameImage.ball, width: radius * 2.2, height: radius * 2.2
             )
-                .center(ballContext.position)
-                .zPosition(ballContext.zPosition)
-                .scaleAspectFill(),
+            .center(ballContext.position)
+            .zPosition(ballContext.zPosition)
+            .scaleAspectFill(),
             PositionComponent(position: ballContext.position),
             RotationComponent(angleInRadians: ballContext.angle),
             PhysicsComponent(shape: .circle,
@@ -199,9 +222,9 @@ enum TankGameEntityCreator {
                              allowsRotation: true, restitution: 0.8,
                              categoryBitMask: TankGamePhysicsCategory.ball,
                              collisionBitMask: TankGamePhysicsCategory.wall |
-                                            TankGamePhysicsCategory.rock,
+                                 TankGamePhysicsCategory.rock,
                              contactTestBitMask: TankGamePhysicsCategory.ball | TankGamePhysicsCategory.wall |
-                                            TankGamePhysicsCategory.rock | TankGamePhysicsCategory.tank)
+                                 TankGamePhysicsCategory.rock | TankGamePhysicsCategory.tank)
         ])
     }
 

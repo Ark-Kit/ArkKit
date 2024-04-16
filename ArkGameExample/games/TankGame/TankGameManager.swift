@@ -115,6 +115,45 @@ class TankGameManager {
             .on(ArkCollisionEndedEvent.self) { event, context in
                 self.handleContactEnd(event, in: context)
             }
+            .forEachTick { timeContext, context in
+                let ecs = context.ecs
+                let deltaTime = timeContext.deltaTime
+                let tankEntities = Array(self.tankIdEntityMap.values)
+
+                for tankEntity in tankEntities {
+                    guard let tankPositionComponent = ecs.getComponent(
+                        ofType: PositionComponent.self,
+                        for: tankEntity),
+                        let tankPhysicsComponent = ecs.getComponent(
+                            ofType: PhysicsComponent.self,
+                            for: tankEntity),
+                        let tankRotationComponent = ecs.getComponent(
+                            ofType: RotationComponent.self,
+                            for: tankEntity),
+                        var tankTrackPrintGeneratorComponent = ecs.getComponent(
+                            ofType: TankTrackPrintGeneratorComponent.self,
+                            for: tankEntity)
+                    else {
+                        return
+                    }
+
+                    // Update track print generatorc
+                    tankTrackPrintGeneratorComponent.distanceToNextPrint -= tankPhysicsComponent.velocity.magnitude() * deltaTime
+
+                    if tankTrackPrintGeneratorComponent.distanceToNextPrint <= 0 {
+                        let tankPrintCreationContext =
+                            TrackPrintCreationContext(position: tankPositionComponent.position,
+                                                      rotation: tankRotationComponent.angleInRadians ?? 0)
+                        // Create track print
+                        TankGameEntityCreator.createTrackPrints(with: tankPrintCreationContext, in: context.ecs)
+
+                        // Reset generator
+                        tankTrackPrintGeneratorComponent.reset()
+                    }
+
+                    ecs.upsertComponent(tankTrackPrintGeneratorComponent, to: tankEntity)
+                }
+            }
     }
 
     func setUpPlayers() {
@@ -297,14 +336,8 @@ extension TankGameManager {
                   for: tankEntity),
               var tankRotationComponent = ecs.getComponent(
                   ofType: RotationComponent.self,
-                  for: tankEntity),
-            var tankPositionComponent = ecs.getComponent(
-                ofType: PositionComponent.self,
-                for: tankEntity),
-            var tankTrackPrintGeneratorComponent = ecs.getComponent(
-                ofType: TankTrackPrintGeneratorComponent.self,
-                for: tankEntity)
-        else {
+                  for: tankEntity)
+              else {
             return
         }
 
@@ -324,50 +357,6 @@ extension TankGameManager {
             tankPhysicsComponent.isDynamic = true
             tankPhysicsComponent.velocity = CGVector(dx: velocityX, dy: velocityY)
             ecs.upsertComponent(tankPhysicsComponent, to: tankEntity)
-
-            // Query all track prints and decrease their lifetime
-            let trackPrintEntities = ecs.getEntities(with: [TankTrackPrintComponent.self])
-
-            for trackPrintEntity in trackPrintEntities {
-                guard let trackPrintComponent = ecs.getComponent(ofType: TankTrackPrintComponent.self, for: trackPrintEntity) else {
-                    continue
-                }
-
-                guard var bitmapComponent = ecs.getComponent(ofType: BitmapImageRenderableComponent.self,
-                                                             for: trackPrintEntity) else {
-                    continue
-                }
-
-                // update opacity
-                bitmapComponent.opacity = max(0, trackPrintComponent.remainingLifetime) / 500
-
-                let updatedTrackPrintComponent = TankTrackPrintComponent(
-                    remainingLifetime: trackPrintComponent.remainingLifetime - tankMoveEventData.magnitude)
-
-                if updatedTrackPrintComponent.remainingLifetime <= 0 {
-                    ecs.removeEntity(trackPrintEntity)
-                } else {
-                    ecs.upsertComponent(updatedTrackPrintComponent, to: trackPrintEntity)
-                }
-            }
-
-            // Update track print generator
-            tankTrackPrintGeneratorComponent.distanceToNextPrint -= tankMoveEventData.magnitude
-
-            if tankTrackPrintGeneratorComponent.distanceToNextPrint <= 0 {
-
-                let tankPrintCreationContext =
-                        TrackPrintCreationContext(position: tankPositionComponent.position,
-                                                  rotation: tankRotationComponent.angleInRadians ?? 0,
-                                                  remainingLifetime: 5_000)
-                // Create track print
-                TankGameEntityCreator.createTrackPrints(with: tankPrintCreationContext, in: context.ecs)
-
-                // Reset generator
-                tankTrackPrintGeneratorComponent.reset()
-            }
-
-            ecs.upsertComponent(tankTrackPrintGeneratorComponent, to: tankEntity)
         }
     }
 
