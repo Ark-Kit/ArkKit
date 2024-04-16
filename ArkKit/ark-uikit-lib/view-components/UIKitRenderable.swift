@@ -17,7 +17,7 @@ extension UIKitRenderable {
         self.layer.zPosition = zPos
         return self
     }
-    
+
     func opacity(_ opacity: Double) -> Self {
         self.alpha = CGFloat(opacity)
         return self

@@ -46,7 +46,7 @@ extension RenderableComponent {
         newSelf.zPosition = zPos
         return newSelf
     }
-    
+
     func opacity(_ opacity: Double) -> Self {
         var newSelf = self
         newSelf.opacity = opacity

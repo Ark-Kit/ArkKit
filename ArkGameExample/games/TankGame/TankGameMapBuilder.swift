@@ -36,7 +36,7 @@ class TankGameMapBuilder {
 
     func createTileGrid(rows: Int, cols: Int) -> [[Int]] {
         let patterns = [[4, 7], [5, 8], [6, 9]]
-        return (0..<rows).map { row in
+        return (0..<rows).map { _ in
             (0..<cols).map { col in
                 let patternIndex = (col / (cols / patterns.count)) % patterns.count
                 return patterns[0][0]

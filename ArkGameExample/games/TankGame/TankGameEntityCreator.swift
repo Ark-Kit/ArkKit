@@ -36,16 +36,6 @@ struct TankBackgroundCreationContext {
     let background: [[Int]]
 }
 
-private extension CGPoint {
-    static func + (lhs: CGPoint, rhs: CGVector) -> CGPoint {
-        CGPoint(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy)
-    }
-    
-    static func - (lhs: CGPoint, rhs: CGVector) -> CGPoint {
-        CGPoint(x: lhs.x - rhs.dx, y: lhs.y - rhs.dy)
-    }
-}
-
 enum TankGameEntityCreator {
     static func createHpBarComponent(hp: Double, zPosition: Double) -> any RenderableComponent {
         RectRenderableComponent(width: hp, height: 10)
@@ -95,21 +85,21 @@ enum TankGameEntityCreator {
 
         return tankEntity
     }
-    
+
     static func createTrackPrints(with trackPrintContext: TrackPrintCreationContext, in ecsContext: ArkECSContext) {
         let position = trackPrintContext.position
         let rotation = trackPrintContext.rotation
         let remainingLifetime = trackPrintContext.remainingLifetime
-        
+
         let tankWidth = 80.0
         let trackPrintOffset = CGVector(dx: tankWidth / 4 * cos(rotation), dy: tankWidth / 4 * sin(rotation))
-        
+
         var positions = [
             // offset position by half width of tank, rotated by the tank's rotation
             position + trackPrintOffset,
             position - trackPrintOffset
         ]
-        
+
         for position in positions {
             ecsContext.createEntity(with: [
                 BitmapImageRenderableComponent(
