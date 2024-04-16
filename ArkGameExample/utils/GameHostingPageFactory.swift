@@ -1,4 +1,4 @@
-class GameHostingPageFactory {
+enum GameHostingPageFactory {
     // Factory method
     static func generateGameViewController(from game: DemoGames) -> AbstractDemoGameHostingPage {
         switch game {
@@ -18,8 +18,8 @@ class GameHostingPageFactory {
             vc.arkBlueprint = blueprint
             return vc
         case .FlappyBird:
-            let blueprint: ArkBlueprint<FlappyBirdExternalResources> = FlappyBird().blueprint
             let vc: ArkDemoGameHostingPage<FlappyBirdExternalResources> = ArkDemoGameHostingPage()
+            let blueprint: ArkBlueprint<FlappyBirdExternalResources> = FlappyBird(rootView: vc).blueprint
             vc.arkBlueprint = blueprint
             return vc
         }

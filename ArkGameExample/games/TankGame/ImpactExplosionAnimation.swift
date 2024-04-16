@@ -56,7 +56,7 @@ struct ImpactExplosionAnimation {
                     ecs.removeEntity(entity)
                 }
             }
-        
+
         var animationsComponent = ArkAnimationsComponent()
         animationsComponent.addAnimation(animationInstance)
         ecs.upsertComponent(animationsComponent, to: entity)

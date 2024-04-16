@@ -1,11 +1,14 @@
 import Foundation
+import UIKit
 
 class FlappyBird {
     private(set) var blueprint: ArkBlueprint<FlappyBirdExternalResources>
-    private var characterIdToEntityMap = [Int: Entity]()
+    var collisionStrategyManager = FlappyBirdCollisionStrategyManager()
+    var rootView: AbstractDemoGameHostingPage
 
-    init() {
-        self.blueprint = ArkBlueprint(frameWidth: 800, frameHeight: 1_180)
+    init(rootView: AbstractDemoGameHostingPage) {
+        self.blueprint = ArkBlueprint<FlappyBirdExternalResources>(frameWidth: 800, frameHeight: 1_180)
+        self.rootView = rootView
         setup()
     }
 
@@ -16,6 +19,7 @@ class FlappyBird {
         setupGameTickTracking()
         setupWallSpawner()
         cleanupWalls()
+        setupWinLoseConditions()
     }
 }
 
@@ -26,15 +30,143 @@ extension FlappyBird {
             .on(FlappyBirdTapEvent.self) { event, context in
                 self.handleTapEvent(event, in: context)
             }
+            .on(ArkCollisionBeganEvent.self) { event, context in
+                self.handleContactBegan(event, in: context)
+            }
+            .on(ArkCollisionEndedEvent.self) { event, context in
+                self.handleContactEnd(event, in: context)
+            }
+            .on(FlappyBirdWallHitEvent.self) { event, context in
+                self.handleWallHit(event, in: context)
+            }
+            .on(FlappyBirdPipePassEvent.self) { event, context in
+                self.handlePipePass(event, in: context)
+            }
+    }
+
+    private func handlePipePass(_ event: FlappyBirdPipePassEvent, in context: FlappyBirdActionContext) {
+        let characterId = event.eventData.characterId
+        let scoreEntity = context.ecs.getEntities(with: [FlappyBirdScore.self]).first
+
+        guard let scoreEntity else {
+            assertionFailure("Unable to get score-tracking entity")
+            return
+        }
+
+        guard var scoreComponent = context.ecs.getComponent(ofType: FlappyBirdScore.self, for: scoreEntity) else {
+            assertionFailure("Unable to get score component for score entity")
+            return
+        }
+
+        let oldScore = scoreComponent.scores[characterId] ?? 0
+        let newScore = oldScore + 1
+        scoreComponent.setScore(newScore, forId: characterId)
+        context.ecs.upsertComponent(scoreComponent, to: scoreEntity)
+
+        guard let scoreTextEntity = context.ecs.getEntities(with: [FlappyBirdScoreLabelTag.self]).first(where: {
+            let cId = context.ecs.getComponent(ofType: FlappyBirdScoreLabelTag.self, for: $0)?.characterId
+
+            return cId == characterId
+        }) else {
+            assertionFailure("Unable to get score text entity")
+            return
+        }
+
+        guard var scoreLabelComponent = context.ecs.getComponent(ofType: RectRenderableComponent.self,
+                                                                 for: scoreTextEntity)?.label(String(newScore)) else {
+            assertionFailure("Unable to get score label component")
+            return
+        }
+
+        context.ecs.upsertComponent(scoreLabelComponent, to: scoreTextEntity)
+    }
+
+    private func handleWallHit(_ event: FlappyBirdWallHitEvent, in context: FlappyBirdActionContext) {
+        let characterId = event.eventData.characterId
+        let characterEntity = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
+            .first {
+                context.ecs.getComponent(ofType: FlappyBirdCharacterTag.self, for: $0)?.characterId == characterId
+            }
+
+        guard let characterEntity else {
+            assertionFailure("Unable to get character entity for characterId: \(characterId)")
+            return
+        }
+
+        context.ecs.removeEntity(characterEntity)
+    }
+
+    private func handleContactBegan(_ event: ArkCollisionBeganEvent, in context: FlappyBirdActionContext) {
+        let eventData = event.eventData
+
+        let entityA = eventData.entityA
+        let entityB = eventData.entityB
+        let bitMaskA = eventData.entityACategoryBitMask
+        let bitMaskB = eventData.entityBCategoryBitMask
+
+        collisionStrategyManager.handleCollisionBegan(between: entityA, and: entityB,
+                                                      bitMaskA: bitMaskA, bitMaskB: bitMaskB,
+                                                      in: context)
+    }
+
+    private func handleContactEnd(_ event: ArkCollisionEndedEvent, in context: FlappyBirdActionContext) {
+        let eventData = event.eventData
+
+        let entityA = eventData.entityA
+        let entityB = eventData.entityB
+        let bitMaskA = eventData.entityACategoryBitMask
+        let bitMaskB = eventData.entityBCategoryBitMask
+
+        collisionStrategyManager.handleCollisionEnded(between: entityA, and: entityB,
+                                                      bitMaskA: bitMaskA, bitMaskB: bitMaskB,
+                                                      in: context)
     }
 
     private func setupScene() {
         blueprint = blueprint
             .setup { context in
-                FlappyBirdEntityCreator.setupGroundAndSkyWalls(context: context)
+                FlappyBirdEntityCreator.createBackground(context: context)
+                FlappyBirdEntityCreator.spawnBase(context: context)
+                FlappyBirdEntityCreator.spawnCeiling(context: context)
+                FlappyBirdEntityCreator.createCharacter(context: context, characterId: 1)
+                FlappyBirdEntityCreator.initializeScore(context: context, characterIds: [1])
+            }
+            .forEachTick { _, context in
+                let characters = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
 
-                let characterEntity = FlappyBirdEntityCreator.createCharacter(context: context)
-                self.characterIdToEntityMap[1] = characterEntity
+                for character in characters {
+                    guard context.ecs.getComponent(ofType: RotationComponent.self, for: character) != nil,
+                          let physicsComponent
+                            = context.ecs.getComponent(ofType: PhysicsComponent.self, for: character),
+                          var bitmapImageComponent
+                            = context.ecs.getComponent(ofType: BitmapImageRenderableComponent.self, for: character)
+                    else {
+                        continue
+                    }
+
+                    let downwardSpeed = physicsComponent.velocity.dy
+                    let rotationRadians = max(min(downwardSpeed / 300, 1.0), -1.0) * .pi / 8
+                    bitmapImageComponent.rotation = rotationRadians
+
+                    let midflapThresholdSpeed = 100.0
+
+                    var imageResource: FlappyBirdImage {
+                        if abs(downwardSpeed) <= midflapThresholdSpeed {
+                            return FlappyBirdImage.characterMidflap
+                        }
+
+                        if downwardSpeed > 0 {
+                            return FlappyBirdImage.characterUpflap
+                        }
+
+                        return FlappyBirdImage.characterDownflap
+
+                    }
+
+                    bitmapImageComponent.imageResourcePath = imageResource
+
+                    context.ecs.upsertComponent(bitmapImageComponent, to: character)
+                }
             }
     }
 
@@ -82,6 +214,19 @@ extension FlappyBird {
             }
     }
 
+    private func setupWinLoseConditions() {
+        blueprint = blueprint
+            .forEachTick { timeContext, actionContext in
+                let ecs = actionContext.ecs
+                let characters = ecs.getEntities(with: [FlappyBirdCharacterTag.self])
+
+                if characters.isEmpty {
+                    let eventData = TerminateGameLoopEventData(timeInGame: timeContext.clockTimeInSecondsGame)
+                    actionContext.events.emit(TerminateGameLoopEvent(eventData: eventData))
+                }
+            }
+    }
+
     /// Clean up wall entities when they exit the screen.
     private func cleanupWalls() {
         blueprint = blueprint.forEachTick { _, actionContext in
@@ -110,16 +255,33 @@ extension FlappyBird {
         let ecs = context.ecs
         let tapEventData = event.eventData
 
-        guard let characterEntity = characterIdToEntityMap[tapEventData.characterId],
-              var characterPhysicsComponent = ecs.getComponent(ofType: PhysicsComponent.self,
-                                                               for: characterEntity)
-        else {
+        let characters = context.ecs.getEntities(with: [FlappyBirdCharacterTag.self])
+
+        var movedCharacter: Entity? {
+            for character in characters {
+                let characterTag = context.ecs.getComponent(ofType: FlappyBirdCharacterTag.self, for: character)
+
+                if characterTag?.characterId == tapEventData.characterId {
+                    return character
+                }
+            }
+
+            return nil
+        }
+
+        guard let movedCharacter else {
+            assertionFailure("Unable to get character entity for id: \(tapEventData.characterId)")
+            return
+        }
+
+        guard var characterPhysicsComponent
+                = ecs.getComponent(ofType: PhysicsComponent.self, for: movedCharacter) else {
             assertionFailure("Unable to get PhysicsComponent for character id: \(tapEventData.characterId)")
             return
         }
 
         // Handle character 'flying'
         characterPhysicsComponent.impulse = FlappyBirdEntityCreator.impulseValue
-        ecs.upsertComponent(characterPhysicsComponent, to: characterEntity)
+        ecs.upsertComponent(characterPhysicsComponent, to: movedCharacter)
     }
 }

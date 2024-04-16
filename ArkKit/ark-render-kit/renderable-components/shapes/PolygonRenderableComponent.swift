@@ -12,6 +12,7 @@ struct PolygonRenderableComponent: ShapeRenderableComponent {
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?
+    private(set) var labelInfo: ShapeLabelInfo?
 
     init(points: [CGPoint], frame: CGRect, rotation: Double = 0.0) {
         self.points = points
@@ -20,11 +21,13 @@ struct PolygonRenderableComponent: ShapeRenderableComponent {
         self.rotation = rotation
     }
 
-    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?) -> PolygonRenderableComponent {
+    func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
+                labelInfo: ShapeLabelInfo?) -> PolygonRenderableComponent {
         var copy = self
 
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo
+        copy.labelInfo = labelInfo
 
         return copy
     }

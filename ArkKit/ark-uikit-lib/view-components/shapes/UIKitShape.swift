@@ -17,6 +17,13 @@ extension UIKitShape {
                 }
                 return view
             })
+            .if(modifierInfo.labelInfo != nil, transform: { view in
+                if let labelInfo = modifierInfo.labelInfo {
+                    return view.label(text: labelInfo.text, fontSize: labelInfo.size, 
+                                      color: colorGetter(labelInfo.color))
+                }
+                return view
+            })
     }
 
     func fill(color: UIColor) -> Self {
@@ -36,6 +43,19 @@ extension UIKitShape {
             }
             shapeLayer.strokeColor = color.cgColor
             shapeLayer.lineWidth = lineWidth
+        }
+        return self
+    }
+
+    func label(text: String, fontSize: Double, color: UIColor) -> Self {
+        self.layer.sublayers?.forEach { subLayer in
+            guard let textLayer = subLayer as? CATextLayer else {
+                return
+            }
+
+            textLayer.string = text
+            textLayer.fontSize = fontSize
+            textLayer.foregroundColor = color.cgColor
         }
         return self
     }
