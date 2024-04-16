@@ -235,7 +235,7 @@ extension FlappyBirdEntityCreator {
 
         ecs.createEntity(with: [
             RectRenderableComponent(width: size.width, height: size.height)
-                .fill(color: .red)
+                .fill(color: .transparent)
                 .zPosition(3)
                 .center(positionPoint),
             PositionComponent(position: positionPoint),
