@@ -43,7 +43,7 @@ struct ShapeStrokeInfo: Codable {
     let color: AbstractColor
 }
 
-struct ShapeLabelInfo {
+struct ShapeLabelInfo: Codable {
     let text: String
     let color: AbstractColor
     let size: Double

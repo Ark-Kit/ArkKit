@@ -16,11 +16,13 @@ struct RectRenderableComponent: ShapeRenderableComponent {
 
     init(width: Double, height: Double,
          fillInfo: ShapeFillInfo? = nil,
-         strokeInfo: ShapeStrokeInfo? = nil) {
+         strokeInfo: ShapeStrokeInfo? = nil,
+         labelInfo: ShapeLabelInfo? = nil) {
         self.width = width
         self.height = height
         self.fillInfo = fillInfo
         self.strokeInfo = strokeInfo
+        self.labelInfo = labelInfo
     }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,

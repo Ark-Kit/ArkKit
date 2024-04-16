@@ -3,7 +3,7 @@ import Foundation
 extension PolygonRenderableComponent: SendableComponent {
     enum CodingKeys: String, CodingKey {
             case points, frame, center, rotation, zPosition, renderLayer, isUserInteractionEnabled,
-                 fillInfo, strokeInfo
+                 fillInfo, strokeInfo, labelInfo
         }
 
     init(from decoder: Decoder) throws {
@@ -11,8 +11,9 @@ extension PolygonRenderableComponent: SendableComponent {
         let points = try container.decode([CGPoint].self, forKey: .points)
         let fillInfo = try container.decodeIfPresent(ShapeFillInfo.self, forKey: .fillInfo)
         let strokeInfo = try container.decodeIfPresent(ShapeStrokeInfo.self, forKey: .strokeInfo)
+        let labelInfo = try container.decodeIfPresent(ShapeLabelInfo.self, forKey: .labelInfo)
         let frame = try container.decode(CGRect.self, forKey: .frame)
-        self.init(points: points, frame: frame, fillInfo: fillInfo, strokeInfo: strokeInfo)
+        self.init(points: points, frame: frame, fillInfo: fillInfo, strokeInfo: strokeInfo, labelInfo: labelInfo)
         center = try container.decode(CGPoint.self, forKey: .center)
         rotation = try container.decode(Double.self, forKey: .rotation)
         zPosition = try container.decode(Double.self, forKey: .zPosition)
@@ -31,5 +32,6 @@ extension PolygonRenderableComponent: SendableComponent {
         try container.encode(isUserInteractionEnabled, forKey: .isUserInteractionEnabled)
         try container.encodeIfPresent(fillInfo, forKey: .fillInfo)
         try container.encodeIfPresent(strokeInfo, forKey: .strokeInfo)
+        try container.encodeIfPresent(labelInfo, forKey: .labelInfo)
     }
 }

@@ -13,9 +13,9 @@ struct CircleRenderableComponent: ShapeRenderableComponent {
     private(set) var strokeInfo: ShapeStrokeInfo?
     private(set) var labelInfo: ShapeLabelInfo?
 
-    init(radius: Double, fillInfo: ShapeFillInfo?, 
-         strokeInfo: ShapeStrokeInfo?,
-         labelInfo: ShapeLabelInfo?) {
+    init(radius: Double, fillInfo: ShapeFillInfo? = nil,
+         strokeInfo: ShapeStrokeInfo? = nil,
+         labelInfo: ShapeLabelInfo? = nil) {
         self.radius = radius
         self.fillInfo = fillInfo
         self.strokeInfo = strokeInfo
