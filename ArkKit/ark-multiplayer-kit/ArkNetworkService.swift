@@ -16,18 +16,14 @@ class ArkNetworkService: AbstractNetworkService {
 
     required init(serviceName: String = "Ark") {
         let config = MultipeerSessionConfig(myPeerInfo: myPeerInfo,
-                                            bonjourService: "_\(serviceName)_ArkMultiplayer._tcp",
-                                            presharedKey: "12345",
+                                            bonjourService: "_ArkMultiplayer._tcp",
+                                            presharedKey: "\(serviceName)12345",
                                             identity: "testing")
         self.session = MultipeerSession(config: config, queue: .main)
         self.serviceName = serviceName
         setUpHandlers()
 
         session.startSharing()
-    }
-
-    deinit {
-        session.stopSharing()
     }
 
     var deviceID: String {
