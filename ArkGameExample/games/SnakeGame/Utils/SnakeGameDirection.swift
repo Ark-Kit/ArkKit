@@ -1,6 +1,6 @@
 import Foundation
 
-enum SnakeGameDirection {
+enum SnakeGameDirection: Codable {
     case north, south, east, west
 
     static func fromRadians(_ radians: CGFloat) -> SnakeGameDirection {
@@ -14,6 +14,18 @@ enum SnakeGameDirection {
             return .west
         } else {
             return .north
+        }
+    }
+
+    var radians: CGFloat {
+        if case .north = self {
+            return 0
+        } else if case .south = self {
+            return CGFloat.pi
+        } else if case .east = self {
+            return CGFloat.pi / 2
+        } else {
+            return 3 * CGFloat.pi / 2
         }
     }
 

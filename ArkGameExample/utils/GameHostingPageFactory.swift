@@ -29,8 +29,20 @@ class GameHostingPageFactory {
         case .SnakeChomp:
             let blueprint: ArkBlueprint<SnakeGameExternalResources> = SnakeGame().blueprint
             let vc: ArkDemoGameHostingPage<SnakeGameExternalResources> = ArkDemoGameHostingPage()
-            let ark = Ark(rootView: vc, blueprint: blueprint)
-            vc.ark = ark
+            if role == nil {
+                vc.ark = Ark(rootView: vc, blueprint: blueprint)
+            } else {
+                guard let role = role,
+                      let roomName = roomName else {
+                    return vc
+                }
+                let updatedBlueprint = blueprint
+                    .supportNetworkMultiPlayer(
+                        roomName: "SnakeGame\(roomName)", numberOfPlayers: 2
+                    )
+                    .setRole(role)
+                vc.ark = Ark(rootView: vc, blueprint: updatedBlueprint)
+            }
             return vc
         case .TankRaceGame:
             let vc: ArkDemoGameHostingPage<TankRaceGameExternalResources> = ArkDemoGameHostingPage()
@@ -83,9 +95,9 @@ class GameHostingPageFactory {
 
     private static func shouldPresentMultiplayerOptions(for game: DemoGames) -> Bool {
         switch game {
-        case .TankGame:
+        case .TankGame, .SnakeChomp:
             return true
-        case .SnakeChomp, .TankRaceGame, .FlappyBird:
+        case .TankRaceGame, .FlappyBird:
             return false
         }
     }
