@@ -74,7 +74,6 @@ extension SnakeGrid {
             let nextBlockPosition = headPosition.applyDelta(snakeComponent.direction)
             guard let snakeEntityToPlayerIdMap = snakeEntityToPlayerIdMap,
                   let snakeId = snakeEntityToPlayerIdMap[snake] else {
-                print("i've got issues")
                 return
             }
             let nextBlock = SnakeGameEntityCreator.createHeadBlockEntity(snakeId,

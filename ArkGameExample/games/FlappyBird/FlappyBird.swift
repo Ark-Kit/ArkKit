@@ -42,6 +42,26 @@ extension FlappyBird {
             .on(FlappyBirdPipePassEvent.self) { event, context in
                 self.handlePipePass(event, in: context)
             }
+            .forEachTick { timeContext, context in
+                // increase the game speed
+
+                guard let gameSpeedEntity = context.ecs.getEntities(with: [FlappyBirdGameSpeed.self]).first else {
+                    return
+                }
+
+                guard var gameSpeed = context.ecs.getComponent(
+                    ofType: FlappyBirdGameSpeed.self, for: gameSpeedEntity) else {
+                    return
+                }
+
+                // Take about 2 minutes to ramp up to speed = 1 to speed = 3
+                let speedPercentage = min(1, timeContext.clockTimeInSecondsGame / 120)
+                let newSpeed = (speedPercentage * 2) + 1
+
+                gameSpeed.speed = newSpeed
+
+                context.ecs.upsertComponent(gameSpeed, to: gameSpeedEntity)
+            }
     }
 
     private func handlePipePass(_ event: FlappyBirdPipePassEvent, in context: FlappyBirdActionContext) {
@@ -72,7 +92,7 @@ extension FlappyBird {
             return
         }
 
-        guard var scoreLabelComponent = context.ecs.getComponent(ofType: RectRenderableComponent.self,
+        guard let scoreLabelComponent = context.ecs.getComponent(ofType: RectRenderableComponent.self,
                                                                  for: scoreTextEntity)?.label(String(newScore)) else {
             assertionFailure("Unable to get score label component")
             return
@@ -125,6 +145,7 @@ extension FlappyBird {
     private func setupScene() {
         blueprint = blueprint
             .setup { context in
+                context.ecs.createEntity(with: [FlappyBirdGameSpeed()])
                 FlappyBirdEntityCreator.createBackground(context: context)
                 FlappyBirdEntityCreator.setGravity(context: context)
                 FlappyBirdEntityCreator.spawnBase(context: context)
@@ -201,7 +222,19 @@ extension FlappyBird {
                     return
                 }
 
-                let ticksPerSecond = 1.0 / 2
+                guard let gameSpeedEntity = ecs.getEntities(with: [FlappyBirdGameSpeed.self]).first else {
+                    assertionFailure("Unable to get game speed entity")
+                    return
+                }
+
+                guard let gameSpeed = ecs.getComponent(ofType: FlappyBirdGameSpeed.self, for: gameSpeedEntity) else {
+                    assertionFailure("Unable to get game speed component")
+                    return
+                }
+
+                let speed = gameSpeed.speed
+
+                let ticksPerSecond = 1.0 / 3 * speed
                 let elapsed = timeContext.clockTimeInSecondsGame
                 guard gameTickComponent.elapsed != (elapsed * ticksPerSecond).rounded() else {
                     return

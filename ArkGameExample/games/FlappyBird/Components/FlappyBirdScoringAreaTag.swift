@@ -1,0 +1,1 @@
+struct FlappyBirdScoringAreaTag: Component {}

@@ -9,6 +9,7 @@ struct RectRenderableComponent: ShapeRenderableComponent {
     var opacity: Double = 1.0
     var isUserInteractionEnabled = false
     var renderLayer: RenderLayer = .canvas
+    var onTapDelegate: TapDelegate?
     var shouldRerenderDelegate: ShouldRerenderDelegate?
 
     private(set) var fillInfo: ShapeFillInfo?

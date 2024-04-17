@@ -46,7 +46,6 @@ class TankGameMapBuilder {
 
     func buildMap(rows: Int, cols: Int) {
         let array = createTileGrid(rows: rows, cols: cols)
-        print("array:\n\(array))")
         buildMap(from: array)
     }
 

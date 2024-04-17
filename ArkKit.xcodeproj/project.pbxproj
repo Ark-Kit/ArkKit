@@ -170,6 +170,8 @@
 		286C09C22BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */; };
 		286F6E2E2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F6E2D2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift */; };
 		286F6E302BCFADE800B857C5 /* TankHealthPackComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F6E2F2BCFADE800B857C5 /* TankHealthPackComponent.swift */; };
+		286F6E322BCFB12800B857C5 /* FlappyBirdGameSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F6E312BCFB12800B857C5 /* FlappyBirdGameSpeed.swift */; };
+		286F6E342BCFB4A700B857C5 /* FlappyBirdScoringAreaTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F6E332BCFB4A700B857C5 /* FlappyBirdScoringAreaTag.swift */; };
 		287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00542BC16E6C002F0114 /* TankHPComponent.swift */; };
 		287B00572BC17127002F0114 /* TankDestroyedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00562BC17127002F0114 /* TankDestroyedEvent.swift */; };
 		287B00592BC17131002F0114 /* TankHPModifyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00582BC17131002F0114 /* TankHPModifyEvent.swift */; };
@@ -510,6 +512,8 @@
 		286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
 		286F6E2D2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHealthPackGeneratorComponent.swift; sourceTree = "<group>"; };
 		286F6E2F2BCFADE800B857C5 /* TankHealthPackComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHealthPackComponent.swift; sourceTree = "<group>"; };
+		286F6E312BCFB12800B857C5 /* FlappyBirdGameSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdGameSpeed.swift; sourceTree = "<group>"; };
+		286F6E332BCFB4A700B857C5 /* FlappyBirdScoringAreaTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdScoringAreaTag.swift; sourceTree = "<group>"; };
 		287B00542BC16E6C002F0114 /* TankHPComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPComponent.swift; sourceTree = "<group>"; };
 		287B00562BC17127002F0114 /* TankDestroyedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankDestroyedEvent.swift; sourceTree = "<group>"; };
 		287B00582BC17131002F0114 /* TankHPModifyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPModifyEvent.swift; sourceTree = "<group>"; };
@@ -1442,6 +1446,8 @@
 				941A45BD2BCD88D800689D15 /* FlappyBirdGameTick.swift */,
 				8FDE57642BCE112C0066B906 /* FlappyBirdCharacterTag.swift */,
 				8FA9023A2BCE639600FA13C8 /* FlappyBirdScoreLabelTag.swift */,
+				286F6E312BCFB12800B857C5 /* FlappyBirdGameSpeed.swift */,
+				286F6E332BCFB4A700B857C5 /* FlappyBirdScoringAreaTag.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2281,6 +2287,7 @@
 				8FDE57632BCE0E300066B906 /* FlappyBirdWallHitEvent.swift in Sources */,
 				02B3C6332BCD1EA4002331A0 /* ArkHostNetworkSubscriber.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
+				286F6E342BCFB4A700B857C5 /* FlappyBirdScoringAreaTag.swift in Sources */,
 				28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */,
 				2882ABFB2BCB784C0042AC52 /* RectRenderableComponent+SendableComponent.swift in Sources */,
 				8FEB217E2BADF21E00788E20 /* ArkActionContext.swift in Sources */,
@@ -2302,6 +2309,7 @@
 				02C395342BAAF0EC0075F1CA /* WorldComponent.swift in Sources */,
 				28E65AF52BCE631C00AF69B4 /* FiringAnimation.swift in Sources */,
 				02C394DC2BA402060075F1CA /* GameStateRenderer.swift in Sources */,
+				286F6E322BCFB12800B857C5 /* FlappyBirdGameSpeed.swift in Sources */,
 				8F5573CF2BA6A731007030C8 /* ArkAnimationInstance.swift in Sources */,
 				02C395032BA5B95B0075F1CA /* Rule.swift in Sources */,
 				02C3952A2BA8952F0075F1CA /* CanvasContext.swift in Sources */,
@@ -2562,7 +2570,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 879B4J7JQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArkGameExample/Info.plist;
@@ -2577,7 +2585,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = arkkit.markus;
+				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -2596,7 +2604,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 879B4J7JQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArkGameExample/Info.plist;
@@ -2611,7 +2619,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = arkkit.markus;
+				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

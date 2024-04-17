@@ -10,6 +10,7 @@ struct PolygonRenderableComponent: ShapeRenderableComponent {
     var renderLayer: RenderLayer = .canvas
     var isUserInteractionEnabled = false
     var shouldRerenderDelegate: ShouldRerenderDelegate?
+    var onTapDelegate: TapDelegate?
 
     private(set) var fillInfo: ShapeFillInfo?
     private(set) var strokeInfo: ShapeStrokeInfo?

@@ -50,7 +50,7 @@ enum FlappyBirdEntityCreator {
             scoreComponent.setScore(0, forId: characterId)
             context.ecs.createEntity(with: [
                 RectRenderableComponent(width: 100, height: 56)
-                    .center(CGPoint(x: screenWidth * 3 / 12, y: screenHeight * 1 / 11))
+                    .center(CGPoint(x: screenWidth / 2, y: screenHeight * 1 / 11))
                     .label("0", color: .white, size: 56)
                     .fill(color: .transparent)
                     .zPosition(999)
@@ -87,18 +87,17 @@ enum FlappyBirdEntityCreator {
         let screenWidth = context.display.screenSize.width
 
         return context.ecs.createEntity(with: [
-            ButtonRenderableComponent(width: 70, height: 70)
+            RectRenderableComponent(width: screenWidth, height: screenHeight)
                 .shouldRerender { old, new in old.center != new.center }
-                .center(CGPoint(x: screenWidth * 3 / 12, y: screenHeight * 10 / 11))
+                .center(CGPoint(x: screenWidth / 2, y: screenHeight / 2))
+                .fill(color: .transparent)
                 .zPosition(999)
+                .userInteractionsEnabled(true)
                 .onTap {
                     let flappyBirdTapEventData = FlappyBirdTapEventData(name: "FlappyBirdTapEvent", characterId: 1)
                     let flappyBirdTapEvent = FlappyBirdTapEvent(eventData: flappyBirdTapEventData)
                     context.events.emit(flappyBirdTapEvent)
                 }
-                .label("Fly!", color: .white)
-                .background(color: .gray)
-                .padding(top: 5, bottom: 5, left: 5, right: 5)
                 .layer(.screen)
         ])
     }
@@ -184,7 +183,7 @@ enum FlappyBirdEntityCreator {
 
 // MARK: Helpers
 extension FlappyBirdEntityCreator {
-    private static let pipeVelocity = CGVector(dx: -100, dy: 0)
+    public static let pipeVelocity = CGVector(dx: -100, dy: 0)
 
     private enum FlappyBirdWallPosition {
         case top, bottom
@@ -215,6 +214,15 @@ extension FlappyBirdEntityCreator {
 
         let rotation = position == .top ? Double.pi : 0
 
+        guard let gameSpeedEntity = ecs.getEntities(with: [FlappyBirdGameSpeed.self]).first else {
+            return
+        }
+
+        guard let gameSpeed = ecs.getComponent(
+            ofType: FlappyBirdGameSpeed.self, for: gameSpeedEntity) else {
+            return
+        }
+
         ecs.createEntity(with: [
             FlappyBirdPipeTag(),
             BitmapImageRenderableComponent(imageResourcePath: FlappyBirdImage.pipe.rawValue,
@@ -225,7 +233,7 @@ extension FlappyBirdEntityCreator {
             PositionComponent(position: positionPoint),
             RotationComponent(angleInRadians: rotation),
             PhysicsComponent(shape: .rectangle, size: size,
-                             velocity: pipeVelocity,
+                             velocity: gameSpeed.speed * pipeVelocity,
                              categoryBitMask: FlappyBirdPhysicsCategory.wall,
                              collisionBitMask: FlappyBirdPhysicsCategory.none,
                              contactTestBitMask: FlappyBirdPhysicsCategory.character)
@@ -240,7 +248,17 @@ extension FlappyBirdEntityCreator {
         let yCoordinate = createScoringAreaContext.yCoordinate
         let positionPoint = CGPoint(x: xCoordinate, y: yCoordinate)
 
+        guard let gameSpeedEntity = ecs.getEntities(with: [FlappyBirdGameSpeed.self]).first else {
+            return
+        }
+
+        guard let gameSpeed = ecs.getComponent(
+            ofType: FlappyBirdGameSpeed.self, for: gameSpeedEntity) else {
+            return
+        }
+
         ecs.createEntity(with: [
+            FlappyBirdScoringAreaTag(),
             RectRenderableComponent(width: size.width, height: size.height)
                 .fill(color: .transparent)
                 .zPosition(3)
@@ -248,7 +266,7 @@ extension FlappyBirdEntityCreator {
             PositionComponent(position: positionPoint),
             RotationComponent(),
             PhysicsComponent(shape: .rectangle, size: size,
-                             velocity: pipeVelocity,
+                             velocity: gameSpeed.speed * pipeVelocity,
                              categoryBitMask: FlappyBirdPhysicsCategory.scoringArea,
                              collisionBitMask: FlappyBirdPhysicsCategory.none,
                              contactTestBitMask: FlappyBirdPhysicsCategory.character)

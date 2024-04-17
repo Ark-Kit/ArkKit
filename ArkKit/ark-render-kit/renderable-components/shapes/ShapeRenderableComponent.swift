@@ -1,9 +1,10 @@
 import Foundation
 
-protocol ShapeRenderableComponent: AbstractShape, RenderableComponent where Color == AbstractColor {
+protocol ShapeRenderableComponent: AbstractShape, AbstractTappable, RenderableComponent where Color == AbstractColor {
     var fillInfo: ShapeFillInfo? { get }
     var strokeInfo: ShapeStrokeInfo? { get }
     var labelInfo: ShapeLabelInfo? { get }
+    var onTapDelegate: TapDelegate? { get set }
 
     func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?, labelInfo: ShapeLabelInfo?) -> Self
 }
@@ -31,6 +32,12 @@ extension ShapeRenderableComponent {
             strokeInfo: strokeInfo ?? self.strokeInfo,
             labelInfo: labelInfo ?? self.labelInfo
         )
+    }
+
+    func modify(onTapDelegate: TapDelegate?) -> Self {
+        var copy = self
+        copy.onTapDelegate = onTapDelegate
+        return copy
     }
 }
 
