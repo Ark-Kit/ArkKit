@@ -113,17 +113,9 @@ class TankGameHealthPackStrategy: TankGameTerrainObjectStrategy {
     func createObject(type: Int, location: CGPoint, size: CGSize,
                       zPos: Double, in ecsContext: ArkECSContext) -> Entity {
         ecsContext.createEntity(with: [
-            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImage.healthPack,
-                                           width: size.width, height: size.height)
-            .zPosition(zPos)
-            .center(location)
-            .scaleAspectFill(),
+            TankHealthPackGeneratorComponent(size: size, zPosition: zPos),
             PositionComponent(position: location),
-            RotationComponent(angleInRadians: 0),
-            PhysicsComponent(shape: .circle, radius: size.width / 2, mass: 1, isDynamic: false, allowsRotation: false,
-                             categoryBitMask: TankGamePhysicsCategory.healthPack,
-                             collisionBitMask: TankGamePhysicsCategory.none,
-                             contactTestBitMask: TankGamePhysicsCategory.tank)
+            RotationComponent(angleInRadians: 0)
         ])
     }
 }

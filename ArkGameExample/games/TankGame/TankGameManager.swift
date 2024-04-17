@@ -117,6 +117,63 @@ class TankGameManager {
             }
             .forEachTick { timeContext, context in
                 let ecs = context.ecs
+                // Query all the health pack generators
+                let healthPackGeneratorEntities = ecs.getEntities(with: [TankHealthPackGeneratorComponent.self])
+
+                let healthPackEntities = ecs.getEntities(with: [TankHealthPackComponent.self])
+
+                let healthPacks = healthPackEntities.compactMap {
+                   ecs.getComponent(ofType: TankHealthPackComponent.self, for: $0)
+                }
+
+                for healthPackGeneratorEntity in healthPackGeneratorEntities {
+                    guard var healthPackGenerator = ecs.getComponent(
+                        ofType: TankHealthPackGeneratorComponent.self, for: healthPackGeneratorEntity) else {
+                        continue
+                    }
+
+                    healthPackGenerator.timeToNextHealthPack -= timeContext.deltaTime
+                    healthPackGenerator.timeToNextHealthPack = max(0, healthPackGenerator.timeToNextHealthPack)
+
+                    if healthPackGenerator.timeToNextHealthPack <= 0 {
+                        // Check if has health pack
+                        let hasHealthPack = healthPacks.contains(where: { healthPack in
+                            healthPack.generatorId == healthPackGenerator.id
+                        })
+
+                        if hasHealthPack {
+                            continue
+                        }
+
+                        healthPackGenerator.reset()
+
+                        // Create health pack at the position
+                        guard let healthPackPosition = ecs.getComponent(
+                            ofType: PositionComponent.self, for: healthPackGeneratorEntity) else {
+                            continue
+                        }
+
+                        let generatorId = healthPackGenerator.id
+                        let position = healthPackPosition.position
+                        let zPosition = healthPackGenerator.zPosition
+                        let size = healthPackGenerator.size
+
+                        let context = TankHealthPackCreationContext(
+                            width: size.width,
+                            height: size.height,
+                            position: position,
+                            zPosition: zPosition,
+                            generatorId: generatorId
+                        )
+                        TankGameEntityCreator.createHealthPack(with: context, in: ecs)
+                    }
+
+                    ecs.upsertComponent(healthPackGenerator, to: healthPackGeneratorEntity)
+                }
+
+            }
+            .forEachTick { timeContext, context in
+                let ecs = context.ecs
                 let deltaTime = timeContext.deltaTime
                 let tankEntities = Array(self.tankIdEntityMap.values)
 

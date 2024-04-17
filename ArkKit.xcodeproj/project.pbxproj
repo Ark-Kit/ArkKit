@@ -168,6 +168,8 @@
 		28548F542BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F532BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift */; };
 		286C09C02BADD0BB000343B1 /* TankGameMapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */; };
 		286C09C22BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */; };
+		286F6E2E2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F6E2D2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift */; };
+		286F6E302BCFADE800B857C5 /* TankHealthPackComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F6E2F2BCFADE800B857C5 /* TankHealthPackComponent.swift */; };
 		287B00552BC16E6C002F0114 /* TankHPComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00542BC16E6C002F0114 /* TankHPComponent.swift */; };
 		287B00572BC17127002F0114 /* TankDestroyedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00562BC17127002F0114 /* TankDestroyedEvent.swift */; };
 		287B00592BC17131002F0114 /* TankHPModifyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B00582BC17131002F0114 /* TankHPModifyEvent.swift */; };
@@ -506,6 +508,8 @@
 		28548F532BCD9EA000C49404 /* ArkPhysicsSyncSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsSyncSystem.swift; sourceTree = "<group>"; };
 		286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameMapBuilder.swift; sourceTree = "<group>"; };
 		286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
+		286F6E2D2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHealthPackGeneratorComponent.swift; sourceTree = "<group>"; };
+		286F6E2F2BCFADE800B857C5 /* TankHealthPackComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHealthPackComponent.swift; sourceTree = "<group>"; };
 		287B00542BC16E6C002F0114 /* TankHPComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPComponent.swift; sourceTree = "<group>"; };
 		287B00562BC17127002F0114 /* TankDestroyedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankDestroyedEvent.swift; sourceTree = "<group>"; };
 		287B00582BC17131002F0114 /* TankHPModifyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHPModifyEvent.swift; sourceTree = "<group>"; };
@@ -1754,6 +1758,8 @@
 				AD36A75A2BAC331F003E938B /* TankComponent.swift */,
 				287B00542BC16E6C002F0114 /* TankHPComponent.swift */,
 				8F3813112BCE80DB0058E107 /* TankTrackPrintGeneratorComponent.swift */,
+				286F6E2D2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift */,
+				286F6E2F2BCFADE800B857C5 /* TankHealthPackComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2340,6 +2346,7 @@
 				ADA848022BBC7DF000B19378 /* ArkSerializableEvent.swift in Sources */,
 				942A16772BADF3ED00F0186B /* AudioContext.swift in Sources */,
 				28E65B052BCE995800AF69B4 /* CGPoint+Extension.swift in Sources */,
+				286F6E2E2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift in Sources */,
 				02B3C6412BCD6651002331A0 /* ArkSetUpIfHostStrategy.swift in Sources */,
 				28EFCB1D2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift in Sources */,
 				AD787A842B9C6C78003EBBD0 /* Component.swift in Sources */,
@@ -2355,6 +2362,7 @@
 				8FA902332BCE3B8800FA13C8 /* FlappyBirdPipePassEvent.swift in Sources */,
 				0230A48C2BB802E0001CFDAF /* ArkViewFactory.swift in Sources */,
 				02C395262BA890470075F1CA /* ArkCanvasSystem.swift in Sources */,
+				286F6E302BCFADE800B857C5 /* TankHealthPackComponent.swift in Sources */,
 				02B3C6382BCD65D6002331A0 /* ArkSetUpOrchestrator.swift in Sources */,
 				02C395202BA8495B0075F1CA /* RectRenderableComponent.swift in Sources */,
 				02C394EF2BA420210075F1CA /* ArkGameCoordinator.swift in Sources */,
@@ -2554,7 +2562,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 879B4J7JQ8;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArkGameExample/Info.plist;
@@ -2569,7 +2577,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.ArkKit;
+				PRODUCT_BUNDLE_IDENTIFIER = arkkit.markus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -2588,7 +2596,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 879B4J7JQ8;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArkGameExample/Info.plist;
@@ -2603,7 +2611,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.ArkKit;
+				PRODUCT_BUNDLE_IDENTIFIER = arkkit.markus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

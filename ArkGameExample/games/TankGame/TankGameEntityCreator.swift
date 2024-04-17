@@ -35,6 +35,14 @@ struct TankBackgroundCreationContext {
     let background: [[Int]]
 }
 
+struct TankHealthPackCreationContext {
+    let width: CGFloat
+    let height: CGFloat
+    let position: CGPoint
+    let zPosition: Double
+    let generatorId: UUID
+}
+
 enum TankGameEntityCreator {
     static func createHpBarComponent(hp: Double, zPosition: Double) -> any RenderableComponent {
         RectRenderableComponent(width: hp, height: 10)
@@ -272,5 +280,28 @@ enum TankGameEntityCreator {
         let terrainObjectBuilder = TankGameTerrainObjectBuilder(ecsContext: ecsContext)
 
         terrainObjectBuilder.buildObjects(from: objectsSpecs)
+    }
+
+    static func createHealthPack(with healthPackContext: TankHealthPackCreationContext, in ecsContext: ArkECSContext) {
+        let position = healthPackContext.position
+        let zPosition = healthPackContext.zPosition
+        let width = healthPackContext.width
+        let height = healthPackContext.height
+        let generatorId = healthPackContext.generatorId
+
+        ecsContext.createEntity(with: [
+            BitmapImageRenderableComponent(arkImageResourcePath: TankGameImage.healthPack,
+                                           width: width, height: height)
+            .zPosition(zPosition)
+            .center(position)
+            .scaleAspectFill(),
+            TankHealthPackComponent(generatorId: generatorId),
+            PositionComponent(position: position),
+            RotationComponent(angleInRadians: 0),
+            PhysicsComponent(shape: .circle, radius: width / 2, mass: 1, isDynamic: false, allowsRotation: false,
+                             categoryBitMask: TankGamePhysicsCategory.healthPack,
+                             collisionBitMask: TankGamePhysicsCategory.none,
+                             contactTestBitMask: TankGamePhysicsCategory.tank)
+        ])
     }
 }
