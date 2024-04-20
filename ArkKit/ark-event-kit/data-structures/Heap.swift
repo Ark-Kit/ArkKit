@@ -113,7 +113,8 @@ public struct Heap<T> {
    * the max-heap or min-heap property still holds.
    */
   public mutating func replace(index i: Int, value: T) {
-    guard i < nodes.count else { return }
+    guard i < nodes.count else {
+        return }
 
     remove(at: i)
     insert(value)
@@ -124,7 +125,8 @@ public struct Heap<T> {
    * value; for a min-heap it is the minimum value. Performance: O(log n).
    */
   @discardableResult public mutating func remove() -> T? {
-    guard !nodes.isEmpty else { return nil }
+    guard !nodes.isEmpty else {
+        return nil }
 
     if nodes.count == 1 {
       return nodes.removeLast()
@@ -143,7 +145,8 @@ public struct Heap<T> {
    * Note that you need to know the node's index.
    */
   @discardableResult public mutating func remove(at index: Int) -> T? {
-    guard index < nodes.count else { return nil }
+    guard index < nodes.count else {
+        return nil }
 
     let size = nodes.count - 1
     if index != size {
@@ -191,7 +194,8 @@ public struct Heap<T> {
     if rightChildIndex < endIndex && orderCriteria(nodes[rightChildIndex], nodes[first]) {
       first = rightChildIndex
     }
-    if first == index { return }
+    if first == index {
+        return }
 
     nodes.swapAt(index, first)
     shiftDown(from: first, until: endIndex)
