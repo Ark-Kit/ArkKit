@@ -1,6 +1,6 @@
 import SpriteKit
 
-class ArkSKPhysicsBody: AbstractArkPhysicsBody {
+class ArkSKPhysicsBody: AbstractArkSKPhysicsBody {
     private(set) var node: SKNode
     private let nodeNoPhysicsBodyFailureMessage = "SKNode does not contain an associated SKPhysicsBody."
     private let physicsBodyFailedToCreateMessage = "Failed to create an SKPhysicsBody."

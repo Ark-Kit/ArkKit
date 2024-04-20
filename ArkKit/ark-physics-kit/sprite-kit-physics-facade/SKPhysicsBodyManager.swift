@@ -1,10 +1,10 @@
 import SpriteKit
 
 class SKPhysicsBodyManager {
-    private(set) var entityToPhysicsBodyMap: [Entity: ArkSKPhysicsBody] = [:]
+    private(set) var entityToPhysicsBodyMap: [Entity: any AbstractArkSKPhysicsBody] = [:]
     private var nodeToEntityMap: [SKNode: Entity] = [:]
 
-    func addBody(for entity: Entity, body: ArkSKPhysicsBody) -> Bool {
+    func addBody(for entity: Entity, body: any AbstractArkSKPhysicsBody) -> Bool {
         guard entityToPhysicsBodyMap[entity] == nil, nodeToEntityMap[body.node] == nil else {
             assertionFailure("Entity or Node already exists.")
             return false
@@ -21,7 +21,7 @@ class SKPhysicsBodyManager {
         nodeToEntityMap.removeValue(forKey: body.node)
     }
 
-    func getBody(for entity: Entity) -> ArkSKPhysicsBody? {
+    func getBody(for entity: Entity) -> (any AbstractArkSKPhysicsBody)? {
         entityToPhysicsBodyMap[entity]
     }
 
