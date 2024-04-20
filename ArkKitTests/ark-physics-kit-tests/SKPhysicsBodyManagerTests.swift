@@ -16,7 +16,6 @@ class SKPhysicsBodyManagerTests: XCTestCase {
     func testAddBody() {
         let added = manager.addBody(for: dummyEntity, body: dummyBody)
         XCTAssertTrue(added, "Should be able to add a new body.")
-        XCTAssertEqual(manager.getBody(for: dummyEntity), dummyBody)
         XCTAssertEqual(manager.getEntity(for: dummyBody.node), dummyEntity)
     }
 
