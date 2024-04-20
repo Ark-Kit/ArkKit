@@ -299,6 +299,13 @@
 		94D0539E2BC7F32E000280C6 /* TankRaceGameExternalResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0539D2BC7F32E000280C6 /* TankRaceGameExternalResources.swift */; };
 		94D053A12BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053A02BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift */; };
 		94D053A32BC80E8C000280C6 /* ArkImageEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D053A22BC80E8C000280C6 /* ArkImageEnum.swift */; };
+		AD0B9E0F2BD3BEE00095C001 /* ArkNetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E0E2BD3BEE00095C001 /* ArkNetworkServiceTests.swift */; };
+		AD0B9E112BD3C2940095C001 /* ComponentRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E102BD3C2940095C001 /* ComponentRegistryTests.swift */; };
+		AD0B9E132BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E122BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift */; };
+		AD0B9E152BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E142BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift */; };
+		AD0B9E172BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E162BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift */; };
+		AD0B9E192BD3C99A0095C001 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E182BD3C99A0095C001 /* MockNetworkService.swift */; };
+		AD0B9E1B2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E1A2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift */; };
 		AD260CA82BBFCC7E008B9654 /* EntityIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD260CA72BBFCC7E008B9654 /* EntityIDGenerator.swift */; };
 		AD2B59AC2BB87F2200198E99 /* ArkNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */; };
 		AD2B59B22BB94FBE00198E99 /* ArkPeerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59B12BB94FBE00198E99 /* ArkPeerRole.swift */; };
@@ -643,6 +650,13 @@
 		94D0539D2BC7F32E000280C6 /* TankRaceGameExternalResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameExternalResources.swift; sourceTree = "<group>"; };
 		94D053A02BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameExplosionAnimationKeyframes.swift; sourceTree = "<group>"; };
 		94D053A22BC80E8C000280C6 /* ArkImageEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkImageEnum.swift; sourceTree = "<group>"; };
+		AD0B9E0E2BD3BEE00095C001 /* ArkNetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkServiceTests.swift; sourceTree = "<group>"; };
+		AD0B9E102BD3C2940095C001 /* ComponentRegistryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentRegistryTests.swift; sourceTree = "<group>"; };
+		AD0B9E122BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameWorldUpdateLoopDelegate.swift; sourceTree = "<group>"; };
+		AD0B9E142BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPhysicsSceneUpdateLoopDelegate.swift; sourceTree = "<group>"; };
+		AD0B9E162BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoopTests.swift; sourceTree = "<group>"; };
+		AD0B9E182BD3C99A0095C001 /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
+		AD0B9E1A2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkHostNetworkSubscriberTests.swift; sourceTree = "<group>"; };
 		AD260CA72BBFCC7E008B9654 /* EntityIDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityIDGenerator.swift; sourceTree = "<group>"; };
 		AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkService.swift; sourceTree = "<group>"; };
 		AD2B59B12BB94FBE00198E99 /* ArkPeerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPeerRole.swift; sourceTree = "<group>"; };
@@ -791,6 +805,9 @@
 				02A4382E2BB00D9C000135BC /* MockDisplayContext.swift */,
 				02A438302BB00DC0000135BC /* MockAudioContext.swift */,
 				02B3C6122BCAF33C002331A0 /* MockExternalResource.swift */,
+				AD0B9E122BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift */,
+				AD0B9E142BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift */,
+				AD0B9E182BD3C99A0095C001 /* MockNetworkService.swift */,
 			);
 			path = mocks;
 			sourceTree = "<group>";
@@ -1734,6 +1751,17 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		AD0B9E0D2BD3BE570095C001 /* ark-multiplayer-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				AD0B9E0E2BD3BEE00095C001 /* ArkNetworkServiceTests.swift */,
+				AD0B9E102BD3C2940095C001 /* ComponentRegistryTests.swift */,
+				AD0B9E162BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift */,
+				AD0B9E1A2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift */,
+			);
+			path = "ark-multiplayer-kit-tests";
+			sourceTree = "<group>";
+		};
 		AD260CA62BBFCC6C008B9654 /* entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1914,6 +1942,7 @@
 		AD787A662B9C6373003EBBD0 /* ArkKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				AD0B9E0D2BD3BE570095C001 /* ark-multiplayer-kit-tests */,
 				281AE1262BD3910A00B79B91 /* data-structures-tests */,
 				02A438272BB00D20000135BC /* mocks */,
 				02A438242BB007B1000135BC /* ark-rule-kit-tests */,
@@ -2420,18 +2449,25 @@
 			files = (
 				02B3C6132BCAF33C002331A0 /* MockExternalResource.swift in Sources */,
 				AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */,
+				AD0B9E112BD3C2940095C001 /* ComponentRegistryTests.swift in Sources */,
+				AD0B9E1B2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift in Sources */,
 				AD3ECF472BB01ABC002C758D /* SystemManagerTests.swift in Sources */,
 				281AE1282BD3911F00B79B91 /* HeapTests.swift in Sources */,
+				AD0B9E152BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
+				AD0B9E0F2BD3BEE00095C001 /* ArkNetworkServiceTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
 				02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */,
 				281AE12A2BD3928100B79B91 /* QueueTests.swift in Sources */,
 				281AE12E2BD3928D00B79B91 /* OrderedDictionaryTests.swift in Sources */,
 				02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */,
+				AD0B9E192BD3C99A0095C001 /* MockNetworkService.swift in Sources */,
 				02A4382F2BB00D9C000135BC /* MockDisplayContext.swift in Sources */,
 				02A438292BB00D2B000135BC /* MockAction.swift in Sources */,
+				AD0B9E172BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift in Sources */,
 				02A4382D2BB00D75000135BC /* MockEventContext.swift in Sources */,
 				02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */,
+				AD0B9E132BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift in Sources */,
 				281AE12C2BD3928700B79B91 /* PriorityQueueTests.swift in Sources */,
 				28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */,
 				28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */,
