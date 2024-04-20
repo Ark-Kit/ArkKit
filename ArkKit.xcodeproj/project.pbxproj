@@ -162,6 +162,10 @@
 		2812FCC32BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC22BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift */; };
 		2812FCC52BC4424200A0FE24 /* TankRaceGameEntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */; };
 		2812FCC72BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */; };
+		281AE1282BD3911F00B79B91 /* HeapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AE1272BD3911E00B79B91 /* HeapTests.swift */; };
+		281AE12A2BD3928100B79B91 /* QueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AE1292BD3928100B79B91 /* QueueTests.swift */; };
+		281AE12C2BD3928700B79B91 /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AE12B2BD3928700B79B91 /* PriorityQueueTests.swift */; };
+		281AE12E2BD3928D00B79B91 /* OrderedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AE12D2BD3928D00B79B91 /* OrderedDictionaryTests.swift */; };
 		282248532BA82E5800850D7F /* SKPhysicsBodyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */; };
 		28548F502BCD9CA700C49404 /* ArkEntityRemovalSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */; };
 		28548F522BCD9CB900C49404 /* ToRemoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */; };
@@ -504,6 +508,10 @@
 		2812FCC22BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameEntityCreator.swift; sourceTree = "<group>"; };
 		2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
+		281AE1272BD3911E00B79B91 /* HeapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeapTests.swift; sourceTree = "<group>"; };
+		281AE1292BD3928100B79B91 /* QueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTests.swift; sourceTree = "<group>"; };
+		281AE12B2BD3928700B79B91 /* PriorityQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueueTests.swift; sourceTree = "<group>"; };
+		281AE12D2BD3928D00B79B91 /* OrderedDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionaryTests.swift; sourceTree = "<group>"; };
 		282248522BA82E5800850D7F /* SKPhysicsBodyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBodyManager.swift; sourceTree = "<group>"; };
 		28548F4F2BCD9CA700C49404 /* ArkEntityRemovalSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkEntityRemovalSystem.swift; sourceTree = "<group>"; };
 		28548F512BCD9CB900C49404 /* ToRemoveComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToRemoveComponent.swift; sourceTree = "<group>"; };
@@ -1331,6 +1339,17 @@
 			path = InternalComponents;
 			sourceTree = "<group>";
 		};
+		281AE1262BD3910A00B79B91 /* data-structures-tests */ = {
+			isa = PBXGroup;
+			children = (
+				281AE1272BD3911E00B79B91 /* HeapTests.swift */,
+				281AE1292BD3928100B79B91 /* QueueTests.swift */,
+				281AE12B2BD3928700B79B91 /* PriorityQueueTests.swift */,
+				281AE12D2BD3928D00B79B91 /* OrderedDictionaryTests.swift */,
+			);
+			path = "data-structures-tests";
+			sourceTree = "<group>";
+		};
 		2882ABF72BCB77EB0042AC52 /* SendableRenderableComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -1895,6 +1914,7 @@
 		AD787A662B9C6373003EBBD0 /* ArkKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				281AE1262BD3910A00B79B91 /* data-structures-tests */,
 				02A438272BB00D20000135BC /* mocks */,
 				02A438242BB007B1000135BC /* ark-rule-kit-tests */,
 				28D0065D2BAFD776001B4BD4 /* ark-state-kit-tests */,
@@ -2401,14 +2421,18 @@
 				02B3C6132BCAF33C002331A0 /* MockExternalResource.swift in Sources */,
 				AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */,
 				AD3ECF472BB01ABC002C758D /* SystemManagerTests.swift in Sources */,
+				281AE1282BD3911F00B79B91 /* HeapTests.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
 				02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */,
+				281AE12A2BD3928100B79B91 /* QueueTests.swift in Sources */,
+				281AE12E2BD3928D00B79B91 /* OrderedDictionaryTests.swift in Sources */,
 				02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */,
 				02A4382F2BB00D9C000135BC /* MockDisplayContext.swift in Sources */,
 				02A438292BB00D2B000135BC /* MockAction.swift in Sources */,
 				02A4382D2BB00D75000135BC /* MockEventContext.swift in Sources */,
 				02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */,
+				281AE12C2BD3928700B79B91 /* PriorityQueueTests.swift in Sources */,
 				28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */,
 				28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */,
 			);
@@ -2585,7 +2609,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ArkKit.arkkit";
+				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.arkkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -2619,7 +2643,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ArkKit.arkkit";
+				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.arkkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

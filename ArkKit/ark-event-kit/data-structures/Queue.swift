@@ -1,10 +1,3 @@
-//
-//  Queue.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 14/3/24.
-//
-
 struct Queue<T> {
     private var enqueueArray: [T] = []
     private var dequeueArray: [T] = []
