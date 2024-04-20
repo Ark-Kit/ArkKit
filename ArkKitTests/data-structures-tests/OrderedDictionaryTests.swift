@@ -45,7 +45,7 @@ class OrderedDictionaryTests: XCTestCase {
             iteratedKeys.append(key)
         }
 
-        XCTAssertEqual(iteratedKeys, ["one", "two", "three"], 
+        XCTAssertEqual(iteratedKeys, ["one", "two", "three"],
                        "Keys should be iterated in the order they were inserted.")
     }
 

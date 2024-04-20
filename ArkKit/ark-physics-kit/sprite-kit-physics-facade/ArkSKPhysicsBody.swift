@@ -3,6 +3,7 @@ import SpriteKit
 class ArkSKPhysicsBody: AbstractArkPhysicsBody {
     private(set) var node: SKNode
     private let nodeNoPhysicsBodyFailureMessage = "SKNode does not contain an associated SKPhysicsBody."
+    private let physicsBodyFailedToCreateMessage = "Failed to create an SKPhysicsBody."
 
     init(rectangleOf size: CGSize, at position: CGPoint = .zero) {
         let physicsBody = SKPhysicsBody(rectangleOf: size)
@@ -19,11 +20,20 @@ class ArkSKPhysicsBody: AbstractArkPhysicsBody {
     }
 
     init(polygonOf vertices: [CGPoint], at position: CGPoint = .zero) {
-        let cgPath = CGMutablePath()
-        cgPath.addLines(between: vertices)
-        let physicsBody = SKPhysicsBody(polygonFrom: cgPath)
+        guard vertices.count >= 3 else {
+            self.node = SKNode()
+            assertionFailure(physicsBodyFailedToCreateMessage)
+            return
+        }
+
         node = SKNode()
         node.position = position
+
+        let cgPath = CGMutablePath()
+        cgPath.addLines(between: vertices)
+        cgPath.closeSubpath()
+
+        let physicsBody = SKPhysicsBody(polygonFrom: cgPath)
         node.physicsBody = physicsBody
     }
 

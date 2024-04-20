@@ -189,6 +189,7 @@
 		28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */; };
 		28A032E52BAD781900851BFF /* AbstractPhysicsArkSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E42BAD781900851BFF /* AbstractPhysicsArkSimulator.swift */; };
 		28A032E72BAD783D00851BFF /* SKSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E62BAD783D00851BFF /* SKSimulator.swift */; };
+		28A34CF92BD3990000BD3F4C /* ArkSKPhysicsBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34CF82BD3990000BD3F4C /* ArkSKPhysicsBodyTests.swift */; };
 		28D006572BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */; };
 		28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */; };
 		28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */; };
@@ -535,6 +536,7 @@
 		28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkTimeSystem.swift; sourceTree = "<group>"; };
 		28A032E42BAD781900851BFF /* AbstractPhysicsArkSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPhysicsArkSimulator.swift; sourceTree = "<group>"; };
 		28A032E62BAD783D00851BFF /* SKSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSimulator.swift; sourceTree = "<group>"; };
+		28A34CF82BD3990000BD3F4C /* ArkSKPhysicsBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSKPhysicsBodyTests.swift; sourceTree = "<group>"; };
 		28D006562BAF116A001B4BD4 /* TankGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		28D0065E2BAFD7E1001B4BD4 /* EntityManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManagerTests.swift; sourceTree = "<group>"; };
 		28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsKitTests.swift; sourceTree = "<group>"; };
@@ -1375,6 +1377,7 @@
 			isa = PBXGroup;
 			children = (
 				28D006602BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift */,
+				28A34CF82BD3990000BD3F4C /* ArkSKPhysicsBodyTests.swift */,
 			);
 			path = "ark-physics-kit-tests";
 			sourceTree = "<group>";
@@ -2424,6 +2427,7 @@
 				281AE1282BD3911F00B79B91 /* HeapTests.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
+				28A34CF92BD3990000BD3F4C /* ArkSKPhysicsBodyTests.swift in Sources */,
 				02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */,
 				281AE12A2BD3928100B79B91 /* QueueTests.swift in Sources */,
 				281AE12E2BD3928D00B79B91 /* OrderedDictionaryTests.swift in Sources */,
