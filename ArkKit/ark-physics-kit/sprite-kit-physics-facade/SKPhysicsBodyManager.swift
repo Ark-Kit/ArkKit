@@ -29,19 +29,21 @@ class SKPhysicsBodyManager {
         nodeToEntityMap[node]
     }
 
-    func applyImpulse(_ impulse: CGVector, to entity: Entity) {
+    @discardableResult
+    func applyImpulse(_ impulse: CGVector, to entity: Entity) -> Bool {
         guard let body = entityToPhysicsBodyMap[entity] else {
-            assertionFailure("Entity does not exist.")
-            return
+            return false
         }
         body.applyImpulse(impulse)
+        return true
     }
 
-    func applyAngularImpulse(_ angularImpulse: CGFloat, to entity: Entity) {
+    @discardableResult
+    func applyAngularImpulse(_ angularImpulse: CGFloat, to entity: Entity) -> Bool {
         guard let body = entityToPhysicsBodyMap[entity] else {
-            assertionFailure("Entity does not exist.")
-            return
+            return false
         }
         body.applyAngularImpulse(angularImpulse)
+        return true
     }
 }
