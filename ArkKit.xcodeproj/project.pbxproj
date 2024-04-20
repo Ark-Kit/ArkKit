@@ -199,7 +199,6 @@
 		28A34D082BD3BCEC00BD3F4C /* AbstractArkPhysicsSceneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34D072BD3BCEC00BD3F4C /* AbstractArkPhysicsSceneTests.swift */; };
 		28A34D0A2BD3BCFE00BD3F4C /* AbstractArkPhysicsBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34D092BD3BCFE00BD3F4C /* AbstractArkPhysicsBodyTests.swift */; };
 		28A34D0C2BD3C16E00BD3F4C /* MockBaseSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34D0B2BD3C16E00BD3F4C /* MockBaseSKScene.swift */; };
-		28A34D122BD3DADD00BD3F4C /* ArkSKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34D112BD3DADD00BD3F4C /* ArkSKNode.swift */; };
 		28A34D142BD3DC9C00BD3F4C /* AbstractSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34D132BD3DC9C00BD3F4C /* AbstractSKScene.swift */; };
 		28A34D162BD3E0A000BD3F4C /* AbstractArkSKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34D152BD3E0A000BD3F4C /* AbstractArkSKPhysicsBody.swift */; };
 		28A34D192BD3E58300BD3F4C /* AbstractArkSKPhysicsBodyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A34D182BD3E58300BD3F4C /* AbstractArkSKPhysicsBodyFactory.swift */; };
@@ -559,7 +558,6 @@
 		28A34D072BD3BCEC00BD3F4C /* AbstractArkPhysicsSceneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkPhysicsSceneTests.swift; sourceTree = "<group>"; };
 		28A34D092BD3BCFE00BD3F4C /* AbstractArkPhysicsBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkPhysicsBodyTests.swift; sourceTree = "<group>"; };
 		28A34D0B2BD3C16E00BD3F4C /* MockBaseSKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBaseSKScene.swift; sourceTree = "<group>"; };
-		28A34D112BD3DADD00BD3F4C /* ArkSKNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSKNode.swift; sourceTree = "<group>"; };
 		28A34D132BD3DC9C00BD3F4C /* AbstractSKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractSKScene.swift; sourceTree = "<group>"; };
 		28A34D152BD3E0A000BD3F4C /* AbstractArkSKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkSKPhysicsBody.swift; sourceTree = "<group>"; };
 		28A34D182BD3E58300BD3F4C /* AbstractArkSKPhysicsBodyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractArkSKPhysicsBodyFactory.swift; sourceTree = "<group>"; };
@@ -1337,7 +1335,6 @@
 				28A34D172BD3E0A900BD3F4C /* abstracts */,
 				280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */,
 				280C803A2BD3EEC90007F659 /* ArkSKPhysicsBodyFactory.swift */,
-				28A34D112BD3DADD00BD3F4C /* ArkSKNode.swift */,
 				280CD3CD2BA74E4300372C5D /* BaseSKScene.swift */,
 				280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift */,
 				280CD3D52BA7F8CC00372C5D /* SKPhysicsScene.swift */,
@@ -2317,7 +2314,6 @@
 				28548F502BCD9CA700C49404 /* ArkEntityRemovalSystem.swift in Sources */,
 				94D053A12BC80E0C000280C6 /* TankGameExplosionAnimationKeyframes.swift in Sources */,
 				8FEB217C2BADE8A500788E20 /* AbstractRootView.swift in Sources */,
-				28A34D122BD3DADD00BD3F4C /* ArkSKNode.swift in Sources */,
 				0267BA1C2BBB05B70010F729 /* RuleTrigger.swift in Sources */,
 				94D0538B2BC6CA2A000280C6 /* TankGameExternalResources.swift in Sources */,
 				02D8E9532BAC9A5A00BF3A07 /* AbstractView.swift in Sources */,
