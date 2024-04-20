@@ -146,6 +146,7 @@
 		02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F32BA283180043E2BA /* UIKitRect.swift */; };
 		02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F52BA283940043E2BA /* UIKitPolygon.swift */; };
 		02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F72BA284540043E2BA /* UIKitBitmap.swift */; };
+		280C803B2BD3EEC90007F659 /* ArkSKPhysicsBodyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280C803A2BD3EEC90007F659 /* ArkSKPhysicsBodyFactory.swift */; };
 		280CD3B72BA7391100372C5D /* ArkPhysicsUpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */; };
 		280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B82BA7391700372C5D /* PhysicsComponent.swift */; };
 		280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */; };
@@ -505,6 +506,7 @@
 		02E0E8F32BA283180043E2BA /* UIKitRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRect.swift; sourceTree = "<group>"; };
 		02E0E8F52BA283940043E2BA /* UIKitPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitPolygon.swift; sourceTree = "<group>"; };
 		02E0E8F72BA284540043E2BA /* UIKitBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitBitmap.swift; sourceTree = "<group>"; };
+		280C803A2BD3EEC90007F659 /* ArkSKPhysicsBodyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSKPhysicsBodyFactory.swift; sourceTree = "<group>"; };
 		280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsUpdateSystem.swift; sourceTree = "<group>"; };
 		280CD3B82BA7391700372C5D /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSKPhysicsBody.swift; sourceTree = "<group>"; };
@@ -1334,6 +1336,7 @@
 			children = (
 				28A34D172BD3E0A900BD3F4C /* abstracts */,
 				280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */,
+				280C803A2BD3EEC90007F659 /* ArkSKPhysicsBodyFactory.swift */,
 				28A34D112BD3DADD00BD3F4C /* ArkSKNode.swift */,
 				280CD3CD2BA74E4300372C5D /* BaseSKScene.swift */,
 				280CD3DF2BA81FBA00372C5D /* DefaultSKPhysicsBodyValues.swift */,
@@ -2254,6 +2257,7 @@
 				280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */,
 				02B3C60B2BCAEF9B002331A0 /* DemoGames.swift in Sources */,
 				02B3C6352BCD1EE8002331A0 /* ArkParticipantNetworkPublisher.swift in Sources */,
+				280C803B2BD3EEC90007F659 /* ArkSKPhysicsBodyFactory.swift in Sources */,
 				022C427F2BC9944A003D6924 /* TerminateGameLoopEvent.swift in Sources */,
 				02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */,
 				280CD3DE2BA8045200372C5D /* RotationComponent.swift in Sources */,
