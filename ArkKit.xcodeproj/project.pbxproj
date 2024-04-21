@@ -197,7 +197,6 @@
 		2894242C2BD552010063C5EF /* RectRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894242B2BD552010063C5EF /* RectRenderableComponentTests.swift */; };
 		2894242E2BD554E50063C5EF /* ButtonRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894242D2BD554E50063C5EF /* ButtonRenderableComponentTests.swift */; };
 		289424302BD554EF0063C5EF /* JoystickRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894242F2BD554EF0063C5EF /* JoystickRenderableComponentTests.swift */; };
-		289424362BD557D30063C5EF /* MockArkEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289424352BD557D30063C5EF /* MockArkEventManager.swift */; };
 		289424382BD55BCC0063C5EF /* PhysicsComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289424372BD55BCC0063C5EF /* PhysicsComponentTests.swift */; };
 		2894243B2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894243A2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift */; };
 		2894243D2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894243C2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift */; };
@@ -584,7 +583,6 @@
 		2894242B2BD552010063C5EF /* RectRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectRenderableComponentTests.swift; sourceTree = "<group>"; };
 		2894242D2BD554E50063C5EF /* ButtonRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRenderableComponentTests.swift; sourceTree = "<group>"; };
 		2894242F2BD554EF0063C5EF /* JoystickRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickRenderableComponentTests.swift; sourceTree = "<group>"; };
-		289424352BD557D30063C5EF /* MockArkEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArkEventManager.swift; sourceTree = "<group>"; };
 		289424372BD55BCC0063C5EF /* PhysicsComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponentTests.swift; sourceTree = "<group>"; };
 		2894243A2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationsComponentTests.swift; sourceTree = "<group>"; };
 		2894243C2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationInstanceTests.swift; sourceTree = "<group>"; };
@@ -1510,7 +1508,6 @@
 				28A34D012BD3A6C200BD3F4C /* MockArkSKPhysicsBody.swift */,
 				28A34D052BD3B91700BD3F4C /* MockArkPhysicsScene.swift */,
 				28A34D0B2BD3C16E00BD3F4C /* MockBaseSKScene.swift */,
-				289424352BD557D30063C5EF /* MockArkEventManager.swift */,
 			);
 			path = mocks;
 			sourceTree = "<group>";
@@ -2632,7 +2629,6 @@
 				02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */,
 				02EDED3B2BD5399200FFA756 /* ArkCameraContextTests.swift in Sources */,
 				02EDED442BD543E000FFA756 /* MockRootView.swift in Sources */,
-				289424362BD557D30063C5EF /* MockArkEventManager.swift in Sources */,
 				AD0B9E192BD3C99A0095C001 /* MockNetworkService.swift in Sources */,
 				AD0B9E232BD4D26C0095C001 /* MockHostNetworkPublisher.swift in Sources */,
 				28A34D0C2BD3C16E00BD3F4C /* MockBaseSKScene.swift in Sources */,
