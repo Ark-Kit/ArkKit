@@ -22,4 +22,7 @@ protocol Canvas {
     typealias RenderableComponentType = ObjectIdentifier
     typealias CanvasElements = [EntityID: [RenderableComponentType: any RenderableComponent]]
     var canvasElements: CanvasElements { get }
+    mutating func addEntityRenderableToCanvas(entityId: EntityID,
+                                              componentType: RenderableComponentType,
+                                              renderableComponent: any RenderableComponent)
 }
