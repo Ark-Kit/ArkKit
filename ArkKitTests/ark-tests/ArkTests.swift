@@ -1,20 +1,6 @@
 import XCTest
 @testable import ArkKit
 
-class MockRootView: AbstractRootView {
-    var abstractView: View
-    init() {
-        self.abstractView = 1
-        self.size = CGSize(width: 0, height: 0)
-    }
-    func pushView(_ view: any ArkKit.AbstractView<View>, animated: Bool) {
-    }
-
-    var size: CGSize
-
-    typealias View = Any
-}
-
 class ArkTests: XCTestCase {
     func testArkInit() {
         let mockRootView = MockRootView()
@@ -61,6 +47,28 @@ class ArkTests: XCTestCase {
         ark.start()
         XCTAssertNotNil(ark.gameLoop)
         XCTAssertNotNil(ark.networkService)
+        ark.finish()
+    }
+
+    func testArk_withBlueprintContextSetup_shouldStart() {
+        let mockRootView = MockRootView()
+        let blueprint = ArkBlueprint<NoExternalResources>(frameWidth: 0, frameHeight: 0)
+            .setup { context in
+                context.ecs.createEntity(with: [
+                    ButtonRenderableComponent(width: 0, height: 0),
+                    JoystickRenderableComponent(radius: 0),
+                    CircleRenderableComponent(radius: 0),
+                    RectRenderableComponent(width: 0, height: 0),
+                    PolygonRenderableComponent(
+                        points: [CGPoint(x: 0, y: 0)],
+                        frame: CGRect(x: 0, y: 0, width: 0, height: 0)
+                    ),
+                    BitmapImageRenderableComponent(imageResourcePath: "test", width: 0, height: 0)
+                ])
+            }
+        let ark = Ark(rootView: mockRootView, blueprint: blueprint)
+        ark.start()
+        XCTAssertNotNil(ark.gameLoop)
         ark.finish()
     }
 
