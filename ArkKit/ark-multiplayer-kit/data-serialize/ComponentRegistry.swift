@@ -4,7 +4,6 @@ class ComponentRegistry {
     static let shared = ComponentRegistry()
 
     private init() {
-//        setUpComponentTypes()
         loadComponentTypes()
     }
 
@@ -42,16 +41,6 @@ class ComponentRegistry {
 
         for componentType in componentTypes {
             register(componentType)
-        }
-    }
-
-    private func setUpComponentTypes() {
-        let componentTypes = subclasses(of: SendableComponent.self)
-        print("subclasses: \(componentTypes)")
-        for componentType in componentTypes {
-            if let componentType = componentType as? any Component.Type {
-                register(componentType)
-            }
         }
     }
 
