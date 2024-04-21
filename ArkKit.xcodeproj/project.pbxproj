@@ -191,6 +191,16 @@
 		2882ABFD2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882ABFC2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift */; };
 		2882ABFF2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882ABFE2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift */; };
 		28844EA12BA881E60037A7F6 /* DemoPhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */; };
+		289424262BD551D50063C5EF /* BitmapImageRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289424252BD551D50063C5EF /* BitmapImageRenderableComponentTests.swift */; };
+		289424282BD551EC0063C5EF /* CircleRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289424272BD551EC0063C5EF /* CircleRenderableComponentTests.swift */; };
+		2894242A2BD551F40063C5EF /* PolygonRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289424292BD551F40063C5EF /* PolygonRenderableComponentTests.swift */; };
+		2894242C2BD552010063C5EF /* RectRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894242B2BD552010063C5EF /* RectRenderableComponentTests.swift */; };
+		2894242E2BD554E50063C5EF /* ButtonRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894242D2BD554E50063C5EF /* ButtonRenderableComponentTests.swift */; };
+		289424302BD554EF0063C5EF /* JoystickRenderableComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894242F2BD554EF0063C5EF /* JoystickRenderableComponentTests.swift */; };
+		289424382BD55BCC0063C5EF /* PhysicsComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289424372BD55BCC0063C5EF /* PhysicsComponentTests.swift */; };
+		2894243B2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894243A2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift */; };
+		2894243D2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894243C2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift */; };
+		2894243F2BD55C2D0063C5EF /* ArkAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894243E2BD55C2D0063C5EF /* ArkAnimationTests.swift */; };
 		28A032DC2BAD4E8200851BFF /* StopWatchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */; };
 		28A032DF2BAD4F2A00851BFF /* ArkTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */; };
 		28A032E52BAD781900851BFF /* AbstractPhysicsArkSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A032E42BAD781900851BFF /* AbstractPhysicsArkSimulator.swift */; };
@@ -567,6 +577,16 @@
 		2882ABFC2BCB7BA20042AC52 /* CircleRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircleRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
 		2882ABFE2BCB7BB40042AC52 /* PolygonRenderableComponent+SendableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PolygonRenderableComponent+SendableComponent.swift"; sourceTree = "<group>"; };
 		28844EA02BA881E60037A7F6 /* DemoPhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPhysicsComponent.swift; sourceTree = "<group>"; };
+		289424252BD551D50063C5EF /* BitmapImageRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapImageRenderableComponentTests.swift; sourceTree = "<group>"; };
+		289424272BD551EC0063C5EF /* CircleRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleRenderableComponentTests.swift; sourceTree = "<group>"; };
+		289424292BD551F40063C5EF /* PolygonRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonRenderableComponentTests.swift; sourceTree = "<group>"; };
+		2894242B2BD552010063C5EF /* RectRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectRenderableComponentTests.swift; sourceTree = "<group>"; };
+		2894242D2BD554E50063C5EF /* ButtonRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRenderableComponentTests.swift; sourceTree = "<group>"; };
+		2894242F2BD554EF0063C5EF /* JoystickRenderableComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickRenderableComponentTests.swift; sourceTree = "<group>"; };
+		289424372BD55BCC0063C5EF /* PhysicsComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponentTests.swift; sourceTree = "<group>"; };
+		2894243A2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationsComponentTests.swift; sourceTree = "<group>"; };
+		2894243C2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationInstanceTests.swift; sourceTree = "<group>"; };
+		2894243E2BD55C2D0063C5EF /* ArkAnimationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkAnimationTests.swift; sourceTree = "<group>"; };
 		28A032DB2BAD4E8200851BFF /* StopWatchComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchComponent.swift; sourceTree = "<group>"; };
 		28A032DE2BAD4F2A00851BFF /* ArkTimeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkTimeSystem.swift; sourceTree = "<group>"; };
 		28A032E42BAD781900851BFF /* AbstractPhysicsArkSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractPhysicsArkSimulator.swift; sourceTree = "<group>"; };
@@ -1447,6 +1467,29 @@
 			path = SendableRenderableComponents;
 			sourceTree = "<group>";
 		};
+		289424242BD551BC0063C5EF /* ark-render-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				289424252BD551D50063C5EF /* BitmapImageRenderableComponentTests.swift */,
+				289424272BD551EC0063C5EF /* CircleRenderableComponentTests.swift */,
+				289424292BD551F40063C5EF /* PolygonRenderableComponentTests.swift */,
+				2894242D2BD554E50063C5EF /* ButtonRenderableComponentTests.swift */,
+				2894242F2BD554EF0063C5EF /* JoystickRenderableComponentTests.swift */,
+				2894242B2BD552010063C5EF /* RectRenderableComponentTests.swift */,
+			);
+			path = "ark-render-kit-tests";
+			sourceTree = "<group>";
+		};
+		289424392BD55BF10063C5EF /* ark-animation-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				2894243A2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift */,
+				2894243C2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift */,
+				2894243E2BD55C2D0063C5EF /* ArkAnimationTests.swift */,
+			);
+			path = "ark-animation-kit-tests";
+			sourceTree = "<group>";
+		};
 		28A032DD2BAD4ED200851BFF /* InternalSystems */ = {
 			isa = PBXGroup;
 			children = (
@@ -1488,6 +1531,7 @@
 				28A34CFA2BD3A31900BD3F4C /* SKPhysicsBodyManagerTests.swift */,
 				28A34D072BD3BCEC00BD3F4C /* AbstractArkPhysicsSceneTests.swift */,
 				28A34D092BD3BCFE00BD3F4C /* AbstractArkPhysicsBodyTests.swift */,
+				289424372BD55BCC0063C5EF /* PhysicsComponentTests.swift */,
 			);
 			path = "ark-physics-kit-tests";
 			sourceTree = "<group>";
@@ -2041,6 +2085,8 @@
 		AD787A662B9C6373003EBBD0 /* ArkKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				289424392BD55BF10063C5EF /* ark-animation-kit-tests */,
+				289424242BD551BC0063C5EF /* ark-render-kit-tests */,
 				02EDED402BD53D9100FFA756 /* ark-tests */,
 				02EDED392BD5397B00FFA756 /* ark-camera-kit-tests */,
 				AD0B9E0D2BD3BE570095C001 /* ark-multiplayer-kit-tests */,
@@ -2558,14 +2604,20 @@
 				AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */,
 				AD0B9E112BD3C2940095C001 /* ComponentRegistryTests.swift in Sources */,
 				AD0B9E1B2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift in Sources */,
+				2894243B2BD55BFE0063C5EF /* ArkAnimationsComponentTests.swift in Sources */,
 				AD3ECF472BB01ABC002C758D /* SystemManagerTests.swift in Sources */,
 				281AE1282BD3911F00B79B91 /* HeapTests.swift in Sources */,
+				2894242A2BD551F40063C5EF /* PolygonRenderableComponentTests.swift in Sources */,
 				AD0B9E152BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift in Sources */,
+				289424302BD554EF0063C5EF /* JoystickRenderableComponentTests.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD0B9E252BD4D2A60095C001 /* ArkHostSystemTests.swift in Sources */,
 				AD0B9E1D2BD4427E0095C001 /* ArkParticipantNetworkPublisherTests.swift in Sources */,
+				2894242E2BD554E50063C5EF /* ButtonRenderableComponentTests.swift in Sources */,
+				2894242C2BD552010063C5EF /* RectRenderableComponentTests.swift in Sources */,
 				AD0B9E0F2BD3BEE00095C001 /* ArkNetworkServiceTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
+				289424282BD551EC0063C5EF /* CircleRenderableComponentTests.swift in Sources */,
 				02EDED422BD53D9D00FFA756 /* ArkTests.swift in Sources */,
 				28A34CF92BD3990000BD3F4C /* ArkSKPhysicsBodyTests.swift in Sources */,
 				02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */,
@@ -2573,6 +2625,7 @@
 				281AE12A2BD3928100B79B91 /* QueueTests.swift in Sources */,
 				281AE12E2BD3928D00B79B91 /* OrderedDictionaryTests.swift in Sources */,
 				28A34D082BD3BCEC00BD3F4C /* AbstractArkPhysicsSceneTests.swift in Sources */,
+				289424382BD55BCC0063C5EF /* PhysicsComponentTests.swift in Sources */,
 				02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */,
 				02EDED3B2BD5399200FFA756 /* ArkCameraContextTests.swift in Sources */,
 				02EDED442BD543E000FFA756 /* MockRootView.swift in Sources */,
@@ -2580,6 +2633,8 @@
 				AD0B9E232BD4D26C0095C001 /* MockHostNetworkPublisher.swift in Sources */,
 				28A34D0C2BD3C16E00BD3F4C /* MockBaseSKScene.swift in Sources */,
 				28A34D1B2BD3E7AA00BD3F4C /* MockArkSKPhysicsBodyFactory.swift in Sources */,
+				2894243D2BD55C1D0063C5EF /* ArkAnimationInstanceTests.swift in Sources */,
+				2894243F2BD55C2D0063C5EF /* ArkAnimationTests.swift in Sources */,
 				02A4382F2BB00D9C000135BC /* MockDisplayContext.swift in Sources */,
 				02A438292BB00D2B000135BC /* MockAction.swift in Sources */,
 				AD0B9E172BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift in Sources */,
@@ -2587,7 +2642,6 @@
 				02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */,
 				02EDED3D2BD539BC00FFA756 /* MockCanvas.swift in Sources */,
 				02EDED3F2BD53BC900FFA756 /* MockView.swift in Sources */,
-				28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */,
 				AD0B9E132BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift in Sources */,
 				AD0B9E1F2BD444010095C001 /* ArkHostNetworkPublisherTests.swift in Sources */,
 				281AE12C2BD3928700B79B91 /* PriorityQueueTests.swift in Sources */,
@@ -2595,6 +2649,7 @@
 				28A34CFB2BD3A31900BD3F4C /* SKPhysicsBodyManagerTests.swift in Sources */,
 				28A34D062BD3B91700BD3F4C /* MockArkPhysicsScene.swift in Sources */,
 				28A34D0A2BD3BCFE00BD3F4C /* AbstractArkPhysicsBodyTests.swift in Sources */,
+				289424262BD551D50063C5EF /* BitmapImageRenderableComponentTests.swift in Sources */,
 				28A34D042BD3A6E300BD3F4C /* SKPhysicsSceneTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
