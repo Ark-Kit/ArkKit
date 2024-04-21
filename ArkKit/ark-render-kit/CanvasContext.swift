@@ -7,7 +7,7 @@ protocol CanvasContext<View> {
     var arkView: (any ArkView<View>)? { get }
     var memo: [EntityID: [RenderableComponentType: (any RenderableComponent, any Renderable)]] { get }
 
-    func getFlatCanvas() -> ArkFlatCanvas
+    func getFlatCanvas() -> any Canvas
     func render(_ canvas: any Canvas, using renderer: any RenderableBuilder<View>)
 }
 
@@ -62,7 +62,7 @@ class ArkCanvasContext<View>: CanvasContext {
     }
 
     /// Outputs a logical canvas with the relevant entities in the canvas and their renderable components only
-    func getFlatCanvas() -> ArkFlatCanvas {
+    func getFlatCanvas() -> any Canvas {
         var arkCanvas = ArkFlatCanvas()
         for renderableCompType in ArkCanvasSystem.renderableComponentTypes {
             let renderableEntities = ecs.getEntities(with: [renderableCompType])
