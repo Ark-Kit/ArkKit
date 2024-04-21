@@ -146,6 +146,10 @@
 		02E0E8F42BA283180043E2BA /* UIKitRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F32BA283180043E2BA /* UIKitRect.swift */; };
 		02E0E8F62BA283940043E2BA /* UIKitPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F52BA283940043E2BA /* UIKitPolygon.swift */; };
 		02E0E8F82BA284540043E2BA /* UIKitBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0E8F72BA284540043E2BA /* UIKitBitmap.swift */; };
+		02EDED3B2BD5399200FFA756 /* ArkCameraContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EDED3A2BD5399200FFA756 /* ArkCameraContextTests.swift */; };
+		02EDED3D2BD539BC00FFA756 /* MockCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EDED3C2BD539BC00FFA756 /* MockCanvas.swift */; };
+		02EDED3F2BD53BC900FFA756 /* MockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EDED3E2BD53BC900FFA756 /* MockView.swift */; };
+		02EDED422BD53D9D00FFA756 /* ArkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EDED412BD53D9D00FFA756 /* ArkTests.swift */; };
 		280CD3B72BA7391100372C5D /* ArkPhysicsUpdateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */; };
 		280CD3B92BA7391700372C5D /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3B82BA7391700372C5D /* PhysicsComponent.swift */; };
 		280CD3BC2BA73CF900372C5D /* ArkSKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */; };
@@ -492,6 +496,10 @@
 		02E0E8F32BA283180043E2BA /* UIKitRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRect.swift; sourceTree = "<group>"; };
 		02E0E8F52BA283940043E2BA /* UIKitPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitPolygon.swift; sourceTree = "<group>"; };
 		02E0E8F72BA284540043E2BA /* UIKitBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitBitmap.swift; sourceTree = "<group>"; };
+		02EDED3A2BD5399200FFA756 /* ArkCameraContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkCameraContextTests.swift; sourceTree = "<group>"; };
+		02EDED3C2BD539BC00FFA756 /* MockCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCanvas.swift; sourceTree = "<group>"; };
+		02EDED3E2BD53BC900FFA756 /* MockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockView.swift; sourceTree = "<group>"; };
+		02EDED412BD53D9D00FFA756 /* ArkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkTests.swift; sourceTree = "<group>"; };
 		280CD3B62BA7391100372C5D /* ArkPhysicsUpdateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPhysicsUpdateSystem.swift; sourceTree = "<group>"; };
 		280CD3B82BA7391700372C5D /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		280CD3BB2BA73CF900372C5D /* ArkSKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkSKPhysicsBody.swift; sourceTree = "<group>"; };
@@ -791,6 +799,8 @@
 				02A4382E2BB00D9C000135BC /* MockDisplayContext.swift */,
 				02A438302BB00DC0000135BC /* MockAudioContext.swift */,
 				02B3C6122BCAF33C002331A0 /* MockExternalResource.swift */,
+				02EDED3C2BD539BC00FFA756 /* MockCanvas.swift */,
+				02EDED3E2BD53BC900FFA756 /* MockView.swift */,
 			);
 			path = mocks;
 			sourceTree = "<group>";
@@ -1278,6 +1288,22 @@
 				02E0E8F72BA284540043E2BA /* UIKitBitmap.swift */,
 			);
 			path = bitmap;
+			sourceTree = "<group>";
+		};
+		02EDED392BD5397B00FFA756 /* ark-camera-kit-tests */ = {
+			isa = PBXGroup;
+			children = (
+				02EDED3A2BD5399200FFA756 /* ArkCameraContextTests.swift */,
+			);
+			path = "ark-camera-kit-tests";
+			sourceTree = "<group>";
+		};
+		02EDED402BD53D9100FFA756 /* ark-tests */ = {
+			isa = PBXGroup;
+			children = (
+				02EDED412BD53D9D00FFA756 /* ArkTests.swift */,
+			);
+			path = "ark-tests";
 			sourceTree = "<group>";
 		};
 		280CD3B52BA738EC00372C5D /* ark-physics-kit */ = {
@@ -1914,6 +1940,8 @@
 		AD787A662B9C6373003EBBD0 /* ArkKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				02EDED402BD53D9100FFA756 /* ark-tests */,
+				02EDED392BD5397B00FFA756 /* ark-camera-kit-tests */,
 				281AE1262BD3910A00B79B91 /* data-structures-tests */,
 				02A438272BB00D20000135BC /* mocks */,
 				02A438242BB007B1000135BC /* ark-rule-kit-tests */,
@@ -2424,16 +2452,20 @@
 				281AE1282BD3911F00B79B91 /* HeapTests.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
+				02EDED422BD53D9D00FFA756 /* ArkTests.swift in Sources */,
 				02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */,
 				281AE12A2BD3928100B79B91 /* QueueTests.swift in Sources */,
 				281AE12E2BD3928D00B79B91 /* OrderedDictionaryTests.swift in Sources */,
 				02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */,
+				02EDED3B2BD5399200FFA756 /* ArkCameraContextTests.swift in Sources */,
 				02A4382F2BB00D9C000135BC /* MockDisplayContext.swift in Sources */,
 				02A438292BB00D2B000135BC /* MockAction.swift in Sources */,
 				02A4382D2BB00D75000135BC /* MockEventContext.swift in Sources */,
 				02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */,
+				02EDED3D2BD539BC00FFA756 /* MockCanvas.swift in Sources */,
 				281AE12C2BD3928700B79B91 /* PriorityQueueTests.swift in Sources */,
 				28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */,
+				02EDED3F2BD53BC900FFA756 /* MockView.swift in Sources */,
 				28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
