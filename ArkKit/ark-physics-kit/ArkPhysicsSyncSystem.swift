@@ -165,21 +165,14 @@ struct PhysicsComponentSync: ComponentSyncing {
 
 struct PositionComponentSync: ComponentSyncing {
     func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS) {
-        guard let positionComponent: PositionComponent =
-                arkECS.getComponent(ofType: PositionComponent.self, for: entity) else {
-            return }
-        var newPositionComp = positionComponent
-        newPositionComp.position = physicsBody.position
+        let newPositionComp = PositionComponent(position: physicsBody.position)
         arkECS.upsertComponent(newPositionComp, to: entity)
     }
 }
 
 struct RotationComponentSync: ComponentSyncing {
     func sync(entity: Entity, with physicsBody: AbstractArkPhysicsBody, using arkECS: ArkECS) {
-        guard var rotationComponent: RotationComponent =
-                arkECS.getComponent(ofType: RotationComponent.self, for: entity) else {
-            return }
-        rotationComponent.angleInRadians = physicsBody.zRotation
+        let rotationComponent = RotationComponent(angleInRadians: physicsBody.zRotation)
         arkECS.upsertComponent(rotationComponent, to: entity)
     }
 }
