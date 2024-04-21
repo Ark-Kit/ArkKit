@@ -24,11 +24,12 @@ class ArkSetUpIfHostStrategy<View, ExternalResources: ArkExternalResources>: Ark
 
 extension ArkSetUpIfHostStrategy: ArkPlayerStateSetupDelegate {
     func setup(_ playerId: Int) {
-        let playerSetUpCallbacks = ark?.blueprint.playerSpecificSetupFunctions
-        guard let specificPlayerSetUp = playerSetUpCallbacks?[playerId],
+        guard let playerSetUpCallbacks = ark?.blueprint.playerSpecificSetupFunctions,
+              playerId < playerSetUpCallbacks.count,
               let ark = ark else {
             return
         }
+        let specificPlayerSetUp = playerSetUpCallbacks[playerId]
         ark.arkState.setup(specificPlayerSetUp, with: ark.setupContext)
     }
 }
