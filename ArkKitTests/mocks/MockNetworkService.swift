@@ -1,18 +1,22 @@
 @testable import ArkKit
 import Foundation
 
-class MockNetworkService: AbstractNetworkService {
-    var subscriber: ArkNetworkSubscriberDelegate?
-    var publisher: ArkNetworkPublisherDelegate?
+class MockNetworkService: ArkNetworkService {
+    var sentData: Data?
 
-    var deviceID = "mockDevice"
-    var serviceName: String
-
-    required init(serviceName: String) {
-        self.serviceName = serviceName
+    required init(serviceName: String = "mock") {
+        super.init(serviceName: serviceName)
     }
 
-    func sendData(data: Data) { }
-    func sendData(_ data: Data, to peerName: String) { }
-    func disconnect() { }
+    override func sendData(data: Data) {
+        sentData = data
+        super.sendData(data: data)
+    }
+
+    override func sendData(_ data: Data, to peerName: String) {
+        sentData = data
+        super.sendData(data, to: peerName)
+    }
+
+    override func disconnect() { }
 }

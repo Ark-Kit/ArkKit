@@ -306,6 +306,11 @@
 		AD0B9E172BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E162BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift */; };
 		AD0B9E192BD3C99A0095C001 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E182BD3C99A0095C001 /* MockNetworkService.swift */; };
 		AD0B9E1B2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E1A2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift */; };
+		AD0B9E1D2BD4427E0095C001 /* ArkParticipantNetworkPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E1C2BD4427E0095C001 /* ArkParticipantNetworkPublisherTests.swift */; };
+		AD0B9E1F2BD444010095C001 /* ArkHostNetworkPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E1E2BD444010095C001 /* ArkHostNetworkPublisherTests.swift */; };
+		AD0B9E212BD444300095C001 /* MockPlayerStateSetupDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E202BD444300095C001 /* MockPlayerStateSetupDelegate.swift */; };
+		AD0B9E232BD4D26C0095C001 /* MockHostNetworkPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E222BD4D26B0095C001 /* MockHostNetworkPublisher.swift */; };
+		AD0B9E252BD4D2A60095C001 /* ArkHostSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B9E242BD4D2A60095C001 /* ArkHostSystemTests.swift */; };
 		AD260CA82BBFCC7E008B9654 /* EntityIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD260CA72BBFCC7E008B9654 /* EntityIDGenerator.swift */; };
 		AD2B59AC2BB87F2200198E99 /* ArkNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */; };
 		AD2B59B22BB94FBE00198E99 /* ArkPeerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2B59B12BB94FBE00198E99 /* ArkPeerRole.swift */; };
@@ -657,6 +662,11 @@
 		AD0B9E162BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkMultiplayerGameLoopTests.swift; sourceTree = "<group>"; };
 		AD0B9E182BD3C99A0095C001 /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		AD0B9E1A2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkHostNetworkSubscriberTests.swift; sourceTree = "<group>"; };
+		AD0B9E1C2BD4427E0095C001 /* ArkParticipantNetworkPublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkParticipantNetworkPublisherTests.swift; sourceTree = "<group>"; };
+		AD0B9E1E2BD444010095C001 /* ArkHostNetworkPublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkHostNetworkPublisherTests.swift; sourceTree = "<group>"; };
+		AD0B9E202BD444300095C001 /* MockPlayerStateSetupDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerStateSetupDelegate.swift; sourceTree = "<group>"; };
+		AD0B9E222BD4D26B0095C001 /* MockHostNetworkPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHostNetworkPublisher.swift; sourceTree = "<group>"; };
+		AD0B9E242BD4D2A60095C001 /* ArkHostSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkHostSystemTests.swift; sourceTree = "<group>"; };
 		AD260CA72BBFCC7E008B9654 /* EntityIDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityIDGenerator.swift; sourceTree = "<group>"; };
 		AD2B59AB2BB87F2200198E99 /* ArkNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkNetworkService.swift; sourceTree = "<group>"; };
 		AD2B59B12BB94FBE00198E99 /* ArkPeerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkPeerRole.swift; sourceTree = "<group>"; };
@@ -808,6 +818,8 @@
 				AD0B9E122BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift */,
 				AD0B9E142BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift */,
 				AD0B9E182BD3C99A0095C001 /* MockNetworkService.swift */,
+				AD0B9E202BD444300095C001 /* MockPlayerStateSetupDelegate.swift */,
+				AD0B9E222BD4D26B0095C001 /* MockHostNetworkPublisher.swift */,
 			);
 			path = mocks;
 			sourceTree = "<group>";
@@ -1758,6 +1770,9 @@
 				AD0B9E102BD3C2940095C001 /* ComponentRegistryTests.swift */,
 				AD0B9E162BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift */,
 				AD0B9E1A2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift */,
+				AD0B9E1C2BD4427E0095C001 /* ArkParticipantNetworkPublisherTests.swift */,
+				AD0B9E1E2BD444010095C001 /* ArkHostNetworkPublisherTests.swift */,
+				AD0B9E242BD4D2A60095C001 /* ArkHostSystemTests.swift */,
 			);
 			path = "ark-multiplayer-kit-tests";
 			sourceTree = "<group>";
@@ -2448,6 +2463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02B3C6132BCAF33C002331A0 /* MockExternalResource.swift in Sources */,
+				AD0B9E212BD444300095C001 /* MockPlayerStateSetupDelegate.swift in Sources */,
 				AD3ECF492BB01CF2002C758D /* ArkECSTests.swift in Sources */,
 				AD0B9E112BD3C2940095C001 /* ComponentRegistryTests.swift in Sources */,
 				AD0B9E1B2BD3C9F40095C001 /* ArkHostNetworkSubscriberTests.swift in Sources */,
@@ -2455,6 +2471,8 @@
 				281AE1282BD3911F00B79B91 /* HeapTests.swift in Sources */,
 				AD0B9E152BD3C8720095C001 /* MockPhysicsSceneUpdateLoopDelegate.swift in Sources */,
 				AD3ECF432BAF3148002C758D /* ArkEventKitTests.swift in Sources */,
+				AD0B9E252BD4D2A60095C001 /* ArkHostSystemTests.swift in Sources */,
+				AD0B9E1D2BD4427E0095C001 /* ArkParticipantNetworkPublisherTests.swift in Sources */,
 				AD0B9E0F2BD3BEE00095C001 /* ArkNetworkServiceTests.swift in Sources */,
 				AD787A682B9C6373003EBBD0 /* ArkKitTests.swift in Sources */,
 				02A438312BB00DC0000135BC /* MockAudioContext.swift in Sources */,
@@ -2462,12 +2480,14 @@
 				281AE12E2BD3928D00B79B91 /* OrderedDictionaryTests.swift in Sources */,
 				02A438262BB007C9000135BC /* ArkRuleKitTests.swift in Sources */,
 				AD0B9E192BD3C99A0095C001 /* MockNetworkService.swift in Sources */,
+				AD0B9E232BD4D26C0095C001 /* MockHostNetworkPublisher.swift in Sources */,
 				02A4382F2BB00D9C000135BC /* MockDisplayContext.swift in Sources */,
 				02A438292BB00D2B000135BC /* MockAction.swift in Sources */,
 				AD0B9E172BD3C8960095C001 /* ArkMultiplayerGameLoopTests.swift in Sources */,
 				02A4382D2BB00D75000135BC /* MockEventContext.swift in Sources */,
 				02A4382B2BB00D4D000135BC /* MockECSContext.swift in Sources */,
 				AD0B9E132BD3C8400095C001 /* MockGameWorldUpdateLoopDelegate.swift in Sources */,
+				AD0B9E1F2BD444010095C001 /* ArkHostNetworkPublisherTests.swift in Sources */,
 				281AE12C2BD3928700B79B91 /* PriorityQueueTests.swift in Sources */,
 				28D0065F2BAFD7E1001B4BD4 /* EntityManagerTests.swift in Sources */,
 				28D006612BAFEE3D001B4BD4 /* ArkPhysicsKitTests.swift in Sources */,
