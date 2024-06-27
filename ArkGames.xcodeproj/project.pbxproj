@@ -101,6 +101,8 @@
 		28E65B142BCEDF7F00AF69B4 /* snake_green_head.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B112BCEDF7F00AF69B4 /* snake_green_head.png */; };
 		28E65B162BCEDF9700AF69B4 /* apple_alt.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E65B152BCEDF9700AF69B4 /* apple_alt.png */; };
 		28EFCB1D2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */; };
+		28FAA3E42C2DE63D00D2B9F3 /* ArkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 28FAA3E32C2DE63D00D2B9F3 /* ArkKit */; };
+		28FAA3E62C2DE64000D2B9F3 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 28FAA3E52C2DE64000D2B9F3 /* DequeModule */; };
 		8F3813052BCE755A0058E107 /* Ground_Tile_01_A.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3812FF2BCE755A0058E107 /* Ground_Tile_01_A.png */; };
 		8F3813062BCE755A0058E107 /* Ground_Tile_01_B.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3813002BCE755A0058E107 /* Ground_Tile_01_B.png */; };
 		8F3813072BCE755A0058E107 /* Ground_Tile_02_C.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3813012BCE755A0058E107 /* Ground_Tile_02_C.png */; };
@@ -230,7 +232,6 @@
 		2812FCC22BC4395D00A0FE24 /* TankRaceGameCollisionStrategyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameCollisionStrategyManager.swift; sourceTree = "<group>"; };
 		2812FCC42BC4424200A0FE24 /* TankRaceGameEntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameEntityCreator.swift; sourceTree = "<group>"; };
 		2812FCC62BC442BD00A0FE24 /* TankRaceGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankRaceGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
-		285ABB222C2DE20800CF4C05 /* ArkGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ArkGames.app; path = "/Users/markus/Downloads/ArkKit/build/Debug-iphoneos/ArkGames.app"; sourceTree = "<absolute>"; };
 		286C09BF2BADD0BB000343B1 /* TankGameMapBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameMapBuilder.swift; sourceTree = "<group>"; };
 		286C09C12BADD5FB000343B1 /* TankGameTerrainObjectBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankGameTerrainObjectBuilder.swift; sourceTree = "<group>"; };
 		286F6E2D2BCFAAC900B857C5 /* TankHealthPackGeneratorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankHealthPackGeneratorComponent.swift; sourceTree = "<group>"; };
@@ -262,6 +263,7 @@
 		28E65B112BCEDF7F00AF69B4 /* snake_green_head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake_green_head.png; sourceTree = "<group>"; };
 		28E65B152BCEDF9700AF69B4 /* apple_alt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple_alt.png; sourceTree = "<group>"; };
 		28EFCB1C2BCC3C4E0059A908 /* ArkDemoMultiplayerPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkDemoMultiplayerPopover.swift; sourceTree = "<group>"; };
+		28FAA3E12C2DE5A200D2B9F3 /* ArkGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArkGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3812FF2BCE755A0058E107 /* Ground_Tile_01_A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ground_Tile_01_A.png; sourceTree = "<group>"; };
 		8F3813002BCE755A0058E107 /* Ground_Tile_01_B.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ground_Tile_01_B.png; sourceTree = "<group>"; };
 		8F3813012BCE755A0058E107 /* Ground_Tile_02_C.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ground_Tile_02_C.png; sourceTree = "<group>"; };
@@ -333,6 +335,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FAA3E42C2DE63D00D2B9F3 /* ArkKit in Frameworks */,
+				28FAA3E62C2DE64000D2B9F3 /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +569,13 @@
 				28E65B072BCED48100AF69B4 /* SnakeMoveEvent.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		28FAA3E22C2DE63D00D2B9F3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		941A45AC2BCD4D9000689D15 /* FlappyBird */ = {
@@ -812,6 +823,8 @@
 				02D8E91D2BAC419400BF3A07 /* assets */,
 				02C395312BA9ED230075F1CA /* README.md */,
 				02C395102BA6EBBA0075F1CA /* ArkGameExample */,
+				28FAA3E12C2DE5A200D2B9F3 /* ArkGames.app */,
+				28FAA3E22C2DE63D00D2B9F3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -833,9 +846,11 @@
 			);
 			name = ArkGames;
 			packageProductDependencies = (
+				28FAA3E32C2DE63D00D2B9F3 /* ArkKit */,
+				28FAA3E52C2DE64000D2B9F3 /* DequeModule */,
 			);
 			productName = LevelKit;
-			productReference = 285ABB222C2DE20800CF4C05 /* ArkGames.app */;
+			productReference = 28FAA3E12C2DE5A200D2B9F3 /* ArkGames.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1218,7 +1233,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 879B4J7JQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArkGameExample/Info.plist;
@@ -1233,7 +1248,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.markus;
+				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.arkkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1252,7 +1267,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 879B4J7JQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArkGameExample/Info.plist;
@@ -1267,7 +1282,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.markus;
+				PRODUCT_BUNDLE_IDENTIFIER = ArkKit.arkkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1319,6 +1334,19 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		28FAA3E32C2DE63D00D2B9F3 /* ArkKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 285856B82C2DC2FC008ADE71 /* XCLocalSwiftPackageReference "ArkKit" */;
+			productName = ArkKit;
+		};
+		28FAA3E52C2DE64000D2B9F3 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 945441182BC9497900E90ECE /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AD787A452B9C636F003EBBD0 /* Project object */;
 }

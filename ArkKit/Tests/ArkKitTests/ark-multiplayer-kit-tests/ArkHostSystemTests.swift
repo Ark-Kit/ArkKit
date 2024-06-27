@@ -11,7 +11,8 @@ class ArkHostSystemTests: XCTestCase {
         hostSystem.update(deltaTime: 0.16, arkECS: mockECS)
 
         XCTAssertNotNil(mockPublisher.publishedECS, "The ECS should have been published")
-        XCTAssertTrue(mockPublisher.publishedECS === mockECS, "The published ECS should be the same instance as provided")
+        XCTAssertTrue(mockPublisher.publishedECS === mockECS,
+                      "The published ECS should be the same instance as provided")
     }
 
     func testSystemIsActive() {

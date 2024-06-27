@@ -1,11 +1,11 @@
 import Foundation
 
-struct DatedEvent {
-    let event: any ArkEvent
-    let timestamp: Date
-    var priority: Int?
+public struct DatedEvent {
+    public let event: any ArkEvent
+    public let timestamp: Date
+    public var priority: Int?
 
-    init(event: any ArkEvent, timestamp: Date = Date(), priority: Int? = nil) {
+    public init(event: any ArkEvent, timestamp: Date = Date(), priority: Int? = nil) {
         self.event = event
         self.timestamp = timestamp
         self.priority = priority ?? event.priority

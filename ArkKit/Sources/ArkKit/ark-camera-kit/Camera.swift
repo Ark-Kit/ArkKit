@@ -30,14 +30,14 @@ public struct Camera: Codable {
     public let zoom: CameraZoom
 
     public init(canvasPosition: CGPoint,
-         zoom: Double = 1.0) {
+                zoom: Double = 1.0) {
         self.canvasPosition = canvasPosition
         self.zoom = CameraZoom(widthZoom: zoom, heightZoom: zoom)
     }
 
     public init(canvasPosition: CGPoint,
-         zoomWidth: Double = 1.0,
-         zoomHeight: Double = 1.0) {
+                zoomWidth: Double = 1.0,
+                zoomHeight: Double = 1.0) {
         self.canvasPosition = canvasPosition
         self.zoom = CameraZoom(widthZoom: zoomWidth,
                                heightZoom: zoomHeight)

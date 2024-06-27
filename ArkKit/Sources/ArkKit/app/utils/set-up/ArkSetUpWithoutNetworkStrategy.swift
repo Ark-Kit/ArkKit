@@ -1,4 +1,4 @@
-class ArkSetUpWithoutNetwork<View, ExternalResources: ArkExternalResources>: ArkSetUpStrategy {
+class ArkSetUpWithoutNetworkStrategy<View, ExternalResources: ArkExternalResources>: ArkSetUpStrategy {
     weak var ark: Ark<View, ExternalResources>?
 
     init(ark: Ark<View, ExternalResources>? = nil) {

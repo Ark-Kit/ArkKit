@@ -17,9 +17,9 @@ public struct RectRenderableComponent: ShapeRenderableComponent {
     public var labelInfo: ShapeLabelInfo?
 
     public init(width: Double, height: Double,
-         fillInfo: ShapeFillInfo? = nil,
-         strokeInfo: ShapeStrokeInfo? = nil,
-         labelInfo: ShapeLabelInfo? = nil) {
+                fillInfo: ShapeFillInfo? = nil,
+                strokeInfo: ShapeStrokeInfo? = nil,
+                labelInfo: ShapeLabelInfo? = nil) {
         self.width = width
         self.height = height
         self.fillInfo = fillInfo

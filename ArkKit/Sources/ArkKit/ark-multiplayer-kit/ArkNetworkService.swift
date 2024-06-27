@@ -1,7 +1,4 @@
-#if canImport(UIKit)
 import UIKit
-#endif
-
 import P2PShare
 
 /**

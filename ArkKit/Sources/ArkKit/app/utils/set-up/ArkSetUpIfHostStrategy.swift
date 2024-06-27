@@ -6,7 +6,7 @@ class ArkSetUpIfHostStrategy<View, ExternalResources: ArkExternalResources>: Ark
     }
 
     func setUp() {
-        let startingSetUpStrategy = ArkSetUpWithoutNetwork(ark: ark)
+        let startingSetUpStrategy = ArkSetUpWithoutNetworkStrategy(ark: ark)
         startingSetUpStrategy.setUp()
         guard let ark = ark,
               let networkPlayableInfo = ark.blueprint.networkPlayableInfo,

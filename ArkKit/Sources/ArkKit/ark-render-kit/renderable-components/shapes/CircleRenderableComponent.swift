@@ -16,8 +16,8 @@ public struct CircleRenderableComponent: ShapeRenderableComponent {
     public var labelInfo: ShapeLabelInfo?
 
     public init(radius: Double, fillInfo: ShapeFillInfo? = nil,
-         strokeInfo: ShapeStrokeInfo? = nil,
-         labelInfo: ShapeLabelInfo? = nil) {
+                strokeInfo: ShapeStrokeInfo? = nil,
+                labelInfo: ShapeLabelInfo? = nil) {
         self.radius = radius
         self.fillInfo = fillInfo
         self.strokeInfo = strokeInfo
@@ -25,7 +25,7 @@ public struct CircleRenderableComponent: ShapeRenderableComponent {
     }
 
     public func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
-                labelInfo: ShapeLabelInfo?) -> CircleRenderableComponent {
+                       labelInfo: ShapeLabelInfo?) -> CircleRenderableComponent {
         var copy = self
         copy.fillInfo = fillInfo
         copy.strokeInfo = strokeInfo

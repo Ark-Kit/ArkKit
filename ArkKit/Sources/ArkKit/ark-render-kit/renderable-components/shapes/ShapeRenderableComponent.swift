@@ -1,6 +1,7 @@
 import Foundation
 
-public protocol ShapeRenderableComponent: AbstractShape, AbstractTappable, RenderableComponent where Color == AbstractColor {
+public protocol ShapeRenderableComponent: AbstractShape, AbstractTappable,
+                                            RenderableComponent where Color == AbstractColor {
     var fillInfo: ShapeFillInfo? { get }
     var strokeInfo: ShapeStrokeInfo? { get }
     var labelInfo: ShapeLabelInfo? { get }
@@ -26,7 +27,7 @@ extension ShapeRenderableComponent {
     }
 
     public func upsert(fillInfo: ShapeFillInfo? = nil, strokeInfo: ShapeStrokeInfo? = nil,
-                labelInfo: ShapeLabelInfo? = nil) -> Self {
+                       labelInfo: ShapeLabelInfo? = nil) -> Self {
         modify(
             fillInfo: fillInfo ?? self.fillInfo,
             strokeInfo: strokeInfo ?? self.strokeInfo,

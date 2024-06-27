@@ -17,9 +17,9 @@ public struct PolygonRenderableComponent: ShapeRenderableComponent {
     public var labelInfo: ShapeLabelInfo?
 
     public init(points: [CGPoint], frame: CGRect,
-         fillInfo: ShapeFillInfo? = nil,
-         strokeInfo: ShapeStrokeInfo? = nil,
-         labelInfo: ShapeLabelInfo? = nil) {
+             fillInfo: ShapeFillInfo? = nil,
+             strokeInfo: ShapeStrokeInfo? = nil,
+             labelInfo: ShapeLabelInfo? = nil) {
         self.points = points
         self.frame = frame
         self.center = CGPoint(x: frame.midX, y: frame.midY)
@@ -29,7 +29,7 @@ public struct PolygonRenderableComponent: ShapeRenderableComponent {
     }
 
     public func modify(fillInfo: ShapeFillInfo?, strokeInfo: ShapeStrokeInfo?,
-                labelInfo: ShapeLabelInfo?) -> PolygonRenderableComponent {
+                       labelInfo: ShapeLabelInfo?) -> PolygonRenderableComponent {
         var copy = self
 
         copy.fillInfo = fillInfo

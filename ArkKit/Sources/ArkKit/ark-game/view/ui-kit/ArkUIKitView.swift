@@ -1,6 +1,4 @@
-#if canImport(UIKit)
 import UIKit
-#endif
 
 /**
  * `ArkUIKitView` is the main page that will render the game's canvas.

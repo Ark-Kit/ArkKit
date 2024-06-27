@@ -4,7 +4,7 @@ struct ArkSetUpOrchestrator<View, ExternalResources: ArkExternalResources> {
     func executeSetUp() {
         guard let networkPlayableInfo = ark?.blueprint.networkPlayableInfo else {
             // no network playable set
-            let noNetworkSetUpStrategy = ArkSetUpWithoutNetwork(ark: ark)
+            let noNetworkSetUpStrategy = ArkSetUpWithoutNetworkStrategy(ark: ark)
             noNetworkSetUpStrategy.setUp()
             return
         }

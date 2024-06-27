@@ -151,7 +151,8 @@ class ArkEventKitTests: XCTestCase {
         eventManager.processEvents()
 
         XCTAssertTrue(modificationFlag, "The event listener should have been called and attempted a modification")
-        XCTAssertEqual(event.priority, 1, "The original event's priority should remain unchanged after listener execution")
+        XCTAssertEqual(event.priority, 1,
+                       "The original event's priority should remain unchanged after listener execution")
     }
 
     func testProcessingEventsGeneratesNewEvents() {

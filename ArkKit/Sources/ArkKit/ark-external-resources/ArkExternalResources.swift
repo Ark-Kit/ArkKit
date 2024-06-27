@@ -6,4 +6,8 @@ public protocol ArkExternalResources {
 
 public struct NoExternalResources: ArkExternalResources {
     public var audioEnum: NoAudio
+
+    public init() {
+        self.audioEnum = .none
+    }
 }

@@ -1,6 +1,4 @@
-#if canImport(UIKit)
 import UIKit
-#endif
 
 class ArkViewFactory {
     static func generateView<T>(_ parentView: any AbstractParentView<T>) -> (any ArkView<T>)? {

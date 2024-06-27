@@ -15,16 +15,16 @@ public struct PhysicsComponent: SendableComponent {
     public var vertices: [CGPoint]?
 
     public var mass: CGFloat?
-    public var velocity: CGVector = .zero
-    public var isDynamic = true
-    public var affectedByGravity = false
-    public var linearDamping: CGFloat = .zero
-    public var angularDamping: CGFloat = .zero
-    public var allowsRotation = false
-    public var friction: CGFloat = .zero
-    public var restitution: CGFloat = .zero
-    public var impulse: CGVector = .zero
-    public var angularImpulse: CGFloat = .zero
+    public var velocity: CGVector
+    public var isDynamic: Bool
+    public var affectedByGravity: Bool
+    public var linearDamping: CGFloat
+    public var angularDamping: CGFloat
+    public var allowsRotation: Bool
+    public var friction: CGFloat
+    public var restitution: CGFloat
+    public var impulse: CGVector
+    public var angularImpulse: CGFloat
 
     public var categoryBitMask: UInt32
     public var collisionBitMask: UInt32
