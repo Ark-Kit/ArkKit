@@ -1,3 +1,5 @@
+import ArkKit
+
 class SnakeGameHelpers {
     let ecs: ArkECSContext
 

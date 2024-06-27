@@ -1,3 +1,5 @@
+import ArkKit
+
 protocol CollisionHandlingStrategy<ActionContext> {
     associatedtype ActionContext: ArkActionContextProtocol
 

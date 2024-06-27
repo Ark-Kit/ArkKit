@@ -1,3 +1,5 @@
+import ArkKit
+
 struct TankRaceEndPedalEvent: ArkSerializableEvent {
     var eventData: TankRacePedalEventData
     var priority: Int?

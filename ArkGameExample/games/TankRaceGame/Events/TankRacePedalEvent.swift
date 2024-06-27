@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct TankRacePedalEventData: ArkSerializableEventData {
     var name: String

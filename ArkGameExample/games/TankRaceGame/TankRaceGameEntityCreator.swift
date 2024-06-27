@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 enum TankRaceGameEntityCreator {
     static func createHpBarComponent(hp: Double, zPosition: Double) -> any RenderableComponent {

@@ -1,3 +1,5 @@
+import ArkKit
+
 /// Superclass for collision resolution. Extend this class and override the constructor with `register` calls to define
 /// collision strategies for your custom CollisionStrategyManager.
 class CollisionStrategyManager<ActionContext: ArkActionContextProtocol> {

@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct FlappyBirdPipePassEventData: ArkSerializableEventData {
     let name: String

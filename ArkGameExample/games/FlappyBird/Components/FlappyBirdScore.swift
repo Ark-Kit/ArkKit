@@ -1,3 +1,5 @@
+import ArkKit
+
 struct FlappyBirdScore: Component {
     var scores: [Int: Int]
 

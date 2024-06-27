@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct TankDestroyedEventData: ArkSerializableEventData {
     var name: String
