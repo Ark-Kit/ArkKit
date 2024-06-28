@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct SnakeGrid {
     let boxSideLength: Int

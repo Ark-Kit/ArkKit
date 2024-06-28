@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct TankReviveEventData: ArkSerializableEventData {
     var name: String

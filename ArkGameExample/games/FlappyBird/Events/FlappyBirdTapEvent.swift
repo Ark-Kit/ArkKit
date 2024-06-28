@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct FlappyBirdTapEventData: ArkSerializableEventData {
     let name: String

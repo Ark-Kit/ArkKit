@@ -1,3 +1,5 @@
+import ArkKit
+
 struct TankTrackPrintGeneratorComponent: Component {
     private static let initialDistance: Double = 40
     var distanceToNextPrint: Double = 0

@@ -1,11 +1,5 @@
-//
-//  TankMoveEvent.swift
-//  ArkKit
-//
-//  Created by Ryan Peh on 21/3/24.
-//
-
 import Foundation
+import ArkKit
 
 struct TankMoveEventData: ArkSerializableEventData {
     var name: String

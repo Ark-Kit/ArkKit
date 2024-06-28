@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct SnakeChangeDirectionEventData: ArkSerializableEventData {
     var name: String

@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct TankHealthPackGeneratorComponent: Component {
     static let initialTime: Double = 10

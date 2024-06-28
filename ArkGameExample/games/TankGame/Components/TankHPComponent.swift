@@ -1,3 +1,5 @@
+import ArkKit
+
 struct TankHpComponent: Component {
     var hp: Double
     var maxHp: Double

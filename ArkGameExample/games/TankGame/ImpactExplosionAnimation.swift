@@ -1,4 +1,5 @@
 import Foundation
+import ArkKit
 
 struct ImpactExplosionAnimation {
     let animation: ArkAnimation<TankGameExplosionAnimationKeyframes>
